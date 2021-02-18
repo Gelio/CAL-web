@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.balticlsc.model.CAL/src-gen" creationIcons="false"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/eu.balticlsc.model.CAL/src-gen" creationIcons="false"
     editDirectory="/eu.balticlsc.model.CAL.edit/src-gen" editorDirectory="/eu.balticlsc.model.CAL.editor/src-gen"
     modelPluginID="eu.balticlsc.model.CAL" modelName="CAL" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
@@ -8,5 +9,24 @@
   <foreignModel>CAL.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="CAL" basePackage="eu.balticlsc.model" disposableProviderFactory="true"
-      ecorePackage="CAL.ecore#/"/>
+      ecorePackage="CAL.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CAL.ecore#//ComputationUnitStatus">
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//ComputationUnitStatus/Created"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//ComputationUnitStatus/Submitted"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//ComputationUnitStatus/Approved"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//ComputationUnitStatus/Discontinued"/>
+    </genEnums>
+    <genClasses ecoreClass="CAL.ecore#//DataPin"/>
+    <genClasses ecoreClass="CAL.ecore#//UnitCall"/>
+    <genClasses ecoreClass="CAL.ecore#//ComputedDataPin"/>
+    <genClasses ecoreClass="CAL.ecore#//DataFlow"/>
+    <genClasses ecoreClass="CAL.ecore#//ComputationApplicationRelease">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationApplicationRelease/diagramUid"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//ComputationUnitRelease">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/uid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/status"/>
+    </genClasses>
+  </genPackages>
 </genmodel:GenModel>

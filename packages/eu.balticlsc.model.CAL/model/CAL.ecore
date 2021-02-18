@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    name="CAL" nsURI="https://www.balticlsc.eu/model/CAL" nsPrefix="CAL"/>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="CAL" nsURI="https://www.balticlsc.eu/model/CAL" nsPrefix="CAL">
+  <eClassifiers xsi:type="ecore:EClass" name="DataPin"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnitCall"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComputedDataPin"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataFlow"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComputationApplicationRelease">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramUid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComputationUnitRelease">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//ComputationUnitStatus"
+        defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ComputationUnitStatus">
+    <eLiterals name="Created"/>
+    <eLiterals name="Submitted" value="1"/>
+    <eLiterals name="Approved" value="2"/>
+    <eLiterals name="Discontinued" value="3"/>
+  </eClassifiers>
+</ecore:EPackage>
