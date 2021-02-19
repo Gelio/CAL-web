@@ -16,17 +16,52 @@
       <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//ComputationUnitStatus/Approved"/>
       <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//ComputationUnitStatus/Discontinued"/>
     </genEnums>
-    <genClasses ecoreClass="CAL.ecore#//DataPin"/>
-    <genClasses ecoreClass="CAL.ecore#//UnitCall"/>
-    <genClasses ecoreClass="CAL.ecore#//ComputedDataPin"/>
-    <genClasses ecoreClass="CAL.ecore#//DataFlow"/>
-    <genClasses ecoreClass="CAL.ecore#//ComputationApplicationRelease">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationApplicationRelease/diagramUid"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CAL.ecore#//UnitStrength">
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitStrength/Weak"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitStrength/Strong"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CAL.ecore#//UnitParamType">
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitParamType/Variable"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitParamType/Config"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitParamType/Port"/>
+    </genEnums>
+    <genClasses ecoreClass="CAL.ecore#//UnitCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/unitName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/unitVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/strength"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//UnitCall/pins"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//UnitCall/parameterValues"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//ComputedDataPin">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/call"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/incoming"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/outgoing"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/declared"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//DataFlow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//DataFlow/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//DataFlow/source"/>
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//ComputationUnitRelease">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/version"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/uid"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/status"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationUnitRelease/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationUnitRelease/declaredPins"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//UnitParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitParameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitParameter/type"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//UnitParameterValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitParameterValue/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//UnitParameterValue/declaration"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//DeclaredDataPin"/>
+    <genClasses ecoreClass="CAL.ecore#//ComputationApplicationRelease">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/calls"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/flows"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/units"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
