@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated CAL -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.balticlsc.model.CAL.presentation.CALModelWizardID"
+            name="%_UI_CALModelWizard_label"
+            class="eu.balticlsc.model.CAL.presentation.CALModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/CALModelFile.gif">
+         <description>%_UI_CALModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated CAL -->
+      <editor
+            id="eu.balticlsc.model.CAL.presentation.CALEditorID"
+            name="%_UI_CALEditor_label"
+            icon="icons/full/obj16/CALModelFile.gif"
+            extensions="cal"
+            class="eu.balticlsc.model.CAL.presentation.CALEditor"
+            contributorClass="eu.balticlsc.model.CAL.presentation.CALActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
