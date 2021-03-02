@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>eu.balticlsc</groupId>
+    <artifactId>cal-model-editor</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>eu.balticlsc.model</groupId>
+  <artifactId>model</artifactId>
+
+  <name>CAL model</name>
+  <description>CAL model</description>
+  <packaging>pom</packaging>
+
+  <properties>
+    <tycho.version>2.2.0</tycho.version>
+  </properties>
+
+  <modules>
+    <module>eu.balticlsc.model.CAL</module>
+    <module>eu.balticlsc.model.CAL.edit</module>
+    <module>eu.balticlsc.model.CAL.design</module>
+  </modules>
+
+  <!-- <dependencies>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>org.eclipse.emf.ecore</artifactId>
+      <version>2.23.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>org.eclipse.emf.common</artifactId>
+      <version>2.21.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>org.eclipse.emf.edit</artifactId>
+      <version>2.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.core</groupId>
+      <artifactId>org.eclipse.core.runtime</artifactId>
+      <version>3.7.0</version>
+    </dependency>
+  </dependencies> -->
+
+  <repositories>
+    <repository>
+      <id>eclipse-latest</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/releases/latest</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <extensions>true</extensions>
+      </plugin>
+
+      <!-- TODO: consider adding platform configuration https://github.com/ObeoNetwork/Flow-Designer/blob/master/releng/fr.obeo.dsl.designer.sample.flow.parent/pom.xml#L42-L69 -->
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho.version}</version>
+
+        <configuration>
+          <executionEnvironment>JavaSE-11</executionEnvironment>
+        </configuration>
+      </plugin>
+
+      <!-- <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin> -->
+    </plugins>
+  </build>
+</project>

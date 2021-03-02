@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: eu.balticlsc.model.CAL.editor;singleton:=true
 Automatic-Module-Name: eu.balticlsc.model.CAL.editor
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: eu.balticlsc.model.CAL.presentation.CALEditorPlugin$Implementation
 Bundle-Vendor: %providerName
