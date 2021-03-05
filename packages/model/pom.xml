@@ -65,25 +65,31 @@
         <extensions>true</extensions>
       </plugin>
 
-      <!-- TODO: consider adding platform configuration https://github.com/ObeoNetwork/Flow-Designer/blob/master/releng/fr.obeo.dsl.designer.sample.flow.parent/pom.xml#L42-L69 -->
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
         <version>${tycho.version}</version>
 
         <configuration>
-          <executionEnvironment>JavaSE-11</executionEnvironment>
+          <environments>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86_64</arch>
+            </environment>
+          </environments>
         </configuration>
       </plugin>
-
-      <!-- <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <release>11</release>
-        </configuration>
-      </plugin> -->
     </plugins>
   </build>
 </project>
