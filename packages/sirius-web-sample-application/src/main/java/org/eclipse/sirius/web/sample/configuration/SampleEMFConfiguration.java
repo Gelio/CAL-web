@@ -16,11 +16,11 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.sirius.web.emf.services.ILabelFeatureProvider;
 import org.eclipse.sirius.web.emf.services.LabelFeatureProvider;
-import org.obeonetwork.dsl.bpmn2.Bpmn2Package;
-import org.obeonetwork.dsl.bpmn2.util.Bpmn2AdapterFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import eu.balticlsc.model.CAL.CALPackage;
+import eu.balticlsc.model.CAL.util.CALAdapterFactory;
 import fr.obeo.dsl.designer.sample.flow.FlowPackage;
 import fr.obeo.dsl.designer.sample.flow.provider.FlowItemProviderAdapterFactory;
 
@@ -32,8 +32,8 @@ import fr.obeo.dsl.designer.sample.flow.provider.FlowItemProviderAdapterFactory;
 @Configuration
 public class SampleEMFConfiguration {
 	@Bean
-	public AdapterFactory bpmn2AdapterFactory() {
-		return new Bpmn2AdapterFactory();
+	public AdapterFactory calAdapterFactory() {
+		return new CALAdapterFactory();
 	}
 
 	@Bean
@@ -48,11 +48,12 @@ public class SampleEMFConfiguration {
 
 	@Bean
 	public EPackage bpmn2EPackage() {
-		return Bpmn2Package.eINSTANCE;
+		return CALPackage.eINSTANCE;
 	}
 
 	@Bean
 	public ILabelFeatureProvider flowLabelFeatureProvider() {
-		return new LabelFeatureProvider(FlowPackage.eINSTANCE.getNsURI(), new FlowLabelFeatureSwitch(), new FlowEditableSwitch());
+		return new LabelFeatureProvider(FlowPackage.eINSTANCE.getNsURI(), new FlowLabelFeatureSwitch(),
+				new FlowEditableSwitch());
 	}
 }
