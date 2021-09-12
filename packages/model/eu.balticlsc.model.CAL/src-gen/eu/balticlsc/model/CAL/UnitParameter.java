@@ -46,7 +46,6 @@ public interface UnitParameter extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * The literals are from the enumeration {@link eu.balticlsc.model.CAL.UnitParamType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -54,7 +53,7 @@ public interface UnitParameter extends EObject {
 	 * @see eu.balticlsc.model.CAL.UnitParamType
 	 * @see #setType(UnitParamType)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitParameter_Type()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	UnitParamType getType();

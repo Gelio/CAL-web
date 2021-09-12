@@ -4,10 +4,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="UnitCall">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unitName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unitVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral=""/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strength" eType="#//UnitStrength"
-        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strength" eType="#//UnitStrength"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pins" upperBound="-1" eType="#//ComputedDataPin"
         containment="true" eOpposite="#//ComputedDataPin/call"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterValues" upperBound="-1"
@@ -49,8 +47,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitParameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//UnitParamType"
-        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//UnitParamType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnitParamType">
     <eLiterals name="Variable"/>

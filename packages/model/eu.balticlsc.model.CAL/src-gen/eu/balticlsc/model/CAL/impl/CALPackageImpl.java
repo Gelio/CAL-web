@@ -624,9 +624,9 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUnitCall_UnitVersion(), ecorePackage.getEString(), "unitVersion", null, 0, 1, UnitCall.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUnitCall_Name(), ecorePackage.getEString(), "name", "", 0, 1, UnitCall.class, !IS_TRANSIENT,
+		initEAttribute(getUnitCall_Name(), ecorePackage.getEString(), "name", null, 0, 1, UnitCall.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUnitCall_Strength(), this.getUnitStrength(), "strength", "", 0, 1, UnitCall.class,
+		initEAttribute(getUnitCall_Strength(), this.getUnitStrength(), "strength", null, 0, 1, UnitCall.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUnitCall_Pins(), this.getComputedDataPin(), this.getComputedDataPin_Call(), "pins", null, 0,
 				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
@@ -678,7 +678,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUnitParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, UnitParameter.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUnitParameter_Type(), this.getUnitParamType(), "type", "", 0, 1, UnitParameter.class,
+		initEAttribute(getUnitParameter_Type(), this.getUnitParamType(), "type", null, 0, 1, UnitParameter.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(unitParameterValueEClass, UnitParameterValue.class, "UnitParameterValue", !IS_ABSTRACT,

@@ -74,13 +74,12 @@ public interface UnitCall extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Name()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	String getName();
@@ -97,7 +96,6 @@ public interface UnitCall extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Strength</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * The literals are from the enumeration {@link eu.balticlsc.model.CAL.UnitStrength}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -105,7 +103,7 @@ public interface UnitCall extends EObject {
 	 * @see eu.balticlsc.model.CAL.UnitStrength
 	 * @see #setStrength(UnitStrength)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Strength()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	UnitStrength getStrength();
