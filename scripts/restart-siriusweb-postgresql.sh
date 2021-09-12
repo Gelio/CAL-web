@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-running_containers=$(docker ps -q)
+container_name=sirius-web-postgres
+container_running=$(docker ps | grep $container_name || true)
 
-if echo "$running_containers" | grep 'sirius-web-postgres'; then
+if [ -n "$container_running" ]; then
+	echo "Stopping an existing $container_name container"
 	docker stop sirius-web-postgres
 fi
 
+echo "Starting $container_name"
 docker run -p 5433:5432 --rm --name sirius-web-postgres \
 	-e POSTGRES_USER=dbuser \
 	-e POSTGRES_PASSWORD=dbpwd \
