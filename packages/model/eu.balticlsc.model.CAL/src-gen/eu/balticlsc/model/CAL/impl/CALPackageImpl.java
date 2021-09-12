@@ -188,7 +188,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getUnitCall_UnitName() {
+	public EAttribute getUnitCall_Name() {
 		return (EAttribute) unitCallEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -198,7 +198,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getUnitCall_UnitVersion() {
+	public EAttribute getUnitCall_Strength() {
 		return (EAttribute) unitCallEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -208,28 +208,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getUnitCall_Name() {
-		return (EAttribute) unitCallEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getUnitCall_Strength() {
-		return (EAttribute) unitCallEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getUnitCall_Pins() {
-		return (EReference) unitCallEClass.getEStructuralFeatures().get(4);
+		return (EReference) unitCallEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -239,7 +219,17 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 */
 	@Override
 	public EReference getUnitCall_ParameterValues() {
-		return (EReference) unitCallEClass.getEStructuralFeatures().get(5);
+		return (EReference) unitCallEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getUnitCall_Release() {
+		return (EReference) unitCallEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -370,6 +360,16 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	@Override
 	public EReference getComputationUnitRelease_DeclaredPins() {
 		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getComputationUnitRelease_Call() {
+		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -543,12 +543,11 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 
 		// Create classes and their features
 		unitCallEClass = createEClass(UNIT_CALL);
-		createEAttribute(unitCallEClass, UNIT_CALL__UNIT_NAME);
-		createEAttribute(unitCallEClass, UNIT_CALL__UNIT_VERSION);
 		createEAttribute(unitCallEClass, UNIT_CALL__NAME);
 		createEAttribute(unitCallEClass, UNIT_CALL__STRENGTH);
 		createEReference(unitCallEClass, UNIT_CALL__PINS);
 		createEReference(unitCallEClass, UNIT_CALL__PARAMETER_VALUES);
+		createEReference(unitCallEClass, UNIT_CALL__RELEASE);
 
 		computedDataPinEClass = createEClass(COMPUTED_DATA_PIN);
 		createEReference(computedDataPinEClass, COMPUTED_DATA_PIN__CALL);
@@ -565,6 +564,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		createEAttribute(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__VERSION);
 		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__PARAMETERS);
 		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__DECLARED_PINS);
+		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__CALL);
 
 		unitParameterEClass = createEClass(UNIT_PARAMETER);
 		createEAttribute(unitParameterEClass, UNIT_PARAMETER__NAME);
@@ -620,10 +620,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(unitCallEClass, UnitCall.class, "UnitCall", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUnitCall_UnitName(), ecorePackage.getEString(), "unitName", null, 0, 1, UnitCall.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUnitCall_UnitVersion(), ecorePackage.getEString(), "unitVersion", null, 0, 1, UnitCall.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUnitCall_Name(), ecorePackage.getEString(), "name", null, 0, 1, UnitCall.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUnitCall_Strength(), this.getUnitStrength(), "strength", null, 0, 1, UnitCall.class,
@@ -634,6 +630,9 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getUnitCall_ParameterValues(), this.getUnitParameterValue(), null, "parameterValues", null, 0,
 				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUnitCall_Release(), this.getComputationUnitRelease(), this.getComputationUnitRelease_Call(),
+				"release", null, 1, 1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(computedDataPinEClass, ComputedDataPin.class, "ComputedDataPin", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -656,7 +655,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 				null, 1, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataFlow_Source(), this.getComputedDataPin(), this.getComputedDataPin_Outgoing(), "source",
-				null, 0, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				null, 1, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(computationUnitReleaseEClass, ComputationUnitRelease.class, "ComputationUnitRelease", !IS_ABSTRACT,
@@ -673,6 +672,9 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getComputationUnitRelease_DeclaredPins(), this.getDeclaredDataPin(), null, "declaredPins", null,
 				0, -1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComputationUnitRelease_Call(), this.getUnitCall(), this.getUnitCall_Release(), "call", null,
+				1, 1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(unitParameterEClass, UnitParameter.class, "UnitParameter", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

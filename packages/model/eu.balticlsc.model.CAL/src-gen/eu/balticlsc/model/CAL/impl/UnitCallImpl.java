@@ -3,6 +3,7 @@
 package eu.balticlsc.model.CAL.impl;
 
 import eu.balticlsc.model.CAL.CALPackage;
+import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.ComputedDataPin;
 import eu.balticlsc.model.CAL.UnitCall;
 import eu.balticlsc.model.CAL.UnitParameterValue;
@@ -33,57 +34,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getUnitName <em>Unit Name</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getUnitVersion <em>Unit Version</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getStrength <em>Strength</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getPins <em>Pins</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getParameterValues <em>Parameter Values</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getRelease <em>Release</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCall {
-	/**
-	 * The default value of the '{@link #getUnitName() <em>Unit Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUnitName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String UNIT_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getUnitName() <em>Unit Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUnitName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String unitName = UNIT_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getUnitVersion() <em>Unit Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUnitVersion()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String UNIT_VERSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getUnitVersion() <em>Unit Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUnitVersion()
-	 * @generated
-	 * @ordered
-	 */
-	protected String unitVersion = UNIT_VERSION_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -145,6 +105,16 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	protected EList<UnitParameterValue> parameterValues;
 
 	/**
+	 * The cached value of the '{@link #getRelease() <em>Release</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRelease()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComputationUnitRelease release;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -161,54 +131,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	@Override
 	protected EClass eStaticClass() {
 		return CALPackage.Literals.UNIT_CALL;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getUnitName() {
-		return unitName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setUnitName(String newUnitName) {
-		String oldUnitName = unitName;
-		unitName = newUnitName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__UNIT_NAME, oldUnitName,
-					unitName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getUnitVersion() {
-		return unitVersion;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setUnitVersion(String newUnitVersion) {
-		String oldUnitVersion = unitVersion;
-		unitVersion = newUnitVersion;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__UNIT_VERSION, oldUnitVersion,
-					unitVersion));
 	}
 
 	/**
@@ -291,12 +213,87 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public ComputationUnitRelease getRelease() {
+		if (release != null && release.eIsProxy()) {
+			InternalEObject oldRelease = (InternalEObject) release;
+			release = (ComputationUnitRelease) eResolveProxy(oldRelease);
+			if (release != oldRelease) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CALPackage.UNIT_CALL__RELEASE, oldRelease,
+							release));
+			}
+		}
+		return release;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComputationUnitRelease basicGetRelease() {
+		return release;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRelease(ComputationUnitRelease newRelease, NotificationChain msgs) {
+		ComputationUnitRelease oldRelease = release;
+		release = newRelease;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					CALPackage.UNIT_CALL__RELEASE, oldRelease, newRelease);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setRelease(ComputationUnitRelease newRelease) {
+		if (newRelease != release) {
+			NotificationChain msgs = null;
+			if (release != null)
+				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+						ComputationUnitRelease.class, msgs);
+			if (newRelease != null)
+				msgs = ((InternalEObject) newRelease).eInverseAdd(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+						ComputationUnitRelease.class, msgs);
+			msgs = basicSetRelease(newRelease, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__RELEASE, newRelease,
+					newRelease));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case CALPackage.UNIT_CALL__PINS:
 			return ((InternalEList<InternalEObject>) (InternalEList<?>) getPins()).basicAdd(otherEnd, msgs);
+		case CALPackage.UNIT_CALL__RELEASE:
+			if (release != null)
+				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+						ComputationUnitRelease.class, msgs);
+			return basicSetRelease((ComputationUnitRelease) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -313,6 +310,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return ((InternalEList<?>) getPins()).basicRemove(otherEnd, msgs);
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			return ((InternalEList<?>) getParameterValues()).basicRemove(otherEnd, msgs);
+		case CALPackage.UNIT_CALL__RELEASE:
+			return basicSetRelease(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -325,10 +324,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case CALPackage.UNIT_CALL__UNIT_NAME:
-			return getUnitName();
-		case CALPackage.UNIT_CALL__UNIT_VERSION:
-			return getUnitVersion();
 		case CALPackage.UNIT_CALL__NAME:
 			return getName();
 		case CALPackage.UNIT_CALL__STRENGTH:
@@ -337,6 +332,10 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return getPins();
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			return getParameterValues();
+		case CALPackage.UNIT_CALL__RELEASE:
+			if (resolve)
+				return getRelease();
+			return basicGetRelease();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -350,12 +349,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case CALPackage.UNIT_CALL__UNIT_NAME:
-			setUnitName((String) newValue);
-			return;
-		case CALPackage.UNIT_CALL__UNIT_VERSION:
-			setUnitVersion((String) newValue);
-			return;
 		case CALPackage.UNIT_CALL__NAME:
 			setName((String) newValue);
 			return;
@@ -370,6 +363,9 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			getParameterValues().clear();
 			getParameterValues().addAll((Collection<? extends UnitParameterValue>) newValue);
 			return;
+		case CALPackage.UNIT_CALL__RELEASE:
+			setRelease((ComputationUnitRelease) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -382,12 +378,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case CALPackage.UNIT_CALL__UNIT_NAME:
-			setUnitName(UNIT_NAME_EDEFAULT);
-			return;
-		case CALPackage.UNIT_CALL__UNIT_VERSION:
-			setUnitVersion(UNIT_VERSION_EDEFAULT);
-			return;
 		case CALPackage.UNIT_CALL__NAME:
 			setName(NAME_EDEFAULT);
 			return;
@@ -399,6 +389,9 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return;
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			getParameterValues().clear();
+			return;
+		case CALPackage.UNIT_CALL__RELEASE:
+			setRelease((ComputationUnitRelease) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -412,10 +405,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case CALPackage.UNIT_CALL__UNIT_NAME:
-			return UNIT_NAME_EDEFAULT == null ? unitName != null : !UNIT_NAME_EDEFAULT.equals(unitName);
-		case CALPackage.UNIT_CALL__UNIT_VERSION:
-			return UNIT_VERSION_EDEFAULT == null ? unitVersion != null : !UNIT_VERSION_EDEFAULT.equals(unitVersion);
 		case CALPackage.UNIT_CALL__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		case CALPackage.UNIT_CALL__STRENGTH:
@@ -424,6 +413,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return pins != null && !pins.isEmpty();
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			return parameterValues != null && !parameterValues.isEmpty();
+		case CALPackage.UNIT_CALL__RELEASE:
+			return release != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -439,11 +430,7 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (unitName: ");
-		result.append(unitName);
-		result.append(", unitVersion: ");
-		result.append(unitVersion);
-		result.append(", name: ");
+		result.append(" (name: ");
 		result.append(name);
 		result.append(", strength: ");
 		result.append(strength);

@@ -58,6 +58,7 @@ public class ComputationUnitReleaseItemProvider extends ItemProviderAdapter impl
 
 			addNamePropertyDescriptor(object);
 			addVersionPropertyDescriptor(object);
+			addCallPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -92,6 +93,21 @@ public class ComputationUnitReleaseItemProvider extends ItemProviderAdapter impl
 						"_UI_ComputationUnitRelease_type"),
 				CALPackage.Literals.COMPUTATION_UNIT_RELEASE__VERSION, true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Call feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCallPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComputationUnitRelease_call_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ComputationUnitRelease_call_feature",
+								"_UI_ComputationUnitRelease_type"),
+						CALPackage.Literals.COMPUTATION_UNIT_RELEASE__CALL, true, false, true, null, null, null));
 	}
 
 	/**

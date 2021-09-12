@@ -55,7 +55,7 @@ public interface DataFlow extends EObject {
 	 * @see #setSource(ComputedDataPin)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getDataFlow_Source()
 	 * @see eu.balticlsc.model.CAL.ComputedDataPin#getOutgoing
-	 * @model opposite="outgoing"
+	 * @model opposite="outgoing" required="true"
 	 * @generated
 	 */
 	ComputedDataPin getSource();

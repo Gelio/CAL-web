@@ -15,12 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getUnitName <em>Unit Name</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getUnitVersion <em>Unit Version</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getStrength <em>Strength</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getPins <em>Pins</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getParameterValues <em>Parameter Values</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}</li>
  * </ul>
  *
  * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall()
@@ -28,50 +27,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface UnitCall extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Unit Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Unit Name</em>' attribute.
-	 * @see #setUnitName(String)
-	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_UnitName()
-	 * @model
-	 * @generated
-	 */
-	String getUnitName();
-
-	/**
-	 * Sets the value of the '{@link eu.balticlsc.model.CAL.UnitCall#getUnitName <em>Unit Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Unit Name</em>' attribute.
-	 * @see #getUnitName()
-	 * @generated
-	 */
-	void setUnitName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Unit Version</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Unit Version</em>' attribute.
-	 * @see #setUnitVersion(String)
-	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_UnitVersion()
-	 * @model
-	 * @generated
-	 */
-	String getUnitVersion();
-
-	/**
-	 * Sets the value of the '{@link eu.balticlsc.model.CAL.UnitCall#getUnitVersion <em>Unit Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Unit Version</em>' attribute.
-	 * @see #getUnitVersion()
-	 * @generated
-	 */
-	void setUnitVersion(String value);
-
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -144,5 +99,29 @@ public interface UnitCall extends EObject {
 	 * @generated
 	 */
 	EList<UnitParameterValue> getParameterValues();
+
+	/**
+	 * Returns the value of the '<em><b>Release</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCall <em>Call</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Release</em>' reference.
+	 * @see #setRelease(ComputationUnitRelease)
+	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Release()
+	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getCall
+	 * @model opposite="call" required="true"
+	 * @generated
+	 */
+	ComputationUnitRelease getRelease();
+
+	/**
+	 * Sets the value of the '{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Release</em>' reference.
+	 * @see #getRelease()
+	 * @generated
+	 */
+	void setRelease(ComputationUnitRelease value);
 
 } // UnitCall

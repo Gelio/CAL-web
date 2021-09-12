@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getVersion <em>Version</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getParameters <em>Parameters</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getDeclaredPins <em>Declared Pins</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCall <em>Call</em>}</li>
  * </ul>
  *
  * @see eu.balticlsc.model.CAL.CALPackage#getComputationUnitRelease()
@@ -93,5 +94,29 @@ public interface ComputationUnitRelease extends EObject {
 	 * @generated
 	 */
 	EList<DeclaredDataPin> getDeclaredPins();
+
+	/**
+	 * Returns the value of the '<em><b>Call</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Call</em>' reference.
+	 * @see #setCall(UnitCall)
+	 * @see eu.balticlsc.model.CAL.CALPackage#getComputationUnitRelease_Call()
+	 * @see eu.balticlsc.model.CAL.UnitCall#getRelease
+	 * @model opposite="release" required="true"
+	 * @generated
+	 */
+	UnitCall getCall();
+
+	/**
+	 * Sets the value of the '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCall <em>Call</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Call</em>' reference.
+	 * @see #getCall()
+	 * @generated
+	 */
+	void setCall(UnitCall value);
 
 } // ComputationUnitRelease

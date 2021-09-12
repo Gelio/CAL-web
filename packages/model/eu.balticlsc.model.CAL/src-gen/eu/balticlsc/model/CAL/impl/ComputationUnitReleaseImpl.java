@@ -5,6 +5,7 @@ package eu.balticlsc.model.CAL.impl;
 import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
+import eu.balticlsc.model.CAL.UnitCall;
 import eu.balticlsc.model.CAL.UnitParameter;
 
 import java.util.Collection;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getDeclaredPins <em>Declared Pins</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getCall <em>Call</em>}</li>
  * </ul>
  *
  * @generated
@@ -99,6 +101,16 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 	 * @ordered
 	 */
 	protected EList<DeclaredDataPin> declaredPins;
+
+	/**
+	 * The cached value of the '{@link #getCall() <em>Call</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCall()
+	 * @generated
+	 * @ordered
+	 */
+	protected UnitCall call;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -201,12 +213,101 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	@Override
+	public UnitCall getCall() {
+		if (call != null && call.eIsProxy()) {
+			InternalEObject oldCall = (InternalEObject) call;
+			call = (UnitCall) eResolveProxy(oldCall);
+			if (call != oldCall) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+							oldCall, call));
+			}
+		}
+		return call;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnitCall basicGetCall() {
+		return call;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCall(UnitCall newCall, NotificationChain msgs) {
+		UnitCall oldCall = call;
+		call = newCall;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					CALPackage.COMPUTATION_UNIT_RELEASE__CALL, oldCall, newCall);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCall(UnitCall newCall) {
+		if (newCall != call) {
+			NotificationChain msgs = null;
+			if (call != null)
+				msgs = ((InternalEObject) call).eInverseRemove(this, CALPackage.UNIT_CALL__RELEASE, UnitCall.class,
+						msgs);
+			if (newCall != null)
+				msgs = ((InternalEObject) newCall).eInverseAdd(this, CALPackage.UNIT_CALL__RELEASE, UnitCall.class,
+						msgs);
+			msgs = basicSetCall(newCall, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.COMPUTATION_UNIT_RELEASE__CALL, newCall,
+					newCall));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case CALPackage.COMPUTATION_UNIT_RELEASE__CALL:
+			if (call != null)
+				msgs = ((InternalEObject) call).eInverseRemove(this, CALPackage.UNIT_CALL__RELEASE, UnitCall.class,
+						msgs);
+			return basicSetCall((UnitCall) otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
 			return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			return ((InternalEList<?>) getDeclaredPins()).basicRemove(otherEnd, msgs);
+		case CALPackage.COMPUTATION_UNIT_RELEASE__CALL:
+			return basicSetCall(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -227,6 +328,10 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 			return getParameters();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			return getDeclaredPins();
+		case CALPackage.COMPUTATION_UNIT_RELEASE__CALL:
+			if (resolve)
+				return getCall();
+			return basicGetCall();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -254,6 +359,9 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 			getDeclaredPins().clear();
 			getDeclaredPins().addAll((Collection<? extends DeclaredDataPin>) newValue);
 			return;
+		case CALPackage.COMPUTATION_UNIT_RELEASE__CALL:
+			setCall((UnitCall) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -278,6 +386,9 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			getDeclaredPins().clear();
 			return;
+		case CALPackage.COMPUTATION_UNIT_RELEASE__CALL:
+			setCall((UnitCall) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -298,6 +409,8 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 			return parameters != null && !parameters.isEmpty();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			return declaredPins != null && !declaredPins.isEmpty();
+		case CALPackage.COMPUTATION_UNIT_RELEASE__CALL:
+			return call != null;
 		}
 		return super.eIsSet(featureID);
 	}

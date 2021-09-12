@@ -56,45 +56,12 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addUnitNamePropertyDescriptor(object);
-			addUnitVersionPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addStrengthPropertyDescriptor(object);
 			addPinsPropertyDescriptor(object);
+			addReleasePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Unit Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUnitNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_UnitCall_unitName_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_unitName_feature",
-								"_UI_UnitCall_type"),
-						CALPackage.Literals.UNIT_CALL__UNIT_NAME, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Unit Version feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUnitVersionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_UnitCall_unitVersion_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_unitVersion_feature",
-								"_UI_UnitCall_type"),
-						CALPackage.Literals.UNIT_CALL__UNIT_VERSION, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -142,6 +109,21 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_pins_feature",
 								"_UI_UnitCall_type"),
 						CALPackage.Literals.UNIT_CALL__PINS, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Release feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReleasePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_UnitCall_release_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_release_feature",
+								"_UI_UnitCall_type"),
+						CALPackage.Literals.UNIT_CALL__RELEASE, true, false, true, null, null, null));
 	}
 
 	/**
@@ -221,8 +203,6 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(UnitCall.class)) {
-		case CALPackage.UNIT_CALL__UNIT_NAME:
-		case CALPackage.UNIT_CALL__UNIT_VERSION:
 		case CALPackage.UNIT_CALL__NAME:
 		case CALPackage.UNIT_CALL__STRENGTH:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

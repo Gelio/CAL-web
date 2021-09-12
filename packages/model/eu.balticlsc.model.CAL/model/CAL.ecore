@@ -2,14 +2,14 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="CAL" nsURI="https://www.balticlsc.eu/model/CAL" nsPrefix="CAL">
   <eClassifiers xsi:type="ecore:EClass" name="UnitCall">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unitName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unitVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="strength" eType="#//UnitStrength"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pins" upperBound="-1" eType="#//ComputedDataPin"
         containment="true" eOpposite="#//ComputedDataPin/call"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterValues" upperBound="-1"
         eType="#//UnitParameterValue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="release" lowerBound="1"
+        eType="#//ComputationUnitRelease" eOpposite="#//ComputationUnitRelease/call"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComputedDataPin">
     <eStructuralFeatures xsi:type="ecore:EReference" name="call" lowerBound="1" eType="#//UnitCall"
@@ -24,8 +24,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//ComputedDataPin" eOpposite="#//ComputedDataPin/incoming"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ComputedDataPin"
-        eOpposite="#//ComputedDataPin/outgoing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//ComputedDataPin" eOpposite="#//ComputedDataPin/outgoing"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ComputationUnitStatus">
     <eLiterals name="Created"/>
@@ -44,6 +44,8 @@
         eType="#//UnitParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaredPins" upperBound="-1"
         eType="#//DeclaredDataPin" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="call" lowerBound="1" eType="#//UnitCall"
+        eOpposite="#//UnitCall/release"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitParameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
