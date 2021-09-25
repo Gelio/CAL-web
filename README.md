@@ -6,10 +6,6 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 
 ## Setup
 
-Keep in mind this project is using an outdated version of sirius-web.
-
-The goal is to keep up-to-date with the latest version.
-
 ### Prerequisites
 
 1. Java 11
@@ -25,7 +21,7 @@ The goal is to keep up-to-date with the latest version.
 
    See <https://github.com/eclipse-sirius/sirius-web#github-access-token>.
 
-2. In the `packages` directory, run:
+2. In the `backend` directory, run:
 
    ```sh
    mvn package
@@ -44,3 +40,20 @@ The goal is to keep up-to-date with the latest version.
    ```sh
    ./scripts/restart-siriusweb-postgresql.sh
    ```
+
+## Keeping up with the upstream `sirius-web`
+
+The `sirius-web` directory is a git submodule containing the
+[sirius-web](https://github.com/eclipse-sirius/sirius-web) repository.
+The commit it points to is the commit that the rest of this repository is based
+on.
+
+If there are changes to `sirius-web`, the diff between the current commit in the
+`sirius-web` submodule and the latest version of that repository should be
+reviewed and the changes applied to relevant parts of the main repository.
+
+Changes need to be applied manually since the structure of the main repository
+is different from `sirius-web`'s. Not all parts of `sirius-web` are relevant in
+the main repository.
+
+<!-- vim: set tw=80: -->

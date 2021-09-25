@@ -1,0 +1,3 @@
+[submodule "sirius-web"]
+	path = sirius-web
+	url = git@github.com:eclipse-sirius/sirius-web.git
