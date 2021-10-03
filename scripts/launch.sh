@@ -6,4 +6,5 @@ java -jar backend/sirius-web-sample-application/target/sirius-web-sample-applica
 	--spring.datasource.username=dbuser \
 	--spring.datasource.password=dbpwd \
 	--spring.liquibase.change-log=classpath:db/changelog/sirius-web.db.changelog.xml \
-	--spring.profiles.active=dev
+	--spring.profiles.active=dev \
+	--org.eclipse.sirius.web.features.studioDefinition=true
