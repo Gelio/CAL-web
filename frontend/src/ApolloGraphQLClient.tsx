@@ -22,11 +22,11 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { httpOrigin, wsOrigin } from "@eclipse-sirius/sirius-components";
 
 const httpLink = new HttpLink({
-  uri: `${httpOrigin}/api/graphql`,
+  uri: `${process.env.REACT_APP_HTTP_ORIGIN ?? httpOrigin}/api/graphql`,
 });
 
 const wsLink = new WebSocketLink({
-  uri: `${wsOrigin}/subscriptions`,
+  uri: `${process.env.REACT_APP_WS_ORIGIN ?? wsOrigin}/subscriptions`,
   options: {
     reconnect: true,
     lazy: true,
