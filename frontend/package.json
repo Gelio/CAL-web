@@ -11,6 +11,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@apollo/client": "3.4.7",
     "@eclipse-sirius/sirius-components": "0.4.7",
