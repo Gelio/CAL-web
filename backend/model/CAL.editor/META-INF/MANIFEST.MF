@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: CAL.editor;singleton:=true
+Bundle-SymbolicName: eu.balticlsc.model.CAL.editor;singleton:=true
 Automatic-Module-Name: eu.balticlsc.model.CAL.editor
 Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
@@ -12,7 +12,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: eu.balticlsc.model.CAL.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
- CAL.edit;visibility:=reexport,
+ eu.balticlsc.model.CAL.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.edit.ui;visibility:=reexport,
  org.eclipse.ui.ide;visibility:=reexport
