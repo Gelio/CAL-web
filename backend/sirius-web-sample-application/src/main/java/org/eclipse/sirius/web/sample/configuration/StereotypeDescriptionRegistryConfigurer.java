@@ -22,6 +22,7 @@ import org.eclipse.sirius.web.api.configuration.StereotypeDescription;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import eu.balticlsc.model.CAL.CALFactory;
 import io.micrometer.core.instrument.MeterRegistry;
 
 /**
@@ -44,6 +45,10 @@ public class StereotypeDescriptionRegistryConfigurer implements IStereotypeDescr
 
     public static final String BIG_GUY_FLOW_LABEL = "Big Guy Flow (17k elements)"; //$NON-NLS-1$
 
+    public static final UUID EMPTY_CAL_ID = UUID.nameUUIDFromBytes("empty_cal".getBytes()); //$NON-NLS-1$
+
+    public static final String EMPTY_CAL_LABEL = "Empty CAL model"; //$NON-NLS-1$
+
     private static final String TIMER_NAME = "siriusweb_stereotype_load"; //$NON-NLS-1$
 
     private final StereotypeBuilder stereotypeBuilder;
@@ -57,6 +62,7 @@ public class StereotypeDescriptionRegistryConfigurer implements IStereotypeDescr
         registry.add(new StereotypeDescription(EMPTY_FLOW_ID, EMPTY_FLOW_LABEL, this::getEmptyFlowContent));
         registry.add(new StereotypeDescription(ROBOT_FLOW_ID, ROBOT_FLOW_LABEL, this::getRobotFlowContent));
         registry.add(new StereotypeDescription(BIG_GUY_FLOW_ID, BIG_GUY_FLOW_LABEL, this::getBigGuyFlowContent));
+        registry.add(new StereotypeDescription(EMPTY_CAL_ID, EMPTY_CAL_LABEL, this::getEmptyCALContent));
     }
 
     private String getEmptyFlowContent() {
@@ -69,5 +75,9 @@ public class StereotypeDescriptionRegistryConfigurer implements IStereotypeDescr
 
     private String getBigGuyFlowContent() {
         return this.stereotypeBuilder.getStereotypeBody(new ClassPathResource("Big_Guy.flow")); //$NON-NLS-1$
+    }
+
+    private String getEmptyCALContent() {
+        return this.stereotypeBuilder.getStereotypeBody(CALFactory.eINSTANCE.createComputationApplicationRelease());
     }
 }

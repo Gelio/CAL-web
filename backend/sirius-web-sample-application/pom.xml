@@ -33,7 +33,7 @@
 		<java.version>11</java.version>
 		<sirius.components.version>0.4.7</sirius.components.version>
 		<flow.version>1.0.7-SNAPSHOT</flow.version>
-		<bpmn.version>4.0.3-SNAPSHOT</bpmn.version>
+    <CAL.model.version>0.1.0-SNAPSHOT</CAL.model.version>
 	</properties>
 
 	<repositories>
@@ -48,10 +48,6 @@
 		<repository>
 			<id>github-flow</id>
 			<url>https://maven.pkg.github.com/ObeoNetwork/Flow-Designer</url>
-		</repository>
-		<repository>
-			<id>github-bpmn</id>
-			<url>https://maven.pkg.github.com/ObeoNetwork/BPMN-Designer</url>
 		</repository>
 	</repositories>
 
@@ -149,19 +145,19 @@
 			<version>${flow.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>BPMN2</groupId>
-			<artifactId>org.obeonetwork.dsl.bpmn2</artifactId>
-			<version>${bpmn.version}</version>
+      <groupId>eu.balticlsc.model</groupId>
+      <artifactId>eu.balticlsc.model.CAL</artifactId>
+      <version>${CAL.model.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>BPMN2</groupId>
-			<artifactId>org.obeonetwork.dsl.bpmn2.edit</artifactId>
-			<version>${bpmn.version}</version>
+      <groupId>eu.balticlsc.model</groupId>
+      <artifactId>eu.balticlsc.model.CAL.edit</artifactId>
+      <version>${CAL.model.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>BPMN2</groupId>
-			<artifactId>org.obeonetwork.dsl.bpmn2.design</artifactId>
-			<version>${bpmn.version}</version>
+      <groupId>eu.balticlsc.model</groupId>
+      <artifactId>eu.balticlsc.model.CAL.design</artifactId>
+      <version>${CAL.model.version}</version>
 		</dependency>
 	</dependencies>
 

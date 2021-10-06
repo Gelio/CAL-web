@@ -24,10 +24,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SampleSiriusConfiguration implements ISiriusConfiguration {
-
     @Override
     public List<String> getODesignPaths() {
-        return List.of("description/flow.odesign"); //$NON-NLS-1$
+        return List.of("description/flow.odesign", "description/CAL.odesign"); //$NON-NLS-1$ //$NON-NLS-2$
     }
-
 }
