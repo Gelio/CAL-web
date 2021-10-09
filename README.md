@@ -24,8 +24,12 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 2. In the `backend` directory, run:
 
    ```sh
-   mvn package
+   ./mvnw package
    ```
+
+   Use `./mvnw` (or `mvnw.cmd` on Windows). This uses
+   [maven-wrapper](https://github.com/takari/maven-wrapper) which works even if
+   Maven is not installed globally.
 
 ### Running the application
 
