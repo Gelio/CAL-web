@@ -21,7 +21,18 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 
    See <https://github.com/eclipse-sirius/sirius-web#github-access-token>.
 
-2. In the `backend` directory, run:
+2. Build the frontend application (see
+   [frontend/README.md](./frontend/README.md))
+
+3. Copy the frontend build results to backend resources directory.
+
+   ```sh
+   ./scripts/copy-frontend.sh
+   ```
+
+4. Build the backend application.
+
+   In the `backend` directory, run:
 
    ```sh
    ./mvnw package
@@ -39,27 +50,10 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
    ./scripts/restart-siriusweb-postgresql.sh
    ```
 
-2. Build the frontend application
-
-   See [frontend/README.md](./frontend/README.md) for more information.
-
-3. Copy the built frontend assets to the backend application
+2. Launch the backend application
 
    ```sh
-   ./scripts/copy-frontend.sh
-   ```
-
-4. Build the backend application
-
-   ```sh
-   cd backend
-   mvn clean package
-   ```
-
-5. Launch the application
-
-   ```sh
-   ./scripts/launch.sh
+   ./backend/scripts/launch.sh
    ```
 
 ## Keeping up with the upstream `sirius-web`

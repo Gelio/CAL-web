@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-java -jar backend/sirius-web-sample-application/target/sirius-web-sample-application-*.jar \
+# https://stackoverflow.com/a/246128/4874344
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+cd "$script_dir/.."
+
+java -jar sirius-web-sample-application/target/sirius-web-sample-application-*.jar \
 	--spring.datasource.url=jdbc:postgresql://localhost:5433/sirius-web-db \
 	--spring.datasource.username=dbuser \
 	--spring.datasource.password=dbpwd \
