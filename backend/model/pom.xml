@@ -29,6 +29,9 @@
     <module>CAL.design</module>
   </modules>
 
+  <!-- Based on
+    https://www.vogella.com/tutorials/EclipseTycho/article.html#create-a-top-level-pom-file -->
+
   <repositories>
     <repository>
       <id>eclipse</id>
@@ -48,10 +51,27 @@
 
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-packaging-plugin</artifactId>
+           <version>${tycho.version}</version>
+           <executions>
+            <execution>
+              <phase>package</phase>
+              <id>package-feature</id>
+                <configuration>
+                  <finalName
+              >${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
+                </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
         <version>${tycho.version}</version>
 
         <configuration>
+          <executionEnvironment>JavaSE-11</executionEnvironment>
           <environments>
             <environment>
               <os>linux</os>
