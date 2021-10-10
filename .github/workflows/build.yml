@@ -34,6 +34,14 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    # Building the server requires frontend assets
+    # It could be optimized - adding the frontend assets to a prebuilt JAR
+    # could happen in a separate stage. Building backend and frontend could happen
+    # in parallel.
+    # The sirius-web-frontend package would have to be rebuilt and replaced
+    # in the final sirius-web-sample-application jar
+    # See https://docs.oracle.com/javase/tutorial/deployment/jar/update.html
+    # and https://stackoverflow.com/a/14388993/4874344
     needs: build_frontend
     steps:
       - uses: actions/checkout@v2
