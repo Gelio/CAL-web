@@ -24,9 +24,9 @@
   </properties>
 
   <modules>
-    <module>CAL</module>
-    <module>CAL.edit</module>
-    <module>CAL.design</module>
+    <module>eu.balticlsc.model.CAL</module>
+    <module>eu.balticlsc.model.CAL.edit</module>
+    <module>eu.balticlsc.model.CAL.design</module>
   </modules>
 
   <!-- Based on
