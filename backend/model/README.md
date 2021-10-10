@@ -8,7 +8,7 @@ The metamodel is based on [the CAL Data Model](https://www.balticlsc.eu/model/)
 ## Opening the metamodel
 
 To open the metamodel for inspection/editing, use [Obeo
-Designer](https://www.obeodesigner.com/en/).
+Designer](https://www.obeodesigner.com/en/). Version 11.5.0 is known to work.
 
 In Obeo Designer, do the following:
 
