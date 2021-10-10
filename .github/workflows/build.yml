@@ -52,7 +52,8 @@ jobs:
           GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./mvnw --batch-mode --update-snapshots package --settings settings.xml
-      - run: |
+      - name: Prepare JAR artifact for upload
+        run: |
           mkdir staging
           find sirius-web-sample-application/target -maxdepth 1 -name "*.jar" -not -name "*-sources.jar" -exec cp {} staging/sirius-web-application.jar \;
       - uses: actions/upload-artifact@v2
