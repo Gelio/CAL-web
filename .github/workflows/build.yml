@@ -26,7 +26,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: frontend-assets
-          path: build/
+          path: frontend/build/
 
   build_backend:
     name: Build backend
@@ -46,7 +46,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: frontend-assets
-          path: sirius-web-frontend/src/main/resources/static/
+          path: backend/sirius-web-frontend/src/main/resources/static/
       - name: Build with Maven
         env:
           GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
@@ -58,4 +58,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: sirius-web-application
-          path: staging/
+          path: backend/staging/
