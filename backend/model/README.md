@@ -5,6 +5,9 @@ This directory contains the metamodel of the CAL language.
 The metamodel is based on [the CAL Data Model](https://www.balticlsc.eu/model/)
 (Data Model -> Baltic.DataModel.CAL -> CAL).
 
+See [Sirius Documentation](https://www.eclipse.org/sirius/doc/) for more
+information about metamodels and models created using Sirius and EMF.
+
 ## Opening the metamodel
 
 To open the metamodel for inspection/editing, use [Obeo
