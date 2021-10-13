@@ -6,13 +6,6 @@
       <defaultLayer name="Default">
         <nodeMappings name="ComputationUnitReleaseNode" semanticCandidatesExpression="feature:units" domainClass="CAL::ComputationUnitRelease">
           <borderedNodeMappings name="DeclaredDataPinNode" semanticCandidatesExpression="feature:declaredPins" domainClass="CAL::DeclaredDataPin">
-            <borderedNodeMappings name="DeclaredDataPinNode" semanticCandidatesExpression="feature:declaredPins" domainClass="CAL::DeclaredDataPin">
-              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              </style>
-            </borderedNodeMappings>
             <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
