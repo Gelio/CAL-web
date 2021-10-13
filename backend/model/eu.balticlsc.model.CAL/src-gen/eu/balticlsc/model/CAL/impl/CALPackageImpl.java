@@ -368,7 +368,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getComputationUnitRelease_Call() {
+	public EReference getComputationUnitRelease_Calls() {
 		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -564,7 +564,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		createEAttribute(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__VERSION);
 		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__PARAMETERS);
 		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__DECLARED_PINS);
-		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__CALL);
+		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__CALLS);
 
 		unitParameterEClass = createEClass(UNIT_PARAMETER);
 		createEAttribute(unitParameterEClass, UNIT_PARAMETER__NAME);
@@ -630,7 +630,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getUnitCall_ParameterValues(), this.getUnitParameterValue(), null, "parameterValues", null, 0,
 				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getUnitCall_Release(), this.getComputationUnitRelease(), this.getComputationUnitRelease_Call(),
+		initEReference(getUnitCall_Release(), this.getComputationUnitRelease(), this.getComputationUnitRelease_Calls(),
 				"release", null, 1, 1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -672,8 +672,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getComputationUnitRelease_DeclaredPins(), this.getDeclaredDataPin(), null, "declaredPins", null,
 				0, -1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComputationUnitRelease_Call(), this.getUnitCall(), this.getUnitCall_Release(), "call", null,
-				1, 1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+		initEReference(getComputationUnitRelease_Calls(), this.getUnitCall(), this.getUnitCall_Release(), "calls", null,
+				1, -1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(unitParameterEClass, UnitParameter.class, "UnitParameter", !IS_ABSTRACT, !IS_INTERFACE,

@@ -47,7 +47,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/version"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationUnitRelease/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationUnitRelease/declaredPins"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationUnitRelease/call"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationUnitRelease/calls"/>
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//UnitParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitParameter/name"/>

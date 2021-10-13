@@ -102,14 +102,14 @@ public interface UnitCall extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Release</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCall <em>Call</em>}'.
+	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls <em>Calls</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Release</em>' reference.
 	 * @see #setRelease(ComputationUnitRelease)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Release()
-	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getCall
-	 * @model opposite="call" required="true"
+	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls
+	 * @model opposite="calls" required="true"
 	 * @generated
 	 */
 	ComputationUnitRelease getRelease();

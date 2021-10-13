@@ -287,13 +287,13 @@ public interface CALPackage extends EPackage {
 	int COMPUTATION_UNIT_RELEASE__DECLARED_PINS = 3;
 
 	/**
-	 * The feature id for the '<em><b>Call</b></em>' reference.
+	 * The feature id for the '<em><b>Calls</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTATION_UNIT_RELEASE__CALL = 4;
+	int COMPUTATION_UNIT_RELEASE__CALLS = 4;
 
 	/**
 	 * The number of structural features of the '<em>Computation Unit Release</em>' class.
@@ -724,15 +724,15 @@ public interface CALPackage extends EPackage {
 	EReference getComputationUnitRelease_DeclaredPins();
 
 	/**
-	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCall <em>Call</em>}'.
+	 * Returns the meta object for the reference list '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls <em>Calls</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Call</em>'.
-	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getCall()
+	 * @return the meta object for the reference list '<em>Calls</em>'.
+	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls()
 	 * @see #getComputationUnitRelease()
 	 * @generated
 	 */
-	EReference getComputationUnitRelease_Call();
+	EReference getComputationUnitRelease_Calls();
 
 	/**
 	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.UnitParameter <em>Unit Parameter</em>}'.
@@ -1065,12 +1065,12 @@ public interface CALPackage extends EPackage {
 		EReference COMPUTATION_UNIT_RELEASE__DECLARED_PINS = eINSTANCE.getComputationUnitRelease_DeclaredPins();
 
 		/**
-		 * The meta object literal for the '<em><b>Call</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Calls</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPUTATION_UNIT_RELEASE__CALL = eINSTANCE.getComputationUnitRelease_Call();
+		EReference COMPUTATION_UNIT_RELEASE__CALLS = eINSTANCE.getComputationUnitRelease_Calls();
 
 		/**
 		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.impl.UnitParameterImpl <em>Unit Parameter</em>}' class.

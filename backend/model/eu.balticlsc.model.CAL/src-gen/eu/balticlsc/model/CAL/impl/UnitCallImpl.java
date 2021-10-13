@@ -265,10 +265,10 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 		if (newRelease != release) {
 			NotificationChain msgs = null;
 			if (release != null)
-				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
 						ComputationUnitRelease.class, msgs);
 			if (newRelease != null)
-				msgs = ((InternalEObject) newRelease).eInverseAdd(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+				msgs = ((InternalEObject) newRelease).eInverseAdd(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
 						ComputationUnitRelease.class, msgs);
 			msgs = basicSetRelease(newRelease, msgs);
 			if (msgs != null)
@@ -291,7 +291,7 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return ((InternalEList<InternalEObject>) (InternalEList<?>) getPins()).basicAdd(otherEnd, msgs);
 		case CALPackage.UNIT_CALL__RELEASE:
 			if (release != null)
-				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALL,
+				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
 						ComputationUnitRelease.class, msgs);
 			return basicSetRelease((ComputationUnitRelease) otherEnd, msgs);
 		}

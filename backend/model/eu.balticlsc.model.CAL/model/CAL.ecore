@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterValues" upperBound="-1"
         eType="#//UnitParameterValue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="release" lowerBound="1"
-        eType="#//ComputationUnitRelease" eOpposite="#//ComputationUnitRelease/call"/>
+        eType="#//ComputationUnitRelease" eOpposite="#//ComputationUnitRelease/calls"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComputedDataPin">
     <eStructuralFeatures xsi:type="ecore:EReference" name="call" lowerBound="1" eType="#//UnitCall"
@@ -44,8 +44,8 @@
         eType="#//UnitParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaredPins" upperBound="-1"
         eType="#//DeclaredDataPin" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="call" lowerBound="1" eType="#//UnitCall"
-        eOpposite="#//UnitCall/release"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="calls" lowerBound="1" upperBound="-1"
+        eType="#//UnitCall" eOpposite="#//UnitCall/release"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitParameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
