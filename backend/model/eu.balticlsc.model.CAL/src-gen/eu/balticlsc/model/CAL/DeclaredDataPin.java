@@ -2,8 +2,6 @@
  */
 package eu.balticlsc.model.CAL;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Declared Data Pin</b></em>'.
@@ -14,5 +12,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface DeclaredDataPin extends EObject {
+public interface DeclaredDataPin extends DataPin {
 } // DeclaredDataPin

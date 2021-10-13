@@ -257,6 +257,29 @@ public class CALItemProviderAdapterFactory extends CALAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link eu.balticlsc.model.CAL.ApplicationDataPin} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ApplicationDataPinItemProvider applicationDataPinItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link eu.balticlsc.model.CAL.ApplicationDataPin}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createApplicationDataPinAdapter() {
+		if (applicationDataPinItemProvider == null) {
+			applicationDataPinItemProvider = new ApplicationDataPinItemProvider(this);
+		}
+
+		return applicationDataPinItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -377,6 +400,8 @@ public class CALItemProviderAdapterFactory extends CALAdapterFactory
 			declaredDataPinItemProvider.dispose();
 		if (computationApplicationReleaseItemProvider != null)
 			computationApplicationReleaseItemProvider.dispose();
+		if (applicationDataPinItemProvider != null)
+			applicationDataPinItemProvider.dispose();
 	}
 
 }

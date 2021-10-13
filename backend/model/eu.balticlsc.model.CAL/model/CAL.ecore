@@ -11,21 +11,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="release" lowerBound="1"
         eType="#//ComputationUnitRelease" eOpposite="#//ComputationUnitRelease/calls"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComputedDataPin">
+  <eClassifiers xsi:type="ecore:EClass" name="ComputedDataPin" eSuperTypes="#//ConnectableDataPin">
     <eStructuralFeatures xsi:type="ecore:EReference" name="call" lowerBound="1" eType="#//UnitCall"
         eOpposite="#//UnitCall/pins"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//DataFlow"
-        eOpposite="#//DataFlow/target"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//DataFlow"
-        eOpposite="#//DataFlow/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declared" lowerBound="1"
         eType="#//DeclaredDataPin"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataFlow">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
-        eType="#//ComputedDataPin" eOpposite="#//ComputedDataPin/incoming"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
-        eType="#//ComputedDataPin" eOpposite="#//ComputedDataPin/outgoing"/>
+        eType="#//ConnectableDataPin" eOpposite="#//ConnectableDataPin/outgoing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//ConnectableDataPin" eOpposite="#//ConnectableDataPin/incoming"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ComputationUnitStatus">
     <eLiterals name="Created"/>
@@ -61,7 +57,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaration" lowerBound="1"
         eType="#//UnitParameter"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DeclaredDataPin"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclaredDataPin" eSuperTypes="#//DataPin"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComputationApplicationRelease">
     <eStructuralFeatures xsi:type="ecore:EReference" name="calls" upperBound="-1"
         eType="#//UnitCall" containment="true"/>
@@ -69,5 +65,18 @@
         eType="#//DataFlow" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="units" upperBound="-1"
         eType="#//ComputationUnitRelease" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationDataPins" upperBound="-1"
+        eType="#//ApplicationDataPin" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationDataPin" eSuperTypes="#//ConnectableDataPin #//DataPin"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectableDataPin" abstract="true"
+      interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//DataFlow"
+        eOpposite="#//DataFlow/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//DataFlow"
+        eOpposite="#//DataFlow/target"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataPin" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

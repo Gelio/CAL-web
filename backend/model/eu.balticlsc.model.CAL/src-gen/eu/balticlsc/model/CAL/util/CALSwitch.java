@@ -77,6 +77,8 @@ public class CALSwitch<T> extends Switch<T> {
 			ComputedDataPin computedDataPin = (ComputedDataPin) theEObject;
 			T result = caseComputedDataPin(computedDataPin);
 			if (result == null)
+				result = caseConnectableDataPin(computedDataPin);
+			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
@@ -112,12 +114,39 @@ public class CALSwitch<T> extends Switch<T> {
 			DeclaredDataPin declaredDataPin = (DeclaredDataPin) theEObject;
 			T result = caseDeclaredDataPin(declaredDataPin);
 			if (result == null)
+				result = caseDataPin(declaredDataPin);
+			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE: {
 			ComputationApplicationRelease computationApplicationRelease = (ComputationApplicationRelease) theEObject;
 			T result = caseComputationApplicationRelease(computationApplicationRelease);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case CALPackage.APPLICATION_DATA_PIN: {
+			ApplicationDataPin applicationDataPin = (ApplicationDataPin) theEObject;
+			T result = caseApplicationDataPin(applicationDataPin);
+			if (result == null)
+				result = caseConnectableDataPin(applicationDataPin);
+			if (result == null)
+				result = caseDataPin(applicationDataPin);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case CALPackage.CONNECTABLE_DATA_PIN: {
+			ConnectableDataPin connectableDataPin = (ConnectableDataPin) theEObject;
+			T result = caseConnectableDataPin(connectableDataPin);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case CALPackage.DATA_PIN: {
+			DataPin dataPin = (DataPin) theEObject;
+			T result = caseDataPin(dataPin);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -244,6 +273,51 @@ public class CALSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseComputationApplicationRelease(ComputationApplicationRelease object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Application Data Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Application Data Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseApplicationDataPin(ApplicationDataPin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connectable Data Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connectable Data Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectableDataPin(ConnectableDataPin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataPin(DataPin object) {
 		return null;
 	}
 

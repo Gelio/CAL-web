@@ -2,6 +2,7 @@
  */
 package eu.balticlsc.model.CAL.impl;
 
+import eu.balticlsc.model.CAL.ApplicationDataPin;
 import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputationApplicationRelease;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationApplicationReleaseImpl#getCalls <em>Calls</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationApplicationReleaseImpl#getFlows <em>Flows</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationApplicationReleaseImpl#getUnits <em>Units</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationApplicationReleaseImpl#getApplicationDataPins <em>Application Data Pins</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,6 +70,16 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 	 * @ordered
 	 */
 	protected EList<ComputationUnitRelease> units;
+
+	/**
+	 * The cached value of the '{@link #getApplicationDataPins() <em>Application Data Pins</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getApplicationDataPins()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ApplicationDataPin> applicationDataPins;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,6 +148,20 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 	 * @generated
 	 */
 	@Override
+	public EList<ApplicationDataPin> getApplicationDataPins() {
+		if (applicationDataPins == null) {
+			applicationDataPins = new EObjectContainmentEList<ApplicationDataPin>(ApplicationDataPin.class, this,
+					CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS);
+		}
+		return applicationDataPins;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__CALLS:
@@ -144,6 +170,8 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 			return ((InternalEList<?>) getFlows()).basicRemove(otherEnd, msgs);
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__UNITS:
 			return ((InternalEList<?>) getUnits()).basicRemove(otherEnd, msgs);
+		case CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS:
+			return ((InternalEList<?>) getApplicationDataPins()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -162,6 +190,8 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 			return getFlows();
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__UNITS:
 			return getUnits();
+		case CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS:
+			return getApplicationDataPins();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -187,6 +217,10 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 			getUnits().clear();
 			getUnits().addAll((Collection<? extends ComputationUnitRelease>) newValue);
 			return;
+		case CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS:
+			getApplicationDataPins().clear();
+			getApplicationDataPins().addAll((Collection<? extends ApplicationDataPin>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -208,6 +242,9 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__UNITS:
 			getUnits().clear();
 			return;
+		case CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS:
+			getApplicationDataPins().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -226,6 +263,8 @@ public class ComputationApplicationReleaseImpl extends MinimalEObjectImpl.Contai
 			return flows != null && !flows.isEmpty();
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__UNITS:
 			return units != null && !units.isEmpty();
+		case CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS:
+			return applicationDataPins != null && !applicationDataPins.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

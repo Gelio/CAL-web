@@ -94,6 +94,15 @@ public interface CALFactory extends EFactory {
 	ComputationApplicationRelease createComputationApplicationRelease();
 
 	/**
+	 * Returns a new object of class '<em>Application Data Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Application Data Pin</em>'.
+	 * @generated
+	 */
+	ApplicationDataPin createApplicationDataPin();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

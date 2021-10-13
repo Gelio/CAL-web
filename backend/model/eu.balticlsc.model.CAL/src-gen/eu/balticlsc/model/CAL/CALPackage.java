@@ -131,6 +131,52 @@ public interface CALPackage extends EPackage {
 	int UNIT_CALL_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link eu.balticlsc.model.CAL.ConnectableDataPin <em>Connectable Data Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eu.balticlsc.model.CAL.ConnectableDataPin
+	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getConnectableDataPin()
+	 * @generated
+	 */
+	int CONNECTABLE_DATA_PIN = 9;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTABLE_DATA_PIN__OUTGOING = 0;
+
+	/**
+	 * The feature id for the '<em><b>Incoming</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTABLE_DATA_PIN__INCOMING = 1;
+
+	/**
+	 * The number of structural features of the '<em>Connectable Data Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTABLE_DATA_PIN_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Connectable Data Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTABLE_DATA_PIN_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl <em>Computed Data Pin</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -141,13 +187,13 @@ public interface CALPackage extends EPackage {
 	int COMPUTED_DATA_PIN = 1;
 
 	/**
-	 * The feature id for the '<em><b>Call</b></em>' container reference.
+	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTED_DATA_PIN__CALL = 0;
+	int COMPUTED_DATA_PIN__OUTGOING = CONNECTABLE_DATA_PIN__OUTGOING;
 
 	/**
 	 * The feature id for the '<em><b>Incoming</b></em>' reference.
@@ -156,16 +202,16 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTED_DATA_PIN__INCOMING = 1;
+	int COMPUTED_DATA_PIN__INCOMING = CONNECTABLE_DATA_PIN__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
+	 * The feature id for the '<em><b>Call</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTED_DATA_PIN__OUTGOING = 2;
+	int COMPUTED_DATA_PIN__CALL = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Declared</b></em>' reference.
@@ -174,7 +220,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTED_DATA_PIN__DECLARED = 3;
+	int COMPUTED_DATA_PIN__DECLARED = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Computed Data Pin</em>' class.
@@ -183,7 +229,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTED_DATA_PIN_FEATURE_COUNT = 4;
+	int COMPUTED_DATA_PIN_FEATURE_COUNT = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Computed Data Pin</em>' class.
@@ -192,7 +238,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTED_DATA_PIN_OPERATION_COUNT = 0;
+	int COMPUTED_DATA_PIN_OPERATION_COUNT = CONNECTABLE_DATA_PIN_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.DataFlowImpl <em>Data Flow</em>}' class.
@@ -205,22 +251,22 @@ public interface CALPackage extends EPackage {
 	int DATA_FLOW = 2;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_FLOW__TARGET = 0;
-
-	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_FLOW__SOURCE = 1;
+	int DATA_FLOW__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_FLOW__TARGET = 1;
 
 	/**
 	 * The number of structural features of the '<em>Data Flow</em>' class.
@@ -406,6 +452,43 @@ public interface CALPackage extends EPackage {
 	int UNIT_PARAMETER_VALUE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link eu.balticlsc.model.CAL.DataPin <em>Data Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eu.balticlsc.model.CAL.DataPin
+	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getDataPin()
+	 * @generated
+	 */
+	int DATA_PIN = 10;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PIN__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Data Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PIN_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Data Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PIN_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl <em>Declared Data Pin</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -416,13 +499,22 @@ public interface CALPackage extends EPackage {
 	int DECLARED_DATA_PIN = 6;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARED_DATA_PIN__NAME = DATA_PIN__NAME;
+
+	/**
 	 * The number of structural features of the '<em>Declared Data Pin</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARED_DATA_PIN_FEATURE_COUNT = 0;
+	int DECLARED_DATA_PIN_FEATURE_COUNT = DATA_PIN_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Declared Data Pin</em>' class.
@@ -431,7 +523,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARED_DATA_PIN_OPERATION_COUNT = 0;
+	int DECLARED_DATA_PIN_OPERATION_COUNT = DATA_PIN_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.ComputationApplicationReleaseImpl <em>Computation Application Release</em>}' class.
@@ -471,13 +563,22 @@ public interface CALPackage extends EPackage {
 	int COMPUTATION_APPLICATION_RELEASE__UNITS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Application Data Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Computation Application Release</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTATION_APPLICATION_RELEASE_FEATURE_COUNT = 3;
+	int COMPUTATION_APPLICATION_RELEASE_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Computation Application Release</em>' class.
@@ -489,6 +590,61 @@ public interface CALPackage extends EPackage {
 	int COMPUTATION_APPLICATION_RELEASE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl <em>Application Data Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl
+	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getApplicationDataPin()
+	 * @generated
+	 */
+	int APPLICATION_DATA_PIN = 8;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN__OUTGOING = CONNECTABLE_DATA_PIN__OUTGOING;
+
+	/**
+	 * The feature id for the '<em><b>Incoming</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN__INCOMING = CONNECTABLE_DATA_PIN__INCOMING;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN__NAME = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Application Data Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN_FEATURE_COUNT = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Application Data Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN_OPERATION_COUNT = CONNECTABLE_DATA_PIN_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.ComputationUnitStatus <em>Computation Unit Status</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -496,7 +652,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getComputationUnitStatus()
 	 * @generated
 	 */
-	int COMPUTATION_UNIT_STATUS = 8;
+	int COMPUTATION_UNIT_STATUS = 11;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.UnitStrength <em>Unit Strength</em>}' enum.
@@ -506,7 +662,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitStrength()
 	 * @generated
 	 */
-	int UNIT_STRENGTH = 9;
+	int UNIT_STRENGTH = 12;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.UnitParamType <em>Unit Param Type</em>}' enum.
@@ -516,7 +672,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParamType()
 	 * @generated
 	 */
-	int UNIT_PARAM_TYPE = 10;
+	int UNIT_PARAM_TYPE = 13;
 
 	/**
 	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.UnitCall <em>Unit Call</em>}'.
@@ -603,28 +759,6 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComputedDataPin_Call();
-
-	/**
-	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.ComputedDataPin#getIncoming <em>Incoming</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Incoming</em>'.
-	 * @see eu.balticlsc.model.CAL.ComputedDataPin#getIncoming()
-	 * @see #getComputedDataPin()
-	 * @generated
-	 */
-	EReference getComputedDataPin_Incoming();
-
-	/**
-	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.ComputedDataPin#getOutgoing <em>Outgoing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Outgoing</em>'.
-	 * @see eu.balticlsc.model.CAL.ComputedDataPin#getOutgoing()
-	 * @see #getComputedDataPin()
-	 * @generated
-	 */
-	EReference getComputedDataPin_Outgoing();
 
 	/**
 	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.ComputedDataPin#getDeclared <em>Declared</em>}'.
@@ -852,6 +986,80 @@ public interface CALPackage extends EPackage {
 	EReference getComputationApplicationRelease_Units();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link eu.balticlsc.model.CAL.ComputationApplicationRelease#getApplicationDataPins <em>Application Data Pins</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Application Data Pins</em>'.
+	 * @see eu.balticlsc.model.CAL.ComputationApplicationRelease#getApplicationDataPins()
+	 * @see #getComputationApplicationRelease()
+	 * @generated
+	 */
+	EReference getComputationApplicationRelease_ApplicationDataPins();
+
+	/**
+	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.ApplicationDataPin <em>Application Data Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Application Data Pin</em>'.
+	 * @see eu.balticlsc.model.CAL.ApplicationDataPin
+	 * @generated
+	 */
+	EClass getApplicationDataPin();
+
+	/**
+	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.ConnectableDataPin <em>Connectable Data Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Connectable Data Pin</em>'.
+	 * @see eu.balticlsc.model.CAL.ConnectableDataPin
+	 * @generated
+	 */
+	EClass getConnectableDataPin();
+
+	/**
+	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.ConnectableDataPin#getOutgoing <em>Outgoing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Outgoing</em>'.
+	 * @see eu.balticlsc.model.CAL.ConnectableDataPin#getOutgoing()
+	 * @see #getConnectableDataPin()
+	 * @generated
+	 */
+	EReference getConnectableDataPin_Outgoing();
+
+	/**
+	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.ConnectableDataPin#getIncoming <em>Incoming</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Incoming</em>'.
+	 * @see eu.balticlsc.model.CAL.ConnectableDataPin#getIncoming()
+	 * @see #getConnectableDataPin()
+	 * @generated
+	 */
+	EReference getConnectableDataPin_Incoming();
+
+	/**
+	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.DataPin <em>Data Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Data Pin</em>'.
+	 * @see eu.balticlsc.model.CAL.DataPin
+	 * @generated
+	 */
+	EClass getDataPin();
+
+	/**
+	 * Returns the meta object for the attribute '{@link eu.balticlsc.model.CAL.DataPin#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see eu.balticlsc.model.CAL.DataPin#getName()
+	 * @see #getDataPin()
+	 * @generated
+	 */
+	EAttribute getDataPin_Name();
+
+	/**
 	 * Returns the meta object for enum '{@link eu.balticlsc.model.CAL.ComputationUnitStatus <em>Computation Unit Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -971,22 +1179,6 @@ public interface CALPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPUTED_DATA_PIN__CALL = eINSTANCE.getComputedDataPin_Call();
-
-		/**
-		 * The meta object literal for the '<em><b>Incoming</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPUTED_DATA_PIN__INCOMING = eINSTANCE.getComputedDataPin_Incoming();
-
-		/**
-		 * The meta object literal for the '<em><b>Outgoing</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPUTED_DATA_PIN__OUTGOING = eINSTANCE.getComputedDataPin_Outgoing();
 
 		/**
 		 * The meta object literal for the '<em><b>Declared</b></em>' reference feature.
@@ -1167,6 +1359,69 @@ public interface CALPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPUTATION_APPLICATION_RELEASE__UNITS = eINSTANCE.getComputationApplicationRelease_Units();
+
+		/**
+		 * The meta object literal for the '<em><b>Application Data Pins</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS = eINSTANCE
+				.getComputationApplicationRelease_ApplicationDataPins();
+
+		/**
+		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl <em>Application Data Pin</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl
+		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getApplicationDataPin()
+		 * @generated
+		 */
+		EClass APPLICATION_DATA_PIN = eINSTANCE.getApplicationDataPin();
+
+		/**
+		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.ConnectableDataPin <em>Connectable Data Pin</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see eu.balticlsc.model.CAL.ConnectableDataPin
+		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getConnectableDataPin()
+		 * @generated
+		 */
+		EClass CONNECTABLE_DATA_PIN = eINSTANCE.getConnectableDataPin();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTABLE_DATA_PIN__OUTGOING = eINSTANCE.getConnectableDataPin_Outgoing();
+
+		/**
+		 * The meta object literal for the '<em><b>Incoming</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTABLE_DATA_PIN__INCOMING = eINSTANCE.getConnectableDataPin_Incoming();
+
+		/**
+		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.DataPin <em>Data Pin</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see eu.balticlsc.model.CAL.DataPin
+		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getDataPin()
+		 * @generated
+		 */
+		EClass DATA_PIN = eINSTANCE.getDataPin();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_PIN__NAME = eINSTANCE.getDataPin_Name();
 
 		/**
 		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.ComputationUnitStatus <em>Computation Unit Status</em>}' enum.

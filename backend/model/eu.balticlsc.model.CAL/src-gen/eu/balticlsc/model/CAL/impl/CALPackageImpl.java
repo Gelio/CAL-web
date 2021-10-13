@@ -2,13 +2,16 @@
  */
 package eu.balticlsc.model.CAL.impl;
 
+import eu.balticlsc.model.CAL.ApplicationDataPin;
 import eu.balticlsc.model.CAL.CALFactory;
 import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputationApplicationRelease;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.ComputationUnitStatus;
 import eu.balticlsc.model.CAL.ComputedDataPin;
+import eu.balticlsc.model.CAL.ConnectableDataPin;
 import eu.balticlsc.model.CAL.DataFlow;
+import eu.balticlsc.model.CAL.DataPin;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
 import eu.balticlsc.model.CAL.UnitCall;
 import eu.balticlsc.model.CAL.UnitParamType;
@@ -86,6 +89,27 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	private EClass computationApplicationReleaseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass applicationDataPinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass connectableDataPinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dataPinEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -258,28 +282,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getComputedDataPin_Incoming() {
-		return (EReference) computedDataPinEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getComputedDataPin_Outgoing() {
-		return (EReference) computedDataPinEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getComputedDataPin_Declared() {
-		return (EReference) computedDataPinEClass.getEStructuralFeatures().get(3);
+		return (EReference) computedDataPinEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -299,7 +303,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 */
 	@Override
 	public EReference getDataFlow_Target() {
-		return (EReference) dataFlowEClass.getEStructuralFeatures().get(0);
+		return (EReference) dataFlowEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -309,7 +313,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 */
 	@Override
 	public EReference getDataFlow_Source() {
-		return (EReference) dataFlowEClass.getEStructuralFeatures().get(1);
+		return (EReference) dataFlowEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -488,6 +492,76 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
+	public EReference getComputationApplicationRelease_ApplicationDataPins() {
+		return (EReference) computationApplicationReleaseEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getApplicationDataPin() {
+		return applicationDataPinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConnectableDataPin() {
+		return connectableDataPinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectableDataPin_Outgoing() {
+		return (EReference) connectableDataPinEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectableDataPin_Incoming() {
+		return (EReference) connectableDataPinEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getDataPin() {
+		return dataPinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataPin_Name() {
+		return (EAttribute) dataPinEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getComputationUnitStatus() {
 		return computationUnitStatusEEnum;
 	}
@@ -551,13 +625,11 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 
 		computedDataPinEClass = createEClass(COMPUTED_DATA_PIN);
 		createEReference(computedDataPinEClass, COMPUTED_DATA_PIN__CALL);
-		createEReference(computedDataPinEClass, COMPUTED_DATA_PIN__INCOMING);
-		createEReference(computedDataPinEClass, COMPUTED_DATA_PIN__OUTGOING);
 		createEReference(computedDataPinEClass, COMPUTED_DATA_PIN__DECLARED);
 
 		dataFlowEClass = createEClass(DATA_FLOW);
-		createEReference(dataFlowEClass, DATA_FLOW__TARGET);
 		createEReference(dataFlowEClass, DATA_FLOW__SOURCE);
+		createEReference(dataFlowEClass, DATA_FLOW__TARGET);
 
 		computationUnitReleaseEClass = createEClass(COMPUTATION_UNIT_RELEASE);
 		createEAttribute(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__NAME);
@@ -580,6 +652,16 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		createEReference(computationApplicationReleaseEClass, COMPUTATION_APPLICATION_RELEASE__CALLS);
 		createEReference(computationApplicationReleaseEClass, COMPUTATION_APPLICATION_RELEASE__FLOWS);
 		createEReference(computationApplicationReleaseEClass, COMPUTATION_APPLICATION_RELEASE__UNITS);
+		createEReference(computationApplicationReleaseEClass, COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS);
+
+		applicationDataPinEClass = createEClass(APPLICATION_DATA_PIN);
+
+		connectableDataPinEClass = createEClass(CONNECTABLE_DATA_PIN);
+		createEReference(connectableDataPinEClass, CONNECTABLE_DATA_PIN__OUTGOING);
+		createEReference(connectableDataPinEClass, CONNECTABLE_DATA_PIN__INCOMING);
+
+		dataPinEClass = createEClass(DATA_PIN);
+		createEAttribute(dataPinEClass, DATA_PIN__NAME);
 
 		// Create enums
 		computationUnitStatusEEnum = createEEnum(COMPUTATION_UNIT_STATUS);
@@ -616,6 +698,10 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		computedDataPinEClass.getESuperTypes().add(this.getConnectableDataPin());
+		declaredDataPinEClass.getESuperTypes().add(this.getDataPin());
+		applicationDataPinEClass.getESuperTypes().add(this.getConnectableDataPin());
+		applicationDataPinEClass.getESuperTypes().add(this.getDataPin());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(unitCallEClass, UnitCall.class, "UnitCall", !IS_ABSTRACT, !IS_INTERFACE,
@@ -639,23 +725,17 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getComputedDataPin_Call(), this.getUnitCall(), this.getUnitCall_Pins(), "call", null, 1, 1,
 				ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComputedDataPin_Incoming(), this.getDataFlow(), this.getDataFlow_Target(), "incoming", null,
-				0, 1, ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComputedDataPin_Outgoing(), this.getDataFlow(), this.getDataFlow_Source(), "outgoing", null,
-				0, 1, ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComputedDataPin_Declared(), this.getDeclaredDataPin(), null, "declared", null, 1, 1,
 				ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataFlowEClass, DataFlow.class, "DataFlow", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDataFlow_Target(), this.getComputedDataPin(), this.getComputedDataPin_Incoming(), "target",
-				null, 1, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+		initEReference(getDataFlow_Source(), this.getConnectableDataPin(), this.getConnectableDataPin_Outgoing(),
+				"source", null, 1, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataFlow_Source(), this.getComputedDataPin(), this.getComputedDataPin_Outgoing(), "source",
-				null, 1, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+		initEReference(getDataFlow_Target(), this.getConnectableDataPin(), this.getConnectableDataPin_Incoming(),
+				"target", null, 1, 1, DataFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(computationUnitReleaseEClass, ComputationUnitRelease.class, "ComputationUnitRelease", !IS_ABSTRACT,
@@ -706,6 +786,25 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getComputationApplicationRelease_Units(), this.getComputationUnitRelease(), null, "units", null,
 				0, -1, ComputationApplicationRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComputationApplicationRelease_ApplicationDataPins(), this.getApplicationDataPin(), null,
+				"applicationDataPins", null, 0, -1, ComputationApplicationRelease.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(applicationDataPinEClass, ApplicationDataPin.class, "ApplicationDataPin", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(connectableDataPinEClass, ConnectableDataPin.class, "ConnectableDataPin", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConnectableDataPin_Outgoing(), this.getDataFlow(), this.getDataFlow_Source(), "outgoing",
+				null, 0, 1, ConnectableDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectableDataPin_Incoming(), this.getDataFlow(), this.getDataFlow_Target(), "incoming",
+				null, 0, 1, ConnectableDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(dataPinEClass, DataPin.class, "DataPin", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDataPin_Name(), ecorePackage.getEString(), "name", null, 0, 1, DataPin.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(computationUnitStatusEEnum, ComputationUnitStatus.class, "ComputationUnitStatus");

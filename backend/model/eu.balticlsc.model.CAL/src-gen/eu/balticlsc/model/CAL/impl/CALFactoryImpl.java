@@ -72,6 +72,8 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 			return createDeclaredDataPin();
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE:
 			return createComputationApplicationRelease();
+		case CALPackage.APPLICATION_DATA_PIN:
+			return createApplicationDataPin();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -201,6 +203,17 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 	public ComputationApplicationRelease createComputationApplicationRelease() {
 		ComputationApplicationReleaseImpl computationApplicationRelease = new ComputationApplicationReleaseImpl();
 		return computationApplicationRelease;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ApplicationDataPin createApplicationDataPin() {
+		ApplicationDataPinImpl applicationDataPin = new ApplicationDataPinImpl();
+		return applicationDataPin;
 	}
 
 	/**

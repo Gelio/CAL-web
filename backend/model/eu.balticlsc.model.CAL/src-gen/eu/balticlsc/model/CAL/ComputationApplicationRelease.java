@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link eu.balticlsc.model.CAL.ComputationApplicationRelease#getCalls <em>Calls</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationApplicationRelease#getFlows <em>Flows</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationApplicationRelease#getUnits <em>Units</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.ComputationApplicationRelease#getApplicationDataPins <em>Application Data Pins</em>}</li>
  * </ul>
  *
  * @see eu.balticlsc.model.CAL.CALPackage#getComputationApplicationRelease()
@@ -60,5 +61,17 @@ public interface ComputationApplicationRelease extends EObject {
 	 * @generated
 	 */
 	EList<ComputationUnitRelease> getUnits();
+
+	/**
+	 * Returns the value of the '<em><b>Application Data Pins</b></em>' containment reference list.
+	 * The list contents are of type {@link eu.balticlsc.model.CAL.ApplicationDataPin}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Application Data Pins</em>' containment reference list.
+	 * @see eu.balticlsc.model.CAL.CALPackage#getComputationApplicationRelease_ApplicationDataPins()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ApplicationDataPin> getApplicationDataPins();
 
 } // ComputationApplicationRelease

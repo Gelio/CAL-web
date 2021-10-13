@@ -34,13 +34,11 @@
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//ComputedDataPin">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/call"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/incoming"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/outgoing"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/declared"/>
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//DataFlow">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//DataFlow/target"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//DataFlow/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//DataFlow/target"/>
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//ComputationUnitRelease">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//ComputationUnitRelease/name"/>
@@ -62,6 +60,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/calls"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/flows"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/units"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputationApplicationRelease/applicationDataPins"/>
+    </genClasses>
+    <genClasses ecoreClass="CAL.ecore#//ApplicationDataPin"/>
+    <genClasses ecoreClass="CAL.ecore#//ConnectableDataPin">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ConnectableDataPin/outgoing"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ConnectableDataPin/incoming"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="CAL.ecore#//DataPin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

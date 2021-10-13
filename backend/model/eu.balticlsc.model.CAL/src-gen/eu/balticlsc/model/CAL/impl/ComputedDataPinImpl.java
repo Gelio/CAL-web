@@ -27,25 +27,15 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl#getCall <em>Call</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl#getOutgoing <em>Outgoing</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl#getCall <em>Call</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl#getDeclared <em>Declared</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements ComputedDataPin {
-	/**
-	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIncoming()
-	 * @generated
-	 * @ordered
-	 */
-	protected DataFlow incoming;
-
 	/**
 	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -55,6 +45,16 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected DataFlow outgoing;
+
+	/**
+	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIncoming()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataFlow incoming;
 
 	/**
 	 * The cached value of the '{@link #getDeclared() <em>Declared</em>}' reference.
@@ -321,20 +321,20 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			return basicSetCall((UnitCall) otherEnd, msgs);
-		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
-			if (incoming != null)
-				msgs = ((InternalEObject) incoming).eInverseRemove(this, CALPackage.DATA_FLOW__TARGET, DataFlow.class,
-						msgs);
-			return basicSetIncoming((DataFlow) otherEnd, msgs);
 		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
 			if (outgoing != null)
 				msgs = ((InternalEObject) outgoing).eInverseRemove(this, CALPackage.DATA_FLOW__SOURCE, DataFlow.class,
 						msgs);
 			return basicSetOutgoing((DataFlow) otherEnd, msgs);
+		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
+			if (incoming != null)
+				msgs = ((InternalEObject) incoming).eInverseRemove(this, CALPackage.DATA_FLOW__TARGET, DataFlow.class,
+						msgs);
+			return basicSetIncoming((DataFlow) otherEnd, msgs);
+		case CALPackage.COMPUTED_DATA_PIN__CALL:
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			return basicSetCall((UnitCall) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -347,12 +347,12 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			return basicSetCall(null, msgs);
-		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
-			return basicSetIncoming(null, msgs);
 		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
 			return basicSetOutgoing(null, msgs);
+		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
+			return basicSetIncoming(null, msgs);
+		case CALPackage.COMPUTED_DATA_PIN__CALL:
+			return basicSetCall(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -379,16 +379,16 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			return getCall();
-		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
-			if (resolve)
-				return getIncoming();
-			return basicGetIncoming();
 		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
 			if (resolve)
 				return getOutgoing();
 			return basicGetOutgoing();
+		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
+			if (resolve)
+				return getIncoming();
+			return basicGetIncoming();
+		case CALPackage.COMPUTED_DATA_PIN__CALL:
+			return getCall();
 		case CALPackage.COMPUTED_DATA_PIN__DECLARED:
 			if (resolve)
 				return getDeclared();
@@ -405,14 +405,14 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			setCall((UnitCall) newValue);
+		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
+			setOutgoing((DataFlow) newValue);
 			return;
 		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
 			setIncoming((DataFlow) newValue);
 			return;
-		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
-			setOutgoing((DataFlow) newValue);
+		case CALPackage.COMPUTED_DATA_PIN__CALL:
+			setCall((UnitCall) newValue);
 			return;
 		case CALPackage.COMPUTED_DATA_PIN__DECLARED:
 			setDeclared((DeclaredDataPin) newValue);
@@ -429,14 +429,14 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			setCall((UnitCall) null);
+		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
+			setOutgoing((DataFlow) null);
 			return;
 		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
 			setIncoming((DataFlow) null);
 			return;
-		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
-			setOutgoing((DataFlow) null);
+		case CALPackage.COMPUTED_DATA_PIN__CALL:
+			setCall((UnitCall) null);
 			return;
 		case CALPackage.COMPUTED_DATA_PIN__DECLARED:
 			setDeclared((DeclaredDataPin) null);
@@ -453,12 +453,12 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			return getCall() != null;
-		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
-			return incoming != null;
 		case CALPackage.COMPUTED_DATA_PIN__OUTGOING:
 			return outgoing != null;
+		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
+			return incoming != null;
+		case CALPackage.COMPUTED_DATA_PIN__CALL:
+			return getCall() != null;
 		case CALPackage.COMPUTED_DATA_PIN__DECLARED:
 			return declared != null;
 		}

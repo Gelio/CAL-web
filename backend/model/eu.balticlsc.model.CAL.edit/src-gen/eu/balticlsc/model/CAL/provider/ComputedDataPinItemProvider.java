@@ -50,9 +50,9 @@ public class ComputedDataPinItemProvider extends ItemProviderAdapter implements 
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCallPropertyDescriptor(object);
-			addIncomingPropertyDescriptor(object);
 			addOutgoingPropertyDescriptor(object);
+			addIncomingPropertyDescriptor(object);
+			addCallPropertyDescriptor(object);
 			addDeclaredPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -82,10 +82,10 @@ public class ComputedDataPinItemProvider extends ItemProviderAdapter implements 
 	protected void addIncomingPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ComputedDataPin_incoming_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ComputedDataPin_incoming_feature",
-								"_UI_ComputedDataPin_type"),
-						CALPackage.Literals.COMPUTED_DATA_PIN__INCOMING, true, false, true, null, null, null));
+						getResourceLocator(), getString("_UI_ConnectableDataPin_incoming_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectableDataPin_incoming_feature",
+								"_UI_ConnectableDataPin_type"),
+						CALPackage.Literals.CONNECTABLE_DATA_PIN__INCOMING, true, false, true, null, null, null));
 	}
 
 	/**
@@ -97,10 +97,10 @@ public class ComputedDataPinItemProvider extends ItemProviderAdapter implements 
 	protected void addOutgoingPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ComputedDataPin_outgoing_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ComputedDataPin_outgoing_feature",
-								"_UI_ComputedDataPin_type"),
-						CALPackage.Literals.COMPUTED_DATA_PIN__OUTGOING, true, false, true, null, null, null));
+						getResourceLocator(), getString("_UI_ConnectableDataPin_outgoing_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectableDataPin_outgoing_feature",
+								"_UI_ConnectableDataPin_type"),
+						CALPackage.Literals.CONNECTABLE_DATA_PIN__OUTGOING, true, false, true, null, null, null));
 	}
 
 	/**

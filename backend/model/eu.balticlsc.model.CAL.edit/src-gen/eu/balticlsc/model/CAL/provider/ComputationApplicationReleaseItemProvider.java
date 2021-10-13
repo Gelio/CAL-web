@@ -74,6 +74,7 @@ public class ComputationApplicationReleaseItemProvider extends ItemProviderAdapt
 			childrenFeatures.add(CALPackage.Literals.COMPUTATION_APPLICATION_RELEASE__CALLS);
 			childrenFeatures.add(CALPackage.Literals.COMPUTATION_APPLICATION_RELEASE__FLOWS);
 			childrenFeatures.add(CALPackage.Literals.COMPUTATION_APPLICATION_RELEASE__UNITS);
+			childrenFeatures.add(CALPackage.Literals.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS);
 		}
 		return childrenFeatures;
 	}
@@ -138,6 +139,7 @@ public class ComputationApplicationReleaseItemProvider extends ItemProviderAdapt
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__CALLS:
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__FLOWS:
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE__UNITS:
+		case CALPackage.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -163,6 +165,10 @@ public class ComputationApplicationReleaseItemProvider extends ItemProviderAdapt
 
 		newChildDescriptors.add(createChildParameter(CALPackage.Literals.COMPUTATION_APPLICATION_RELEASE__UNITS,
 				CALFactory.eINSTANCE.createComputationUnitRelease()));
+
+		newChildDescriptors
+				.add(createChildParameter(CALPackage.Literals.COMPUTATION_APPLICATION_RELEASE__APPLICATION_DATA_PINS,
+						CALFactory.eINSTANCE.createApplicationDataPin()));
 	}
 
 	/**

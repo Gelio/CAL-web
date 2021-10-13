@@ -107,6 +107,21 @@ public class CALAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseApplicationDataPin(ApplicationDataPin object) {
+			return createApplicationDataPinAdapter();
+		}
+
+		@Override
+		public Adapter caseConnectableDataPin(ConnectableDataPin object) {
+			return createConnectableDataPinAdapter();
+		}
+
+		@Override
+		public Adapter caseDataPin(DataPin object) {
+			return createDataPinAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -234,6 +249,48 @@ public class CALAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createComputationApplicationReleaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link eu.balticlsc.model.CAL.ApplicationDataPin <em>Application Data Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see eu.balticlsc.model.CAL.ApplicationDataPin
+	 * @generated
+	 */
+	public Adapter createApplicationDataPinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link eu.balticlsc.model.CAL.ConnectableDataPin <em>Connectable Data Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see eu.balticlsc.model.CAL.ConnectableDataPin
+	 * @generated
+	 */
+	public Adapter createConnectableDataPinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link eu.balticlsc.model.CAL.DataPin <em>Data Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see eu.balticlsc.model.CAL.DataPin
+	 * @generated
+	 */
+	public Adapter createDataPinAdapter() {
 		return null;
 	}
 
