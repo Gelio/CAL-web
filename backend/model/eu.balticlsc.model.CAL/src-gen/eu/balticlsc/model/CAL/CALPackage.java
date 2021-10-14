@@ -104,13 +104,13 @@ public interface CALPackage extends EPackage {
 	int UNIT_CALL__PARAMETER_VALUES = 3;
 
 	/**
-	 * The feature id for the '<em><b>Release</b></em>' reference.
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNIT_CALL__RELEASE = 4;
+	int UNIT_CALL__UNIT = 4;
 
 	/**
 	 * The number of structural features of the '<em>Unit Call</em>' class.
@@ -729,15 +729,15 @@ public interface CALPackage extends EPackage {
 	EReference getUnitCall_ParameterValues();
 
 	/**
-	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}'.
+	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.UnitCall#getUnit <em>Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Release</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitCall#getRelease()
+	 * @return the meta object for the reference '<em>Unit</em>'.
+	 * @see eu.balticlsc.model.CAL.UnitCall#getUnit()
 	 * @see #getUnitCall()
 	 * @generated
 	 */
-	EReference getUnitCall_Release();
+	EReference getUnitCall_Unit();
 
 	/**
 	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.ComputedDataPin <em>Computed Data Pin</em>}'.
@@ -1155,12 +1155,12 @@ public interface CALPackage extends EPackage {
 		EReference UNIT_CALL__PARAMETER_VALUES = eINSTANCE.getUnitCall_ParameterValues();
 
 		/**
-		 * The meta object literal for the '<em><b>Release</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference UNIT_CALL__RELEASE = eINSTANCE.getUnitCall_Release();
+		EReference UNIT_CALL__UNIT = eINSTANCE.getUnitCall_Unit();
 
 		/**
 		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.impl.ComputedDataPinImpl <em>Computed Data Pin</em>}' class.

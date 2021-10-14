@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getStrength <em>Strength</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getPins <em>Pins</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getParameterValues <em>Parameter Values</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getRelease <em>Release</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @generated
@@ -105,14 +105,14 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	protected EList<UnitParameterValue> parameterValues;
 
 	/**
-	 * The cached value of the '{@link #getRelease() <em>Release</em>}' reference.
+	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRelease()
+	 * @see #getUnit()
 	 * @generated
 	 * @ordered
 	 */
-	protected ComputationUnitRelease release;
+	protected ComputationUnitRelease unit;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -214,17 +214,17 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	 * @generated
 	 */
 	@Override
-	public ComputationUnitRelease getRelease() {
-		if (release != null && release.eIsProxy()) {
-			InternalEObject oldRelease = (InternalEObject) release;
-			release = (ComputationUnitRelease) eResolveProxy(oldRelease);
-			if (release != oldRelease) {
+	public ComputationUnitRelease getUnit() {
+		if (unit != null && unit.eIsProxy()) {
+			InternalEObject oldUnit = (InternalEObject) unit;
+			unit = (ComputationUnitRelease) eResolveProxy(oldUnit);
+			if (unit != oldUnit) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CALPackage.UNIT_CALL__RELEASE, oldRelease,
-							release));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CALPackage.UNIT_CALL__UNIT, oldUnit,
+							unit));
 			}
 		}
-		return release;
+		return unit;
 	}
 
 	/**
@@ -232,8 +232,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComputationUnitRelease basicGetRelease() {
-		return release;
+	public ComputationUnitRelease basicGetUnit() {
+		return unit;
 	}
 
 	/**
@@ -241,12 +241,12 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRelease(ComputationUnitRelease newRelease, NotificationChain msgs) {
-		ComputationUnitRelease oldRelease = release;
-		release = newRelease;
+	public NotificationChain basicSetUnit(ComputationUnitRelease newUnit, NotificationChain msgs) {
+		ComputationUnitRelease oldUnit = unit;
+		unit = newUnit;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					CALPackage.UNIT_CALL__RELEASE, oldRelease, newRelease);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__UNIT,
+					oldUnit, newUnit);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -261,21 +261,20 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	 * @generated
 	 */
 	@Override
-	public void setRelease(ComputationUnitRelease newRelease) {
-		if (newRelease != release) {
+	public void setUnit(ComputationUnitRelease newUnit) {
+		if (newUnit != unit) {
 			NotificationChain msgs = null;
-			if (release != null)
-				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
+			if (unit != null)
+				msgs = ((InternalEObject) unit).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
 						ComputationUnitRelease.class, msgs);
-			if (newRelease != null)
-				msgs = ((InternalEObject) newRelease).eInverseAdd(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
+			if (newUnit != null)
+				msgs = ((InternalEObject) newUnit).eInverseAdd(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
 						ComputationUnitRelease.class, msgs);
-			msgs = basicSetRelease(newRelease, msgs);
+			msgs = basicSetUnit(newUnit, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__RELEASE, newRelease,
-					newRelease));
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__UNIT, newUnit, newUnit));
 	}
 
 	/**
@@ -289,11 +288,11 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 		switch (featureID) {
 		case CALPackage.UNIT_CALL__PINS:
 			return ((InternalEList<InternalEObject>) (InternalEList<?>) getPins()).basicAdd(otherEnd, msgs);
-		case CALPackage.UNIT_CALL__RELEASE:
-			if (release != null)
-				msgs = ((InternalEObject) release).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
+		case CALPackage.UNIT_CALL__UNIT:
+			if (unit != null)
+				msgs = ((InternalEObject) unit).eInverseRemove(this, CALPackage.COMPUTATION_UNIT_RELEASE__CALLS,
 						ComputationUnitRelease.class, msgs);
-			return basicSetRelease((ComputationUnitRelease) otherEnd, msgs);
+			return basicSetUnit((ComputationUnitRelease) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -310,8 +309,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return ((InternalEList<?>) getPins()).basicRemove(otherEnd, msgs);
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			return ((InternalEList<?>) getParameterValues()).basicRemove(otherEnd, msgs);
-		case CALPackage.UNIT_CALL__RELEASE:
-			return basicSetRelease(null, msgs);
+		case CALPackage.UNIT_CALL__UNIT:
+			return basicSetUnit(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -332,10 +331,10 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return getPins();
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			return getParameterValues();
-		case CALPackage.UNIT_CALL__RELEASE:
+		case CALPackage.UNIT_CALL__UNIT:
 			if (resolve)
-				return getRelease();
-			return basicGetRelease();
+				return getUnit();
+			return basicGetUnit();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -363,8 +362,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			getParameterValues().clear();
 			getParameterValues().addAll((Collection<? extends UnitParameterValue>) newValue);
 			return;
-		case CALPackage.UNIT_CALL__RELEASE:
-			setRelease((ComputationUnitRelease) newValue);
+		case CALPackage.UNIT_CALL__UNIT:
+			setUnit((ComputationUnitRelease) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -390,8 +389,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			getParameterValues().clear();
 			return;
-		case CALPackage.UNIT_CALL__RELEASE:
-			setRelease((ComputationUnitRelease) null);
+		case CALPackage.UNIT_CALL__UNIT:
+			setUnit((ComputationUnitRelease) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -413,8 +412,8 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return pins != null && !pins.isEmpty();
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			return parameterValues != null && !parameterValues.isEmpty();
-		case CALPackage.UNIT_CALL__RELEASE:
-			return release != null;
+		case CALPackage.UNIT_CALL__UNIT:
+			return unit != null;
 		}
 		return super.eIsSet(featureID);
 	}

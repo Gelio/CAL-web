@@ -98,13 +98,13 @@ public interface ComputationUnitRelease extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Calls</b></em>' reference list.
 	 * The list contents are of type {@link eu.balticlsc.model.CAL.UnitCall}.
-	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}'.
+	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.UnitCall#getUnit <em>Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Calls</em>' reference list.
 	 * @see eu.balticlsc.model.CAL.CALPackage#getComputationUnitRelease_Calls()
-	 * @see eu.balticlsc.model.CAL.UnitCall#getRelease
-	 * @model opposite="release" required="true"
+	 * @see eu.balticlsc.model.CAL.UnitCall#getUnit
+	 * @model opposite="unit" required="true"
 	 * @generated
 	 */
 	EList<UnitCall> getCalls();

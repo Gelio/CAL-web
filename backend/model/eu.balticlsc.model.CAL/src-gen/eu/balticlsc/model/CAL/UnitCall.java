@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getStrength <em>Strength</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getPins <em>Pins</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getParameterValues <em>Parameter Values</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall()
@@ -101,27 +101,27 @@ public interface UnitCall extends EObject {
 	EList<UnitParameterValue> getParameterValues();
 
 	/**
-	 * Returns the value of the '<em><b>Release</b></em>' reference.
+	 * Returns the value of the '<em><b>Unit</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls <em>Calls</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Release</em>' reference.
-	 * @see #setRelease(ComputationUnitRelease)
-	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Release()
+	 * @return the value of the '<em>Unit</em>' reference.
+	 * @see #setUnit(ComputationUnitRelease)
+	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Unit()
 	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls
 	 * @model opposite="calls" required="true"
 	 * @generated
 	 */
-	ComputationUnitRelease getRelease();
+	ComputationUnitRelease getUnit();
 
 	/**
-	 * Sets the value of the '{@link eu.balticlsc.model.CAL.UnitCall#getRelease <em>Release</em>}' reference.
+	 * Sets the value of the '{@link eu.balticlsc.model.CAL.UnitCall#getUnit <em>Unit</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Release</em>' reference.
-	 * @see #getRelease()
+	 * @param value the new value of the '<em>Unit</em>' reference.
+	 * @see #getUnit()
 	 * @generated
 	 */
-	void setRelease(ComputationUnitRelease value);
+	void setUnit(ComputationUnitRelease value);
 
 } // UnitCall

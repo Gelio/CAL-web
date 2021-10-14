@@ -59,7 +59,7 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 			addNamePropertyDescriptor(object);
 			addStrengthPropertyDescriptor(object);
 			addPinsPropertyDescriptor(object);
-			addReleasePropertyDescriptor(object);
+			addUnitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,18 +112,18 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 	}
 
 	/**
-	 * This adds a property descriptor for the Release feature.
+	 * This adds a property descriptor for the Unit feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReleasePropertyDescriptor(Object object) {
+	protected void addUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_UnitCall_release_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_release_feature",
+						getResourceLocator(), getString("_UI_UnitCall_unit_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_unit_feature",
 								"_UI_UnitCall_type"),
-						CALPackage.Literals.UNIT_CALL__RELEASE, true, false, true, null, null, null));
+						CALPackage.Literals.UNIT_CALL__UNIT, true, false, true, null, null, null));
 	}
 
 	/**

@@ -217,7 +217,7 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 	public EList<UnitCall> getCalls() {
 		if (calls == null) {
 			calls = new EObjectWithInverseResolvingEList<UnitCall>(UnitCall.class, this,
-					CALPackage.COMPUTATION_UNIT_RELEASE__CALLS, CALPackage.UNIT_CALL__RELEASE);
+					CALPackage.COMPUTATION_UNIT_RELEASE__CALLS, CALPackage.UNIT_CALL__UNIT);
 		}
 		return calls;
 	}

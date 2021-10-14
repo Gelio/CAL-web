@@ -5,7 +5,7 @@
     <semanticResources>CAL.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_mUONIHHBEeuPSaKcLpzDWQ">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_mWVtAXHBEeuPSaKcLpzDWQ" name="CAL" repPath="#_mVcVIHHBEeuPSaKcLpzDWQ" changeId="d224af1d-6d64-4353-8048-0754f99a1597">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_mWVtAXHBEeuPSaKcLpzDWQ" name="CAL" repPath="#_mVcVIHHBEeuPSaKcLpzDWQ" changeId="0d4859c8-ab12-47da-9f68-fa405949b1e4">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="CAL.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -883,10 +883,10 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_R3xYMBPBEeyRB6wGTmeTsQ" sourceNode="_2mCj4HHDEeuPSaKcLpzDWQ" targetNode="_1R76MHLgEeu3p4oiwrKNaQ" beginLabel="[1..*] calls" endLabel="[1..1] release">
-      <target xmi:type="ecore:EReference" href="CAL.ecore#//UnitCall/release"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_R3xYMBPBEeyRB6wGTmeTsQ" sourceNode="_2mCj4HHDEeuPSaKcLpzDWQ" targetNode="_1R76MHLgEeu3p4oiwrKNaQ" beginLabel="[1..*] calls" endLabel="[1..1] unit">
+      <target xmi:type="ecore:EReference" href="CAL.ecore#//UnitCall/unit"/>
       <semanticElements xmi:type="ecore:EReference" href="CAL.ecore#//ComputationUnitRelease/calls"/>
-      <semanticElements xmi:type="ecore:EReference" href="CAL.ecore#//UnitCall/release"/>
+      <semanticElements xmi:type="ecore:EReference" href="CAL.ecore#//UnitCall/unit"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_UAxsExPBEeyRB6wGTmeTsQ" description="_UAxsEBPBEeyRB6wGTmeTsQ" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" uid="_UAxsFBPBEeyRB6wGTmeTsQ" showIcon="false">
           <labelFormat>bold</labelFormat>
