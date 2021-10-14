@@ -13,6 +13,7 @@ import eu.balticlsc.model.CAL.ConnectableDataPin;
 import eu.balticlsc.model.CAL.DataFlow;
 import eu.balticlsc.model.CAL.DataPin;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
+import eu.balticlsc.model.CAL.Multiplicity;
 import eu.balticlsc.model.CAL.UnitCall;
 import eu.balticlsc.model.CAL.UnitParamType;
 import eu.balticlsc.model.CAL.UnitParameter;
@@ -131,6 +132,13 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	private EEnum unitParamTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum multiplicityEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -562,6 +570,26 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getDataPin_DataMultiplicity() {
+		return (EAttribute) dataPinEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataPin_TokenMultiplicity() {
+		return (EAttribute) dataPinEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getComputationUnitStatus() {
 		return computationUnitStatusEEnum;
 	}
@@ -584,6 +612,16 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	@Override
 	public EEnum getUnitParamType() {
 		return unitParamTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getMultiplicity() {
+		return multiplicityEEnum;
 	}
 
 	/**
@@ -662,11 +700,14 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 
 		dataPinEClass = createEClass(DATA_PIN);
 		createEAttribute(dataPinEClass, DATA_PIN__NAME);
+		createEAttribute(dataPinEClass, DATA_PIN__DATA_MULTIPLICITY);
+		createEAttribute(dataPinEClass, DATA_PIN__TOKEN_MULTIPLICITY);
 
 		// Create enums
 		computationUnitStatusEEnum = createEEnum(COMPUTATION_UNIT_STATUS);
 		unitStrengthEEnum = createEEnum(UNIT_STRENGTH);
 		unitParamTypeEEnum = createEEnum(UNIT_PARAM_TYPE);
+		multiplicityEEnum = createEEnum(MULTIPLICITY);
 	}
 
 	/**
@@ -805,6 +846,12 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEClass(dataPinEClass, DataPin.class, "DataPin", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataPin_Name(), ecorePackage.getEString(), "name", null, 0, 1, DataPin.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataPin_DataMultiplicity(), this.getMultiplicity(), "dataMultiplicity", "", 0, 1,
+				DataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataPin_TokenMultiplicity(), this.getMultiplicity(), "tokenMultiplicity", "", 0, 1,
+				DataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(computationUnitStatusEEnum, ComputationUnitStatus.class, "ComputationUnitStatus");
@@ -821,6 +868,10 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		addEEnumLiteral(unitParamTypeEEnum, UnitParamType.VARIABLE);
 		addEEnumLiteral(unitParamTypeEEnum, UnitParamType.CONFIG);
 		addEEnumLiteral(unitParamTypeEEnum, UnitParamType.PORT);
+
+		initEEnum(multiplicityEEnum, Multiplicity.class, "Multiplicity");
+		addEEnumLiteral(multiplicityEEnum, Multiplicity.SINGLE);
+		addEEnumLiteral(multiplicityEEnum, Multiplicity.MULTIPLE);
 
 		// Create resource
 		createResource(eNS_URI);

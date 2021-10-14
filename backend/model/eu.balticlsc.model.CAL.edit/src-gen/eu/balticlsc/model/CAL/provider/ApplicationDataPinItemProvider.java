@@ -56,6 +56,8 @@ public class ApplicationDataPinItemProvider extends ItemProviderAdapter implemen
 			addOutgoingPropertyDescriptor(object);
 			addIncomingPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addDataMultiplicityPropertyDescriptor(object);
+			addTokenMultiplicityPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -106,6 +108,38 @@ public class ApplicationDataPinItemProvider extends ItemProviderAdapter implemen
 	}
 
 	/**
+	 * This adds a property descriptor for the Data Multiplicity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataMultiplicityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataPin_dataMultiplicity_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DataPin_dataMultiplicity_feature",
+								"_UI_DataPin_type"),
+						CALPackage.Literals.DATA_PIN__DATA_MULTIPLICITY, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Token Multiplicity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTokenMultiplicityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataPin_tokenMultiplicity_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DataPin_tokenMultiplicity_feature",
+								"_UI_DataPin_type"),
+						CALPackage.Literals.DATA_PIN__TOKEN_MULTIPLICITY, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
 	 * This returns ApplicationDataPin.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -152,6 +186,8 @@ public class ApplicationDataPinItemProvider extends ItemProviderAdapter implemen
 
 		switch (notification.getFeatureID(ApplicationDataPin.class)) {
 		case CALPackage.APPLICATION_DATA_PIN__NAME:
+		case CALPackage.APPLICATION_DATA_PIN__DATA_MULTIPLICITY:
+		case CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

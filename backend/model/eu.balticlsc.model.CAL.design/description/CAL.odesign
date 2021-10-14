@@ -77,6 +77,17 @@
             </initialOperation>
           </ownedTools>
         </toolSections>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-multiple-data.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-single-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-multiple-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
+        </customization>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="eu.balticlsc.model.CAL.design.Services"/>

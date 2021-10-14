@@ -471,13 +471,31 @@ public interface CALPackage extends EPackage {
 	int DATA_PIN__NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Data Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PIN__DATA_MULTIPLICITY = 1;
+
+	/**
+	 * The feature id for the '<em><b>Token Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PIN__TOKEN_MULTIPLICITY = 2;
+
+	/**
 	 * The number of structural features of the '<em>Data Pin</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_PIN_FEATURE_COUNT = 1;
+	int DATA_PIN_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Data Pin</em>' class.
@@ -506,6 +524,24 @@ public interface CALPackage extends EPackage {
 	 * @ordered
 	 */
 	int DECLARED_DATA_PIN__NAME = DATA_PIN__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARED_DATA_PIN__DATA_MULTIPLICITY = DATA_PIN__DATA_MULTIPLICITY;
+
+	/**
+	 * The feature id for the '<em><b>Token Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARED_DATA_PIN__TOKEN_MULTIPLICITY = DATA_PIN__TOKEN_MULTIPLICITY;
 
 	/**
 	 * The number of structural features of the '<em>Declared Data Pin</em>' class.
@@ -627,13 +663,31 @@ public interface CALPackage extends EPackage {
 	int APPLICATION_DATA_PIN__NAME = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Data Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN__DATA_MULTIPLICITY = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Token Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Application Data Pin</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_DATA_PIN_FEATURE_COUNT = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 1;
+	int APPLICATION_DATA_PIN_FEATURE_COUNT = CONNECTABLE_DATA_PIN_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Application Data Pin</em>' class.
@@ -673,6 +727,16 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 */
 	int UNIT_PARAM_TYPE = 13;
+
+	/**
+	 * The meta object id for the '{@link eu.balticlsc.model.CAL.Multiplicity <em>Multiplicity</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eu.balticlsc.model.CAL.Multiplicity
+	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getMultiplicity()
+	 * @generated
+	 */
+	int MULTIPLICITY = 14;
 
 	/**
 	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.UnitCall <em>Unit Call</em>}'.
@@ -1060,6 +1124,28 @@ public interface CALPackage extends EPackage {
 	EAttribute getDataPin_Name();
 
 	/**
+	 * Returns the meta object for the attribute '{@link eu.balticlsc.model.CAL.DataPin#getDataMultiplicity <em>Data Multiplicity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Multiplicity</em>'.
+	 * @see eu.balticlsc.model.CAL.DataPin#getDataMultiplicity()
+	 * @see #getDataPin()
+	 * @generated
+	 */
+	EAttribute getDataPin_DataMultiplicity();
+
+	/**
+	 * Returns the meta object for the attribute '{@link eu.balticlsc.model.CAL.DataPin#getTokenMultiplicity <em>Token Multiplicity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Token Multiplicity</em>'.
+	 * @see eu.balticlsc.model.CAL.DataPin#getTokenMultiplicity()
+	 * @see #getDataPin()
+	 * @generated
+	 */
+	EAttribute getDataPin_TokenMultiplicity();
+
+	/**
 	 * Returns the meta object for enum '{@link eu.balticlsc.model.CAL.ComputationUnitStatus <em>Computation Unit Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1088,6 +1174,16 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getUnitParamType();
+
+	/**
+	 * Returns the meta object for enum '{@link eu.balticlsc.model.CAL.Multiplicity <em>Multiplicity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Multiplicity</em>'.
+	 * @see eu.balticlsc.model.CAL.Multiplicity
+	 * @generated
+	 */
+	EEnum getMultiplicity();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1424,6 +1520,22 @@ public interface CALPackage extends EPackage {
 		EAttribute DATA_PIN__NAME = eINSTANCE.getDataPin_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Multiplicity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_PIN__DATA_MULTIPLICITY = eINSTANCE.getDataPin_DataMultiplicity();
+
+		/**
+		 * The meta object literal for the '<em><b>Token Multiplicity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_PIN__TOKEN_MULTIPLICITY = eINSTANCE.getDataPin_TokenMultiplicity();
+
+		/**
 		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.ComputationUnitStatus <em>Computation Unit Status</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1452,6 +1564,16 @@ public interface CALPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum UNIT_PARAM_TYPE = eINSTANCE.getUnitParamType();
+
+		/**
+		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.Multiplicity <em>Multiplicity</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see eu.balticlsc.model.CAL.Multiplicity
+		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getMultiplicity()
+		 * @generated
+		 */
+		EEnum MULTIPLICITY = eINSTANCE.getMultiplicity();
 
 	}
 

@@ -5,6 +5,7 @@ package eu.balticlsc.model.CAL.impl;
 import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
 
+import eu.balticlsc.model.CAL.Multiplicity;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
@@ -20,6 +21,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getName <em>Name</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getDataMultiplicity <em>Data Multiplicity</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getTokenMultiplicity <em>Token Multiplicity</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,6 +46,43 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDataMultiplicity() <em>Data Multiplicity</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataMultiplicity()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Multiplicity DATA_MULTIPLICITY_EDEFAULT = Multiplicity.SINGLE;
+	/**
+	 * The cached value of the '{@link #getDataMultiplicity() <em>Data Multiplicity</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataMultiplicity()
+	 * @generated
+	 * @ordered
+	 */
+	protected Multiplicity dataMultiplicity = DATA_MULTIPLICITY_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getTokenMultiplicity() <em>Token Multiplicity</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTokenMultiplicity()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Multiplicity TOKEN_MULTIPLICITY_EDEFAULT = Multiplicity.SINGLE;
+	/**
+	 * The cached value of the '{@link #getTokenMultiplicity() <em>Token Multiplicity</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTokenMultiplicity()
+	 * @generated
+	 * @ordered
+	 */
+	protected Multiplicity tokenMultiplicity = TOKEN_MULTIPLICITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,10 +132,62 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 */
 	@Override
+	public Multiplicity getDataMultiplicity() {
+		return dataMultiplicity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDataMultiplicity(Multiplicity newDataMultiplicity) {
+		Multiplicity oldDataMultiplicity = dataMultiplicity;
+		dataMultiplicity = newDataMultiplicity == null ? DATA_MULTIPLICITY_EDEFAULT : newDataMultiplicity;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.DECLARED_DATA_PIN__DATA_MULTIPLICITY,
+					oldDataMultiplicity, dataMultiplicity));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Multiplicity getTokenMultiplicity() {
+		return tokenMultiplicity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTokenMultiplicity(Multiplicity newTokenMultiplicity) {
+		Multiplicity oldTokenMultiplicity = tokenMultiplicity;
+		tokenMultiplicity = newTokenMultiplicity == null ? TOKEN_MULTIPLICITY_EDEFAULT : newTokenMultiplicity;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY,
+					oldTokenMultiplicity, tokenMultiplicity));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case CALPackage.DECLARED_DATA_PIN__NAME:
 			return getName();
+		case CALPackage.DECLARED_DATA_PIN__DATA_MULTIPLICITY:
+			return getDataMultiplicity();
+		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
+			return getTokenMultiplicity();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -110,6 +202,12 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 		switch (featureID) {
 		case CALPackage.DECLARED_DATA_PIN__NAME:
 			setName((String) newValue);
+			return;
+		case CALPackage.DECLARED_DATA_PIN__DATA_MULTIPLICITY:
+			setDataMultiplicity((Multiplicity) newValue);
+			return;
+		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
+			setTokenMultiplicity((Multiplicity) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -126,6 +224,12 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 		case CALPackage.DECLARED_DATA_PIN__NAME:
 			setName(NAME_EDEFAULT);
 			return;
+		case CALPackage.DECLARED_DATA_PIN__DATA_MULTIPLICITY:
+			setDataMultiplicity(DATA_MULTIPLICITY_EDEFAULT);
+			return;
+		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
+			setTokenMultiplicity(TOKEN_MULTIPLICITY_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -140,6 +244,10 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 		switch (featureID) {
 		case CALPackage.DECLARED_DATA_PIN__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case CALPackage.DECLARED_DATA_PIN__DATA_MULTIPLICITY:
+			return dataMultiplicity != DATA_MULTIPLICITY_EDEFAULT;
+		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
+			return tokenMultiplicity != TOKEN_MULTIPLICITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -157,6 +265,10 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", dataMultiplicity: ");
+		result.append(dataMultiplicity);
+		result.append(", tokenMultiplicity: ");
+		result.append(tokenMultiplicity);
 		result.append(')');
 		return result.toString();
 	}

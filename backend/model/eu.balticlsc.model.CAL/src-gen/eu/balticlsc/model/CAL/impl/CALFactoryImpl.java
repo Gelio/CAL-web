@@ -93,6 +93,8 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 			return createUnitStrengthFromString(eDataType, initialValue);
 		case CALPackage.UNIT_PARAM_TYPE:
 			return createUnitParamTypeFromString(eDataType, initialValue);
+		case CALPackage.MULTIPLICITY:
+			return createMultiplicityFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -112,6 +114,8 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 			return convertUnitStrengthToString(eDataType, instanceValue);
 		case CALPackage.UNIT_PARAM_TYPE:
 			return convertUnitParamTypeToString(eDataType, instanceValue);
+		case CALPackage.MULTIPLICITY:
+			return convertMultiplicityToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -279,6 +283,28 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 	 * @generated
 	 */
 	public String convertUnitParamTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Multiplicity createMultiplicityFromString(EDataType eDataType, String initialValue) {
+		Multiplicity result = Multiplicity.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMultiplicityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

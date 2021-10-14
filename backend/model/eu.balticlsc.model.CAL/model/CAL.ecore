@@ -78,5 +78,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataPin" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataMultiplicity" eType="#//Multiplicity"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenMultiplicity" eType="#//Multiplicity"
+        defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Multiplicity">
+    <eLiterals name="Single" literal="Single"/>
+    <eLiterals name="Multiple" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

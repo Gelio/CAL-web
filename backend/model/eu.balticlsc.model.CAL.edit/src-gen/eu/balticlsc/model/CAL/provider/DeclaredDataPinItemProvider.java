@@ -53,6 +53,8 @@ public class DeclaredDataPinItemProvider extends ItemProviderAdapter implements 
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addDataMultiplicityPropertyDescriptor(object);
+			addTokenMultiplicityPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -69,6 +71,38 @@ public class DeclaredDataPinItemProvider extends ItemProviderAdapter implements 
 						getResourceLocator(), getString("_UI_DataPin_name_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_DataPin_name_feature", "_UI_DataPin_type"),
 						CALPackage.Literals.DATA_PIN__NAME, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Multiplicity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataMultiplicityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataPin_dataMultiplicity_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DataPin_dataMultiplicity_feature",
+								"_UI_DataPin_type"),
+						CALPackage.Literals.DATA_PIN__DATA_MULTIPLICITY, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Token Multiplicity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTokenMultiplicityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataPin_tokenMultiplicity_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DataPin_tokenMultiplicity_feature",
+								"_UI_DataPin_type"),
+						CALPackage.Literals.DATA_PIN__TOKEN_MULTIPLICITY, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -119,6 +153,8 @@ public class DeclaredDataPinItemProvider extends ItemProviderAdapter implements 
 
 		switch (notification.getFeatureID(DeclaredDataPin.class)) {
 		case CALPackage.DECLARED_DATA_PIN__NAME:
+		case CALPackage.DECLARED_DATA_PIN__DATA_MULTIPLICITY:
+		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

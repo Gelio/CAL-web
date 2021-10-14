@@ -25,6 +25,10 @@
       <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitParamType/Config"/>
       <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//UnitParamType/Port"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CAL.ecore#//Multiplicity">
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//Multiplicity/Single"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//Multiplicity/Multiple"/>
+    </genEnums>
     <genClasses ecoreClass="CAL.ecore#//UnitCall">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/strength"/>
@@ -69,6 +73,8 @@
     </genClasses>
     <genClasses image="false" ecoreClass="CAL.ecore#//DataPin">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/dataMultiplicity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/tokenMultiplicity"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
