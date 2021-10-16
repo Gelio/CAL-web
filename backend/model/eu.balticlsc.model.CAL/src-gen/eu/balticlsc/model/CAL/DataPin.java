@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link eu.balticlsc.model.CAL.DataPin#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.DataPin#getDataMultiplicity <em>Data Multiplicity</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.DataPin#getTokenMultiplicity <em>Token Multiplicity</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.DataPin#getBinding <em>Binding</em>}</li>
  * </ul>
  *
  * @see eu.balticlsc.model.CAL.CALPackage#getDataPin()
@@ -96,5 +97,31 @@ public interface DataPin extends EObject {
 	 * @generated
 	 */
 	void setTokenMultiplicity(Multiplicity value);
+
+	/**
+	 * Returns the value of the '<em><b>Binding</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * The literals are from the enumeration {@link eu.balticlsc.model.CAL.DataBinding}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Binding</em>' attribute.
+	 * @see eu.balticlsc.model.CAL.DataBinding
+	 * @see #setBinding(DataBinding)
+	 * @see eu.balticlsc.model.CAL.CALPackage#getDataPin_Binding()
+	 * @model default=""
+	 * @generated
+	 */
+	DataBinding getBinding();
+
+	/**
+	 * Sets the value of the '{@link eu.balticlsc.model.CAL.DataPin#getBinding <em>Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Binding</em>' attribute.
+	 * @see eu.balticlsc.model.CAL.DataBinding
+	 * @see #getBinding()
+	 * @generated
+	 */
+	void setBinding(DataBinding value);
 
 } // DataPin

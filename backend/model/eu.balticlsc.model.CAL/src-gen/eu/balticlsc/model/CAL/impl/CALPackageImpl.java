@@ -10,6 +10,7 @@ import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.ComputationUnitStatus;
 import eu.balticlsc.model.CAL.ComputedDataPin;
 import eu.balticlsc.model.CAL.ConnectableDataPin;
+import eu.balticlsc.model.CAL.DataBinding;
 import eu.balticlsc.model.CAL.DataFlow;
 import eu.balticlsc.model.CAL.DataPin;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
@@ -139,6 +140,13 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	private EEnum multiplicityEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum dataBindingEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -590,6 +598,16 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getDataPin_Binding() {
+		return (EAttribute) dataPinEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getComputationUnitStatus() {
 		return computationUnitStatusEEnum;
 	}
@@ -622,6 +640,16 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	@Override
 	public EEnum getMultiplicity() {
 		return multiplicityEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getDataBinding() {
+		return dataBindingEEnum;
 	}
 
 	/**
@@ -702,12 +730,14 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		createEAttribute(dataPinEClass, DATA_PIN__NAME);
 		createEAttribute(dataPinEClass, DATA_PIN__DATA_MULTIPLICITY);
 		createEAttribute(dataPinEClass, DATA_PIN__TOKEN_MULTIPLICITY);
+		createEAttribute(dataPinEClass, DATA_PIN__BINDING);
 
 		// Create enums
 		computationUnitStatusEEnum = createEEnum(COMPUTATION_UNIT_STATUS);
 		unitStrengthEEnum = createEEnum(UNIT_STRENGTH);
 		unitParamTypeEEnum = createEEnum(UNIT_PARAM_TYPE);
 		multiplicityEEnum = createEEnum(MULTIPLICITY);
+		dataBindingEEnum = createEEnum(DATA_BINDING);
 	}
 
 	/**
@@ -852,6 +882,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEAttribute(getDataPin_TokenMultiplicity(), this.getMultiplicity(), "tokenMultiplicity", "", 0, 1,
 				DataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataPin_Binding(), this.getDataBinding(), "binding", "", 0, 1, DataPin.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(computationUnitStatusEEnum, ComputationUnitStatus.class, "ComputationUnitStatus");
@@ -872,6 +904,10 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEEnum(multiplicityEEnum, Multiplicity.class, "Multiplicity");
 		addEEnumLiteral(multiplicityEEnum, Multiplicity.SINGLE);
 		addEEnumLiteral(multiplicityEEnum, Multiplicity.MULTIPLE);
+
+		initEEnum(dataBindingEEnum, DataBinding.class, "DataBinding");
+		addEEnumLiteral(dataBindingEEnum, DataBinding.REQUIRED);
+		addEEnumLiteral(dataBindingEEnum, DataBinding.PROVIDED);
 
 		// Create resource
 		createResource(eNS_URI);

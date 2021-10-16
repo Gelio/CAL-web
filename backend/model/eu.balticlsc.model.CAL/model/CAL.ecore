@@ -82,9 +82,15 @@
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenMultiplicity" eType="#//Multiplicity"
         defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="#//DataBinding"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Multiplicity">
     <eLiterals name="Single" literal="Single"/>
     <eLiterals name="Multiple" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DataBinding">
+    <eLiterals name="Required" literal="Required"/>
+    <eLiterals name="Provided" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -3,6 +3,7 @@
 package eu.balticlsc.model.CAL.impl;
 
 import eu.balticlsc.model.CAL.CALPackage;
+import eu.balticlsc.model.CAL.DataBinding;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
 
 import eu.balticlsc.model.CAL.Multiplicity;
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getDataMultiplicity <em>Data Multiplicity</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getTokenMultiplicity <em>Token Multiplicity</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl#getBinding <em>Binding</em>}</li>
  * </ul>
  *
  * @generated
@@ -83,6 +85,25 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected Multiplicity tokenMultiplicity = TOKEN_MULTIPLICITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBinding() <em>Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataBinding BINDING_EDEFAULT = DataBinding.REQUIRED;
+	/**
+	 * The cached value of the '{@link #getBinding() <em>Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataBinding binding = BINDING_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -180,6 +201,30 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 */
 	@Override
+	public DataBinding getBinding() {
+		return binding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBinding(DataBinding newBinding) {
+		DataBinding oldBinding = binding;
+		binding = newBinding == null ? BINDING_EDEFAULT : newBinding;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.DECLARED_DATA_PIN__BINDING, oldBinding,
+					binding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case CALPackage.DECLARED_DATA_PIN__NAME:
@@ -188,6 +233,8 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 			return getDataMultiplicity();
 		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
 			return getTokenMultiplicity();
+		case CALPackage.DECLARED_DATA_PIN__BINDING:
+			return getBinding();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -208,6 +255,9 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 			return;
 		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
 			setTokenMultiplicity((Multiplicity) newValue);
+			return;
+		case CALPackage.DECLARED_DATA_PIN__BINDING:
+			setBinding((DataBinding) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -230,6 +280,9 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
 			setTokenMultiplicity(TOKEN_MULTIPLICITY_EDEFAULT);
 			return;
+		case CALPackage.DECLARED_DATA_PIN__BINDING:
+			setBinding(BINDING_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -248,6 +301,8 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 			return dataMultiplicity != DATA_MULTIPLICITY_EDEFAULT;
 		case CALPackage.DECLARED_DATA_PIN__TOKEN_MULTIPLICITY:
 			return tokenMultiplicity != TOKEN_MULTIPLICITY_EDEFAULT;
+		case CALPackage.DECLARED_DATA_PIN__BINDING:
+			return binding != BINDING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -269,6 +324,8 @@ public class DeclaredDataPinImpl extends MinimalEObjectImpl.Container implements
 		result.append(dataMultiplicity);
 		result.append(", tokenMultiplicity: ");
 		result.append(tokenMultiplicity);
+		result.append(", binding: ");
+		result.append(binding);
 		result.append(')');
 		return result.toString();
 	}

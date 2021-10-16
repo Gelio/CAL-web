@@ -29,6 +29,10 @@
       <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//Multiplicity/Single"/>
       <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//Multiplicity/Multiple"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CAL.ecore#//DataBinding">
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//DataBinding/Required"/>
+      <genEnumLiterals ecoreEnumLiteral="CAL.ecore#//DataBinding/Provided"/>
+    </genEnums>
     <genClasses ecoreClass="CAL.ecore#//UnitCall">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/strength"/>
@@ -75,6 +79,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/dataMultiplicity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/tokenMultiplicity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//DataPin/binding"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

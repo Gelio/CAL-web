@@ -4,6 +4,7 @@ package eu.balticlsc.model.CAL.impl;
 
 import eu.balticlsc.model.CAL.ApplicationDataPin;
 import eu.balticlsc.model.CAL.CALPackage;
+import eu.balticlsc.model.CAL.DataBinding;
 import eu.balticlsc.model.CAL.DataFlow;
 import eu.balticlsc.model.CAL.DataPin;
 
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl#getDataMultiplicity <em>Data Multiplicity</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl#getTokenMultiplicity <em>Token Multiplicity</em>}</li>
+ *   <li>{@link eu.balticlsc.model.CAL.impl.ApplicationDataPinImpl#getBinding <em>Binding</em>}</li>
  * </ul>
  *
  * @generated
@@ -114,6 +116,26 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected Multiplicity tokenMultiplicity = TOKEN_MULTIPLICITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBinding() <em>Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataBinding BINDING_EDEFAULT = DataBinding.REQUIRED;
+
+	/**
+	 * The cached value of the '{@link #getBinding() <em>Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataBinding binding = BINDING_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -352,6 +374,30 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
+	public DataBinding getBinding() {
+		return binding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBinding(DataBinding newBinding) {
+		DataBinding oldBinding = binding;
+		binding = newBinding == null ? BINDING_EDEFAULT : newBinding;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.APPLICATION_DATA_PIN__BINDING, oldBinding,
+					binding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case CALPackage.APPLICATION_DATA_PIN__OUTGOING:
@@ -406,6 +452,8 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 			return getDataMultiplicity();
 		case CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY:
 			return getTokenMultiplicity();
+		case CALPackage.APPLICATION_DATA_PIN__BINDING:
+			return getBinding();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -432,6 +480,9 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 			return;
 		case CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY:
 			setTokenMultiplicity((Multiplicity) newValue);
+			return;
+		case CALPackage.APPLICATION_DATA_PIN__BINDING:
+			setBinding((DataBinding) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -460,6 +511,9 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 		case CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY:
 			setTokenMultiplicity(TOKEN_MULTIPLICITY_EDEFAULT);
 			return;
+		case CALPackage.APPLICATION_DATA_PIN__BINDING:
+			setBinding(BINDING_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -482,6 +536,8 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 			return dataMultiplicity != DATA_MULTIPLICITY_EDEFAULT;
 		case CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY:
 			return tokenMultiplicity != TOKEN_MULTIPLICITY_EDEFAULT;
+		case CALPackage.APPLICATION_DATA_PIN__BINDING:
+			return binding != BINDING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -501,6 +557,8 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 				return CALPackage.DATA_PIN__DATA_MULTIPLICITY;
 			case CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY:
 				return CALPackage.DATA_PIN__TOKEN_MULTIPLICITY;
+			case CALPackage.APPLICATION_DATA_PIN__BINDING:
+				return CALPackage.DATA_PIN__BINDING;
 			default:
 				return -1;
 			}
@@ -523,6 +581,8 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 				return CALPackage.APPLICATION_DATA_PIN__DATA_MULTIPLICITY;
 			case CALPackage.DATA_PIN__TOKEN_MULTIPLICITY:
 				return CALPackage.APPLICATION_DATA_PIN__TOKEN_MULTIPLICITY;
+			case CALPackage.DATA_PIN__BINDING:
+				return CALPackage.APPLICATION_DATA_PIN__BINDING;
 			default:
 				return -1;
 			}
@@ -547,6 +607,8 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 		result.append(dataMultiplicity);
 		result.append(", tokenMultiplicity: ");
 		result.append(tokenMultiplicity);
+		result.append(", binding: ");
+		result.append(binding);
 		result.append(')');
 		return result.toString();
 	}
