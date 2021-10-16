@@ -38,10 +38,10 @@
           </ownedTools>
         </toolSections>
         <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple">
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Single">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-multiple-data.png"/>
           </vsmElementCustomizations>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Single and self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-single-data-multiple-tokens.png"/>
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
