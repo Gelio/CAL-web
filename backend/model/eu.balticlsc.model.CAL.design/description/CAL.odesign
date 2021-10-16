@@ -5,7 +5,7 @@
       <metamodel href="https://www.balticlsc.eu/model/CAL#/"/>
       <defaultLayer name="Default">
         <nodeMappings name="ComputationUnitReleaseNode" semanticCandidatesExpression="feature:units" domainClass="CAL::ComputationUnitRelease">
-          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.version" sizeComputationExpression="7" labelPosition="node" resizeKind="NSEW">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-release.png" sizeComputationExpression="7" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
@@ -13,8 +13,8 @@
         </nodeMappings>
         <nodeMappings name="UnitCallNode" semanticCandidatesExpression="feature:calls" domainClass="CAL::UnitCall">
           <borderedNodeMappings name="ComputedDataPinNode" semanticCandidatesExpression="feature:pins" domainClass="CAL::ComputedDataPin">
-            <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="aql:self.declared.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.declared.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.declared.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" tooltipExpression="aql: (if self.declared.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.declared.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </borderedNodeMappings>
@@ -25,10 +25,10 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
             </style>
           </borderedNodeMappings>
-          <style xsi:type="style:SquareDescription" labelSize="12" labelExpression="aql:self.name + '\n' + self.unit.name" tooltipExpression="feature:name" sizeComputationExpression="5" labelPosition="node" resizeKind="NSEW">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.unit.name + ' ' + self.unit.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png" tooltipExpression="feature:name" sizeComputationExpression="0" labelPosition="node" resizeKind="NSEW" width="25" height="10">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </nodeMappings>
         <edgeMappings name="DataFlowEdge" semanticCandidatesExpression="feature:flows" sourceMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="CAL::DataFlow" useDomainElement="true">
@@ -86,6 +86,11 @@
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-multiple-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.binding == CAL::DataBinding::Required">
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" referenceName="borderColor">
+              <value href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+            </featureCustomizations>
           </vsmElementCustomizations>
         </customization>
       </defaultLayer>
