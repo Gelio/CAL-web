@@ -18,43 +18,12 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </borderedNodeMappings>
-          <borderedNodeMappings name="UnitParameterValueNode" semanticCandidatesExpression="feature:parameterValues" domainClass="CAL::UnitParameterValue">
-            <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
-            </style>
-          </borderedNodeMappings>
           <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.unit.name + ' ' + self.unit.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png" tooltipExpression="feature:name" sizeComputationExpression="0" labelPosition="node" resizeKind="NSEW" width="25" height="10">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </nodeMappings>
-        <edgeMappings name="DataFlowEdge" semanticCandidatesExpression="feature:flows" sourceMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="CAL::DataFlow" useDomainElement="true">
-          <style sizeComputationExpression="2">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-            <centerLabelStyleDescription labelSize="12">
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </centerLabelStyleDescription>
-          </style>
-        </edgeMappings>
-        <edgeMappings name="declaredDataPinEdge" sourceMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetFinderExpression="feature:declared">
-          <style lineStyle="dash" sizeComputationExpression="2">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-            <centerLabelStyleDescription labelSize="12">
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </centerLabelStyleDescription>
-          </style>
-        </edgeMappings>
-        <edgeMappings name="unitParameterDeclaration" sourceMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='UnitParameterValueNode']" targetFinderExpression="feature:declaration">
-          <style sizeComputationExpression="2">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-            <centerLabelStyleDescription labelSize="12">
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </centerLabelStyleDescription>
-          </style>
-        </edgeMappings>
         <toolSections name="Tools">
           <ownedTools xsi:type="tool:NodeCreationDescription" name="ComputationUnitRelease" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ComputationUnitReleaseNode']">
             <variable name="container"/>
@@ -64,15 +33,6 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL.ComputationUnitRelease" referenceName="units">
                   <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New ComputationUnitRelease"/>
                 </subModelOperations>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="DataPin">
-            <variable name="container"/>
-            <viewVariable name="containerView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::DeclaredDataPin" referenceName="declaredPins"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
