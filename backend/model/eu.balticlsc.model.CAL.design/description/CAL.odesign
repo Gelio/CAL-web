@@ -5,7 +5,7 @@
       <metamodel href="https://www.balticlsc.eu/model/CAL#/"/>
       <defaultLayer name="Default">
         <nodeMappings name="ComputationUnitReleaseNode" semanticCandidatesExpression="feature:units" domainClass="CAL::ComputationUnitRelease">
-          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-release.png" sizeComputationExpression="7" labelPosition="node" resizeKind="NSEW">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-release.png" sizeComputationExpression="0" labelPosition="node" resizeKind="NSEW" width="20" height="8">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
