@@ -4,7 +4,7 @@
     <semanticResources>multiple-object-detection.CAL</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_dmJ2MC8xEeyCwMC0Yl4i7w">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_dmOHoC8xEeyCwMC0Yl4i7w" name="Computation diagram" repPath="#_dmMScC8xEeyCwMC0Yl4i7w" changeId="a47d6309-0a34-4b8a-b74f-fa2156cb27ca">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_dmOHoC8xEeyCwMC0Yl4i7w" name="Computation diagram" repPath="#_dmMScC8xEeyCwMC0Yl4i7w" changeId="a3887e2d-46d1-4ae0-9692-91705d45e39b">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']"/>
         <target xmi:type="CAL:ComputationApplicationRelease" href="multiple-object-detection.CAL#/"/>
       </ownedRepresentationDescriptors>
@@ -222,6 +222,39 @@
           <styles xmi:type="notation:ShapeStyle" xmi:id="_ub6yES80EeypY-T2on4IpA" fontName="Sans" fontHeight="12"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ub6yEi80EeypY-T2on4IpA" x="1176" y="207" width="300" height="185"/>
         </children>
+        <children xmi:type="notation:Node" xmi:id="_v_UO8C9qEeyvg4ZbNWlvvQ" type="2001" element="_v_OIUC9qEeyvg4ZbNWlvvQ">
+          <children xmi:type="notation:Node" xmi:id="_v_U2AC9qEeyvg4ZbNWlvvQ" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_v_U2AS9qEeyvg4ZbNWlvvQ" x="41" y="8"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_v_VdEC9qEeyvg4ZbNWlvvQ" type="3005" element="_v_OIUS9qEeyvg4ZbNWlvvQ">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_v_VdES9qEeyvg4ZbNWlvvQ" fontName="Sans"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_v_VdEi9qEeyvg4ZbNWlvvQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_v_UO8S9qEeyvg4ZbNWlvvQ" fontName="Sans" fontHeight="12"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_v_UO8i9qEeyvg4ZbNWlvvQ" x="-240" y="288" width="40" height="36"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_NZLyUC9zEey-5OZ194TDbg" type="2001" element="_NZBaQC9zEey-5OZ194TDbg">
+          <children xmi:type="notation:Node" xmi:id="_NZMZYC9zEey-5OZ194TDbg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_NZMZYS9zEey-5OZ194TDbg" x="-54" y="-20"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_NZNAcC9zEey-5OZ194TDbg" type="3005" element="_NZCBUC9zEey-5OZ194TDbg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_NZNAcS9zEey-5OZ194TDbg" fontName="Sans"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NZNAci9zEey-5OZ194TDbg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_NZLyUS9zEey-5OZ194TDbg" fontName="Sans" fontHeight="12"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NZLyUi9zEey-5OZ194TDbg" x="1728" y="192" width="40" height="36"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_N0XScC9zEey-5OZ194TDbg" type="2001" element="_N0MTUC9zEey-5OZ194TDbg">
+          <children xmi:type="notation:Node" xmi:id="_N0XScy9zEey-5OZ194TDbg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_N0XSdC9zEey-5OZ194TDbg" x="-54" y="-20"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_N0X5gC9zEey-5OZ194TDbg" type="3005" element="_N0MTUS9zEey-5OZ194TDbg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_N0X5gS9zEey-5OZ194TDbg" fontName="Sans"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_N0X5gi9zEey-5OZ194TDbg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_N0XScS9zEey-5OZ194TDbg" fontName="Sans" fontHeight="12"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_N0XSci9zEey-5OZ194TDbg" x="1716" y="420" width="40" height="36"/>
+        </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_dmX4oi8xEeyCwMC0Yl4i7w"/>
         <edges xmi:type="notation:Edge" xmi:id="_a9XnUC83EeypY-T2on4IpA" type="4001" element="_a9OdZC83EeypY-T2on4IpA" source="_EJUvIC80EeyCwMC0Yl4i7w" target="_Maxn8i80EeyCwMC0Yl4i7w">
           <children xmi:type="notation:Node" xmi:id="_a9YOYC83EeypY-T2on4IpA" type="6001">
@@ -239,22 +272,6 @@
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_a9YOZi83EeypY-T2on4IpA" id="(0.5,0.5)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_a9YOZy83EeypY-T2on4IpA" id="(0.5,0.5)"/>
         </edges>
-        <edges xmi:type="notation:Edge" xmi:id="_GT5-EC85EeypY-T2on4IpA" type="4001" element="_GTvmBC85EeypY-T2on4IpA" source="_EJV9QC80EeyCwMC0Yl4i7w" target="_ub9OUC80EeypY-T2on4IpA">
-          <children xmi:type="notation:Node" xmi:id="_GT6lIC85EeypY-T2on4IpA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GT6lIS85EeypY-T2on4IpA" y="-10"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_GT6lIi85EeypY-T2on4IpA" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GT6lIy85EeypY-T2on4IpA" y="10"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_GT6lJC85EeypY-T2on4IpA" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GT6lJS85EeypY-T2on4IpA" y="10"/>
-          </children>
-          <styles xmi:type="notation:ConnectorStyle" xmi:id="_GT5-ES85EeypY-T2on4IpA"/>
-          <styles xmi:type="notation:FontStyle" xmi:id="_GT5-Ei85EeypY-T2on4IpA" fontName="Sans" fontHeight="12"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GT5-Ey85EeypY-T2on4IpA" points="[20, 8, -258, -107]$[258, 106, -20, -9]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GT6lJi85EeypY-T2on4IpA" id="(0.5,0.5)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GT6lJy85EeypY-T2on4IpA" id="(0.5,0.5)"/>
-        </edges>
         <edges xmi:type="notation:Edge" xmi:id="_9Oy8QC9PEeyvZbk0RdM7fg" type="4001" element="_7XqEOC8-EeyvZbk0RdM7fg" source="_May2EC80EeyCwMC0Yl4i7w" target="_ucW28C80EeypY-T2on4IpA">
           <children xmi:type="notation:Node" xmi:id="_9Oy8RC9PEeyvZbk0RdM7fg" type="6001">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9Oy8RS9PEeyvZbk0RdM7fg" x="-2" y="-10"/>
@@ -269,27 +286,95 @@
           <styles xmi:type="notation:FontStyle" xmi:id="_9Oy8Qi9PEeyvZbk0RdM7fg" fontName="Sans" fontHeight="12"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9Oy8Qy9PEeyvZbk0RdM7fg" points="[20, 8, -234, -100]$[234, 99, -20, -9]"/>
         </edges>
-        <edges xmi:type="notation:Edge" xmi:id="__W87kC9PEeyvZbk0RdM7fg" type="4001" element="__W3cDC9PEeyvZbk0RdM7fg" source="_ucOUEC80EeypY-T2on4IpA" target="_ucYsIC80EeypY-T2on4IpA">
-          <children xmi:type="notation:Node" xmi:id="__W87lC9PEeyvZbk0RdM7fg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__W87lS9PEeyvZbk0RdM7fg" y="-13"/>
+        <edges xmi:type="notation:Edge" xmi:id="_peRuYC9rEeyvg4ZbNWlvvQ" type="4001" element="_peJymC9rEeyvg4ZbNWlvvQ" source="_v_UO8C9qEeyvg4ZbNWlvvQ" target="_VakfYC8yEeyCwMC0Yl4i7w">
+          <children xmi:type="notation:Node" xmi:id="_peSVcC9rEeyvg4ZbNWlvvQ" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_peSVcS9rEeyvg4ZbNWlvvQ" x="14" y="-2"/>
           </children>
-          <children xmi:type="notation:Node" xmi:id="__W87li9PEeyvZbk0RdM7fg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__W87ly9PEeyvZbk0RdM7fg" x="-1" y="8"/>
+          <children xmi:type="notation:Node" xmi:id="_peSVci9rEeyvg4ZbNWlvvQ" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_peSVcy9rEeyvg4ZbNWlvvQ" x="-16" y="1"/>
           </children>
-          <children xmi:type="notation:Node" xmi:id="__W87mC9PEeyvZbk0RdM7fg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__W87mS9PEeyvZbk0RdM7fg" x="-1" y="10"/>
+          <children xmi:type="notation:Node" xmi:id="_peSVdC9rEeyvg4ZbNWlvvQ" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_peSVdS9rEeyvg4ZbNWlvvQ" x="-15"/>
           </children>
-          <styles xmi:type="notation:ConnectorStyle" xmi:id="__W87kS9PEeyvZbk0RdM7fg"/>
-          <styles xmi:type="notation:FontStyle" xmi:id="__W87ki9PEeyvZbk0RdM7fg" fontName="Sans" fontHeight="12"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__W87ky9PEeyvZbk0RdM7fg" points="[0, 0, -226, 129]$[226, -129, 0, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="__W87mi9PEeyvZbk0RdM7fg" id="(1.0,0.65)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__W87my9PEeyvZbk0RdM7fg" id="(0.0,0.725)"/>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_peRuYS9rEeyvg4ZbNWlvvQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_peRuYi9rEeyvg4ZbNWlvvQ" fontName="Sans" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_peRuYy9rEeyvg4ZbNWlvvQ" points="[28, -4, -272, 32]$[300, -36, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_peSVdi9rEeyvg4ZbNWlvvQ" id="(0.3,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_peSVdy9rEeyvg4ZbNWlvvQ" id="(0.5,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_6amBYC9yEey-5OZ194TDbg" type="4001" element="_6af6wC9yEey-5OZ194TDbg" source="_EJV9QC80EeyCwMC0Yl4i7w" target="_ub9OUC80EeypY-T2on4IpA">
+          <children xmi:type="notation:Node" xmi:id="_6amBZC9yEey-5OZ194TDbg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6amBZS9yEey-5OZ194TDbg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_6amBZi9yEey-5OZ194TDbg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6amBZy9yEey-5OZ194TDbg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_6amBaC9yEey-5OZ194TDbg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6amBaS9yEey-5OZ194TDbg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_6amBYS9yEey-5OZ194TDbg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_6amBYi9yEey-5OZ194TDbg" fontName="Sans" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6amBYy9yEey-5OZ194TDbg" points="[20, 8, -258, -107]$[258, 106, -20, -9]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6anPgC9yEey-5OZ194TDbg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6anPgS9yEey-5OZ194TDbg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_7JtxMC9yEey-5OZ194TDbg" type="4001" element="_7Jg86C9yEey-5OZ194TDbg" source="_ucOUEC80EeypY-T2on4IpA" target="_ucYsIC80EeypY-T2on4IpA">
+          <children xmi:type="notation:Node" xmi:id="_7JuYQC9yEey-5OZ194TDbg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7JuYQS9yEey-5OZ194TDbg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_7Ju_UC9yEey-5OZ194TDbg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7Ju_US9yEey-5OZ194TDbg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_7Ju_Ui9yEey-5OZ194TDbg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7Ju_Uy9yEey-5OZ194TDbg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_7JtxMS9yEey-5OZ194TDbg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_7JtxMi9yEey-5OZ194TDbg" fontName="Sans" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7JtxMy9yEey-5OZ194TDbg" points="[0, 0, -259, 108]$[259, -108, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7JvmYC9yEey-5OZ194TDbg" id="(0.175,0.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7JvmYS9yEey-5OZ194TDbg" id="(0.0,0.6)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_RULoQC9zEey-5OZ194TDbg" type="4001" element="_RUJMDC9zEey-5OZ194TDbg" source="_ucbvcC80EeypY-T2on4IpA" target="_N0XScC9zEey-5OZ194TDbg">
+          <children xmi:type="notation:Node" xmi:id="_RULoRC9zEey-5OZ194TDbg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RULoRS9zEey-5OZ194TDbg" x="-1" y="-9"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_RULoRi9zEey-5OZ194TDbg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RULoRy9zEey-5OZ194TDbg" y="9"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_RULoSC9zEey-5OZ194TDbg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RULoSS9zEey-5OZ194TDbg" x="-2" y="9"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_RULoQS9zEey-5OZ194TDbg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_RULoQi9zEey-5OZ194TDbg" fontName="Sans" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RULoQy9zEey-5OZ194TDbg" points="[20, 6, -228, -76]$[228, 75, -20, -7]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RULoSi9zEey-5OZ194TDbg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RULoSy9zEey-5OZ194TDbg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_R3qv0C9zEey-5OZ194TDbg" type="4001" element="_R3hl9i9zEey-5OZ194TDbg" source="_ucahUC80EeypY-T2on4IpA" target="_NZLyUC9zEey-5OZ194TDbg">
+          <children xmi:type="notation:Node" xmi:id="_R3rW4C9zEey-5OZ194TDbg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_R3rW4S9zEey-5OZ194TDbg" x="-4" y="-11"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_R3rW4i9zEey-5OZ194TDbg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_R3rW4y9zEey-5OZ194TDbg" x="3" y="8"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_R3rW5C9zEey-5OZ194TDbg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_R3rW5S9zEey-5OZ194TDbg" x="1" y="6"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_R3qv0S9zEey-5OZ194TDbg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_R3qv0i9zEey-5OZ194TDbg" fontName="Sans" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_R3qv0y9zEey-5OZ194TDbg" points="[0, 0, -220, 54]$[220, -54, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R3rW5i9zEey-5OZ194TDbg" id="(1.0,0.55)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R3rW5y9zEey-5OZ194TDbg" id="(0.0,0.5)"/>
         </edges>
       </data>
     </ownedAnnotationEntries>
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_dmZGwC8xEeyCwMC0Yl4i7w" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_dmZGwS8xEeyCwMC0Yl4i7w">
         <computedStyleDescriptions xmi:type="style:WorkspaceImageDescription" xmi:id="_5zEm0C9QEeysK5CU79TNNQ" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.declared.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.declared.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" tooltipExpression="aql: (if self.declared.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.declared.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png">
+          <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+          <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </computedStyleDescriptions>
+        <computedStyleDescriptions xmi:type="style:WorkspaceImageDescription" xmi:id="_NZBaQS9zEey-5OZ194TDbg" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" tooltipExpression="aql: (if self.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png">
           <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
           <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </computedStyleDescriptions>
@@ -342,7 +427,7 @@
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_VaXrEC8yEeyCwMC0Yl4i7w" name="Multiple Object&#xA;Multiple Object 0.11" tooltipText="Multiple Object" width="25" height="10" resizeKind="NSEW">
       <target xmi:type="CAL:UnitCall" href="multiple-object-detection.CAL#//@calls.0"/>
       <semanticElements xmi:type="CAL:UnitCall" href="multiple-object-detection.CAL#//@calls.0"/>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_VaY5MC8yEeyCwMC0Yl4i7w" name="(in) Input_image_1" tooltipText="Required Data Pin&#xA;Input_image_1" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_VaY5MC8yEeyCwMC0Yl4i7w" name="(in) Input_image_1" tooltipText="Required Data Pin&#xA;Input_image_1" incomingEdges="_peJymC9rEeyvg4ZbNWlvvQ" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.0/@pins.0"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.0/@pins.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -362,7 +447,7 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']"/>
       </ownedBorderedNodes>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_EJE3gC80EeyCwMC0Yl4i7w" name="(out) Output_image_1" tooltipText="Provided Data Pin&#xA;Output_image_1" outgoingEdges="_GTvmBC85EeypY-T2on4IpA" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_EJE3gC80EeyCwMC0Yl4i7w" name="(out) Output_image_1" tooltipText="Provided Data Pin&#xA;Output_image_1" outgoingEdges="_6af6wC9yEey-5OZ194TDbg" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.0/@pins.2"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.0/@pins.2"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -415,7 +500,7 @@
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_uaywsS80EeypY-T2on4IpA" name="Bounding Labels&#xA;Bounding Labels 0.11" tooltipText="Bounding Labels" width="25" height="10" resizeKind="NSEW">
       <target xmi:type="CAL:UnitCall" href="multiple-object-detection.CAL#//@calls.2"/>
       <semanticElements xmi:type="CAL:UnitCall" href="multiple-object-detection.CAL#//@calls.2"/>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ua3CIC80EeypY-T2on4IpA" name="(in) Input_image_2" tooltipText="Required Data Pin&#xA;Input_image_2" incomingEdges="_GTvmBC85EeypY-T2on4IpA" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ua3CIC80EeypY-T2on4IpA" name="(in) Input_image_2" tooltipText="Required Data Pin&#xA;Input_image_2" incomingEdges="_6af6wC9yEey-5OZ194TDbg" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.2/@pins.0"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.2/@pins.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -424,7 +509,7 @@
         <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_5zHqIS9QEeysK5CU79TNNQ" labelSize="12" showIcon="false" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" description="_5zEm0C9QEeysK5CU79TNNQ" borderSize="2" borderSizeComputationExpression="2" borderColor="173,127,168" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png"/>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']"/>
       </ownedBorderedNodes>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubIu8C80EeypY-T2on4IpA" name="(out) Output_image_2" tooltipText="Provided Data Pin&#xA;Output_image_2" outgoingEdges="__W3cDC9PEeyvZbk0RdM7fg" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubIu8C80EeypY-T2on4IpA" name="(out) Output_image_2" tooltipText="Provided Data Pin&#xA;Output_image_2" outgoingEdges="_7Jg86C9yEey-5OZ194TDbg" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.2/@pins.1"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.2/@pins.1"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -455,7 +540,7 @@
         <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_5zI4QS9QEeysK5CU79TNNQ" labelSize="12" showIcon="false" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" description="_5zEm0C9QEeysK5CU79TNNQ" borderSize="2" borderSizeComputationExpression="2" borderColor="173,127,168" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png"/>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']"/>
       </ownedBorderedNodes>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubQDsC80EeypY-T2on4IpA" name="(in) Input_image_3" tooltipText="Required Data Pin&#xA;Input_image_3" incomingEdges="__W3cDC9PEeyvZbk0RdM7fg" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubQDsC80EeypY-T2on4IpA" name="(in) Input_image_3" tooltipText="Required Data Pin&#xA;Input_image_3" incomingEdges="_7Jg86C9yEey-5OZ194TDbg" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.3/@pins.1"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.3/@pins.1"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -464,7 +549,7 @@
         <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_5zJfUi9QEeysK5CU79TNNQ" labelSize="12" showIcon="false" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" description="_5zEm0C9QEeysK5CU79TNNQ" borderSize="2" borderSizeComputationExpression="2" borderColor="173,127,168" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png"/>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']"/>
       </ownedBorderedNodes>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubTHAC80EeypY-T2on4IpA" name="(out) Output_image_3" tooltipText="Provided Data Pin&#xA;Output_image_3" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubTHAC80EeypY-T2on4IpA" name="(out) Output_image_3" tooltipText="Provided Data Pin&#xA;Output_image_3" outgoingEdges="_R3hl9i9zEey-5OZ194TDbg" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.3/@pins.2"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.3/@pins.2"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -475,7 +560,7 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']"/>
       </ownedBorderedNodes>
-      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubUVIS80EeypY-T2on4IpA" name="(out) Output_json_3" tooltipText="Provided Data Pin&#xA;Output_json_3" width="4" height="4">
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_ubUVIS80EeypY-T2on4IpA" name="(out) Output_json_3" tooltipText="Provided Data Pin&#xA;Output_json_3" outgoingEdges="_RUJMDC9zEey-5OZ194TDbg" width="4" height="4">
         <target xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.3/@pins.3"/>
         <semanticElements xmi:type="CAL:ComputedDataPin" href="multiple-object-detection.CAL#//@calls.3/@pins.3"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -503,30 +588,86 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_GTvmBC85EeypY-T2on4IpA" sourceNode="_EJE3gC80EeyCwMC0Yl4i7w" targetNode="_ua3CIC80EeypY-T2on4IpA">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_7XqEOC8-EeyvZbk0RdM7fg" sourceNode="_ManP4i80EeyCwMC0Yl4i7w" targetNode="_ubLLMC80EeypY-T2on4IpA">
       <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.1"/>
       <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.1"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_GTvmBS85EeypY-T2on4IpA" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_GTvmBi85EeypY-T2on4IpA" labelSize="12" showIcon="false"/>
-      </ownedStyle>
-      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
-    </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_7XqEOC8-EeyvZbk0RdM7fg" sourceNode="_ManP4i80EeyCwMC0Yl4i7w" targetNode="_ubLLMC80EeypY-T2on4IpA">
-      <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.2"/>
-      <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.2"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_7XqEOS8-EeyvZbk0RdM7fg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_7XqEOi8-EeyvZbk0RdM7fg" labelSize="12" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="__W3cDC9PEeyvZbk0RdM7fg" sourceNode="_ubIu8C80EeypY-T2on4IpA" targetNode="_ubQDsC80EeypY-T2on4IpA">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_v_OIUC9qEeyvg4ZbNWlvvQ" name="(out) Provided data pin" tooltipText="Provided Data Pin&#xA;Provided data pin" outgoingEdges="_peJymC9rEeyvg4ZbNWlvvQ" width="4" height="4">
+      <target xmi:type="CAL:ApplicationDataPin" href="multiple-object-detection.CAL#//@applicationDataPins.0"/>
+      <semanticElements xmi:type="CAL:ApplicationDataPin" href="multiple-object-detection.CAL#//@applicationDataPins.0"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_v_OIUS9qEeyvg4ZbNWlvvQ" labelSize="12" showIcon="false" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" borderSize="2" borderSizeComputationExpression="2" borderColor="252,175,62" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png">
+        <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_NZBaQC9zEey-5OZ194TDbg" name="(in) Output_Final_1" tooltipText="Required Data Pin&#xA;Output_Final_1" incomingEdges="_R3hl9i9zEey-5OZ194TDbg" width="4" height="4">
+      <target xmi:type="CAL:ApplicationDataPin" href="multiple-object-detection.CAL#//@applicationDataPins.1"/>
+      <semanticElements xmi:type="CAL:ApplicationDataPin" href="multiple-object-detection.CAL#//@applicationDataPins.1"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_NZCBUC9zEey-5OZ194TDbg" labelSize="12" showIcon="false" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" description="_NZBaQS9zEey-5OZ194TDbg" borderSize="2" borderSizeComputationExpression="2" borderColor="173,127,168" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png"/>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_N0MTUC9zEey-5OZ194TDbg" name="(in) Output_Final_2" tooltipText="Required Data Pin&#xA;Output_Final_2" incomingEdges="_RUJMDC9zEey-5OZ194TDbg" width="4" height="4">
+      <target xmi:type="CAL:ApplicationDataPin" href="multiple-object-detection.CAL#//@applicationDataPins.2"/>
+      <semanticElements xmi:type="CAL:ApplicationDataPin" href="multiple-object-detection.CAL#//@applicationDataPins.2"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_N0MTUS9zEey-5OZ194TDbg" labelSize="12" showIcon="false" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" description="_NZBaQS9zEey-5OZ194TDbg" borderSize="2" borderSizeComputationExpression="2" borderColor="173,127,168" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png"/>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_peJymC9rEeyvg4ZbNWlvvQ" sourceNode="_v_OIUC9qEeyvg4ZbNWlvvQ" targetNode="_VaY5MC8yEeyCwMC0Yl4i7w">
+      <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.2"/>
+      <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_peJymS9rEeyvg4ZbNWlvvQ" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_peJymi9rEeyvg4ZbNWlvvQ" labelSize="12" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_6af6wC9yEey-5OZ194TDbg" sourceNode="_EJE3gC80EeyCwMC0Yl4i7w" targetNode="_ua3CIC80EeypY-T2on4IpA">
       <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.3"/>
       <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.3"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="__W4DEC9PEeyvZbk0RdM7fg" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_6agh0C9yEey-5OZ194TDbg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__W4DES9PEeyvZbk0RdM7fg" labelSize="12" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_6agh0S9yEey-5OZ194TDbg" labelSize="12" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_7Jg86C9yEey-5OZ194TDbg" sourceNode="_ubIu8C80EeypY-T2on4IpA" targetNode="_ubQDsC80EeypY-T2on4IpA">
+      <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.4"/>
+      <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.4"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_7Jg86S9yEey-5OZ194TDbg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_7Jg86i9yEey-5OZ194TDbg" labelSize="12" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_RUJMDC9zEey-5OZ194TDbg" sourceNode="_ubUVIS80EeypY-T2on4IpA" targetNode="_N0MTUC9zEey-5OZ194TDbg">
+      <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.5"/>
+      <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.5"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_RUJMDS9zEey-5OZ194TDbg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_RUJMDi9zEey-5OZ194TDbg" labelSize="12" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_R3hl9i9zEey-5OZ194TDbg" sourceNode="_ubTHAC80EeypY-T2on4IpA" targetNode="_NZBaQC9zEey-5OZ194TDbg">
+      <target xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.6"/>
+      <semanticElements xmi:type="CAL:DataFlow" href="multiple-object-detection.CAL#//@flows.6"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_R3iM8C9zEey-5OZ194TDbg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_R3iM8S9zEey-5OZ194TDbg" labelSize="12" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/eu.balticlsc.model.CAL.design/description/CAL.odesign#//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']"/>
     </ownedDiagramElements>
