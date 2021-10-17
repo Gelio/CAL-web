@@ -70,4 +70,11 @@ public interface ConnectableDataPin extends EObject {
 	 */
 	void setIncoming(DataFlow value);
 
+	/**
+	 * Gets the underlying DataPin for a given ConnectableDataPin.
+	 * This is necessary because some ConnectableDataPins are based on another
+	 * DataPin (e.g. ComputedDataPin is based on DeclaredDataPin).
+	 */
+	DataPin getDataPin();
+
 } // ConnectableDataPin

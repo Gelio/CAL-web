@@ -613,4 +613,9 @@ public class ApplicationDataPinImpl extends MinimalEObjectImpl.Container impleme
 		return result.toString();
 	}
 
+	@Override
+	public DataPin getDataPin() {
+		return this;
+	}
+
 } //ApplicationDataPinImpl

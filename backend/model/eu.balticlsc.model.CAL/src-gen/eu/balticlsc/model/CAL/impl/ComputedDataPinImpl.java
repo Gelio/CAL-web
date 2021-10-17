@@ -5,6 +5,7 @@ package eu.balticlsc.model.CAL.impl;
 import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputedDataPin;
 import eu.balticlsc.model.CAL.DataFlow;
+import eu.balticlsc.model.CAL.DataPin;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
 import eu.balticlsc.model.CAL.UnitCall;
 
@@ -463,6 +464,11 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 			return declared != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	@Override
+	public DataPin getDataPin() {
+		return getDeclared();
 	}
 
 } //ComputedDataPinImpl
