@@ -2,23 +2,27 @@
 <CAL:ComputationApplicationRelease xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:CAL="https://www.balticlsc.eu/model/CAL">
   <calls name="Multiple Object" unit="//@units.0">
     <pins declared="//@units.0/@declaredPins.0"/>
-    <pins declared="//@units.0/@declaredPins.1"/>
-    <pins declared="//@units.0/@declaredPins.2"/>
+    <pins outgoing="//@flows.0" declared="//@units.0/@declaredPins.1"/>
+    <pins outgoing="//@flows.1" declared="//@units.0/@declaredPins.2"/>
   </calls>
   <calls name="Bounding point" unit="//@units.1">
-    <pins declared="//@units.1/@declaredPins.0"/>
-    <pins declared="//@units.1/@declaredPins.1"/>
+    <pins incoming="//@flows.0" declared="//@units.1/@declaredPins.0"/>
+    <pins outgoing="//@flows.2" declared="//@units.1/@declaredPins.1"/>
   </calls>
   <calls name="Bounding Labels" unit="//@units.2">
-    <pins declared="//@units.2/@declaredPins.0"/>
-    <pins declared="//@units.2/@declaredPins.1"/>
+    <pins incoming="//@flows.1" declared="//@units.2/@declaredPins.0"/>
+    <pins outgoing="//@flows.3" declared="//@units.2/@declaredPins.1"/>
   </calls>
   <calls name="Object Identification" unit="//@units.3">
-    <pins declared="//@units.3/@declaredPins.0"/>
-    <pins declared="//@units.3/@declaredPins.1"/>
+    <pins incoming="//@flows.2" declared="//@units.3/@declaredPins.0"/>
+    <pins incoming="//@flows.3" declared="//@units.3/@declaredPins.1"/>
     <pins declared="//@units.3/@declaredPins.2"/>
     <pins declared="//@units.3/@declaredPins.3"/>
   </calls>
+  <flows source="//@calls.0/@pins.1" target="//@calls.1/@pins.0"/>
+  <flows source="//@calls.0/@pins.2" target="//@calls.2/@pins.0"/>
+  <flows source="//@calls.1/@pins.1" target="//@calls.3/@pins.0"/>
+  <flows source="//@calls.2/@pins.1" target="//@calls.3/@pins.1"/>
   <units name="Multiple Object" version="0.11" calls="//@calls.0">
     <declaredPins name="Input_image_1"/>
     <declaredPins name="Output_datafile_1" binding="Provided"/>
