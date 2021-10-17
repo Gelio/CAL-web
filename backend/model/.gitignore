@@ -1,4 +1,4 @@
 # Eclipse files are important for PDE (Plugin Development Environment)
 # Having them in the repository makes it easy to import projects in Obeo Designer.
-!*/.project
-!*/.classpath
+!*/**/.project
+!*/**/.classpath
