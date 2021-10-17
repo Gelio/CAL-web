@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<CAL:ComputationApplicationRelease xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:CAL="https://www.balticlsc.eu/model/CAL">
+  <calls name="Multiple Object" unit="//@units.0">
+    <pins declared="//@units.0/@declaredPins.0"/>
+    <pins declared="//@units.0/@declaredPins.1"/>
+    <pins declared="//@units.0/@declaredPins.2"/>
+  </calls>
+  <calls name="Bounding point" unit="//@units.1">
+    <pins declared="//@units.1/@declaredPins.0"/>
+    <pins declared="//@units.1/@declaredPins.1"/>
+  </calls>
+  <calls name="Bounding Labels" unit="//@units.2">
+    <pins declared="//@units.2/@declaredPins.0"/>
+    <pins declared="//@units.2/@declaredPins.1"/>
+  </calls>
+  <calls name="Object Identification" unit="//@units.3">
+    <pins declared="//@units.3/@declaredPins.0"/>
+    <pins declared="//@units.3/@declaredPins.1"/>
+    <pins declared="//@units.3/@declaredPins.2"/>
+    <pins declared="//@units.3/@declaredPins.3"/>
+  </calls>
+  <units name="Multiple Object" version="0.11" calls="//@calls.0">
+    <declaredPins name="Input_image_1"/>
+    <declaredPins name="Output_datafile_1" binding="Provided"/>
+    <declaredPins name="Output_image_1" binding="Provided"/>
+  </units>
+  <units name="Bounding point" version="0.11" calls="//@calls.1">
+    <declaredPins name="Input_datafile_2"/>
+    <declaredPins name="Output_datafile_2" binding="Provided"/>
+  </units>
+  <units name="Bounding Labels" version="0.11" calls="//@calls.2">
+    <declaredPins name="Input_image_2"/>
+    <declaredPins name="Output_image_2" binding="Provided"/>
+  </units>
+  <units name="Object Identification" version="0.11" calls="//@calls.3">
+    <declaredPins name="Input_datafile_3"/>
+    <declaredPins name="Input_image_3"/>
+    <declaredPins name="Output_image_3" binding="Provided"/>
+    <declaredPins name="Output_json_3" binding="Provided"/>
+  </units>
+</CAL:ComputationApplicationRelease>
