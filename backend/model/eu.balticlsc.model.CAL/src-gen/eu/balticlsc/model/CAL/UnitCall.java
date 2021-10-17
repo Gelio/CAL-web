@@ -29,12 +29,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface UnitCall extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Name()
-	 * @model
+	 * @model default=""
 	 * @generated
 	 */
 	String getName();

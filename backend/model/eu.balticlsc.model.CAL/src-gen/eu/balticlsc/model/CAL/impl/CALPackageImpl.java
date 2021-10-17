@@ -777,7 +777,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(unitCallEClass, UnitCall.class, "UnitCall", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUnitCall_Name(), ecorePackage.getEString(), "name", null, 0, 1, UnitCall.class, !IS_TRANSIENT,
+		initEAttribute(getUnitCall_Name(), ecorePackage.getEString(), "name", "", 0, 1, UnitCall.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUnitCall_Strength(), this.getUnitStrength(), "strength", null, 0, 1, UnitCall.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
