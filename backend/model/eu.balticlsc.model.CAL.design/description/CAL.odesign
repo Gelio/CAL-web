@@ -24,7 +24,7 @@
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </nodeMappings>
-        <edgeMappings name="DataFlow" semanticCandidatesExpression="feature:flows" sourceMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="CAL::DataFlow" useDomainElement="true">
+        <edgeMappings name="DataFlow" semanticCandidatesExpression="feature:flows" sourceMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetMapping="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="CAL::DataFlow" useDomainElement="true" reconnections="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='ReconnectDataFlowTarget']">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -57,6 +57,19 @@
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectDataFlowTarget" precondition="aql:source.declared.binding == target.declared.binding and target.incoming == null and self.source.eContainer() != target.eContainer()">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="target" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
           </ownedTools>
         </toolSections>
         <customization>
