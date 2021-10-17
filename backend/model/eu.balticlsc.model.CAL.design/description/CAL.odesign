@@ -44,7 +44,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataFlow" edgeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataFlow" precondition="aql:preTarget.declared.binding == CAL::DataBinding::Required and preTarget.incoming == null and preSource.declared.eContainer() != preTarget.declared.eContainer()" edgeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']" connectionStartPrecondition="aql:preSource.declared.binding == CAL::DataBinding::Provided and preSource.outgoing == null">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
