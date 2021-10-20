@@ -112,26 +112,26 @@
             <containerView name="containerView"/>
             <initialOperation/>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationRequiredDataPin" label="Required Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationRequiredDataPin" label="Diagram Out Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::ApplicationDataPin" referenceName="applicationDataPins">
                   <subModelOperations xsi:type="tool_1:SetValue" featureName="binding" valueExpression="aql:CAL::DataBinding::Required"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="Required data pin"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="Diagram out data pin"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationProvidedDataPin" label="Provided Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationProvidedDataPin" label="Diagram In Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::ApplicationDataPin" referenceName="applicationDataPins">
                   <subModelOperations xsi:type="tool_1:SetValue" featureName="binding" valueExpression="aql:CAL::DataBinding::Provided"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="Provided data pin"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="Diagram in data pin"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
