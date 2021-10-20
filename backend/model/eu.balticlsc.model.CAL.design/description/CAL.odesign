@@ -24,7 +24,7 @@
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="ApplicationDataPin" semanticCandidatesExpression="feature:applicationDataPins" domainClass="CAL::ApplicationDataPin">
+        <nodeMappings name="ApplicationDataPin" deletionDescription="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DeleteApplicationDataPin']" semanticCandidatesExpression="feature:applicationDataPins" domainClass="CAL::ApplicationDataPin">
           <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" tooltipExpression="aql: (if self.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -111,6 +111,22 @@
             <elementView name="elementView"/>
             <containerView name="containerView"/>
             <initialOperation/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" documentation="Remove DataFlows when removing the ApplicationDataPin." name="DeleteApplicationDataPin">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.incoming">
+                  <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.outgoing">
+                  <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:RemoveElement"/>
+              </firstModelOperations>
+            </initialOperation>
           </ownedTools>
           <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationRequiredDataPin" label="Diagram Out Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
             <variable name="container"/>
