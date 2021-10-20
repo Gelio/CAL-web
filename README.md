@@ -67,8 +67,41 @@ If there are changes to `sirius-web`, the diff between the current commit in the
 `sirius-web` submodule and the latest version of that repository should be
 reviewed and the changes applied to relevant parts of the main repository.
 
-Changes need to be applied manually since the structure of the main repository
-is different from `sirius-web`'s. Not all parts of `sirius-web` are relevant in
-the main repository.
+Git patches can be leveraged to make the pulling changes simpler.
+
+1. Generate the patches for changes made in the upstream repository
+
+   ```sh
+   cd sirius-web
+   git format-patch ..origin/master
+   ```
+
+   This will create one file per commit. Patch files start with a number
+   (e.g. 0001) and have a `.patch` extension.
+
+2. In the main repository, apply the patches using a three-way merge for
+   resolving merge conflicts.
+
+   ```sh
+   git am -3 sirius-web/0*.patch
+   ```
+
+   This should apply all the patches and notify about any conflicts that need to
+   be resolved manually.
+
+3. After the patches are applies, update the commit the `sirius-web` submodule
+   points to. This way it is clear which upstream commits are applied in this
+   repository.
+
+   ```sh
+   cd sirius-web
+   git pull origin/master
+   cd ..
+   git add sirius-web
+   git commit
+   ```
+
+Alternatively, changes can be applied manually. This seems like a tedious
+process, though. Using git patches is recommended.
 
 <!-- vim: set tw=80: -->
