@@ -59,9 +59,8 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 ## Keeping up with the upstream `sirius-web`
 
 The `sirius-web` directory is a git submodule containing the
-[sirius-web](https://github.com/eclipse-sirius/sirius-web) repository.
-The commit it points to is the commit that the rest of this repository is based
-on.
+[sirius-web](https://github.com/eclipse-sirius/sirius-web) repository. The
+commit it points to is the commit that the rest of this repository is based on.
 
 If there are changes to `sirius-web`, the diff between the current commit in the
 `sirius-web` submodule and the latest version of that repository should be
