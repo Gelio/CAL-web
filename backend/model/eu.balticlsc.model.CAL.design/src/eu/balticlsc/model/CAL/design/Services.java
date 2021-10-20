@@ -45,13 +45,6 @@ public class Services {
     			// Allow connecting ApplicationDataPins directly
     			source instanceof ApplicationDataPin;
 
-    	System.out.println("----");
-    	System.out.println(targetDataPin.getBinding() == DataBinding.REQUIRED);
-    	System.out.println(sourceConnectableDataPin.getIncoming());
-    	System.out.println(sourceConnectableDataPin.getOutgoing());
-    	System.out.println(targetConnectableDataPin.getIncoming());
-    	System.out.println(targetConnectableDataPin.getOutgoing());
-    	System.out.println(onDifferentUnitCalls);
     	var targetIncomingDataFlow = targetConnectableDataPin.getIncoming();
 
     	return targetDataPin.getBinding() == DataBinding.REQUIRED &&
