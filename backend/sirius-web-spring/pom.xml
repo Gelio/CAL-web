@@ -31,7 +31,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<sirius.components.version>0.4.7</sirius.components.version>
+		<sirius.components.version>0.4.12</sirius.components.version>
 	</properties>
 
 	<repositories>
