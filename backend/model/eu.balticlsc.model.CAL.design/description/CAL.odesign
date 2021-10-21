@@ -97,10 +97,14 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
                 <subModelOperations xsi:type="tool_1:For" expression="aql:self.pins.incoming" iteratorName="incomingDataFlow">
-                  <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self != null">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
                 </subModelOperations>
                 <subModelOperations xsi:type="tool_1:For" expression="aql:self.pins.outgoing" iteratorName="outgoingDataFlow">
-                  <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self != null">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
                 </subModelOperations>
                 <subModelOperations xsi:type="tool_1:RemoveElement"/>
               </firstModelOperations>
@@ -118,11 +122,15 @@
             <containerView name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.incoming">
-                  <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self.incoming != null">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.incoming">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
                 </subModelOperations>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.outgoing">
-                  <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self.outgoing != null">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.outgoing">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
                 </subModelOperations>
                 <subModelOperations xsi:type="tool_1:RemoveElement"/>
               </firstModelOperations>
