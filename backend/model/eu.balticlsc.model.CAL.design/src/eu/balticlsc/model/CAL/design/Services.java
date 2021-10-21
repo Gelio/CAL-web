@@ -21,7 +21,6 @@ public class Services {
 
     public boolean isValidEdgeSource(EObject self, EObject source) {
     	if (source instanceof ConnectableDataPin) {
-        	// TODO: check if it handles nulls
     		var connectableDataPin = (ConnectableDataPin) source;
     		return connectableDataPin.getDataPin().getBinding() == DataBinding.PROVIDED &&
     				connectableDataPin.getOutgoing() == null;
@@ -38,11 +37,9 @@ public class Services {
     	var targetConnectableDataPin = (ConnectableDataPin) target;
     	var targetDataPin = targetConnectableDataPin.getDataPin();
     	var sourceConnectableDataPin = (ConnectableDataPin) source;
-    	var sourceDataPin = sourceConnectableDataPin.getDataPin();
 
-    	var sourceContainer = sourceDataPin.eContainer();
-    	var onDifferentUnitCalls = sourceContainer != targetDataPin.eContainer() ||
-    			// Allow connecting ApplicationDataPins directly
+    	var onDifferentUnitCalls = sourceConnectableDataPin.eContainer() != targetConnectableDataPin.eContainer() ||
+    			// Allow connecting ApplicationDataPins directly to each other
     			source instanceof ApplicationDataPin;
 
     	var targetIncomingDataFlow = targetConnectableDataPin.getIncoming();
