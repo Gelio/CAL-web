@@ -39,17 +39,6 @@
           </style>
         </edgeMappings>
         <toolSections name="Tools">
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ComputationUnitRelease" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ComputationUnitReleaseNode']">
-            <variable name="container"/>
-            <viewVariable name="containerView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL.ComputationUnitRelease" referenceName="units">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New ComputationUnitRelease"/>
-                </subModelOperations>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
           <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Enforces some DataFlow rules." name="DataFlow" precondition="service:isValidEdgeTarget(preSource, preTarget)" edgeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']" connectionStartPrecondition="service:isValidEdgeSource(preSource)">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
