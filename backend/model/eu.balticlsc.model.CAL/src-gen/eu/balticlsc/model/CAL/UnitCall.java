@@ -84,7 +84,7 @@ public interface UnitCall extends EObject {
 	 * @return the value of the '<em>Pins</em>' containment reference list.
 	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_Pins()
 	 * @see eu.balticlsc.model.CAL.ComputedDataPin#getCall
-	 * @model opposite="call" containment="true"
+	 * @model opposite="call" containment="true" changeable="false"
 	 * @generated
 	 */
 	EList<ComputedDataPin> getPins();

@@ -782,7 +782,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEAttribute(getUnitCall_Strength(), this.getUnitStrength(), "strength", null, 0, 1, UnitCall.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUnitCall_Pins(), this.getComputedDataPin(), this.getComputedDataPin_Call(), "pins", null, 0,
-				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUnitCall_ParameterValues(), this.getUnitParameterValue(), null, "parameterValues", null, 0,
 				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
@@ -794,7 +794,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEClass(computedDataPinEClass, ComputedDataPin.class, "ComputedDataPin", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComputedDataPin_Call(), this.getUnitCall(), this.getUnitCall_Pins(), "call", null, 1, 1,
-				ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComputedDataPin_Declared(), this.getDeclaredDataPin(), null, "declared", null, 1, 1,
 				ComputedDataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,

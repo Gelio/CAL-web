@@ -108,7 +108,7 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 						getResourceLocator(), getString("_UI_UnitCall_pins_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_UnitCall_pins_feature",
 								"_UI_UnitCall_type"),
-						CALPackage.Literals.UNIT_CALL__PINS, true, false, true, null, null, null));
+						CALPackage.Literals.UNIT_CALL__PINS, false, false, true, null, null, null));
 	}
 
 	/**

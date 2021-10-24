@@ -36,13 +36,15 @@
     <genClasses ecoreClass="CAL.ecore#//UnitCall">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CAL.ecore#//UnitCall/strength"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//UnitCall/pins"/>
+      <genFeatures property="Readonly" children="true" createChild="true" propertySortChoices="true"
+          ecoreFeature="ecore:EReference CAL.ecore#//UnitCall/pins"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CAL.ecore#//UnitCall/parameterValues"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//UnitCall/unit"/>
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//ComputedDataPin">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/call"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/declared"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference CAL.ecore#//ComputedDataPin/declared"/>
     </genClasses>
     <genClasses ecoreClass="CAL.ecore#//DataFlow">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CAL.ecore#//DataFlow/source"/>
