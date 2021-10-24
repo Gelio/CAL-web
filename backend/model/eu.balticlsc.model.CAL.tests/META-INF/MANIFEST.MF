@@ -12,5 +12,6 @@ Export-Package: eu.balticlsc.model.CAL.tests
 Require-Bundle: org.eclipse.core.runtime,
  eu.balticlsc.model.CAL;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.junit;visibility:=reexport
+ org.junit;visibility:=reexport,
+ org.hamcrest.library;bundle-version="1.3.0"
 Bundle-ActivationPolicy: lazy
