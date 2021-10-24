@@ -7,10 +7,9 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated CAL -->
       <package
-      uri="https://www.balticlsc.eu/model/CAL"
-      class="eu.balticlsc.model.CAL.CALPackage"
-      genModel="model/CAL.genmodel"
-    />
+            uri="https://www.balticlsc.eu/model/CAL"
+            class="eu.balticlsc.model.CAL.CALPackage"
+            genModel="model/CAL.genmodel"/>
    </extension>
 
 </plugin>
