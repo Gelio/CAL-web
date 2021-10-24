@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="CAL" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="CAL" version="12.0.0.2017041100">
   <ownedViewpoints name="computation" modelFileExtension="CAL">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Computation diagram" initialisation="true" domainClass="CAL::ComputationApplicationRelease" enablePopupBars="true">
       <metamodel href="https://www.balticlsc.eu/model/CAL#/"/>
@@ -39,7 +39,43 @@
           </style>
         </edgeMappings>
         <toolSections name="Tools">
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="UnitCall" label="Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
+          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Creates a new node to call the Computation Unit Release.&#xA;&#xA;Shows a dialog to pick the unit release to call.&#xA;&#xA;This tool does not work in SIrius Web." name="UnitCall" label="Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::UnitCall" referenceName="calls">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New Unit Call"/>
+                  <subModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Select Unit Release">
+                    <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
+                      <initialOperation/>
+                    </buttons>
+                    <buttons labelExpression="OK" isEnabledExpression="aql:instance.unit != null" default="true" closeDialogOnClick="true">
+                      <initialOperation/>
+                    </buttons>
+                    <page name="Default Page" labelExpression="Create a Unit Call" domainClass="CAL::UnitCall" semanticCandidateExpression="var:self" groups="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='UnitCall']/@initialOperation/@firstModelOperations/@subModelOperations.0/@subModelOperations.1/@groups.0"/>
+                    <groups name="Default Group" labelExpression="Unit Call" domainClass="CAL::UnitCall" semanticCandidateExpression="var:self">
+                      <controls xsi:type="properties:TextDescription" name="Name" labelExpression="Name" valueExpression="aql:self.name">
+                        <initialOperation>
+                          <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+                            <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:newValue"/>
+                          </firstModelOperations>
+                        </initialOperation>
+                      </controls>
+                      <controls xsi:type="properties:SelectDescription" name="UnitRelease" labelExpression="Unit Release" helpExpression="This is the release of a Computation Unit that will be called." valueExpression="aql:instance.unit" candidatesExpression="aql:self.eContainer(CAL::ComputationApplicationRelease).units" candidateDisplayExpression="aql:candidate.name + ' ' + candidate.version">
+                        <initialOperation>
+                          <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:instance">
+                            <subModelOperations xsi:type="tool_1:SetValue" featureName="unit" valueExpression="aql:newValue"/>
+                          </firstModelOperations>
+                        </initialOperation>
+                      </controls>
+                    </groups>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Creates a new empty node to call the Computation Unit Release.&#xA;&#xA;The unit release to call should be selected in the object's properties afterwards.&#xA;&#xA;This tool works in Sirius Web." name="EmptyUnitCall" label="Empty Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
