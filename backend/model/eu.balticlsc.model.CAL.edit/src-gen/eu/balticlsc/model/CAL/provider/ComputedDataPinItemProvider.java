@@ -115,7 +115,7 @@ public class ComputedDataPinItemProvider extends ItemProviderAdapter implements 
 						getResourceLocator(), getString("_UI_ComputedDataPin_declared_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_ComputedDataPin_declared_feature",
 								"_UI_ComputedDataPin_type"),
-						CALPackage.Literals.COMPUTED_DATA_PIN__DECLARED, true, false, true, null, null, null));
+						CALPackage.Literals.COMPUTED_DATA_PIN__DECLARED, false, false, true, null, null, null));
 	}
 
 	/**
