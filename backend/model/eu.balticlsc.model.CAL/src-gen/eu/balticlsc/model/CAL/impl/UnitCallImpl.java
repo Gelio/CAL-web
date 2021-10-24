@@ -10,6 +10,7 @@ import eu.balticlsc.model.CAL.UnitParameterValue;
 import eu.balticlsc.model.CAL.UnitStrength;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -256,12 +258,29 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	}
 
 	/**
+	 * Synchronize DataPins based on the declared data pins of ComputationUnitRelease.
+	 * Wraps the generated `setUnit` method to avoid discarding changes when regenerating code.
+	 *
+	 * @see https://eclipsesource.com/blogs/2013/03/07/emf-dos-and-donts-3/
+	 * @generated NOT
+	 */
+	@Override
+	public void setUnit(ComputationUnitRelease newUnit) {
+		if (newUnit != unit) {
+			if (unit != null)
+				clearPins();
+			if (newUnit != null)
+				createPinsFromUnitRelease(newUnit);
+		}
+		setUnitGen(newUnit);
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setUnit(ComputationUnitRelease newUnit) {
+	private void setUnitGen(ComputationUnitRelease newUnit) {
 		if (newUnit != unit) {
 			NotificationChain msgs = null;
 			if (unit != null)
@@ -275,6 +294,33 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 				msgs.dispatch();
 		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.UNIT_CALL__UNIT, newUnit, newUnit));
+	}
+
+	private void clearPins() {
+		var existingPins = getPins();
+
+		for (var pin: existingPins) {
+			var incomingFlow = pin.getIncoming();
+			if (incomingFlow != null)
+				EcoreUtil.remove(incomingFlow);
+
+			var outgoingFlow = pin.getOutgoing();
+			if (outgoingFlow != null)
+				EcoreUtil.remove(outgoingFlow);
+		}
+
+		EcoreUtil.removeAll(existingPins);
+	}
+
+	private void createPinsFromUnitRelease(ComputationUnitRelease newUnit) {
+		var newPins = newUnit.getDeclaredPins().stream().map(declaredPin -> {
+			var computedDataPin = new ComputedDataPinImpl() {
+			};
+			computedDataPin.setDeclared(declaredPin);
+			return computedDataPin;
+		}).collect(Collectors.toList());
+
+		getPins().addAll(newPins);
 	}
 
 	/**
