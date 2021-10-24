@@ -30,7 +30,8 @@ public class CALAllTests extends TestSuite {
 	 * @generated
 	 */
 	public static Test suite() {
-		TestSuite suite = new CALAllTests("CAL Tests");
+		TestSuite suite = new CALAllTests("CAL All Tests");
+		suite.addTest(CALTests.suite());
 		return suite;
 	}
 

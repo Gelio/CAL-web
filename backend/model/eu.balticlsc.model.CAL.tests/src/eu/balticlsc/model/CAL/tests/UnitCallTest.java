@@ -4,27 +4,18 @@ package eu.balticlsc.model.CAL.tests;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 
-import java.util.stream.IntStream;
-
-import org.eclipse.emf.common.util.EList;
-import org.hamcrest.Matchers;
-import org.hamcrest.core.StringContains;
 import org.junit.Test;
 
 import eu.balticlsc.model.CAL.CALFactory;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
-import eu.balticlsc.model.CAL.ComputedDataPin;
 import eu.balticlsc.model.CAL.DataBinding;
-import eu.balticlsc.model.CAL.DeclaredDataPin;
 import eu.balticlsc.model.CAL.UnitCall;
 
 import junit.framework.TestCase;
@@ -136,6 +127,7 @@ public class UnitCallTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testComputedDataPinAreCreatedAndRemovedAutomatically() {
 		var firstUnitRelease = getComputationUnitRelease("first", 2);
 		fixture.setUnit(firstUnitRelease);
@@ -155,6 +147,7 @@ public class UnitCallTest extends TestCase {
 		assertThat(fixture.getPins().get(0), not(equalTo(pinBeforeSet)));
 	}
 
+	@Test
 	public void testDataFlowsAreRemovedWhenUnsettingUnitRelease() {
 		// Arrange
 		// Construct a simple model: input pin -> unit call -> output pin

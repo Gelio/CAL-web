@@ -31,6 +31,7 @@ public class CALTests extends TestSuite {
 	 */
 	public static Test suite() {
 		TestSuite suite = new CALTests("CAL Tests");
+		suite.addTestSuite(UnitCallTest.class);
 		return suite;
 	}
 
