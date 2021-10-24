@@ -2,6 +2,7 @@
  */
 package eu.balticlsc.model.CAL.impl;
 
+import eu.balticlsc.model.CAL.CALFactory;
 import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.ComputedDataPin;
@@ -314,8 +315,7 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 
 	private void createPinsFromUnitRelease(ComputationUnitRelease newUnit) {
 		var newPins = newUnit.getDeclaredPins().stream().map(declaredPin -> {
-			var computedDataPin = new ComputedDataPinImpl() {
-			};
+			var computedDataPin = CALFactory.eINSTANCE.createComputedDataPin();
 			computedDataPin.setDeclared(declaredPin);
 			return computedDataPin;
 		}).collect(Collectors.toList());

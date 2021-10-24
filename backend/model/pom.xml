@@ -27,6 +27,7 @@
     <module>eu.balticlsc.model.CAL</module>
     <module>eu.balticlsc.model.CAL.edit</module>
     <module>eu.balticlsc.model.CAL.design</module>
+    <module>eu.balticlsc.model.CAL.tests</module>
   </modules>
 
   <!-- Based on
