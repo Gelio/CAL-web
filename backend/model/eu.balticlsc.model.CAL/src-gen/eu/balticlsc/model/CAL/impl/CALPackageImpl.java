@@ -876,13 +876,13 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEClass(dataPinEClass, DataPin.class, "DataPin", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataPin_Name(), ecorePackage.getEString(), "name", null, 0, 1, DataPin.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataPin_DataMultiplicity(), this.getMultiplicity(), "dataMultiplicity", "", 0, 1,
+		initEAttribute(getDataPin_DataMultiplicity(), this.getMultiplicity(), "dataMultiplicity", null, 0, 1,
 				DataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataPin_TokenMultiplicity(), this.getMultiplicity(), "tokenMultiplicity", "", 0, 1,
+		initEAttribute(getDataPin_TokenMultiplicity(), this.getMultiplicity(), "tokenMultiplicity", null, 0, 1,
 				DataPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataPin_Binding(), this.getDataBinding(), "binding", "", 0, 1, DataPin.class, !IS_TRANSIENT,
+		initEAttribute(getDataPin_Binding(), this.getDataBinding(), "binding", null, 0, 1, DataPin.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals

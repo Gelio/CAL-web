@@ -48,7 +48,6 @@ public interface DataPin extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Data Multiplicity</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * The literals are from the enumeration {@link eu.balticlsc.model.CAL.Multiplicity}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,7 +55,7 @@ public interface DataPin extends EObject {
 	 * @see eu.balticlsc.model.CAL.Multiplicity
 	 * @see #setDataMultiplicity(Multiplicity)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getDataPin_DataMultiplicity()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	Multiplicity getDataMultiplicity();
@@ -74,7 +73,6 @@ public interface DataPin extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Token Multiplicity</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * The literals are from the enumeration {@link eu.balticlsc.model.CAL.Multiplicity}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,7 +80,7 @@ public interface DataPin extends EObject {
 	 * @see eu.balticlsc.model.CAL.Multiplicity
 	 * @see #setTokenMultiplicity(Multiplicity)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getDataPin_TokenMultiplicity()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	Multiplicity getTokenMultiplicity();
@@ -100,7 +98,6 @@ public interface DataPin extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Binding</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * The literals are from the enumeration {@link eu.balticlsc.model.CAL.DataBinding}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,7 +105,7 @@ public interface DataPin extends EObject {
 	 * @see eu.balticlsc.model.CAL.DataBinding
 	 * @see #setBinding(DataBinding)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getDataPin_Binding()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	DataBinding getBinding();
