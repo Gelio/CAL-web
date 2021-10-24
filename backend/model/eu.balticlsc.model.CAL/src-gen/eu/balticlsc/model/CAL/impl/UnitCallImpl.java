@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -297,8 +298,18 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 
 	private void clearPins() {
 		var existingPins = getPins();
-		existingPins.removeAll(existingPins);
-		// TODO: remove DataFlows attached to those DataPins.
+
+		for (var pin: existingPins) {
+			var incomingFlow = pin.getIncoming();
+			if (incomingFlow != null)
+				EcoreUtil.remove(incomingFlow);
+
+			var outgoingFlow = pin.getOutgoing();
+			if (outgoingFlow != null)
+				EcoreUtil.remove(outgoingFlow);
+		}
+
+		EcoreUtil.removeAll(existingPins);
 	}
 
 	private void createPinsFromUnitRelease(ComputationUnitRelease newUnit) {
