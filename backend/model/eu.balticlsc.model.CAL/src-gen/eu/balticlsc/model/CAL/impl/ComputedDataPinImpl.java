@@ -18,8 +18,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Computed Data Pin</b></em>'.
@@ -96,40 +94,6 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 		if (eContainerFeatureID() != CALPackage.COMPUTED_DATA_PIN__CALL)
 			return null;
 		return (UnitCall) eInternalContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCall(UnitCall newCall, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject) newCall, CALPackage.COMPUTED_DATA_PIN__CALL, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setCall(UnitCall newCall) {
-		if (newCall != eInternalContainer()
-				|| (eContainerFeatureID() != CALPackage.COMPUTED_DATA_PIN__CALL && newCall != null)) {
-			if (EcoreUtil.isAncestor(this, newCall))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newCall != null)
-				msgs = ((InternalEObject) newCall).eInverseAdd(this, CALPackage.UNIT_CALL__PINS, UnitCall.class, msgs);
-			msgs = basicSetCall(newCall, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CALPackage.COMPUTED_DATA_PIN__CALL, newCall,
-					newCall));
 	}
 
 	/**
@@ -335,7 +299,7 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 		case CALPackage.COMPUTED_DATA_PIN__CALL:
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
-			return basicSetCall((UnitCall) otherEnd, msgs);
+			return eBasicSetContainer(otherEnd, CALPackage.COMPUTED_DATA_PIN__CALL, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -353,7 +317,7 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
 			return basicSetIncoming(null, msgs);
 		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			return basicSetCall(null, msgs);
+			return eBasicSetContainer(null, CALPackage.COMPUTED_DATA_PIN__CALL, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -412,9 +376,6 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
 			setIncoming((DataFlow) newValue);
 			return;
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			setCall((UnitCall) newValue);
-			return;
 		case CALPackage.COMPUTED_DATA_PIN__DECLARED:
 			setDeclared((DeclaredDataPin) newValue);
 			return;
@@ -435,9 +396,6 @@ public class ComputedDataPinImpl extends MinimalEObjectImpl.Container implements
 			return;
 		case CALPackage.COMPUTED_DATA_PIN__INCOMING:
 			setIncoming((DataFlow) null);
-			return;
-		case CALPackage.COMPUTED_DATA_PIN__CALL:
-			setCall((UnitCall) null);
 			return;
 		case CALPackage.COMPUTED_DATA_PIN__DECLARED:
 			setDeclared((DeclaredDataPin) null);

@@ -6,7 +6,7 @@
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="strength" eType="#//UnitStrength"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pins" upperBound="-1" eType="#//ComputedDataPin"
-        containment="true" eOpposite="#//ComputedDataPin/call"/>
+        changeable="false" containment="true" eOpposite="#//ComputedDataPin/call"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterValues" upperBound="-1"
         eType="#//UnitParameterValue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" lowerBound="1" eType="#//ComputationUnitRelease"
@@ -14,7 +14,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComputedDataPin" eSuperTypes="#//ConnectableDataPin">
     <eStructuralFeatures xsi:type="ecore:EReference" name="call" lowerBound="1" eType="#//UnitCall"
-        eOpposite="#//UnitCall/pins"/>
+        changeable="false" eOpposite="#//UnitCall/pins"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declared" lowerBound="1"
         eType="#//DeclaredDataPin"/>
   </eClassifiers>

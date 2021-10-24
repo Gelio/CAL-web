@@ -26,23 +26,12 @@ public interface ComputedDataPin extends ConnectableDataPin {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Call</em>' container reference.
-	 * @see #setCall(UnitCall)
 	 * @see eu.balticlsc.model.CAL.CALPackage#getComputedDataPin_Call()
 	 * @see eu.balticlsc.model.CAL.UnitCall#getPins
-	 * @model opposite="pins" required="true" transient="false"
+	 * @model opposite="pins" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	UnitCall getCall();
-
-	/**
-	 * Sets the value of the '{@link eu.balticlsc.model.CAL.ComputedDataPin#getCall <em>Call</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Call</em>' container reference.
-	 * @see #getCall()
-	 * @generated
-	 */
-	void setCall(UnitCall value);
 
 	/**
 	 * Returns the value of the '<em><b>Declared</b></em>' reference.

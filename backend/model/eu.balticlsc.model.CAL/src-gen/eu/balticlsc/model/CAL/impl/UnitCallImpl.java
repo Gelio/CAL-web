@@ -299,7 +299,7 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	private void clearPins() {
 		var existingPins = getPins();
 
-		for (var pin: existingPins) {
+		for (var pin : existingPins) {
 			var incomingFlow = pin.getIncoming();
 			if (incomingFlow != null)
 				EcoreUtil.remove(incomingFlow);
@@ -400,10 +400,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 		case CALPackage.UNIT_CALL__STRENGTH:
 			setStrength((UnitStrength) newValue);
 			return;
-		case CALPackage.UNIT_CALL__PINS:
-			getPins().clear();
-			getPins().addAll((Collection<? extends ComputedDataPin>) newValue);
-			return;
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			getParameterValues().clear();
 			getParameterValues().addAll((Collection<? extends UnitParameterValue>) newValue);
@@ -428,9 +424,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return;
 		case CALPackage.UNIT_CALL__STRENGTH:
 			setStrength(STRENGTH_EDEFAULT);
-			return;
-		case CALPackage.UNIT_CALL__PINS:
-			getPins().clear();
 			return;
 		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			getParameterValues().clear();
