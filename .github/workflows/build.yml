@@ -59,7 +59,7 @@ jobs:
         env:
           GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./mvnw --batch-mode --update-snapshots package --settings settings.xml
+        run: ./mvnw --batch-mode --update-snapshots verify --settings settings.xml
       - name: Prepare JAR artifact for upload
         run: |
           mkdir staging
