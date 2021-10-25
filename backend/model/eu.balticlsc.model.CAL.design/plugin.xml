@@ -9,4 +9,11 @@
     >
     </component>
   </extension>
+  <extension
+        point="org.eclipse.sirius.externalJavaAction">
+     <javaActions
+           actionClass="eu.balticlsc.model.CAL.design.JavaAction"
+           id="eu.balticlsc.model.CAL.design.javaAction">
+     </javaActions>
+  </extension>
 </plugin>

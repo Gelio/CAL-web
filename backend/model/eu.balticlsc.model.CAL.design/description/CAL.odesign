@@ -240,6 +240,14 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool_1:ExternalJavaAction" name="Example Call" id="eu.balticlsc.model.CAL.design.javaAction"/>
+          <ownedTools xsi:type="tool_1:ToolDescription" name="CallAction">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ExternalJavaActionCall" name="ExampleCall" action="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='Example%20Call']"/>
+            </initialOperation>
+          </ownedTools>
         </toolSections>
         <customization>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Single">
