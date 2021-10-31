@@ -43,6 +43,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import eu.balticlsc.model.CAL.CALFactory;
+import eu.balticlsc.model.CAL.ComputationApplicationRelease;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 
@@ -113,6 +115,21 @@ public class EditingContextSearchService implements IEditingContextSearchService
                 resource.load(inputStream, null);
 
                 resource.eAdapters().add(new DocumentMetadataAdapter(documentEntity.getName()));
+                for (var obj : resource.getContents()) {
+                    // TODO: add ComputationUnitReleases
+                    this.logger.debug("Resource {}", obj.toString());
+                    if (obj instanceof ComputationApplicationRelease) {
+                        var computationApplication = (ComputationApplicationRelease) obj;
+                        var unit = CALFactory.eINSTANCE.createComputationUnitRelease();
+                        unit.setName("Auto-generated");
+                        computationApplication.getUnits().add(unit);
+                        try {
+                            this.logger.debug("Sleeping to simulate a network call");
+                            Thread.sleep(5000);
+                        } catch (Exception e) {
+                        }
+                    }
+                }
             } catch (IOException | IllegalArgumentException exception) {
                 this.logger.warn("An error occured while loading document {}: {}.", documentEntity.getId(), exception.getMessage()); //$NON-NLS-1$
                 resourceSet.getResources().remove(resource);

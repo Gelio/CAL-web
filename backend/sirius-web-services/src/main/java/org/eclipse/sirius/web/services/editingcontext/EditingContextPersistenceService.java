@@ -86,6 +86,7 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
     private List<DocumentEntity> persist(EditingDomain editingDomain) {
         List<DocumentEntity> result = new ArrayList<>();
         List<Resource> resources = editingDomain.getResourceSet().getResources();
+        this.logger.debug("Persisting {}", editingDomain.toString());
         for (Resource resource : resources) {
             this.save(resource).ifPresent(result::add);
         }
@@ -96,6 +97,8 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
         Optional<DocumentEntity> result = Optional.empty();
         HashMap<Object, Object> options = new HashMap<>();
         options.put(JsonResource.OPTION_ID_MANAGER, new EObjectIDManager());
+        this.logger.debug("Saving a resource {}", resource.toString());
+        // TODO: remove unused auto-generated ComputationUnitReleases
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             resource.save(outputStream, options);

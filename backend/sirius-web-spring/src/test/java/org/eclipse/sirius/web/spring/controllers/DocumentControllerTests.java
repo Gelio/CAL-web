@@ -39,7 +39,7 @@ public class DocumentControllerTests {
     @Test
     public void testDocumentDoesNotExist() {
         IDocumentService noOpDocumentService = new IDocumentService.NoOp();
-        DocumentController documentController = new DocumentController(noOpDocumentService);
+        DocumentController documentController = new DocumentController(noOpDocumentService, null);
 
         UUID projectId = UUID.randomUUID();
         UUID documentId = UUID.randomUUID();
@@ -62,7 +62,7 @@ public class DocumentControllerTests {
                 return Optional.of(new byte[] {});
             }
         };
-        DocumentController documentController = new DocumentController(documentService);
+        DocumentController documentController = new DocumentController(documentService, null);
 
         UUID projectId = UUID.randomUUID();
         UUID documentId = UUID.randomUUID();
