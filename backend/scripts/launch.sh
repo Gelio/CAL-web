@@ -6,7 +6,10 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 cd "$script_dir/.."
 
-java -jar sirius-web-sample-application/target/sirius-web-sample-application-*.jar \
+# Do not word split on purpose. Otherwise, java tries to run an empty string
+# shellcheck disable=SC2086
+java ${EXTRA_JAVA_ARGS:-} \
+	-jar sirius-web-sample-application/target/sirius-web-sample-application-*.jar \
 	--spring.datasource.url=jdbc:postgresql://localhost:5433/sirius-web-db \
 	--spring.datasource.username=dbuser \
 	--spring.datasource.password=dbpwd \

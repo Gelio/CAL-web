@@ -1,3 +1,14 @@
+local dap = require("dap")
+dap.configurations.java = {
+	{
+		type = "java",
+		request = "attach",
+		name = "Debug (Attach) - Remote",
+		hostName = "127.0.0.1",
+		port = 8000,
+	},
+}
+
 local javalsp = require("lsp.java")
 
 local backend_dir = vim.fn.expand("<sfile>:h")
