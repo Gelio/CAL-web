@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="CAL" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:validation="http://www.eclipse.org/sirius/description/validation/1.1.0" name="CAL" version="12.0.0.2017041100">
   <ownedViewpoints name="computation" modelFileExtension="CAL">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Computation diagram" initialisation="true" domainClass="CAL::ComputationApplicationRelease" enablePopupBars="true">
       <metamodel href="https://www.balticlsc.eu/model/CAL#/"/>
+      <validationSet>
+        <ownedRules xsi:type="validation:SemanticValidationRule" name="FlowCannotBeBetweenPinsFromSameUnitCall" level="ERROR" message="Data cannot flow between pins on the same unit call" targetClass="CAL::DataFlow">
+          <audits auditExpression="aql:self.source.eContainer() != self.target.eContainer()"/>
+          <fixes name="Remove data flow">
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:RemoveElement"/>
+            </initialOperation>
+          </fixes>
+        </ownedRules>
+        <ownedRules xsi:type="validation:SemanticValidationRule" name="RequiredDataPinsMustHaveIncomingDataFlows" level="ERROR" message="Required data pins must have an incoming data flow" targetClass="CAL::ConnectableDataPin">
+          <audits auditExpression="aql:self.getDataPin().binding != CAL::DataBinding::Required or self.incoming != null"/>
+        </ownedRules>
+        <ownedRules xsi:type="validation:SemanticValidationRule" name="ProvidedDataPinsMustHaveOutgoingDataFlows" level="ERROR" message="Provided data pins must have an outgoing data flow" targetClass="CAL::ConnectableDataPin">
+          <audits auditExpression="aql:self.getDataPin().binding != CAL::DataBinding::Provided or self.outgoing != null"/>
+        </ownedRules>
+        <ownedRules xsi:type="validation:SemanticValidationRule" name="RequiredDataPinsCannotHaveOutgoingDataFlows" level="ERROR" message="Required data pins cannot have outgoing data flows" targetClass="CAL::ConnectableDataPin">
+          <audits auditExpression="aql:self.getDataPin().binding != CAL::DataBinding::Required or self.outgoing == null"/>
+          <fixes name="Remove outgoing data flow">
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="feature:outgoing">
+                <subModelOperations xsi:type="tool:RemoveElement"/>
+              </firstModelOperations>
+            </initialOperation>
+          </fixes>
+        </ownedRules>
+        <ownedRules xsi:type="validation:SemanticValidationRule" name="ProvidedDataPinsCannotHaveIncomingDataFlows" level="ERROR" message="Provided data pins cannot have incoming data flows" targetClass="CAL::ConnectableDataPin">
+          <audits auditExpression="aql:self.getDataPin().binding != CAL::DataBinding::Provided or self.incoming == null"/>
+          <fixes name="Remove incoming data flow">
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="feature:incoming">
+                <subModelOperations xsi:type="tool:RemoveElement"/>
+              </firstModelOperations>
+            </initialOperation>
+          </fixes>
+        </ownedRules>
+        <ownedRules xsi:type="validation:SemanticValidationRule" name="DanglingDataFlow" level="ERROR" message="Both ends of a data flow must be connected" targetClass="CAL::DataFlow">
+          <audits auditExpression="aql:self.source != null and self.target != null"/>
+          <fixes name="Delete data flow">
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:RemoveElement"/>
+            </initialOperation>
+          </fixes>
+        </ownedRules>
+      </validationSet>
       <defaultLayer name="Default">
         <nodeMappings name="ComputationUnitReleaseNode" semanticCandidatesExpression="feature:units" domainClass="CAL::ComputationUnitRelease">
           <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-release.png" sizeComputationExpression="0" labelPosition="node" resizeKind="NSEW" width="20" height="8">
@@ -39,13 +83,13 @@
           </style>
         </edgeMappings>
         <toolSections name="Tools">
-          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Creates a new node to call the Computation Unit Release.&#xA;&#xA;Shows a dialog to pick the unit release to call.&#xA;&#xA;This tool does not work in SIrius Web." name="UnitCall" label="Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" documentation="Creates a new node to call the Computation Unit Release.&#xA;&#xA;Shows a dialog to pick the unit release to call.&#xA;&#xA;This tool does not work in SIrius Web." name="UnitCall" label="Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::UnitCall" referenceName="calls">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New Unit Call"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:CreateInstance" typeName="CAL::UnitCall" referenceName="calls">
+                  <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="New Unit Call"/>
                   <subModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Select Unit Release">
                     <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
                       <initialOperation/>
@@ -57,15 +101,15 @@
                     <groups name="Default Group" labelExpression="Unit Call" domainClass="CAL::UnitCall" semanticCandidateExpression="var:self">
                       <controls xsi:type="properties:TextDescription" name="Name" labelExpression="Name" valueExpression="aql:self.name">
                         <initialOperation>
-                          <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
-                            <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:newValue"/>
+                          <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="var:self">
+                            <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="aql:newValue"/>
                           </firstModelOperations>
                         </initialOperation>
                       </controls>
                       <controls xsi:type="properties:SelectDescription" name="UnitRelease" labelExpression="Unit Release" helpExpression="This is the release of a Computation Unit that will be called." valueExpression="aql:instance.unit" candidatesExpression="aql:self.eContainer(CAL::ComputationApplicationRelease).units" candidateDisplayExpression="aql:candidate.name + ' ' + candidate.version">
                         <initialOperation>
-                          <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:instance">
-                            <subModelOperations xsi:type="tool_1:SetValue" featureName="unit" valueExpression="aql:newValue"/>
+                          <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:instance">
+                            <subModelOperations xsi:type="tool:SetValue" featureName="unit" valueExpression="aql:newValue"/>
                           </firstModelOperations>
                         </initialOperation>
                       </controls>
@@ -75,123 +119,123 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Creates a new empty node to call the Computation Unit Release.&#xA;&#xA;The unit release to call should be selected in the object's properties afterwards.&#xA;&#xA;This tool works in Sirius Web." name="EmptyUnitCall" label="Empty Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" documentation="Creates a new empty node to call the Computation Unit Release.&#xA;&#xA;The unit release to call should be selected in the object's properties afterwards.&#xA;&#xA;This tool works in Sirius Web." name="EmptyUnitCall" label="Empty Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::UnitCall" referenceName="calls">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New Unit Call"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:CreateInstance" typeName="CAL::UnitCall" referenceName="calls">
+                  <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="New Unit Call"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Enforces some DataFlow rules." name="DataFlow" label="Data Flow" precondition="service:isValidEdgeTarget(preSource, preTarget)" edgeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']" connectionStartPrecondition="service:isValidEdgeSource(preSource)">
+          <ownedTools xsi:type="tool_1:EdgeCreationDescription" documentation="Enforces some DataFlow rules." name="DataFlow" label="Data Flow" precondition="service:isValidEdgeTarget(preSource, preTarget)" edgeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@edgeMappings[name='DataFlow']" connectionStartPrecondition="service:isValidEdgeSource(preSource)">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.eContainer(CAL::ComputationApplicationRelease)">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::DataFlow" referenceName="flows">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="source" valueExpression="var:source"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="target" valueExpression="var:target"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.eContainer(CAL::ComputationApplicationRelease)">
+                <subModelOperations xsi:type="tool:CreateInstance" typeName="CAL::DataFlow" referenceName="flows">
+                  <subModelOperations xsi:type="tool:SetValue" featureName="source" valueExpression="var:source"/>
+                  <subModelOperations xsi:type="tool:SetValue" featureName="target" valueExpression="var:target"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:ReconnectEdgeDescription" documentation="&quot;element&quot; variable cannot be used in &quot;Precondition&quot;. Thus, this tool uses &quot;self.source&quot; instead of &quot;element&quot;.&#xA;Enforces similar rules to DataFlow creation." name="ReconnectDataFlowTarget" precondition="aql:self.isValidEdgeTarget(self.source, target)">
+          <ownedTools xsi:type="tool_1:ReconnectEdgeDescription" documentation="&quot;element&quot; variable cannot be used in &quot;Precondition&quot;. Thus, this tool uses &quot;self.source&quot; instead of &quot;element&quot;.&#xA;Enforces similar rules to DataFlow creation." name="ReconnectDataFlowTarget" precondition="aql:self.isValidEdgeTarget(self.source, target)">
             <source name="source"/>
             <target name="target"/>
             <sourceView name="sourceView"/>
             <targetView name="targetView"/>
             <element name="element"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:SetValue" featureName="target" valueExpression="var:target"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:SetValue" featureName="target" valueExpression="var:target"/>
               </firstModelOperations>
             </initialOperation>
             <edgeView name="edgeView"/>
           </ownedTools>
-          <ownedTools xsi:type="tool:ReconnectEdgeDescription" documentation="&quot;element&quot; variable cannot be used in &quot;Precondition&quot;. Thus, this tool uses &quot;self.target&quot; instead of &quot;element&quot;.&#xA;Enforces similar rules to DataFlow creation." name="ReconnectDataFlowSource" precondition="aql:self.isValidEdgeSource(target) and self.isValidEdgeTarget(target, self.target)" reconnectionKind="RECONNECT_SOURCE">
+          <ownedTools xsi:type="tool_1:ReconnectEdgeDescription" documentation="&quot;element&quot; variable cannot be used in &quot;Precondition&quot;. Thus, this tool uses &quot;self.target&quot; instead of &quot;element&quot;.&#xA;Enforces similar rules to DataFlow creation." name="ReconnectDataFlowSource" precondition="aql:self.isValidEdgeSource(target) and self.isValidEdgeTarget(target, self.target)" reconnectionKind="RECONNECT_SOURCE">
             <source name="source"/>
             <target name="target"/>
             <sourceView name="sourceView"/>
             <targetView name="targetView"/>
             <element name="element"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:SetValue" featureName="source" valueExpression="var:target"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:SetValue" featureName="source" valueExpression="var:target"/>
               </firstModelOperations>
             </initialOperation>
             <edgeView name="edgeView"/>
           </ownedTools>
-          <ownedTools xsi:type="tool:DeleteElementDescription" documentation="Remove DataFlows when removing the unit call." name="DeleteUnitCall">
+          <ownedTools xsi:type="tool_1:DeleteElementDescription" documentation="Remove DataFlows when removing the unit call." name="DeleteUnitCall">
             <element name="element"/>
             <elementView name="elementView"/>
             <containerView name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:For" expression="aql:self.pins.incoming" iteratorName="incomingDataFlow">
-                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self != null">
-                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:For" expression="aql:self.pins.incoming" iteratorName="incomingDataFlow">
+                  <subModelOperations xsi:type="tool:If" conditionExpression="aql:self != null">
+                    <subModelOperations xsi:type="tool:RemoveElement"/>
                   </subModelOperations>
                 </subModelOperations>
-                <subModelOperations xsi:type="tool_1:For" expression="aql:self.pins.outgoing" iteratorName="outgoingDataFlow">
-                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self != null">
-                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                <subModelOperations xsi:type="tool:For" expression="aql:self.pins.outgoing" iteratorName="outgoingDataFlow">
+                  <subModelOperations xsi:type="tool:If" conditionExpression="aql:self != null">
+                    <subModelOperations xsi:type="tool:RemoveElement"/>
                   </subModelOperations>
                 </subModelOperations>
-                <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                <subModelOperations xsi:type="tool:RemoveElement"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DeleteElementDescription" documentation="Removing data pins is forbidden. They are determined by the ComputationUnitCall." name="DeleteComputedDataPin" precondition="aql:false">
+          <ownedTools xsi:type="tool_1:DeleteElementDescription" documentation="Removing data pins is forbidden. They are determined by the ComputationUnitCall." name="DeleteComputedDataPin" precondition="aql:false">
             <element name="element"/>
             <elementView name="elementView"/>
             <containerView name="containerView"/>
             <initialOperation/>
           </ownedTools>
-          <ownedTools xsi:type="tool:DeleteElementDescription" documentation="Remove DataFlows when removing the ApplicationDataPin." name="DeleteApplicationDataPin">
+          <ownedTools xsi:type="tool_1:DeleteElementDescription" documentation="Remove DataFlows when removing the ApplicationDataPin." name="DeleteApplicationDataPin">
             <element name="element"/>
             <elementView name="elementView"/>
             <containerView name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self.incoming != null">
-                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.incoming">
-                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:If" conditionExpression="aql:self.incoming != null">
+                  <subModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.incoming">
+                    <subModelOperations xsi:type="tool:RemoveElement"/>
                   </subModelOperations>
                 </subModelOperations>
-                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:self.outgoing != null">
-                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.outgoing">
-                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                <subModelOperations xsi:type="tool:If" conditionExpression="aql:self.outgoing != null">
+                  <subModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.outgoing">
+                    <subModelOperations xsi:type="tool:RemoveElement"/>
                   </subModelOperations>
                 </subModelOperations>
-                <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                <subModelOperations xsi:type="tool:RemoveElement"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationRequiredDataPin" label="Diagram Out Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" name="ApplicationRequiredDataPin" label="Diagram Out Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::ApplicationDataPin" referenceName="applicationDataPins">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="binding" valueExpression="aql:CAL::DataBinding::Required"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="Diagram out data pin"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:CreateInstance" typeName="CAL::ApplicationDataPin" referenceName="applicationDataPins">
+                  <subModelOperations xsi:type="tool:SetValue" featureName="binding" valueExpression="aql:CAL::DataBinding::Required"/>
+                  <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="Diagram out data pin"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ApplicationProvidedDataPin" label="Diagram In Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" name="ApplicationProvidedDataPin" label="Diagram In Data Pin" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="CAL::ApplicationDataPin" referenceName="applicationDataPins">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="binding" valueExpression="aql:CAL::DataBinding::Provided"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="Diagram in data pin"/>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool:CreateInstance" typeName="CAL::ApplicationDataPin" referenceName="applicationDataPins">
+                  <subModelOperations xsi:type="tool:SetValue" featureName="binding" valueExpression="aql:CAL::DataBinding::Provided"/>
+                  <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="Diagram in data pin"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
