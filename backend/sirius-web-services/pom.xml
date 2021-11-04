@@ -75,6 +75,11 @@
 			<version>0.4.6</version>
 		</dependency>
 		<dependency>
+      <groupId>eu.balticlsc.model</groupId>
+      <artifactId>eu.balticlsc.model.CAL</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-tests</artifactId>
 			<version>${sirius.components.version}</version>

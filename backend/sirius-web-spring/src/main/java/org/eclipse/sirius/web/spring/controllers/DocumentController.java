@@ -19,6 +19,7 @@ import java.util.UUID;
 
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
+import org.eclipse.sirius.web.spring.collaborative.api.IEditingContextEventProcessorRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
@@ -64,11 +65,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DocumentController {
 
     private final IDocumentService documentService;
+    private final IEditingContextEventProcessorRegistry editingContextProcessor;
 
     private final Logger logger = LoggerFactory.getLogger(DocumentController.class);
 
-    public DocumentController(IDocumentService documentService) {
+    public DocumentController(IDocumentService documentService,
+            IEditingContextEventProcessorRegistry editingContextProcessor) {
         this.documentService = Objects.requireNonNull(documentService);
+        // TODO: add `Objects.requireNonNull`
+        this.editingContextProcessor = editingContextProcessor;
+    }
+
+    @GetMapping(value = "/reset")
+    public void resetEditingContexts(@PathVariable String editingContextId) {
+        this.logger.debug("Resetting");
+        this.editingContextProcessor.disposeEditingContextEventProcessor(this.convertToUUID(editingContextId).get());
     }
 
     @GetMapping(path = "/{documentId}")

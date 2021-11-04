@@ -87,7 +87,8 @@ public class EditingContextPersistenceServiceTests {
                 return Optional.of(existingEntity);
             }
         };
-        IEditingContextPersistenceService editingContextPersistenceService = new EditingContextPersistenceService(documentRepository, new NoOpApplicationEventPublisher(), new SimpleMeterRegistry());
+        IEditingContextPersistenceService editingContextPersistenceService = new EditingContextPersistenceService(
+                documentRepository, new NoOpApplicationEventPublisher(), new SimpleMeterRegistry(), false);
         assertThat(entities).hasSize(0);
 
         IEditingContext editingContext = new EditingContext(UUID.randomUUID(), editingDomain);

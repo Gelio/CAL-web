@@ -15,4 +15,5 @@ java ${EXTRA_JAVA_ARGS:-} \
 	--spring.datasource.password=dbpwd \
 	--spring.liquibase.change-log=classpath:db/changelog/sirius-web.db.changelog.xml \
 	--spring.profiles.active=dev \
-	--org.eclipse.sirius.web.features.studioDefinition=true
+	--org.eclipse.sirius.web.features.studioDefinition=true \
+	"$@"
