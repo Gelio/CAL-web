@@ -78,6 +78,23 @@ configuration. For neovim, there is an
 See [`launch-debug.sh`](./backend/scripts/launch-debug.sh) for details of debug
 settings.
 
+### Enabling experimental model modifications
+
+To enable experimental model modifications, pass the
+`--eu.balticlsc.model.features.modificationsEnabled=true` flag to the
+`launch.sh` or `launch-debug.sh` script:
+
+```sh
+./backend/scripts/launch.sh --eu.balticlsc.model.features.modificationsEnabled=true
+```
+
+This will run the application with experimental model modifications. This means
+that when loading the model, there will be an extra `ComputationUnitRelease`
+added to the model.
+
+The change is not meaningful right now, but it shows it is possible to modify
+the model programmatically when it is being loaded.
+
 ## Keeping up with the upstream `sirius-web`
 
 The `sirius-web` directory is a git submodule containing the

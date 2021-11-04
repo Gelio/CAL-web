@@ -40,6 +40,7 @@ import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
 import org.eclipse.sirius.web.services.documents.DocumentMetadataAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -72,8 +73,12 @@ public class EditingContextSearchService implements IEditingContextSearchService
 
     private final Timer timer;
 
-    public EditingContextSearchService(IProjectRepository projectRepository, IDocumentRepository documentRepository, IEditingContextEPackageService editingContextEPackageService,
-            ComposedAdapterFactory composedAdapterFactory, EPackage.Registry globalEPackageRegistry, MeterRegistry meterRegistry) {
+    private final boolean modelModificationsEnabled;
+
+    public EditingContextSearchService(IProjectRepository projectRepository, IDocumentRepository documentRepository,
+            IEditingContextEPackageService editingContextEPackageService, ComposedAdapterFactory composedAdapterFactory,
+            EPackage.Registry globalEPackageRegistry, MeterRegistry meterRegistry,
+            @Value("${eu.balticlsc.model.features.modificationsEnabled:false}") boolean modelModificationsEnabled) {
         this.projectRepository = Objects.requireNonNull(projectRepository);
         this.documentRepository = Objects.requireNonNull(documentRepository);
         this.editingContextEPackageService = Objects.requireNonNull(editingContextEPackageService);
@@ -81,6 +86,7 @@ public class EditingContextSearchService implements IEditingContextSearchService
         this.globalEPackageRegistry = Objects.requireNonNull(globalEPackageRegistry);
 
         this.timer = Timer.builder(TIMER_NAME).register(meterRegistry);
+        this.modelModificationsEnabled = modelModificationsEnabled;
     }
 
     @Override
@@ -115,18 +121,21 @@ public class EditingContextSearchService implements IEditingContextSearchService
                 resource.load(inputStream, null);
 
                 resource.eAdapters().add(new DocumentMetadataAdapter(documentEntity.getName()));
-                for (var obj : resource.getContents()) {
-                    // TODO: add ComputationUnitReleases
-                    this.logger.debug("Resource {}", obj.toString());
-                    if (obj instanceof ComputationApplicationRelease) {
-                        var computationApplication = (ComputationApplicationRelease) obj;
-                        var unit = CALFactory.eINSTANCE.createComputationUnitRelease();
-                        unit.setName("Auto-generated");
-                        computationApplication.getUnits().add(unit);
-                        try {
-                            this.logger.debug("Sleeping to simulate a network call");
-                            Thread.sleep(5000);
-                        } catch (Exception e) {
+
+                if (this.modelModificationsEnabled) {
+                    for (var obj : resource.getContents()) {
+                        // TODO: add ComputationUnitReleases
+                        this.logger.debug("Resource {}", obj.toString());
+                        if (obj instanceof ComputationApplicationRelease) {
+                            var computationApplication = (ComputationApplicationRelease) obj;
+                            var unit = CALFactory.eINSTANCE.createComputationUnitRelease();
+                            unit.setName("Auto-generated");
+                            computationApplication.getUnits().add(unit);
+                            try {
+                                this.logger.debug("Sleeping to simulate a network call");
+                                Thread.sleep(5000);
+                            } catch (Exception e) {
+                            }
                         }
                     }
                 }

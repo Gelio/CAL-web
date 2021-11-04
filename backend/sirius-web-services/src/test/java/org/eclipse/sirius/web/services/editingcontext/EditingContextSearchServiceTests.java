@@ -85,8 +85,9 @@ public class EditingContextSearchServiceTests {
         UUID projectId = UUID.randomUUID();
 
         IEditingContextEPackageService editingContextEPackageService = editingContextId -> List.of();
-        IEditingContextSearchService editingContextSearchService = new EditingContextSearchService(projectRepository, documentRepository, editingContextEPackageService, composedAdapterFactory,
-                ePackageRegistry, new SimpleMeterRegistry());
+        IEditingContextSearchService editingContextSearchService = new EditingContextSearchService(projectRepository,
+                documentRepository, editingContextEPackageService, composedAdapterFactory, ePackageRegistry,
+                new SimpleMeterRegistry(), false);
         IEditingContext editingContext = editingContextSearchService.findById(projectId).get();
 
         assertThat(editingContext).isInstanceOf(EditingContext.class);
@@ -127,8 +128,9 @@ public class EditingContextSearchServiceTests {
         ePackageRegistry.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 
         IEditingContextEPackageService editingContextEPackageService = editingContextId -> List.of();
-        IEditingContextSearchService editingContextSearchService = new EditingContextSearchService(projectRepository, documentRepository, editingContextEPackageService, composedAdapterFactory,
-                ePackageRegistry, new SimpleMeterRegistry());
+        IEditingContextSearchService editingContextSearchService = new EditingContextSearchService(projectRepository,
+                documentRepository, editingContextEPackageService, composedAdapterFactory, ePackageRegistry,
+                new SimpleMeterRegistry(), false);
         IEditingContext editingContext = editingContextSearchService.findById(projectId).get();
 
         assertThat(editingContext).isInstanceOf(EditingContext.class);

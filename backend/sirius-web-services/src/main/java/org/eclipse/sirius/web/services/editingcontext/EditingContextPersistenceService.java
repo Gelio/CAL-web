@@ -37,6 +37,7 @@ import org.eclipse.sirius.web.services.api.events.DocumentsModifiedEvent;
 import org.eclipse.sirius.web.services.documents.DocumentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -61,11 +62,16 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
 
     private final Timer timer;
 
-    public EditingContextPersistenceService(IDocumentRepository documentRepository, ApplicationEventPublisher applicationEventPublisher, MeterRegistry meterRegistry) {
+    private final boolean modelModificationsEnabled;
+
+    public EditingContextPersistenceService(IDocumentRepository documentRepository,
+            ApplicationEventPublisher applicationEventPublisher, MeterRegistry meterRegistry,
+            @Value("${eu.balticlsc.model.features.modificationsEnabled:false}") boolean modelModificationsEnabled) {
         this.documentRepository = Objects.requireNonNull(documentRepository);
         this.applicationEventPublisher = Objects.requireNonNull(applicationEventPublisher);
 
         this.timer = Timer.builder(TIMER_NAME).register(meterRegistry);
+        this.modelModificationsEnabled = modelModificationsEnabled;
     }
 
     @Override
@@ -86,7 +92,6 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
     private List<DocumentEntity> persist(EditingDomain editingDomain) {
         List<DocumentEntity> result = new ArrayList<>();
         List<Resource> resources = editingDomain.getResourceSet().getResources();
-        this.logger.debug("Persisting {}", editingDomain.toString());
         for (Resource resource : resources) {
             this.save(resource).ifPresent(result::add);
         }
@@ -97,8 +102,11 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
         Optional<DocumentEntity> result = Optional.empty();
         HashMap<Object, Object> options = new HashMap<>();
         options.put(JsonResource.OPTION_ID_MANAGER, new EObjectIDManager());
-        this.logger.debug("Saving a resource {}", resource.toString());
-        // TODO: remove unused auto-generated ComputationUnitReleases
+
+        if (this.modelModificationsEnabled) {
+            this.logger.debug("Saving a resource {}", resource.toString());
+            // TODO: remove unused auto-generated ComputationUnitReleases
+        }
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             resource.save(outputStream, options);

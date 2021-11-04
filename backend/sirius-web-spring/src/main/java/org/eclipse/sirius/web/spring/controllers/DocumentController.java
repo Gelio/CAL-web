@@ -72,8 +72,8 @@ public class DocumentController {
     public DocumentController(IDocumentService documentService,
             IEditingContextEventProcessorRegistry editingContextProcessor) {
         this.documentService = Objects.requireNonNull(documentService);
+        // TODO: add `Objects.requireNonNull`
         this.editingContextProcessor = editingContextProcessor;
-        this.logger.debug("Got processor");
     }
 
     @GetMapping(value = "/reset")

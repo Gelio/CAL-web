@@ -39,6 +39,7 @@ public class DocumentControllerTests {
     @Test
     public void testDocumentDoesNotExist() {
         IDocumentService noOpDocumentService = new IDocumentService.NoOp();
+        // TODO: pass a valid instance of editing context processor
         DocumentController documentController = new DocumentController(noOpDocumentService, null);
 
         UUID projectId = UUID.randomUUID();
@@ -62,6 +63,8 @@ public class DocumentControllerTests {
                 return Optional.of(new byte[] {});
             }
         };
+
+        // TODO: pass a valid instance of editing context processor
         DocumentController documentController = new DocumentController(documentService, null);
 
         UUID projectId = UUID.randomUUID();
