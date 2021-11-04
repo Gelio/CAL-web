@@ -56,6 +56,28 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
    ./backend/scripts/launch.sh
    ```
 
+### Debugging the application
+
+The backend application can be launched in debug mode using the following
+script:
+
+```sh
+./backend/scripts/launch-debug.sh
+```
+
+This exposes a debugging interface on port 8000. This allows attaching debuggers
+(such as
+[Java Debugger for VSCode](https://github.com/microsoft/vscode-java-debug) or
+[the debugger exposed via `nvim-jdtls`](https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap)).
+
+There is an existing VSCode [`launch.json`](./backend/.vscode/launch.json)
+configuration. For neovim, there is an
+[`nvim-dap`](https://github.com/mfussenegger/nvim-dap) configuration in
+[`.nvimrc.lua`](./backend/.nvimrc.lua).
+
+See [`launch-debug.sh`](./backend/scripts/launch-debug.sh) for details of debug
+settings.
+
 ## Keeping up with the upstream `sirius-web`
 
 The `sirius-web` directory is a git submodule containing the
