@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings
+  xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd"
+>
+  <!-- Required to pull packages from GitHub Packages -->
+  <!-- If you see references to environment variables below, use `scripts/generate-settings.sh`
+      to substitute them. Maven will not recognize those as environment variables
+      See https://maven.apache.org/settings.html#quick-overview -->
+  <servers>
+    <server>
+      <id>github-sirius-emfjson</id>
+      <username>${GITHUB_USERNAME}</username>
+      <password>${GITHUB_TOKEN}</password>
+    </server>
+    <server>
+      <id>github-sirius-components</id>
+      <username>${GITHUB_USERNAME}</username>
+      <password>${GITHUB_TOKEN}</password>
+    </server>
+    <!-- TODO: remove after flow is removed from dependencies -->
+    <server>
+      <id>github-flow</id>
+      <username>${GITHUB_USERNAME}</username>
+      <password>${GITHUB_TOKEN}</password>
+    </server>
+  </servers>
+</settings>

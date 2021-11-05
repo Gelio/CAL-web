@@ -1,1 +1,4 @@
 build
+
+# .npmrc contains secrets and is generated based on .npmrc-template
+.npmrc
