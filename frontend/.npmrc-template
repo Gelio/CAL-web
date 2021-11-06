@@ -1,0 +1,8 @@
+# If you see references to environment variables below, use
+# `scripts/generate-npmrc.sh` to substitute them.
+# npm will not recognize those as environment variables
+
+# Required to pull packages from GitHub Packages
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+
+# vim: set ft=dosini

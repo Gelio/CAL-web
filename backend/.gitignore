@@ -95,3 +95,7 @@ local.properties
 # Typically, this file would be tracked if it contains build/dependency configurations:
 .project
 .classpath
+
+# settings.xml is generated from settings-template.xml and contains secrets
+# It should not be committed
+settings.xml

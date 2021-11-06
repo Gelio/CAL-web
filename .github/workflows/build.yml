@@ -16,10 +16,9 @@ jobs:
       - name: Install packages in the root of the repository
         working-directory: ./
         run: npm install
-      - name: Set GitHub Packages registry token
-        run:
-          npm config set //npm.pkg.github.com/:_authToken ${{
-          secrets.GITHUB_TOKEN }}
+
+      - name: Generate .npmrc
+        run: ./scripts/generate-npmrc.sh ${{ secrets.GITHUB_TOKEN }}
       - run: npm install
       - run: npm run format-lint
       # There are no tests yet
@@ -57,10 +56,11 @@ jobs:
         with:
           name: frontend-assets
           path: backend/sirius-web-frontend/src/main/resources/static/
+      - name: Generate Maven settings.xml
+        run: >
+          ./scripts/generate-settings.sh ${{ github.actor }} ${{
+          secrets.GITHUB_TOKEN }}
       - name: Build with Maven
-        env:
-          GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
           ./mvnw --batch-mode --update-snapshots verify --settings settings.xml
       - name: Prepare JAR artifact for upload

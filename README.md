@@ -114,6 +114,46 @@ added to the model.
 The change is not meaningful right now, but it shows it is possible to modify
 the model programmatically when it is being loaded.
 
+### Building and running the application with Docker
+
+You can also run Docker to run the application.
+
+First, you need to generate secret files (Maven `settings.xml` and `.npmrc` that
+contain a GitHub Token to be able to pull packages from GitHub Packages). To do
+that, run:
+
+```sh
+./scripts/generate-secret-files.sh [GitHub username] [GitHub token]
+```
+
+You only need to do this once.
+
+Then, to build the `balticlsc/cal-web` Docker image, run:
+
+```sh
+./scripts/build-image.sh
+```
+
+You can then run it the same way as any other Docker image via `docker run`:
+
+```sh
+docker run --rm -it balticlsc/cal-web
+```
+
+Note that this will most likely fail, because you need to provide database
+connection information. This can be done by passing command line arguments or
+mounting an `application.properties` file into `/app` inside of the container.
+See [a section about configuration](#configuring-the-application) for more
+information.
+
+Alternatively, this command is the equivalent of the `launch.sh` script but
+using Docker to run the application:
+
+```sh
+docker run --network=host -it --rm balticlsc/cal-web \
+  java -jar sirius-web-application.jar --spring.profiles.active=dev
+```
+
 ## Keeping up with the upstream `sirius-web`
 
 The `sirius-web` directory is a git submodule containing the

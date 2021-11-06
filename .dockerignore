@@ -1,0 +1,4 @@
+**/node_modules
+backend/**/target
+backend/settings.xml
+frontend/.npmrc
