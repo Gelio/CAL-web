@@ -56,6 +56,25 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
    ./backend/scripts/launch.sh
    ```
 
+### Configuring the application
+
+The application uses standard
+[Spring Boot application properties](https://docs.spring.io/spring-boot/docs/1.2.0.M1/reference/html/boot-features-external-config.html)
+for configuration.
+
+To configure the properties, do one of the following:
+
+- pass the properties to the `launch.sh` script:
+
+  ```sh
+  ./backend/scripts/launch.sh --eu.balticlsc.model.features.modificationsEnabled=true
+  ```
+
+- create an `application.properties` file in the current directory and launch
+  the application
+
+- modify the existing `application.properties` file and rebuild the backend
+
 ### Debugging the application
 
 The backend application can be launched in debug mode using the following
