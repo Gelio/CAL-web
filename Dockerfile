@@ -5,10 +5,10 @@ FROM node:16.13 AS frontend-builder
 WORKDIR /app
 
 COPY frontend/package*.json ./
-RUN --mount=type=secret,id=.npmrc,dst=./.npmrc --mount=type=cache,target=./node_modules npm install
+RUN --mount=type=secret,id=.npmrc,dst=./.npmrc npm ci
 
 COPY frontend/ ./
-RUN --mount=type=cache,target=./node_modules npm run build
+RUN npm run build
 
 FROM openjdk:11 AS app-builder
 
