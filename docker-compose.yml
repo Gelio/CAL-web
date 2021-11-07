@@ -1,0 +1,28 @@
+services:
+  app:
+    # Passing `--secret`s to `docker build` is not supported when building
+    # with `COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up`
+    # https://github.com/docker/compose/issues/6358
+    # Thus, this requires the application image to be built before running
+    # `docker-compose`
+    image: balticlsc/cal-web
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/sirius-web-db
+      - SPRING_DATASOURCE_USERNAME=dbuser
+      - SPRING_DATASOURCE_PASSWORD=dbpwd
+
+  database:
+    image: postgres:14.0
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=dbpwd
+      - POSTGRES_DB=sirius-web-db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

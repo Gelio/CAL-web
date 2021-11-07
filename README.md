@@ -10,10 +10,14 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 
 1. Java 11
 
-   Make sure it is Java 11. Other version **will not work**.
+   Make sure it is Java 11. Other versions **will not work**.
 
 2. Docker
 3. Apache Maven 3.6.3
+
+You can build and run the application manually on your system (see
+[Building](#building)), or
+[use Docker](building-and-running-the-application-with-docker).
 
 ### Building
 
@@ -153,6 +157,20 @@ using Docker to run the application:
 docker run --network=host -it --rm balticlsc/cal-web \
   java -jar sirius-web-application.jar --spring.profiles.active=dev
 ```
+
+### Using Docker Compose to run the application
+
+You can also use [Docker Compose](https://docs.docker.com/compose/) to run the
+database and the application.
+
+1. Build the Docker image (see
+   [the section about it](building-and-running-the-application-with-docker)).
+2. Run `docker-compose up -d`
+
+   This will pull the Postgres database image and run both the database and the
+   application.
+
+See [`docker-compose.yml`](./docker-compose.yml) for details.
 
 ## Keeping up with the upstream `sirius-web`
 
