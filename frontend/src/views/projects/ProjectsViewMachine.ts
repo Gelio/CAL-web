@@ -179,7 +179,9 @@ export const projectsViewMachine = Machine<
             viewer: { projects },
           },
         } = event as FetchedProjectsEvent;
-        return projects.edges.length === 0 && !projects.pageInfo.hasPreviousPage;
+        return (
+          projects.edges.length === 0 && !projects.pageInfo.hasPreviousPage
+        );
       },
     },
     actions: {
