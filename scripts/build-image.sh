@@ -5,7 +5,7 @@ set -euo pipefail
 
 # https://stackoverflow.com/a/246128/4874344
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-repo_dir="$script_dir/.."
+repo_dir=$(realpath "$script_dir/..")
 
 npmrc_path="$repo_dir/frontend/.npmrc"
 settings_path="$repo_dir/backend/settings.xml"
