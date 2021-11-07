@@ -15,6 +15,8 @@ package org.eclipse.sirius.web.sample.configuration;
 import java.util.List;
 
 import org.eclipse.sirius.web.compat.services.api.ISiriusConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -27,5 +29,11 @@ public class SampleSiriusConfiguration implements ISiriusConfiguration {
     @Override
     public List<String> getODesignPaths() {
         return List.of("description/flow.odesign", "description/CAL.odesign"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "org.eclipse.sirius.web.features", name = "studioDefinition")
+    public ISiriusConfiguration domainModelerDefinition() {
+        return () -> List.of("description/domain.odesign"); //$NON-NLS-1$
     }
 }
