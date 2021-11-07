@@ -42,9 +42,12 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.settings/
+**/.settings/*
 .loadpath
 .recommenders
+
+# Track Eclipse settings for consistent formatting of Java files
+!*/.settings/org.eclipse.jdt.core.prefs
 
 # External tool builders
 .externalToolBuilders/
