@@ -95,6 +95,14 @@ jobs:
           name: sirius-web-backend
           path: staging/
 
+      - name: Remove previous individual artifacts
+        # Helps keep the list of artifacts clean. They are not needed anyway
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            sirius-web-backend
+            frontend-assets
+
       - name: Inject frontend assets into the JAR
         # Injecting files into JAR using zip: https://stackoverflow.com/a/4799569/4874344
         run: |
