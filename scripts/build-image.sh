@@ -38,4 +38,5 @@ docker buildx build \
 	--secret "id=settings.xml,src=$settings_path" \
 	-t balticlsc/cal-web \
 	--load \
+	--progress=plain \
 	.
