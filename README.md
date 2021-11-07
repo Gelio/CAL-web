@@ -204,7 +204,7 @@ Git patches can be leveraged to make the pulling changes simpler.
    This should apply all the patches and notify about any conflicts that need to
    be resolved manually.
 
-3. After the patches are applies, update the commit the `sirius-web` submodule
+3. After the patches are applied, update the commit the `sirius-web` submodule
    points to. This way it is clear which upstream commits are applied in this
    repository.
 
@@ -218,5 +218,9 @@ Git patches can be leveraged to make the pulling changes simpler.
 
 Alternatively, changes can be applied manually. This seems like a tedious
 process, though. Using git patches is recommended.
+
+NOTE: Files modified in patches will not run through the pre-commit hook. Thus,
+make sure to wait for the CI to pass before merging the changes to see if the
+project still builds and passes all checks.
 
 <!-- vim: set tw=80: -->
