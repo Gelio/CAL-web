@@ -24,6 +24,7 @@
           <testSuite>eu.balticlsc.model.CAL.tests</testSuite>
           <testClass>eu.balticlsc.model.CAL.tests.CALAllTests</testClass>
         </configuration>
+        <version>${tycho.version}</version>
       </plugin>
     </plugins>
   </build>
