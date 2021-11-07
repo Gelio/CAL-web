@@ -17,7 +17,7 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 
 You can build and run the application manually on your system (see
 [Building](#building)), or
-[use Docker](building-and-running-the-application-with-docker).
+[use Docker](#building-and-running-the-application-with-docker).
 
 ### Building
 
@@ -164,7 +164,7 @@ You can also use [Docker Compose](https://docs.docker.com/compose/) to run the
 database and the application.
 
 1. Build the Docker image (see
-   [the section about it](building-and-running-the-application-with-docker)).
+   [the section about it](#building-and-running-the-application-with-docker)).
 2. Run `docker-compose up -d`
 
    This will pull the Postgres database image and run both the database and the
