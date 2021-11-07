@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     defaults:
       run:
-        working-directory: frontend
+        working-directory: frontend/
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -30,20 +30,14 @@ jobs:
           path: frontend/build/
 
   build_backend:
+    # Build the backend without frontend assets.
+    # This way this can run in parallel to building the frontend.
+    # Integrating the 2 artifacts into the final JAR happens in the `build_app` job.
     name: Build backend
     runs-on: ubuntu-20.04
     defaults:
       run:
-        working-directory: backend
-    # Building the server requires frontend assets
-    # It could be optimized - adding the frontend assets to a prebuilt JAR
-    # could happen in a separate stage. Building backend and frontend could happen
-    # in parallel.
-    # The sirius-web-frontend package would have to be rebuilt and replaced
-    # in the final sirius-web-sample-application jar
-    # See https://docs.oracle.com/javase/tutorial/deployment/jar/update.html
-    # and https://stackoverflow.com/a/14388993/4874344
-    needs: build_frontend
+        working-directory: backend/
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -52,10 +46,6 @@ jobs:
           java-version: "11"
           distribution: "adopt"
           cache: maven
-      - uses: actions/download-artifact@v2
-        with:
-          name: frontend-assets
-          path: backend/sirius-web-frontend/src/main/resources/static/
       - name: Generate Maven settings.xml
         run: >
           ./scripts/generate-settings.sh ${{ github.actor }} ${{
@@ -67,7 +57,53 @@ jobs:
         run: |
           mkdir staging
           find sirius-web-sample-application/target -maxdepth 1 -name "*.jar" -not -name "*-sources.jar" -exec cp {} staging/sirius-web-application.jar \;
-      - uses: actions/upload-artifact@v2
+      - name: Upload the backend JAR
+        uses: actions/upload-artifact@v2
+        with:
+          name: sirius-web-backend
+          path: backend/staging/
+
+  build_app:
+    name: Build the final application
+    runs-on: ubuntu-20.04
+    needs:
+      - build_frontend
+      - build_backend
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: "11"
+          distribution: "adopt"
+          cache: maven
+
+      - name: Download frontend assets
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-assets
+          path: backend/sirius-web-frontend/src/main/resources/static/
+      - name: Build only the frontend Maven module
+        # https://stackoverflow.com/a/3899772/4874344
+        run: ./mvnw package -pl sirius-web-frontend
+        working-directory: backend/
+
+      - run: mkdir staging
+      - name: Download the backend JAR
+        uses: actions/download-artifact@v2
+        with:
+          name: sirius-web-backend
+          path: staging/
+
+      - name: Inject frontend assets into the JAR
+        # Injecting files into JAR using zip: https://stackoverflow.com/a/4799569/4874344
+        run: |
+          mkdir -p BOOT-INF/lib
+          find backend/sirius-web-frontend/target -maxdepth 1 -name "*.jar" -not -name "*-sources.jar" -exec mv {} BOOT-INF/lib/ \;
+          zip -r --compression-method=store staging/sirius-web-application.jar BOOT-INF/lib
+
+      - name: Upload the final application JAR
+        uses: actions/upload-artifact@v2
         with:
           name: sirius-web-application
-          path: backend/staging/
+          path: staging/
