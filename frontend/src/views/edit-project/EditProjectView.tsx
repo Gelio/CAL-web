@@ -147,6 +147,20 @@ export const EditProjectView = () => {
     representationId,
   ]);
 
+  useEffect(() => {
+    const toolboxUrl = `${process.env.REACT_APP_BALTICLSC_API_URL}/backend/dev/toolbox/`;
+    fetch(toolboxUrl, {
+      headers: {
+        authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRlbW8iLCJzdWIiOiJkZW1vIiwianRpIjoiYjQ5ZTJjZmQ0ZGQ5NDM1ODk1OTEwNmY0ZjcwNWY0YTciLCJzaWQiOiJiYjdhNTNhMjA1ZDM0NWY4YmNlYWRhYWEwZjkxZjhiNyIsImV4cCI6MTYzNjQwMzA3MywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.RXUVe-i4_6TFdtbp1SYCB0yPowcX75bT59cd_ddrGt0",
+      },
+    })
+      .then((r) => r.json())
+      .then((response) => {
+        console.log("Got toolbox", response);
+      });
+  }, []);
+
   let main = null;
   if (editProjectView === "loaded" && project) {
     const onRepresentationSelected = (
