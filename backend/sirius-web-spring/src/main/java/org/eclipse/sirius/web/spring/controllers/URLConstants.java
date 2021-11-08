@@ -32,6 +32,8 @@ public final class URLConstants {
 
     public static final String PROJECT_BASE_PATH = API_BASE_PATH + "/projects"; //$NON-NLS-1$
 
+    public static final String BALTICLSC_PROXY_BASE_PATH = API_BASE_PATH + "/balticlsc-proxy"; //$NON-NLS-1$
+
     public static final String ANY_PATTERN = "/**"; //$NON-NLS-1$
 
     private URLConstants() {
