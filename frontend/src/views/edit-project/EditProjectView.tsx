@@ -17,22 +17,14 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
-import AddIcon from "@material-ui/icons/Add";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import { useMachine } from "@xstate/react";
 import {
-  httpOrigin,
-  NewObjectModal,
-  NewRepresentationModal,
-  NewRootObjectModal,
   Representation,
   TreeItemContextMenuContribution,
-  TreeItemHandler,
-  TreeItemHandlersContext,
   Workbench as SiriusComponentsWorkbench,
 } from "@eclipse-sirius/sirius-components";
 import gql from "graphql-tag";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import {
   generatePath,
   useHistory,
@@ -57,7 +49,6 @@ import {
 } from "./EditProjectViewMachine";
 import { Workbench } from "./Workbench";
 import { NavigationBar } from "../../navigationBar/NavigationBar";
-import { ListItemIcon, ListItemText, MenuItem } from "@material-ui/core";
 import { DocumentTreeItemContextMenuContribution } from "./DocumentTreeItemContextMenuContribution";
 import { ObjectTreeItemContextMenuContribution } from "./ObjectTreeItemContextMenuContribution";
 

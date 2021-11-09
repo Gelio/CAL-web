@@ -4,5 +4,6 @@
 
 # Required to pull packages from GitHub Packages
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+@eclipse-sirius:registry=https://npm.pkg.github.com
 
 # vim: set ft=dosini
