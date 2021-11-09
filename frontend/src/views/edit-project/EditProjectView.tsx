@@ -10,7 +10,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-import { useQuery, useSubscription } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -19,7 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import { useMachine } from "@xstate/react";
 import gql from "graphql-tag";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   generatePath,
   useHistory,
@@ -66,58 +66,6 @@ const getProjectQuery = gql`
         }
       }
     }
-  }
-`;
-
-/**
- * Based on
- * https://github.com/eclipse-sirius/sirius-components/blob/master/frontend/src/explorer/getTreeEventSubscription.ts
- *
- * The fragment is renamed due to a `graphql-tag` warning:
- * Warning: fragment with name treeItemFields already exists.
- * graphql-tag enforces all fragment names across your application to be unique
- */
-const getTreeEventQuery = gql`
-  subscription calTreeEvent($input: TreeEventInput!) {
-    treeEvent(input: $input) {
-      __typename
-      ... on TreeRefreshedEventPayload {
-        id
-        tree {
-          id
-          label
-          children {
-            ...calTreeItemFields
-            children {
-              ...calTreeItemFields
-              children {
-                ...calTreeItemFields
-                children {
-                  ...calTreeItemFields
-                  __typename
-                }
-                __typename
-              }
-              __typename
-            }
-            __typename
-          }
-          __typename
-        }
-        __typename
-      }
-    }
-  }
-
-  fragment calTreeItemFields on TreeItem {
-    id
-    hasChildren
-    expanded
-    label
-    editable
-    kind
-    imageURL
-    __typename
   }
 `;
 
@@ -198,40 +146,6 @@ export const EditProjectView = () => {
     representation,
     representationId,
   ]);
-
-  const [modelObjectIds, setModelObjectIds] = useState(new Set<string>());
-  const treeSubscription = useSubscription(getTreeEventQuery, {
-    variables: {
-      input: {
-        id: "b2cafd53-ce17-428c-bd62-deeeceb3b047",
-        editingContextId: project?.currentEditingContext.id,
-        expanded: Array.from(modelObjectIds.values()),
-      },
-    },
-    skip: !project,
-  });
-
-  useEffect(() => {
-    console.log("Tree subscription", treeSubscription);
-
-    if (treeSubscription.data) {
-      // Keep expandinng children until all are expanded
-
-      const newModelObjectIds = new Set<string>();
-      function visitModelObject(modelObject: any) {
-        newModelObjectIds.add(modelObject.id);
-        modelObject.children?.forEach(visitModelObject);
-      }
-
-      visitModelObject(treeSubscription.data.treeEvent.tree.children[0]);
-      // NOTE: this is not a perfect solution - if an object is removed and added between 2 runs of this hook,
-      // the hook will not catch the change, because the number of objects will still be the same.
-      // TODO: implement a more robust equality check
-      if (newModelObjectIds.size !== modelObjectIds.size) {
-        setModelObjectIds(newModelObjectIds);
-      }
-    }
-  }, [treeSubscription, modelObjectIds.size]);
 
   useEffect(() => {
     const toolboxUrl = `${process.env.REACT_APP_BALTICLSC_API_URL}/backend/dev/toolbox/`;
