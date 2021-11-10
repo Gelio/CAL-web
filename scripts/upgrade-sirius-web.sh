@@ -47,6 +47,12 @@ if ! git am -3 $submodule_directory/*.patch; then
 	echo "Use 'git status' for guidance"
 	echo "Do not forget to remove generated patches in the $submodule_directory directory"
 	echo "and point that submodule tip to $upstream_tip_rev ($upstream_tip_hash)"
+
+	echo "HINT:"
+	echo "If you saw an error starting with:"
+	echo "  error: sha1 information is lacking or useless"
+	echo "  error: could not build fake ancestor"
+	echo "Make sure you have the upstream repository added as a remote in the main repository"
 	exit 2
 fi
 
