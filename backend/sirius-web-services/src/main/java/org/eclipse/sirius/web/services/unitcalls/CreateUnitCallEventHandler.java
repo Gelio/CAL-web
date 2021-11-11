@@ -1,8 +1,11 @@
 package org.eclipse.sirius.web.services.unitcalls;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.management.InvalidAttributeValueException;
 
 import org.eclipse.sirius.web.core.api.ChildCreationDescription;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
@@ -14,7 +17,9 @@ import org.eclipse.sirius.web.core.api.IPayload;
 import org.eclipse.sirius.web.services.api.unitcalls.ComputationUnitReleaseInput;
 import org.eclipse.sirius.web.services.api.unitcalls.CreateUnitCallInput;
 import org.eclipse.sirius.web.services.api.unitcalls.CreateUnitCallSuccessPayload;
+import org.eclipse.sirius.web.services.api.unitcalls.DataBinding;
 import org.eclipse.sirius.web.services.api.unitcalls.DeclaredDataPinInput;
+import org.eclipse.sirius.web.services.api.unitcalls.Multiplicity;
 import org.eclipse.sirius.web.spring.collaborative.api.ChangeDescription;
 import org.eclipse.sirius.web.spring.collaborative.api.ChangeKind;
 import org.eclipse.sirius.web.spring.collaborative.api.IEditingContextEventHandler;
@@ -142,9 +147,9 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
                 .map(DeclaredDataPin.class::cast).orElseThrow();
         declaredDataPin.setName(declaredDataPinInput.getName());
 
-        // declaredDataPin.setBinding(declaredDataPinInput.getBinding());
-        // declaredDataPin.setDataMultiplicity(declaredDataPinInput.getDataMultiplicity());
-        // declaredDataPin.setTokenMultiplicity(declaredDataPinInput.getTokenMultiplicity());
+        this.getCALDataBinding(declaredDataPinInput.getBinding()).ifPresent(declaredDataPin::setBinding);
+        this.getCALMultiplicity(declaredDataPinInput.getDataMultiplicity()).ifPresent(declaredDataPin::setDataMultiplicity);
+        this.getCALMultiplicity(declaredDataPinInput.getTokenMultiplicity()).ifPresent(declaredDataPin::setTokenMultiplicity);
 
         return declaredDataPin;
     }
@@ -178,5 +183,27 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
         return this.editService.getChildCreationDescriptions(editingContextId, parentClassId).stream().filter(c -> c.getLabel().contains(childLabel)).findFirst()
                 // NOTE: if the description cannot be found, it's a bug
                 .map(ChildCreationDescription::getLabel).orElseThrow();
+    }
+
+    private Optional<eu.balticlsc.model.CAL.Multiplicity> getCALMultiplicity(Multiplicity multiplicity) {
+        switch (multiplicity) {
+        case SINGLE:
+            return Optional.of(eu.balticlsc.model.CAL.Multiplicity.SINGLE);
+        case MULTIPLE:
+            return Optional.of(eu.balticlsc.model.CAL.Multiplicity.MULTIPLE);
+        default:
+            return Optional.empty();
+        }
+    }
+
+    private Optional<eu.balticlsc.model.CAL.DataBinding> getCALDataBinding(DataBinding dataBinding) {
+        switch (dataBinding) {
+        case PROVIDED:
+            return Optional.of(eu.balticlsc.model.CAL.DataBinding.PROVIDED);
+        case REQUIRED:
+            return Optional.of(eu.balticlsc.model.CAL.DataBinding.REQUIRED);
+        default:
+            return Optional.empty();
+        }
     }
 }
