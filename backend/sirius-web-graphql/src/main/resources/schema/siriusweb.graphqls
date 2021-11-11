@@ -43,6 +43,7 @@ extend type Mutation {
   deleteProject(input: DeleteProjectInput!): DeleteProjectPayload!
   renameProject(input: RenameProjectInput!): RenameProjectPayload!
   uploadProject(input: UploadProjectInput!): UploadProjectPayload!
+  createUnitCall(input: CreateUnitCallInput!): CreateUnitCallPayload!
 }
 
 input CreateProjectInput {
@@ -94,3 +95,15 @@ type UploadProjectSuccessPayload {
   id: ID!
   project: Project!
 }
+
+input CreateUnitCallInput {
+  id: ID!
+  howToCallYou: String!
+}
+
+type CreateUnitCallSuccessPayload {
+  id: ID!
+  yo: String!
+}
+
+union CreateUnitCallPayload = ErrorPayload | CreateUnitCallSuccessPayload
