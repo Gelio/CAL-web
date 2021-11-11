@@ -107,7 +107,10 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
             Many<ChangeDescription> changeDescriptionSink, IEditingContext editingContext) {
         // @formatter:off
         return computationApplicationRelease.getUnits().stream()
-            .filter(unitRelease -> unitRelease.getName() == unitReleaseInput.getName() && unitRelease.getVersion() == unitReleaseInput.getVersion())
+            .filter(unitRelease -> {
+                return Objects.equals(unitRelease.getName(), unitReleaseInput.getName()) &&
+                    Objects.equals(unitRelease.getVersion(), unitReleaseInput.getVersion());
+            })
             .findFirst()
             .orElseGet(() -> {
                 return this.createComputationUnitRelease(computationApplicationRelease, unitReleaseInput, changeDescriptionSink, editingContext);
