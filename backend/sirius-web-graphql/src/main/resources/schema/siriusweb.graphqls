@@ -43,6 +43,7 @@ extend type Mutation {
   deleteProject(input: DeleteProjectInput!): DeleteProjectPayload!
   renameProject(input: RenameProjectInput!): RenameProjectPayload!
   uploadProject(input: UploadProjectInput!): UploadProjectPayload!
+  createUnitCall(input: CreateUnitCallInput!): CreateUnitCallPayload!
 }
 
 input CreateProjectInput {
@@ -94,3 +95,42 @@ type UploadProjectSuccessPayload {
   id: ID!
   project: Project!
 }
+
+enum DataBinding {
+  REQUIRED
+  PROVIDED
+}
+
+enum Multiplicity {
+  SINGLE
+  MULTIPLE
+}
+
+input DeclaredDataPinInput {
+  id: ID!
+  name: String!
+  binding: DataBinding!
+  tokenMultiplicity: Multiplicity!
+  dataMultiplicity: Multiplicity!
+}
+
+input ComputationUnitReleaseInput {
+  id: ID!
+  name: String!
+  version: String!
+  pins: [DeclaredDataPinInput!]!
+}
+
+input CreateUnitCallInput {
+  id: ID!
+  editingContextId: ID!
+  rootObjectId: ID!
+  unitRelease: ComputationUnitReleaseInput!
+}
+
+type CreateUnitCallSuccessPayload {
+  id: ID!
+  createdUnitCall: Object!
+}
+
+union CreateUnitCallPayload = ErrorPayload | CreateUnitCallSuccessPayload

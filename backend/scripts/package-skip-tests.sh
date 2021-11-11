@@ -12,4 +12,4 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 backend_dir="$script_dir/.."
 
 cd "$backend_dir"
-./mvnw package -DskipTests
+./mvnw clean package -DskipTests
