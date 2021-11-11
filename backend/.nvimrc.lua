@@ -1,13 +1,18 @@
 local dap = require("dap")
-dap.configurations.java = {
-	{
-		type = "java",
-		request = "attach",
-		name = "Debug (Attach) - Remote",
-		hostName = "127.0.0.1",
-		port = 8000,
-	},
+local base_dap_config = {
+	type = "java",
+	request = "attach",
+	hostName = "127.0.0.1",
+	port = 8000,
 }
+local project_names = { "sirius-web-services", "sirius-web-services-api", "sirius-web-spring" }
+
+dap.configurations.java = vim.tbl_map(function(project_name)
+	return vim.tbl_extend("error", base_dap_config, {
+		name = "Debug (Attach) - " .. project_name,
+		projectName = project_name,
+	})
+end, project_names)
 
 local javalsp = require("lsp.java")
 
