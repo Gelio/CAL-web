@@ -72,7 +72,7 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
         if (input instanceof CreateUnitCallInput) {
             var createChildInput = (CreateUnitCallInput) input;
             // NOTE: hardcode the representation ID for now
-            var object = this.objectService.getObject(editingContext, createChildInput.getHowToCallYou());
+            var object = this.objectService.getObject(editingContext, createChildInput.getRootObjectId().toString());
 
             if (object.isPresent() && ComputationApplicationRelease.class.isInstance(object.get())) {
                 var root = (ComputationApplicationRelease) object.get();

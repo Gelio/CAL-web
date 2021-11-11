@@ -1,28 +1,24 @@
 package org.eclipse.sirius.web.services.api.unitcalls;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.graphql.GraphQLField;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLID;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLInputObjectType;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLNonNull;
-import org.eclipse.sirius.web.core.api.IInput;
 
-/**
- * The input object for the create unit call mutation.
- */
 @GraphQLInputObjectType
-public final class CreateUnitCallInput implements IInput {
+public class ComputationUnitRelease {
     private UUID id;
 
-    private UUID editingContextId;
+    private String name;
 
-    private UUID rootObjectId;
+    private String version;
 
-    private ComputationUnitRelease unitRelease;
+    private List<DeclaredDataPin> pins;
 
-    @Override
     @GraphQLID
     @GraphQLField
     @GraphQLNonNull
@@ -30,29 +26,27 @@ public final class CreateUnitCallInput implements IInput {
         return this.id;
     }
 
-    @GraphQLID
     @GraphQLField
     @GraphQLNonNull
-    public UUID getEditingContextId() {
-        return this.editingContextId;
-    }
-
-    @GraphQLID
-    @GraphQLField
-    @GraphQLNonNull
-    public UUID getRootObjectId() {
-        return this.rootObjectId;
+    public String getName() {
+        return this.name;
     }
 
     @GraphQLField
     @GraphQLNonNull
-    public ComputationUnitRelease getUnitRelease() {
-        return this.unitRelease;
+    public String getVersion() {
+        return this.version;
+    }
+
+    @GraphQLField
+    @GraphQLNonNull
+    public List<DeclaredDataPin> getPins() {
+        return pins;
     }
 
     @Override
     public String toString() {
-        String pattern = "{0}"; //$NON-NLS-1$
-        return MessageFormat.format(pattern, this.getClass().getSimpleName());
+        String pattern = "{0} '{'id: {1}, name: {2}, version: {3}'}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.name, this.version);
     }
 }

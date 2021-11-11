@@ -96,10 +96,36 @@ type UploadProjectSuccessPayload {
   project: Project!
 }
 
+enum DataBinding {
+  REQUIRED
+  PROVIDED
+}
+
+enum Multiplicity {
+  SINGLE
+  MULTIPLE
+}
+
+input DeclaredDataPin {
+  id: ID!
+  name: String!
+  binding: DataBinding!
+  tokenMultiplicity: Multiplicity!
+  dataMultiplicity: Multiplicity!
+}
+
+input ComputationUnitRelease {
+  id: ID!
+  name: String!
+  version: String!
+  pins: [DeclaredDataPin!]!
+}
+
 input CreateUnitCallInput {
   id: ID!
   editingContextId: ID!
-  howToCallYou: String!
+  rootObjectId: ID!
+  unitRelease: ComputationUnitRelease!
 }
 
 type CreateUnitCallSuccessPayload {
