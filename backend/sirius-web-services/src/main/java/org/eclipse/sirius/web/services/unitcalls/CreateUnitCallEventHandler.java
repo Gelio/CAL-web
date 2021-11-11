@@ -1,16 +1,20 @@
 package org.eclipse.sirius.web.services.unitcalls;
 
 import java.util.Objects;
-import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.sirius.web.core.api.ChildCreationDescription;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
 import org.eclipse.sirius.web.core.api.IObjectService;
 import org.eclipse.sirius.web.core.api.IPayload;
+import org.eclipse.sirius.web.services.api.unitcalls.ComputationUnitReleaseInput;
 import org.eclipse.sirius.web.services.api.unitcalls.CreateUnitCallInput;
+import org.eclipse.sirius.web.services.api.unitcalls.CreateUnitCallSuccessPayload;
+import org.eclipse.sirius.web.services.api.unitcalls.DeclaredDataPinInput;
 import org.eclipse.sirius.web.spring.collaborative.api.ChangeDescription;
 import org.eclipse.sirius.web.spring.collaborative.api.ChangeKind;
 import org.eclipse.sirius.web.spring.collaborative.api.IEditingContextEventHandler;
@@ -18,7 +22,6 @@ import org.eclipse.sirius.web.spring.collaborative.api.Monitoring;
 import org.eclipse.sirius.web.spring.collaborative.messages.ICollaborativeMessageService;
 import org.springframework.stereotype.Service;
 
-import eu.balticlsc.model.CAL.CALFactory;
 import eu.balticlsc.model.CAL.ComputationApplicationRelease;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
@@ -29,9 +32,7 @@ import reactor.core.publisher.Sinks.Many;
 import reactor.core.publisher.Sinks.One;
 
 /**
- * Handler used to create a new child.
- *
- * @author sbegaudeau
+ * Handler used to create a new unit call.
  */
 @Service
 public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
@@ -70,41 +71,28 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
         IPayload payload = null;
 
         if (input instanceof CreateUnitCallInput) {
-            var createChildInput = (CreateUnitCallInput) input;
-            // NOTE: hardcode the representation ID for now
-            var object = this.objectService.getObject(editingContext, createChildInput.getRootObjectId().toString());
+            var createUnitCallInput = (CreateUnitCallInput) input;
+            var rootObject = this.objectService.getObject(editingContext, createUnitCallInput.getRootObjectId().toString());
 
-            if (object.isPresent() && ComputationApplicationRelease.class.isInstance(object.get())) {
-                var root = (ComputationApplicationRelease) object.get();
-                // // @formatter:off
-                var creationDescription = this.editService.getChildCreationDescriptions(editingContext.getId(), "CAL::ComputationApplicationRelease") //$NON-NLS-1$
-                    .stream()
-                    .filter(c -> c.getLabel().contains("Unit Release")) //$NON-NLS-1$
-                    .findFirst();
-                // @formatter:on
-                creationDescription.flatMap(d -> this.editService.createChild(editingContext, root, d.getId())).map(ComputationUnitRelease.class::cast).ifPresent(x -> {
-                    x.setName("Auto gen"); //$NON-NLS-1$
-                    this.editService.getChildCreationDescriptions(editingContext.getId(), "CAL::ComputationUnitRelease") //$NON-NLS-1$
-                            .stream().filter(c -> c.getLabel().contains("Declared Data Pin")) //$NON-NLS-1$
-                            .findFirst().flatMap(d -> this.editService.createChild(editingContext, x, d.getId())).map(DeclaredDataPin.class::cast).ifPresent(pin -> {
-                                pin.setName("Auto generated pin"); //$NON-NLS-1$
-                            });
+            // @formatter:off
+            var computationApplicationRelease = rootObject
+                .filter(ComputationApplicationRelease.class::isInstance)
+                .map(ComputationApplicationRelease.class::cast);
+            // @formatter:on
 
-                });
+            var unitCall = computationApplicationRelease.map(applicationRelease -> {
+                var unitRelease = this.getOrCreateComputationUnitRelease(applicationRelease, createUnitCallInput.getUnitRelease(), changeDescriptionSink, editingContext);
+                return this.createUnitCall(applicationRelease, unitRelease, changeDescriptionSink, editingContext);
+            });
+
+            changeDescription = new ChangeDescription(ChangeKind.SEMANTIC_CHANGE, editingContext.getId(), input);
+
+            if (unitCall.isPresent()) {
+                payload = new CreateUnitCallSuccessPayload(input.getId(), unitCall.get());
                 changeDescription = new ChangeDescription(ChangeKind.SEMANTIC_CHANGE, editingContext.getId(), input);
+            } else {
+                message = this.messageService.objectCreationFailed();
             }
-
-            // Optional<Object> createdChildOptional = this.objectService.getObject(editingContext,
-            // parentObjectId).flatMap(parent -> {
-            // return this.editService.createChild(editingContext, parent, childCreationDescriptionId);
-            // });
-            //
-            // if (createdChildOptional.isPresent()) {
-            // payload = new CreateChildSuccessPayload(input.getId(), createdChildOptional.get());
-            // changeDescription = new ChangeDescription(ChangeKind.SEMANTIC_CHANGE, editingContext.getId(), input);
-            // } else {
-            // message = this.messageService.objectCreationFailed();
-            // }
         }
 
         if (payload == null) {
@@ -113,5 +101,79 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
 
         payloadSink.tryEmitValue(payload);
         changeDescriptionSink.tryEmitNext(changeDescription);
+    }
+
+    private ComputationUnitRelease getOrCreateComputationUnitRelease(ComputationApplicationRelease computationApplicationRelease, ComputationUnitReleaseInput unitReleaseInput,
+            Many<ChangeDescription> changeDescriptionSink, IEditingContext editingContext) {
+        // @formatter:off
+        return computationApplicationRelease.getUnits().stream()
+            .filter(unitRelease -> unitRelease.getName() == unitReleaseInput.getName() && unitRelease.getVersion() == unitReleaseInput.getVersion())
+            .findFirst()
+            .orElseGet(() -> {
+                return this.createComputationUnitRelease(computationApplicationRelease, unitReleaseInput, changeDescriptionSink, editingContext);
+            });
+        // @formatter:on
+    }
+
+    private ComputationUnitRelease createComputationUnitRelease(ComputationApplicationRelease computationApplicationRelease, ComputationUnitReleaseInput unitReleaseInput,
+            Many<ChangeDescription> changeDescriptionSink, IEditingContext editingContext) {
+        // NOTE: changeDescriptionSink is not used ATM. It could be necessary to fix
+        // https://github.com/Gelio/CAL-web/issues/39
+        var unitRelease = this.editService.createChild(editingContext, computationApplicationRelease, this.getUnitReleaseCreationDescriptionId(editingContext.getId()))
+                .map(ComputationUnitRelease.class::cast).orElseThrow();
+
+        unitRelease.setName(unitReleaseInput.getName());
+        unitRelease.setVersion(unitReleaseInput.getVersion());
+        // TODO: handlle unitReleaseInput.getId()
+
+        unitReleaseInput.getPins().forEach(pin -> this.createDeclaredDataPin(unitRelease, pin, changeDescriptionSink, editingContext));
+
+        return unitRelease;
+    }
+
+    private DeclaredDataPin createDeclaredDataPin(ComputationUnitRelease computationUnitRelease, DeclaredDataPinInput declaredDataPinInput, Many<ChangeDescription> changeDescriptionSink,
+            IEditingContext editingContext) {
+        // NOTE: changeDescriptionSink is not used ATM. It could be necessary to fix
+        // https://github.com/Gelio/CAL-web/issues/39
+        var declaredDataPin = this.editService.createChild(editingContext, computationUnitRelease, this.getDeclaredDataPinCreationDescriptionId(editingContext.getId()))
+                .map(DeclaredDataPin.class::cast).orElseThrow();
+        declaredDataPin.setName(declaredDataPinInput.getName());
+
+        // declaredDataPin.setBinding(declaredDataPinInput.getBinding());
+        // declaredDataPin.setDataMultiplicity(declaredDataPinInput.getDataMultiplicity());
+        // declaredDataPin.setTokenMultiplicity(declaredDataPinInput.getTokenMultiplicity());
+
+        return declaredDataPin;
+    }
+
+    private UnitCall createUnitCall(ComputationApplicationRelease computationApplicationRelease, ComputationUnitRelease unitRelease, Many<ChangeDescription> changeDescriptionSink,
+            IEditingContext editingContext) {
+        // NOTE: changeDescriptionSink is not used ATM. It could be necessary to fix
+        // https://github.com/Gelio/CAL-web/issues/39
+        var unitCall = this.editService.createChild(editingContext, computationApplicationRelease, this.getUnitCallCreationDescriptionId(editingContext.getId())).map(UnitCall.class::cast)
+                .orElseThrow();
+
+        unitCall.setName(unitRelease.getName() + " call"); //$NON-NLS-1$
+        unitCall.setUnit(unitRelease);
+
+        return unitCall;
+    }
+
+    private String getUnitReleaseCreationDescriptionId(UUID editingContextId) {
+        return this.getChildCreationDescriptionId(editingContextId, "CAL::ComputationApplicationRelease", "Unit Release"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    private String getDeclaredDataPinCreationDescriptionId(UUID editingContextId) {
+        return this.getChildCreationDescriptionId(editingContextId, "CAL::ComputationUnitRelease", "Declared Data Pin"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    private String getUnitCallCreationDescriptionId(UUID editingContextId) {
+        return this.getChildCreationDescriptionId(editingContextId, "CAL::ComputationApplicationRelease", "Unit Call"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    private String getChildCreationDescriptionId(UUID editingContextId, String parentClassId, String childLabel) {
+        return this.editService.getChildCreationDescriptions(editingContextId, parentClassId).stream().filter(c -> c.getLabel().contains(childLabel)).findFirst()
+                // NOTE: if the description cannot be found, it's a bug
+                .map(ChildCreationDescription::getLabel).orElseThrow();
     }
 }

@@ -130,7 +130,7 @@ input CreateUnitCallInput {
 
 type CreateUnitCallSuccessPayload {
   id: ID!
-  yo: String!
+  createdUnitCall: Object!
 }
 
 union CreateUnitCallPayload = ErrorPayload | CreateUnitCallSuccessPayload

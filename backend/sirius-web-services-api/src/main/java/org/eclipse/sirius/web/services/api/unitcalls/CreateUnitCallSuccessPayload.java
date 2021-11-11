@@ -18,11 +18,11 @@ public final class CreateUnitCallSuccessPayload implements IPayload {
 
     private final UUID id;
 
-    private final String yo;
+    private final Object createdUnitCall;
 
-    public CreateUnitCallSuccessPayload(UUID id, String yo) {
+    public CreateUnitCallSuccessPayload(UUID id, Object createdUnitCall) {
         this.id = Objects.requireNonNull(id);
-        this.yo = Objects.requireNonNull(yo);
+        this.createdUnitCall = Objects.requireNonNull(createdUnitCall);
     }
 
     @Override
@@ -35,13 +35,13 @@ public final class CreateUnitCallSuccessPayload implements IPayload {
 
     @GraphQLField
     @GraphQLNonNull
-    public String getYo() {
-        return this.yo;
+    public Object getCreatedUnitCall() {
+        return this.createdUnitCall;
     }
 
     @Override
     public String toString() {
-        String pattern = "{0} '{'id: {1}, yo: {2} '}'"; //$NON-NLS-1$
-        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.yo);
+        String pattern = "{0} '{'id: {1}'}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id);
     }
 }
