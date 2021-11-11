@@ -17,7 +17,6 @@ import org.eclipse.sirius.web.spring.collaborative.api.IEditingContextEventProce
 import org.eclipse.sirius.web.spring.graphql.api.IDataFetcherWithFieldCoordinates;
 
 import graphql.schema.DataFetchingEnvironment;
-import reactor.core.publisher.Mono;
 
 /**
  * The data fetcher used to create a UnitCall based on a BalticLSC toolbox entry.
@@ -61,12 +60,10 @@ public class MutationCreateUnitCallDataFetcher implements IDataFetcherWithFieldC
         Object argument = environment.getArgument(MutationTypeProvider.INPUT_ARGUMENT);
         var input = this.objectMapper.convertValue(argument, CreateUnitCallInput.class);
 
-        return Mono.just((IPayload) new CreateUnitCallSuccessPayload(input.getId(), input.getHowToCallYou())).toFuture();
-
         // @formatter:off
-        // return this.editingContextEventProcessorRegistry.dispatchEvent(input.getEditingContextId(), input)
-        //         .defaultIfEmpty(new ErrorPayload(input.getId(), this.messageService.unexpectedError()))
-        //         .toFuture();
+        return this.editingContextEventProcessorRegistry.dispatchEvent(input.getEditingContextId(), input)
+                .defaultIfEmpty(new ErrorPayload(input.getId(), this.messageService.unexpectedError()))
+                .toFuture();
         // @formatter:on
     }
 

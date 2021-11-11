@@ -18,6 +18,8 @@ import org.eclipse.sirius.web.core.api.IInput;
 public final class CreateUnitCallInput implements IInput {
     private UUID id;
 
+    private UUID editingContextId;
+
     private String howToCallYou;
 
     @Override
@@ -32,6 +34,13 @@ public final class CreateUnitCallInput implements IInput {
     @GraphQLNonNull
     public String getHowToCallYou() {
         return this.howToCallYou;
+    }
+
+    @GraphQLID
+    @GraphQLField
+    @GraphQLNonNull
+    public UUID getEditingContextId() {
+        return this.editingContextId;
     }
 
     @Override
