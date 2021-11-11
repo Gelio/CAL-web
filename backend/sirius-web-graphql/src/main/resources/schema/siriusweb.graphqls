@@ -106,7 +106,7 @@ enum Multiplicity {
   MULTIPLE
 }
 
-input DeclaredDataPin {
+input DeclaredDataPinInput {
   id: ID!
   name: String!
   binding: DataBinding!
@@ -114,18 +114,18 @@ input DeclaredDataPin {
   dataMultiplicity: Multiplicity!
 }
 
-input ComputationUnitRelease {
+input ComputationUnitReleaseInput {
   id: ID!
   name: String!
   version: String!
-  pins: [DeclaredDataPin!]!
+  pins: [DeclaredDataPinInput!]!
 }
 
 input CreateUnitCallInput {
   id: ID!
   editingContextId: ID!
   rootObjectId: ID!
-  unitRelease: ComputationUnitRelease!
+  unitRelease: ComputationUnitReleaseInput!
 }
 
 type CreateUnitCallSuccessPayload {

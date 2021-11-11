@@ -20,7 +20,7 @@ public final class CreateUnitCallInput implements IInput {
 
     private UUID rootObjectId;
 
-    private ComputationUnitRelease unitRelease;
+    private ComputationUnitReleaseInput unitRelease;
 
     @Override
     @GraphQLID
@@ -46,7 +46,7 @@ public final class CreateUnitCallInput implements IInput {
 
     @GraphQLField
     @GraphQLNonNull
-    public ComputationUnitRelease getUnitRelease() {
+    public ComputationUnitReleaseInput getUnitRelease() {
         return this.unitRelease;
     }
 

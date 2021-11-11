@@ -1,7 +1,6 @@
 package org.eclipse.sirius.web.services.api.unitcalls;
 
 import java.text.MessageFormat;
-import java.util.List;
 import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.graphql.GraphQLField;
@@ -10,14 +9,16 @@ import org.eclipse.sirius.web.annotations.graphql.GraphQLInputObjectType;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLNonNull;
 
 @GraphQLInputObjectType
-public class ComputationUnitRelease {
+public class DeclaredDataPinInput {
     private UUID id;
 
     private String name;
 
-    private String version;
+    private DataBinding binding;
 
-    private List<DeclaredDataPin> pins;
+    private Multiplicity tokenMultiplicity;
+
+    private Multiplicity dataMultiplicity;
 
     @GraphQLID
     @GraphQLField
@@ -34,19 +35,25 @@ public class ComputationUnitRelease {
 
     @GraphQLField
     @GraphQLNonNull
-    public String getVersion() {
-        return this.version;
+    public DataBinding getBinding() {
+        return this.binding;
     }
 
     @GraphQLField
     @GraphQLNonNull
-    public List<DeclaredDataPin> getPins() {
-        return pins;
+    public Multiplicity getTokenMultiplicity() {
+        return this.tokenMultiplicity;
+    }
+
+    @GraphQLField
+    @GraphQLNonNull
+    public Multiplicity getDataMultiplicity() {
+        return this.dataMultiplicity;
     }
 
     @Override
     public String toString() {
-        String pattern = "{0} '{'id: {1}, name: {2}, version: {3}'}'"; //$NON-NLS-1$
-        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.name, this.version);
+        String pattern = "{0} '{'id: {1}, name: {2}, binding: {3}, tokenMultiplicity: {4}, dataMultiplicity: {5}'}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.name, this.binding, this.tokenMultiplicity, this.dataMultiplicity);
     }
 }
