@@ -26,6 +26,7 @@ import {
   NewRepresentationModal,
   NewRootObjectModal,
   Representation,
+  TreeItemContextMenuContribution,
   TreeItemHandler,
   TreeItemHandlersContext,
   Workbench as SiriusComponentsWorkbench,
@@ -57,6 +58,8 @@ import {
 import { Workbench } from "./Workbench";
 import { NavigationBar } from "../../navigationBar/NavigationBar";
 import { ListItemIcon, ListItemText, MenuItem } from "@material-ui/core";
+import { DocumentTreeItemContextMenuContribution } from "./DocumentTreeItemContextMenuContribution";
+import { ObjectTreeItemContextMenuContribution } from "./ObjectTreeItemContextMenuContribution";
 
 export const getProjectQuery = gql`
   query getRepresentation($projectId: ID!) {
@@ -91,103 +94,6 @@ const useEditProjectViewStyles = makeStyles(() => ({
   },
 }));
 
-const documentItemHandler: TreeItemHandler = {
-  handles: (treeItem) => treeItem.kind === "Model",
-  getModal: (name) => {
-    if (name === "CreateNewRootObject") {
-      return NewRootObjectModal;
-    }
-  },
-  getMenuEntries: (
-    item,
-    editingContextId,
-    readOnly,
-    openModal,
-    closeContextMenu,
-    classes
-  ) => {
-    return [
-      <MenuItem
-        key="new-object"
-        data-testid="new-object"
-        onClick={() => openModal("CreateNewRootObject")}
-        dense
-        className={classes.item}
-      >
-        <ListItemIcon>
-          <AddIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText primary="New object" />
-      </MenuItem>,
-      <MenuItem
-        key="download"
-        divider
-        onClick={closeContextMenu}
-        component="a"
-        href={`${httpOrigin}/api/editingcontexts/${editingContextId}/documents/${item.id}`}
-        type="application/octet-stream"
-        data-testid="download"
-        disabled={readOnly}
-        dense
-        className={classes.item}
-      >
-        <ListItemIcon>
-          <GetAppIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText primary="Download" />
-      </MenuItem>,
-    ];
-  },
-};
-
-const semanticObjectItemHandler: TreeItemHandler = {
-  handles: (treeItem) => treeItem.kind !== null && treeItem.kind.includes("::"),
-  getModal: (name) => {
-    if (name === "CreateNewObject") {
-      return NewObjectModal;
-    } else if (name === "CreateRepresentation") {
-      return NewRepresentationModal;
-    }
-  },
-  getMenuEntries: (
-    item,
-    editingContextId,
-    readOnly,
-    openModal,
-    closeContextMenu,
-    classes
-  ) => {
-    return [
-      <MenuItem
-        key="new-object"
-        onClick={() => openModal("CreateNewObject")}
-        data-testid="new-object"
-        dense
-        disabled={readOnly}
-        className={classes.item}
-      >
-        <ListItemIcon>
-          <AddIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText primary="New object" />
-      </MenuItem>,
-      <MenuItem
-        key="new-representation"
-        onClick={() => openModal("CreateRepresentation")}
-        data-testid="new-representation"
-        dense
-        disabled={readOnly}
-        className={classes.item}
-      >
-        <ListItemIcon>
-          <AddIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText primary="New representation" />
-      </MenuItem>,
-    ];
-  },
-};
-
 export const EditProjectView = () => {
   const history = useHistory();
   const routeMatch = useRouteMatch();
@@ -199,10 +105,6 @@ export const EditProjectView = () => {
   >(editProjectViewMachine);
   const { toast, editProjectView } = value as SchemaValue;
   const { project, representation, message } = context;
-
-  const { registerTreeItemHandler } = useContext(TreeItemHandlersContext);
-  registerTreeItemHandler(documentItemHandler);
-  registerTreeItemHandler(semanticObjectItemHandler);
 
   const { loading, data, error } = useQuery<
     GQLGetProjectQueryData,
@@ -260,11 +162,25 @@ export const EditProjectView = () => {
 
   let main = null;
   if (editProjectView === "loaded" && project) {
+    const contributions = (
+      <>
+        <TreeItemContextMenuContribution
+          canHandle={(item) => item.kind === "Document"}
+          component={DocumentTreeItemContextMenuContribution}
+        />
+        <TreeItemContextMenuContribution
+          canHandle={(item) => item.kind.includes("::")}
+          component={ObjectTreeItemContextMenuContribution}
+        />
+      </>
+    );
+
     if (representation) {
       main = (
         <Workbench
           editingContextId={project.currentEditingContext.id}
           representation={representation}
+          children={contributions}
         />
       );
     } else {
@@ -285,6 +201,7 @@ export const EditProjectView = () => {
             dispatch(event);
           }}
           readOnly={false}
+          children={contributions}
         />
       );
     }
