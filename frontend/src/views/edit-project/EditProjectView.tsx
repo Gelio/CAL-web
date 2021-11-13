@@ -46,22 +46,21 @@ import { Representation, Workbench } from "@eclipse-sirius/sirius-components";
 import { NavigationBar } from "navigationBar/NavigationBar";
 
 const getProjectQuery = gql`
-  query getRepresentation(
-    $projectId: ID!
-    $representationId: ID!
-    $includeRepresentation: Boolean!
-  ) {
+  query getRepresentation($projectId: ID!) {
     viewer {
       project(projectId: $projectId) {
         id
         name
         currentEditingContext {
           id
-          representation(representationId: $representationId)
-            @include(if: $includeRepresentation) {
-            id
-            label
-            kind
+          representations {
+            edges {
+              node {
+                id
+                kind
+                label
+              }
+            }
           }
         }
       }
@@ -97,8 +96,6 @@ export const EditProjectView = () => {
   >(getProjectQuery, {
     variables: {
       projectId,
-      representationId: representationId ?? "",
-      includeRepresentation: !!representationId,
     },
   });
   useEffect(() => {
