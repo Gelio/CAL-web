@@ -39,10 +39,9 @@ import {
   HandleFetchedProjectEvent,
   HideToastEvent,
   SchemaValue,
-  SelectRepresentationEvent,
   ShowToastEvent,
-} from "views/edit-project/EditProjectViewMachine";
-import { Representation, Workbench } from "@eclipse-sirius/sirius-components";
+} from "./EditProjectViewMachine";
+import { Workbench } from "./Workbench";
 import { NavigationBar } from "navigationBar/NavigationBar";
 
 const getProjectQuery = gql`
@@ -68,7 +67,7 @@ const getProjectQuery = gql`
   }
 `;
 
-const useEditProjectViewStyles = makeStyles((theme) => ({
+const useEditProjectViewStyles = makeStyles(() => ({
   editProjectView: {
     display: "grid",
     gridTemplateRows: "min-content minmax(0, 1fr)",
@@ -160,22 +159,10 @@ export const EditProjectView = () => {
 
   let main = null;
   if (editProjectView === "loaded" && project) {
-    const onRepresentationSelected = (
-      representationSelected: Representation
-    ) => {
-      const selectRepresentationEvent: SelectRepresentationEvent = {
-        type: "SELECT_REPRESENTATION",
-        representation: representationSelected,
-      };
-      dispatch(selectRepresentationEvent);
-    };
-
     main = (
       <Workbench
         editingContextId={project.currentEditingContext.id}
-        initialRepresentationSelected={representation}
-        onRepresentationSelected={onRepresentationSelected}
-        readOnly={false}
+        representation={representation}
       />
     );
   } else if (editProjectView === "missing") {
