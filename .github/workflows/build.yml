@@ -25,6 +25,7 @@ jobs:
         run: ./scripts/generate-npmrc.sh ${{ secrets.GITHUB_TOKEN }}
       - run: npm install
       - run: npm run format-lint
+      - run: npm run check-types
       # There are no tests yet
       # - run: npm run ci-test
       - run: npm run build

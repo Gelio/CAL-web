@@ -54,7 +54,8 @@
     "ci-test": "react-scripts test --watchAll=false --modulePaths=src --testResultsProcessor ./node_modules/jest-junit-reporter --coverage",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{js,ts,tsx,css}\"",
-    "format-lint": "prettier --list-different \"src/**/*.{js,ts,tsx,css}\""
+    "format-lint": "prettier --list-different \"src/**/*.{js,ts,tsx,css}\"",
+    "check-types": "tsc"
   },
   "eslintConfig": {
     "extends": "react-app"
