@@ -6,6 +6,7 @@ import { UseToolboxEntryButton } from "./UseToolboxEntryButton";
 import { useRootObjectId } from "./root-object-id";
 import { isNone } from "fp-ts/lib/Option";
 import { isLeft } from "fp-ts/lib/Either";
+import { makeStyles } from "@material-ui/core";
 
 interface ToolboxProps {
   editingContextId: string;
@@ -90,6 +91,12 @@ const useBalticLSCToolboxEntries = (authToken: string) => {
   return { error, loading, toolboxEntries };
 };
 
+const useStyles = makeStyles((theme) => ({
+  toolbox: {
+    margin: theme.spacing(2, 1),
+  },
+}));
+
 export const Toolbox = ({ editingContextId }: ToolboxProps) => {
   // TODO: allow passing in the auth token, https://github.com/Gelio/CAL-web/issues/43
   const authToken =
@@ -98,6 +105,7 @@ export const Toolbox = ({ editingContextId }: ToolboxProps) => {
   const { error, loading, toolboxEntries } =
     useBalticLSCToolboxEntries(authToken);
   const rootObjectIdResOpt = useRootObjectId(editingContextId);
+  const styles = useStyles();
 
   if (loading) {
     return <div>Loading</div>;
@@ -119,7 +127,7 @@ export const Toolbox = ({ editingContextId }: ToolboxProps) => {
   }
 
   return (
-    <div>
+    <div className={styles.toolbox}>
       {toolboxEntries?.map((entry) => (
         <UseToolboxEntryButton
           toolboxEntry={entry}

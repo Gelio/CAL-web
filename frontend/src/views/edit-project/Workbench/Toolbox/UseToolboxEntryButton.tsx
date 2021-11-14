@@ -4,7 +4,12 @@ import { gql, useMutation } from "@apollo/client";
 import { getGQLComputationUnitReleaseInput, ToolboxEntry } from "./interop";
 import { pipe } from "fp-ts/lib/function";
 import { GQLCreateUnitCallInput } from "./types";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  makeStyles,
+  Tooltip,
+} from "@material-ui/core";
 
 interface UseToolboxEntryButtonProps {
   toolboxEntry: ToolboxEntry;
@@ -31,44 +36,66 @@ const createUnitCallMutation = gql`
   }
 `;
 
+const useStyles = makeStyles((theme) => ({
+  toolboxEntryIcon: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  toolboxEntryButton: {
+    minWidth: theme.spacing(5),
+  },
+  loadingSpinner: {
+    position: "absolute",
+    top: 0,
+    left: 4,
+  },
+}));
+
 export const UseToolboxEntryButton = ({
   toolboxEntry,
   rootObjectId,
   editingContextId,
 }: UseToolboxEntryButtonProps) => {
-  const [createToolboxEntry /* { data, loading, error } */] = useMutation(
-    createUnitCallMutation
-  );
+  const [createToolboxEntry, { loading }] = useMutation(createUnitCallMutation);
+  const styles = useStyles();
+  const nameAndVersion = `${toolboxEntry.unit.name} ${toolboxEntry.version}`;
 
-  // TODO: display loading and error information
-  // TODO: use images for button labels
-  // TODO: add tooltips with unit name and version
+  const createUnitCall = () => {
+    pipe(
+      getGQLComputationUnitReleaseInput(toolboxEntry),
+      E.match(
+        (errors) => {
+          console.error("Cannot parse toolbox entry", errors);
+        },
+        (unitRelease) => {
+          const input: GQLCreateUnitCallInput = {
+            id: uuid(),
+            rootObjectId,
+            editingContextId,
+            unitRelease,
+          };
+          createToolboxEntry({
+            variables: { input },
+          });
+        }
+      )
+    );
+  };
 
   return (
     <Button
-      onClick={() => {
-        pipe(
-          getGQLComputationUnitReleaseInput(toolboxEntry),
-          E.match(
-            (errors) => {
-              console.error("Cannot parse toolbox entry", errors);
-            },
-            (unitRelease) => {
-              const input: GQLCreateUnitCallInput = {
-                id: uuid(),
-                rootObjectId,
-                editingContextId,
-                unitRelease,
-              };
-              createToolboxEntry({
-                variables: { input },
-              });
-            }
-          )
-        );
-      }}
+      className={styles.toolboxEntryButton}
+      onClick={createUnitCall}
+      disabled={loading}
     >
-      {toolboxEntry.unit.name} {toolboxEntry.version}
+      <Tooltip title={nameAndVersion}>
+        <img
+          src={toolboxEntry.unit.icon}
+          alt={`Add call to "${nameAndVersion}"`}
+          className={styles.toolboxEntryIcon}
+        />
+      </Tooltip>
+      {loading && <CircularProgress className={styles.loadingSpinner} />}
     </Button>
   );
 };
