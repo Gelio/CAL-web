@@ -3,6 +3,9 @@ import { pipe } from "fp-ts/lib/function";
 import { useEffect, useState } from "react";
 import { ToolboxEntry } from "./interop";
 import { UseToolboxEntryButton } from "./UseToolboxEntryButton";
+import { useRootObjectId } from "./root-object-id";
+import { isNone } from "fp-ts/lib/Option";
+import { isLeft } from "fp-ts/lib/Either";
 
 interface ToolboxProps {
   editingContextId: string;
@@ -61,7 +64,7 @@ const fetchToolboxEntries = ({
   );
 };
 
-const useBalticLSCToolboxEntries = ({ authToken }: { authToken: string }) => {
+const useBalticLSCToolboxEntries = (authToken: string) => {
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState(true);
   const [toolboxEntries, setToolboxEntries] = useState<
@@ -92,9 +95,9 @@ export const Toolbox = ({ editingContextId }: ToolboxProps) => {
   const authToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRlbW8iLCJzdWIiOiJkZW1vIiwianRpIjoiMjU2Y2RkZjRiZmQ0NGE5YzhmNTg1MGIxY2E0Zjc2YjciLCJzaWQiOiI3OGU5OTA1YzQ2NTU0OTkwODYwYzQxODQ3YmY1OGIxZiIsImV4cCI6MTYzNjkwNDQ2OCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.Mft3pbnrBqQRwXryFmyTNlNB4a9Y_ZHThe9T4IVI70A";
 
-  const { error, loading, toolboxEntries } = useBalticLSCToolboxEntries({
-    authToken,
-  });
+  const { error, loading, toolboxEntries } =
+    useBalticLSCToolboxEntries(authToken);
+  const rootObjectIdResOpt = useRootObjectId(editingContextId);
 
   if (loading) {
     return <div>Loading</div>;
@@ -104,6 +107,16 @@ export const Toolbox = ({ editingContextId }: ToolboxProps) => {
     return <div>Cannot load toolbox: {error.message}</div>;
   }
   // TODO: add a button to refresh the entries
+  if (isNone(rootObjectIdResOpt)) {
+    return <div>Loading</div>;
+  }
+  const { value: rootObjectIdRes } = rootObjectIdResOpt;
+
+  if (isLeft(rootObjectIdRes)) {
+    return (
+      <div>Cannot load root object ID: {rootObjectIdRes.left.message}</div>
+    );
+  }
 
   return (
     <div>
@@ -112,8 +125,7 @@ export const Toolbox = ({ editingContextId }: ToolboxProps) => {
           toolboxEntry={entry}
           key={entry.uid}
           editingContextId={editingContextId}
-          // TODO: retrieve root object ID automatically
-          rootObjectId="9e778a79-c5bb-484d-9867-86d4caddec18"
+          rootObjectId={rootObjectIdRes.right}
         />
       ))}
     </div>
