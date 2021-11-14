@@ -11,101 +11,21 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 
-import MuiAccordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
-import MuiCollapse, { CollapseProps } from "@material-ui/core/Collapse";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { makeStyles } from "@material-ui/core/styles";
 import { PropertiesWebSocketContainer } from "@eclipse-sirius/sirius-components";
-import { useState } from "react";
 import { RightSiteProps } from "./RightSite.types";
+import Typography from "@material-ui/core/Typography";
 
-// TODO: remove Representations panel leftovers
-
-const useSiteStyles = makeStyles(() => ({
+const useSiteStyles = makeStyles((theme) => ({
   site: {
     display: "grid",
     gridTemplateColumns: "minmax(0,1fr)",
+    gridTemplateRows: "minmax(0,1fr)",
   },
-  detailsExpanded: {
-    gridTemplateRows: "minmax(0,1fr) min-content",
-  },
-  representationsExpanded: {
-    gridTemplateRows: "min-content minmax(0,1fr)",
-  },
-  accordionDetailsRoot: {
-    display: "block",
+  detailsHeading: {
+    margin: theme.spacing(1, 1, 0),
   },
 }));
-
-const Accordion = withStyles({
-  root: {
-    display: "grid",
-    gridTemplateColumns: "minmax(0,1fr)",
-    gridTemplateRows: "min-content minmax(0,1fr)",
-    border: "1px solid rgba(0, 0, 0, .125)",
-    boxShadow: "none",
-    "&:not(:last-child)": {
-      borderBottom: "0px",
-    },
-    "&:before": {
-      display: "none",
-    },
-    "&$expanded": {
-      margin: "0px",
-    },
-  },
-  expanded: {},
-})(MuiAccordion);
-
-const AccordionSummary = withStyles({
-  root: {
-    borderBottom: "1px solid rgba(0, 0, 0, .125)",
-    marginBottom: -1,
-    "&$expanded": {
-      minHeight: 48,
-    },
-  },
-  content: {
-    "&$expanded": {
-      margin: "0px",
-    },
-  },
-  expanded: {},
-})(MuiAccordionSummary);
-
-const StyledCollapse = withStyles({
-  entered: {
-    overflow: "auto",
-  },
-})(MuiCollapse);
-
-const CustomCollapse = (props: CollapseProps) => {
-  const { children, ...collapseProps } = props;
-
-  const handleEntering = (node: HTMLElement, isAppearing: boolean) => {
-    node.style.height = "auto";
-  };
-
-  const handleExit = (node: HTMLElement) => {
-    node.style.height = "auto";
-  };
-
-  return (
-    <StyledCollapse
-      {...collapseProps}
-      onEntering={handleEntering}
-      onExit={handleExit}
-      timeout={0}
-    >
-      {children}
-    </StyledCollapse>
-  );
-};
-
-const DETAILS_PANEL_NAME = "details";
-const REPRESENTATIONS_PANEL_NAME = "representations";
 
 export const RightSite = ({
   editingContextId,
@@ -115,45 +35,20 @@ export const RightSite = ({
 }: RightSiteProps) => {
   const classes = useSiteStyles();
 
-  const [expanded, setExpanded] = useState<string>(DETAILS_PANEL_NAME);
-
-  const handleChange = (panel: string) => () => {
-    setExpanded(panel);
-  };
-
-  let classSite = classes.site;
-  if (expanded === DETAILS_PANEL_NAME) {
-    classSite = `${classSite} ${classes.detailsExpanded}`;
-  } else if (expanded === REPRESENTATIONS_PANEL_NAME) {
-    classSite = `${classSite} ${classes.representationsExpanded}`;
-  }
-
   return (
-    <div className={classSite}>
-      <Accordion
-        square
-        expanded={expanded === DETAILS_PANEL_NAME}
-        onChange={handleChange(DETAILS_PANEL_NAME)}
-        TransitionComponent={CustomCollapse}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          IconButtonProps={{ size: "small" }}
-        >
+    <div className={classes.site}>
+      <div>
+        <Typography variant="h6" className={classes.detailsHeading}>
           Details
-        </AccordionSummary>
-        <AccordionDetails
-          className={classes.accordionDetailsRoot}
-          data-testid={"Details AccordionDetails"}
-        >
-          <PropertiesWebSocketContainer
-            editingContextId={editingContextId}
-            selection={selection}
-            setSelection={setSelection}
-            readOnly={readOnly}
-          />
-        </AccordionDetails>
-      </Accordion>
+        </Typography>
+
+        <PropertiesWebSocketContainer
+          editingContextId={editingContextId}
+          selection={selection}
+          setSelection={setSelection}
+          readOnly={readOnly}
+        />
+      </div>
     </div>
   );
 };
