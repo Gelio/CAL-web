@@ -39,29 +39,27 @@ import {
   HandleFetchedProjectEvent,
   HideToastEvent,
   SchemaValue,
-  SelectRepresentationEvent,
   ShowToastEvent,
-} from "views/edit-project/EditProjectViewMachine";
-import { Representation, Workbench } from "@eclipse-sirius/sirius-components";
+} from "./EditProjectViewMachine";
+import { Workbench } from "./Workbench";
 import { NavigationBar } from "navigationBar/NavigationBar";
 
 const getProjectQuery = gql`
-  query getRepresentation(
-    $projectId: ID!
-    $representationId: ID!
-    $includeRepresentation: Boolean!
-  ) {
+  query getRepresentation($projectId: ID!) {
     viewer {
       project(projectId: $projectId) {
         id
         name
         currentEditingContext {
           id
-          representation(representationId: $representationId)
-            @include(if: $includeRepresentation) {
-            id
-            label
-            kind
+          representations {
+            edges {
+              node {
+                id
+                kind
+                label
+              }
+            }
           }
         }
       }
@@ -69,7 +67,7 @@ const getProjectQuery = gql`
   }
 `;
 
-const useEditProjectViewStyles = makeStyles((theme) => ({
+const useEditProjectViewStyles = makeStyles(() => ({
   editProjectView: {
     display: "grid",
     gridTemplateRows: "min-content minmax(0, 1fr)",
@@ -97,8 +95,6 @@ export const EditProjectView = () => {
   >(getProjectQuery, {
     variables: {
       projectId,
-      representationId: representationId ?? "",
-      includeRepresentation: !!representationId,
     },
   });
   useEffect(() => {
@@ -147,38 +143,12 @@ export const EditProjectView = () => {
     representationId,
   ]);
 
-  useEffect(() => {
-    const toolboxUrl = `${process.env.REACT_APP_BALTICLSC_API_URL}/backend/dev/toolbox/`;
-    fetch(toolboxUrl, {
-      headers: {
-        authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRlbW8iLCJzdWIiOiJkZW1vIiwianRpIjoiYjQ5ZTJjZmQ0ZGQ5NDM1ODk1OTEwNmY0ZjcwNWY0YTciLCJzaWQiOiJiYjdhNTNhMjA1ZDM0NWY4YmNlYWRhYWEwZjkxZjhiNyIsImV4cCI6MTYzNjQwMzA3MywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.RXUVe-i4_6TFdtbp1SYCB0yPowcX75bT59cd_ddrGt0",
-      },
-    })
-      .then((r) => r.json())
-      .then((response) => {
-        console.log("Got toolbox", response);
-      });
-  }, []);
-
   let main = null;
   if (editProjectView === "loaded" && project) {
-    const onRepresentationSelected = (
-      representationSelected: Representation
-    ) => {
-      const selectRepresentationEvent: SelectRepresentationEvent = {
-        type: "SELECT_REPRESENTATION",
-        representation: representationSelected,
-      };
-      dispatch(selectRepresentationEvent);
-    };
-
     main = (
       <Workbench
         editingContextId={project.currentEditingContext.id}
-        initialRepresentationSelected={representation}
-        onRepresentationSelected={onRepresentationSelected}
-        readOnly={false}
+        representation={representation}
       />
     );
   } else if (editProjectView === "missing") {

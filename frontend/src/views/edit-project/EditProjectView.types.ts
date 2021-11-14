@@ -27,9 +27,13 @@ export type GQLRepresentation = {
   kind: string;
 };
 
+export interface GQLConnection<T> {
+  edges: { node: T }[];
+}
+
 export type GQLEditingContext = {
   id: string;
-  representation: GQLRepresentation | undefined;
+  representations: GQLConnection<GQLRepresentation>;
 };
 
 export type GQLProject = {
@@ -48,8 +52,6 @@ export type GQLGetProjectQueryData = {
 
 export type GQLGetProjectQueryVariables = {
   projectId: string;
-  representationId: string;
-  includeRepresentation: boolean;
 };
 
 export interface EditProjectViewParams {

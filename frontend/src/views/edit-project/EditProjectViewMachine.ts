@@ -15,7 +15,8 @@ import {
   Project,
 } from "views/edit-project/EditProjectView.types";
 import { Representation } from "@eclipse-sirius/sirius-components";
-import { assign, Machine } from "xstate";
+import { assign, Machine, send } from "xstate";
+import { pure } from "xstate/lib/actions";
 
 export interface EditProjectViewStateSchema {
   states: {
@@ -137,26 +138,48 @@ export const editProjectViewMachine = Machine<
       },
     },
     actions: {
-      updateProject: assign((_, event) => {
+      updateProject: pure((_, event) => {
         const { data } = event as HandleFetchedProjectEvent;
         const { project: gQLProject } = data.viewer;
         const { id, name, currentEditingContext } = gQLProject;
-        const project = {
+        const project: Project = {
           id,
           name,
           currentEditingContext: { id: currentEditingContext.id },
         };
 
-        let representation: Representation | null = null;
-        if (gQLProject.currentEditingContext.representation) {
-          representation = {
-            id: gQLProject.currentEditingContext.representation.id,
-            label: gQLProject.currentEditingContext.representation.label,
-            kind: gQLProject.currentEditingContext.representation.kind,
-          };
-        }
+        const contextUpdate: Partial<EditProjectViewContext> = {
+          project,
+        };
 
-        return { project, representation };
+        const representations =
+          gQLProject.currentEditingContext.representations.edges.map(
+            ({ node }) => node
+          );
+        let message: string | undefined;
+        if (representations.length === 0) {
+          message = [
+            "No representations found in the project.",
+            "A pre-created representation is required to work on the model.",
+          ].join(" ");
+        } else if (representations.length === 1) {
+          contextUpdate.representation = { ...representations[0] };
+        } else {
+          message = [
+            `${representations.length} representations found, but expected only 1 representation.`,
+            "Remove redundant representations and try again.",
+          ].join(" ");
+        }
+        const showToastEvent: ShowToastEvent | undefined = message && {
+          type: "SHOW_TOAST",
+          message,
+        };
+
+        const actions = [
+          assign(contextUpdate),
+          showToastEvent && send(showToastEvent),
+        ].filter(Boolean);
+        return actions;
       }),
       selectRepresentation: assign((_, event) => {
         const { representation } = event as SelectRepresentationEvent;
