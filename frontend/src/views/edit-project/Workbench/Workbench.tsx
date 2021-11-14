@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { LeftSite } from "./LeftSite";
 import { HORIZONTAL, Panels, SECOND_PANEL } from "./Panels";
 import { RightSite } from "./RightSite";
+import { Toolbox } from "./Toolbox";
 import {
   UpdateSelectionEvent,
   WorkbenchContext,
@@ -31,7 +32,7 @@ const useWorkbenchStyles = makeStyles(() => ({
   representationArea: {
     display: "grid",
     gridTemplateColumns: "1fr",
-    gridTemplateRows: "1ft",
+    gridTemplateRows: "min-content 1fr",
   },
 }));
 
@@ -112,6 +113,7 @@ export const Workbench = ({
         className={classes.representationArea}
         data-testid="representation-area"
       >
+        <Toolbox editingContextId={editingContextId} />
         <RepresentationComponent {...props} />
       </div>
     );
