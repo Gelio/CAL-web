@@ -48,13 +48,6 @@
         </ownedRules>
       </validationSet>
       <defaultLayer name="Default">
-        <nodeMappings name="ComputationUnitReleaseNode" semanticCandidatesExpression="feature:units" domainClass="CAL::ComputationUnitRelease">
-          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" labelExpression="aql:self.name + '\n' + self.version" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-release.png" sizeComputationExpression="0" labelPosition="node" resizeKind="NSEW" width="20" height="8">
-            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
-          </style>
-        </nodeMappings>
         <nodeMappings name="UnitCallNode" deletionDescription="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DeleteUnitCall']" semanticCandidatesExpression="feature:calls" domainClass="CAL::UnitCall">
           <borderedNodeMappings name="ComputedDataPinNode" deletionDescription="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DeleteComputedDataPin']" semanticCandidatesExpression="feature:pins" domainClass="CAL::ComputedDataPin">
             <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.declared.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.declared.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" tooltipExpression="aql: (if self.declared.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.declared.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png">
