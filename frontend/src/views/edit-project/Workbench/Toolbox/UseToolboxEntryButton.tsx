@@ -66,6 +66,7 @@ export const UseToolboxEntryButton = ({
       E.match(
         (errors) => {
           console.error("Cannot parse toolbox entry", errors);
+          // TODO : show a snackbar notification https://github.com/Gelio/CAL-web/issues/51
         },
         (unitRelease) => {
           const input: GQLCreateUnitCallInput = {

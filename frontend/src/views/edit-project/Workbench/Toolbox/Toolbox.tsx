@@ -114,7 +114,7 @@ export const Toolbox = ({ editingContextId }: ToolboxProps) => {
   if (error) {
     return <div>Cannot load toolbox: {error.message}</div>;
   }
-  // TODO: add a button to refresh the entries
+  // TODO: add a button to refresh the entries https://github.com/Gelio/CAL-web/issues/50
   if (isNone(rootObjectIdResOpt)) {
     return <div>Loading</div>;
   }
