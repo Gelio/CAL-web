@@ -13,16 +13,24 @@
 package org.eclipse.sirius.web.services.validation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.sirius.web.core.api.IEditingContext;
+import org.eclipse.sirius.web.emf.services.EditingContext;
 import org.eclipse.sirius.web.representations.VariableManager;
+import org.eclipse.sirius.web.services.validation.semantic.ISemanticCALValidationRule;
 import org.eclipse.sirius.web.spring.collaborative.validation.api.IValidationDescriptionProvider;
 import org.eclipse.sirius.web.spring.collaborative.validation.api.IValidationService;
 import org.eclipse.sirius.web.validation.description.ValidationDescription;
 import org.springframework.stereotype.Service;
+
+import eu.balticlsc.model.CAL.ComputationApplicationRelease;
 
 /**
  * This class is used to provide the description of the validation representation.
@@ -34,8 +42,11 @@ public class ValidationDescriptionProvider implements IValidationDescriptionProv
 
     private final IValidationService validationService;
 
-    public ValidationDescriptionProvider(IValidationService validationService) {
+    private final List<ISemanticCALValidationRule> validationRules;
+
+    public ValidationDescriptionProvider(IValidationService validationService, List<ISemanticCALValidationRule> validationRules) {
         this.validationService = validationService;
+        this.validationRules = validationRules;
     }
 
     @Override
@@ -56,12 +67,47 @@ public class ValidationDescriptionProvider implements IValidationDescriptionProv
     }
 
     private List<Object> getDiagnosticsProvider(VariableManager variableManager) {
-        var optionaEditingContext = variableManager.get(IEditingContext.EDITING_CONTEXT, IEditingContext.class);
+        var optionalEditingContext = variableManager.get(IEditingContext.EDITING_CONTEXT, IEditingContext.class);
+
+        var emfDiagnostics = optionalEditingContext.map(this.validationService::validate).orElseGet(List::of);
 
         // @formatter:off
-        return optionaEditingContext
-                .map(this.validationService::validate)
+        var calDiagnostics = optionalEditingContext
+                .flatMap(this::extractComputationApplicationRelease)
+                .map(applicationRelease ->
+                    this.validationRules.stream()
+                        .flatMap(rule -> rule.validate(applicationRelease).stream())
+                        .collect(Collectors.toList())
+                )
                 .orElseGet(List::of);
+        // @formatter:on
+
+        return Stream.concat(emfDiagnostics.stream(), calDiagnostics.stream()).collect(Collectors.toList());
+    }
+
+    private Optional<ComputationApplicationRelease> extractComputationApplicationRelease(IEditingContext editingContext) {
+        // NOTE: need to cast to get the domain from IEditingContext
+        // Similar to
+        // https://github.com/eclipse-sirius/sirius-components/blob/ab8097c6c3593f10fdd16f9212762624a3639ccc/backend/sirius-web-emf/src/main/java/org/eclipse/sirius/web/emf/services/EMFValidationService.java#L56-L59
+
+        // @formatter:off
+        return Optional.of(editingContext)
+            .filter(EditingContext.class::isInstance)
+            .map(EditingContext.class::cast)
+            .map(EditingContext::getDomain)
+            .flatMap(this::extractComputationApplicationRelease);
+        // @formatter:on
+    }
+
+    private Optional<ComputationApplicationRelease> extractComputationApplicationRelease(AdapterFactoryEditingDomain domain) {
+        var resources = domain.getResourceSet().getResources().stream();
+        var contents = resources.flatMap(resource -> resource.getContents().stream());
+
+        // @formatter:off
+        return contents
+            .filter(ComputationApplicationRelease.class::isInstance)
+            .map(ComputationApplicationRelease.class::cast)
+            .findFirst();
         // @formatter:on
     }
 
