@@ -223,4 +223,21 @@ NOTE: Files modified in patches will not run through the pre-commit hook. Thus,
 make sure to wait for the CI to pass before merging the changes to see if the
 project still builds and passes all checks.
 
+## Running tests
+
+To execute tests of the backend application, run the following command in the
+`backend` directory:
+
+```sh
+./mvnw clean verify
+```
+
+This will compile the application and run unit and integration tests.
+
+After modifying the code, make sure to run the tests again using the same
+command. Running only `./mvnw test` or `./mvnw verify` can lead to
+false-positive errors being reported. See
+[this GitHub issue](https://github.com/Gelio/CAL-web/issues/58#issuecomment-971819426)
+for more information.
+
 <!-- vim: set tw=80: -->
