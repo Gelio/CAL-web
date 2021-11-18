@@ -29,5 +29,46 @@
 		<module>sirius-web-graphql</module>
 		<module>sirius-web-spring</module>
 		<module>sirius-web-sample-application</module>
-	</modules>
+    </modules>
+
+  <repositories>
+    <repository>
+      <id>eclipse</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/releases/2021-09</url>
+    </repository>
+		<repository>
+			<id>Eclipse Sirius</id>
+			<name>Sirius Repository - Snapshots</name>
+			<url>https://repo.eclipse.org/content/repositories/sirius-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>Eclipse EEF</id>
+			<name>EEF Repository - Snapshots</name>
+			<url>https://repo.eclipse.org/content/repositories/eef-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>Central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>2.21.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>2.23.0</version>
+    </dependency>
+  </dependencies>
 </project>
