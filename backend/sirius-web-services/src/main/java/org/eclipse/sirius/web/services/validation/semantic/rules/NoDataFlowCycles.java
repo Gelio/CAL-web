@@ -38,6 +38,19 @@ public class NoDataFlowCycles implements ISemanticCALValidationRule {
         // @formatter:on
     }
 
+    /**
+     * <p>
+     * Finds any cycle in the graph of connections.
+     * </p>
+     *
+     * <p>
+     * It does not ensure that the shortest graphs is found.
+     * </p>
+     *
+     * <p>
+     * It does ensure the the found cycle does not contain any extra neighbors that do could be removed from the cycle.
+     * </p>
+     */
     private Optional<List<UnitCall>> findCycle(ComputationApplicationRelease applicationRelease) {
         // OBSERVATION:
         // ApplicationDataPins can be ignored, because they will not cause cycles.
@@ -52,6 +65,7 @@ public class NoDataFlowCycles implements ISemanticCALValidationRule {
         var visitedUnitCalls = new HashSet<UnitCall>();
         var path = new Stack<UnitCall>();
 
+        // NOTE: the type annotation here is needed for compilation to pass, surprisingly.
         for (UnitCall startingUnitCall : applicationRelease.getCalls()) {
             if (visitedUnitCalls.contains(startingUnitCall)) {
                 continue;
@@ -79,6 +93,98 @@ public class NoDataFlowCycles implements ISemanticCALValidationRule {
     private Optional<List<UnitCall>> visitUnitCall(HashSet<UnitCall> visitedUnitCalls, Stack<UnitCall> path, UnitCall unitCall) {
         path.add(unitCall);
 
+        var neighboringUnitCalls = this.getNeighbors(unitCall).collect(Collectors.toList());
+
+        for (var neighboringUnitCall : neighboringUnitCalls) {
+            // NOTE: the cycle may be only in the final part of the path
+            // Need to find which node starts the cycle and report only
+            // descendants of that node.
+            var indexInPath = path.indexOf(neighboringUnitCall);
+            var neighborFormsCycle = indexInPath > -1;
+            if (neighborFormsCycle) {
+                return Optional.of(path.subList(indexInPath, path.size()));
+            } else {
+                var foundCycle = this.visitUnitCall(visitedUnitCalls, path, neighboringUnitCall);
+                if (foundCycle.isPresent()) {
+                    return Optional.of(this.shortenConnectionsInCycle(foundCycle.get()));
+                }
+            }
+        }
+
+        path.remove(unitCall);
+        return Optional.empty();
+    }
+
+    /**
+     * <p>
+     * Shortens the cycle if possible by removing sideways connections
+     * </p>
+     *
+     * <p>
+     * For example connection graph:
+     * </p>
+     *
+     * <pre>
+     *|     ┌──►2────►4
+     *|     │   │
+     *|  ┌►1│   │
+     *|  │  │   ▼
+     *|  │  └──►3 ───►5
+     *|  │            │
+     *|  └────────────┘
+     * </pre>
+     *
+     * <p>
+     * turns a cycle 1->2->3->5->1 into 1->3->5->1 (removes the unnecessary 2 in the cycle).
+     * </p>
+     */
+    private List<UnitCall> shortenConnectionsInCycle(List<UnitCall> initialCycle) {
+        var cycleWasShortened = true;
+        var cycle = initialCycle;
+
+        while (cycleWasShortened && cycle.size() > 2) {
+            cycleWasShortened = false;
+
+            for (var i = 2; i < cycle.size(); i++) {
+                var currentPairAreNeighbors = this.areNeighbors(cycle.get(i - 2), cycle.get(i));
+                if (currentPairAreNeighbors) {
+                    // Can reduce path (i-2) -> (i-1) -> (i) to (i-2) -> (i)
+                    var shortenedCycle = cycle.subList(0, i - 1);
+                    shortenedCycle.addAll(cycle.subList(i, cycle.size()));
+                    cycle = shortenedCycle;
+                    cycleWasShortened = true;
+                    break;
+                }
+            }
+
+            if (cycleWasShortened) {
+                continue;
+            }
+
+            // NOTE: try shortening the beginning of the path
+            if (this.areNeighbors(cycle.get(cycle.size() - 2), cycle.get(0))) {
+                // The last element is not necessary
+                cycle = cycle.subList(0, cycle.size() - 1);
+                cycleWasShortened = true;
+                continue;
+            }
+
+            if (this.areNeighbors(cycle.get(cycle.size() - 1), cycle.get(1))) {
+                // The first element is not necessary
+                cycle = cycle.subList(1, cycle.size());
+                cycleWasShortened = true;
+                continue;
+            }
+        }
+
+        return cycle;
+    }
+
+    private boolean areNeighbors(UnitCall a, UnitCall b) {
+        return this.getNeighbors(a).filter(neighbor -> neighbor == b).findFirst().isPresent();
+    }
+
+    private Stream<UnitCall> getNeighbors(UnitCall unitCall) {
         // @formatter:off
         var providedPins = unitCall.getPins()
             .stream()
@@ -96,28 +202,10 @@ public class NoDataFlowCycles implements ISemanticCALValidationRule {
                     .map(UnitCall.class::cast)
             )
             .filter(Optional::isPresent)
-            .map(Optional::get)
-            .collect(Collectors.toList());
+            .map(Optional::get);
         // @formatter:on
 
-        for (var neighboringUnitCall : neighboringUnitCalls) {
-            // NOTE: the cycle may be only in the final part of the path
-            // Need to find which node starts the cycle and report only
-            // descendants of that node.
-            var indexInPath = path.indexOf(neighboringUnitCall);
-            var neighborFormsCycle = indexInPath > -1;
-            if (neighborFormsCycle) {
-                return Optional.of(path.subList(indexInPath, path.size()));
-            } else {
-                var foundCycle = this.visitUnitCall(visitedUnitCalls, path, neighboringUnitCall);
-                if (foundCycle.isPresent()) {
-                    return foundCycle;
-                }
-            }
-        }
-
-        path.remove(unitCall);
-        return Optional.empty();
+        return neighboringUnitCalls;
     }
 
     private String formatCycle(List<UnitCall> cycle) {
