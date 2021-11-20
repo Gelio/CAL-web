@@ -16,7 +16,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: paper/test.tex
+          root_file: test.tex
           working_directory: paper/
       - run: ls .
       - run: ls paper
