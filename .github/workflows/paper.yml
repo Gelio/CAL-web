@@ -1,0 +1,20 @@
+name: Build paper
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build_paper:
+    name: Build paper
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: paper/
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: test.tex
