@@ -17,6 +17,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: paper/test.tex
+          working_directory: paper/
       - run: ls .
       - run: ls paper
       - name: Upload compiled PDF
