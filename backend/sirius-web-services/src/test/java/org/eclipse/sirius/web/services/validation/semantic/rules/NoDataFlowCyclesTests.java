@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import eu.balticlsc.model.CAL.CALFactory;
 import eu.balticlsc.model.CAL.ComputationApplicationRelease;
@@ -144,6 +146,63 @@ public class NoDataFlowCyclesTests {
         assertThat(diagnostics).hasSize(1);
         var expectedMessage = "Data flow must not form a cycle. Detected cycle: Call 2 -> Call 3 -> Call 4 -> Call 2"; //$NON-NLS-1$
         assertThat(diagnostics.get(0).getMessage()).isEqualTo(expectedMessage);
+    }
+
+    @Test
+    public void testAdvancedCycleShortening() {
+        var application = CALFactory.eINSTANCE.createComputationApplicationRelease();
+        var doublePinsUnitRelease = this.doublePinUnitReleaseFactory.createUnitRelease(application);
+
+        // NOTE: Graph is based on the example graph in https://github.com/Gelio/CAL-web/issues/68
+
+        // @formatter:off
+        var calls = IntStream.rangeClosed(1, 7)
+            .mapToObj(n -> this.unitCallFactory.createUnitCall(
+                application,
+                doublePinsUnitRelease,
+                String.format("Call %d", n) //$NON-NLS-1$
+            )).
+            collect(Collectors.toList());
+        // @formatter:on
+
+        var flows = application.getFlows();
+        /** Makes it easy to create connection graphs based on node numbers */
+        class LocalFlowConnectionFactory {
+            private DataFlowFactory dataFlowFactory;
+
+            public LocalFlowConnectionFactory(DataFlowFactory dataFlowFactory) {
+                this.dataFlowFactory = dataFlowFactory;
+            }
+
+            /**
+             * <p>
+             * Creates a connection between nodes i and j.
+             * </p>
+             * The parameters are node numbers (1, 2, ...), not indices (0, 1, ...)
+             */
+            public void connectCalls(int i, int j) {
+                flows.add(this.dataFlowFactory.connectUnitCalls(calls.get(i - 1), calls.get(j - 1)));
+            }
+        }
+        // NOTE: create connections for the longer cycle first, so the algorithm discovers it first
+        var flowConnectionHelper = new LocalFlowConnectionFactory(this.dataFlowFactory);
+        for (var i = 1; i < 7; i++) {
+            flowConnectionHelper.connectCalls(i, i + 1);
+        }
+        flowConnectionHelper.connectCalls(7, 1);
+        flowConnectionHelper.connectCalls(1, 5);
+        flowConnectionHelper.connectCalls(2, 4);
+
+        var rule = new NoDataFlowCycles();
+        var diagnostics = rule.validate(application);
+
+        assertThat(diagnostics).hasSize(1);
+        // TODO: expect only the shortest cycle after https://github.com/Gelio/CAL-web/issues/68 is implemented
+        var expectedCycle = "Call 1 -> Call 2 -> Call 4 -> Call 5 -> Call 6 -> Call 7 -> Call 1"; //$NON-NLS-1$
+        assertThat(diagnostics.get(0).getMessage()).contains(expectedCycle);
+
+        var expectedShortestCycle = "Call 1 -> Call 5 -> Call 6 -> Call 7 -> Call 1"; //$NON-NLS-1$
+        assertThat(diagnostics.get(0).getMessage()).doesNotContain(expectedShortestCycle);
     }
 
     @Test
