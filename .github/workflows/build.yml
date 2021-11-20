@@ -1,9 +1,11 @@
-name: Build
+name: Build application
 on:
   push:
     branches:
       - main
   pull_request:
+    paths-ignore:
+      - "paper/**"
 
 jobs:
   build_frontend:

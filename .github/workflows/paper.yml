@@ -1,0 +1,25 @@
+name: Build thesis paper
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "paper/**"
+
+jobs:
+  build_paper:
+    name: Build thesis paper
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: main.tex
+          working_directory: paper/
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: thesis-paper
+          path: paper/main.pdf
