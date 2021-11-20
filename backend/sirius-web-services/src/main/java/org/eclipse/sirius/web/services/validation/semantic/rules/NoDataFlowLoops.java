@@ -17,6 +17,12 @@ import eu.balticlsc.model.CAL.ComputedDataPin;
 @Service
 public class NoDataFlowLoops implements ISemanticCALValidationRule {
 
+
+
+
+
+
+
     @Override
     public List<Diagnostic> validate(ComputationApplicationRelease applicationRelease) {
         // @formatter:off
