@@ -18,3 +18,8 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: test.tex
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: thesis-paper
+          path: paper/test.pdf
