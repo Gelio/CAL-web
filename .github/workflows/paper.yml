@@ -15,6 +15,8 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: paper/test.tex
+      - run: ls .
+      - run: ls paper
       - name: Upload compiled PDF
         uses: actions/upload-artifact@v2
         with:
