@@ -1,6 +1,22 @@
+# latexmk build artifacts
+*.acn
+*.app
 *.aux
+*.bbl
+*.bcf
+*.blg
 *.fdb_latexmk
 *.fls
+*.glo
+*.ist
+*.lof
 *.log
+*.lot
+*.out
+*.slo
 *.synctex.gz
-*.pdf
+*.xdv
+*.xml
+
+# Ignore also the built PDF. It should not be committed, since it is built in CI
+/*.pdf
