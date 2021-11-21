@@ -13,6 +13,12 @@ lua <<EOF
     ["local"] = "latexindent.yaml",
     modifyLineBreaks = true
   }
+  texlab_settings.forwardSearch = {
+    executable = "zathura",
+    -- texlab does not support for current cursor column, so hardcode 1
+    -- so the format matches the one zathura expects
+    args = { "--synctex-forward", "%l:1:%f", "%p" },
+  }
 
   -- Reload the configuration
   require('lspconfig').texlab.setup(texlab_config)
