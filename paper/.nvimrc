@@ -26,3 +26,9 @@ EOF
 
 let g:tex_flavor = 'latex'
 let g:vimtex_view_method = 'zathura'
+
+augroup TeXFT
+  autocmd!
+  " latexindent wraps at 79 characters anyway
+  autocmd FileType tex set textwidth=79
+augroup END
