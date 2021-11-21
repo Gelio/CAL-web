@@ -16,10 +16,11 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: main.tex
+          root_file: EE-dyplom.tex
           working_directory: paper/
+          latexmk_use_xelatex: true
       - name: Upload compiled PDF
         uses: actions/upload-artifact@v2
         with:
           name: thesis-paper
-          path: paper/main.pdf
+          path: paper/EE-dyplom.pdf
