@@ -41,16 +41,16 @@
 
 
 \ifnum\strcmp{\eethesis}{inz} = 0
-    \newcommand{\locallang}{PL}
+	\newcommand{\locallang}{PL}
 \fi
 \ifnum\strcmp{\eethesis}{mgr} = 0
-    \newcommand{\locallang}{PL}
+	\newcommand{\locallang}{PL}
 \fi
 \ifnum\strcmp{\eethesis}{bsc} = 0
-    \newcommand{\locallang}{EN}
+	\newcommand{\locallang}{EN}
 \fi
 \ifnum\strcmp{\eethesis}{msc} = 0
-    \newcommand{\locallang}{EN}
+	\newcommand{\locallang}{EN}
 \fi
 
 % ---------------------------------------------
@@ -62,9 +62,9 @@
 \makeglossaries
 \loadglsentries{glossary}
 \ifnum\strcmp{\locallang}{PL} = 0
-    \newcommand{\acronymstitle}{Wykaz skrótów i symboli}
+	\newcommand{\acronymstitle}{Wykaz skrótów i symboli}
 \else
-    \newcommand{\acronymstitle}{List of Abbreviations and Symbols}
+	\newcommand{\acronymstitle}{List of Abbreviations and Symbols}
 \fi
 
 % ---------------------------------------------
@@ -101,9 +101,9 @@
 % ---------------------------------------------
 \RequirePackage{polyglossia}
 \ifnum\strcmp{\locallang}{PL} = 0
-    \setdefaultlanguage{polish}
+	\setdefaultlanguage{polish}
 \else
-    \setdefaultlanguage{english}
+	\setdefaultlanguage{english}
 \fi
 \setotherlanguage{polish}
 \setotherlanguage{english}
@@ -119,11 +119,11 @@
 %   marginesy górny i dolny 20 mm
 % ---------------------------------------------
 \RequirePackage[a4paper,
-    includehead,
-    includefoot,
-    inner=30mm,
-    outer=20mm,
-    vmargin=25mm]
+	includehead,
+	includefoot,
+	inner=30mm,
+	outer=20mm,
+	vmargin=25mm]
 {geometry}
 % Do debugowania wymiarów
 %\RequirePackage{showframe}
@@ -170,20 +170,20 @@
 \RequirePackage{fancyhdr}
 \fancyhf{}
 \fancypagestyle{plain}{ %
-    \fancyhf{}
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-    \fancyfoot[RO,LE]{\thepage}
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+	\fancyfoot[RO,LE]{\thepage}
 }
 \fancypagestyle{headings}{
-    \fancyhf{}
+	\fancyhf{}
 	\renewcommand{\headrulewidth}{1pt}
 	\fancyheadoffset{0cm}
-    \fancyhead[LE]{\textit{\nouppercase{\leftmark}}}
-    \fancyhead[RO]{\textit{\nouppercase{\rightmark}}}
-    \fancyfoot[RO,LE]{\thepage}
-    \renewcommand{\footrulewidth}{0pt}
-    \setlength{\headheight}{16pt}
+	\fancyhead[LE]{\textit{\nouppercase{\leftmark}}}
+	\fancyhead[RO]{\textit{\nouppercase{\rightmark}}}
+	\fancyfoot[RO,LE]{\thepage}
+	\renewcommand{\footrulewidth}{0pt}
+	\setlength{\headheight}{16pt}
 }
 \pagestyle{headings}
 
@@ -213,20 +213,20 @@
 % ALBO styl harwardzki
 % ---------------------------------------------
 \RequirePackage[backend=biber,
-        style=ieee,     % styl numeryczny IEEE prawie jak PN
-        sorting=nyt,    % sortowanie spisu po nazwiskach
-        citestyle=numeric-comp % kompaktowe odnośniki numeryczne typu [21-23]
-    ]{biblatex}
+	style=ieee,     % styl numeryczny IEEE prawie jak PN
+	sorting=nyt,    % sortowanie spisu po nazwiskach
+	citestyle=numeric-comp % kompaktowe odnośniki numeryczne typu [21-23]
+]{biblatex}
 \addbibresource{EE-dyplom.bib}
 \DeclareNameAlias{default}{family-given} % nazwisko na początku
 \newcommand{\bibliografia}{
-    \cleardoublepage
-    \phantomsection
-    \addcontentsline{toc}{chapter}{\refname}
-    {
-        \sloppy
-        \printbibliography
-    }
+	\cleardoublepage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\refname}
+	{
+		\sloppy
+		\printbibliography
+	}
 }
 %
 % Alternatywa - styl harwardzki:
@@ -265,8 +265,8 @@
 %        {caption}
 % Alternatywnie: 10 pt gdy główny to 11 pt i 11 pt gdy główny to 12 pt
 \RequirePackage[format=plain, labelfont=bf, labelsep=period,
-            font=small, justification=justified]
-        {caption}
+	font=small, justification=justified]
+{caption}
 \RequirePackage{subcaption}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -304,25 +304,25 @@
 % ---------------------------------------------
 \RequirePackage{hyperref}
 \hypersetup{ % Na bazie https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
-%    bookmarks=true,         % show bookmarks bar? FIXME
-    unicode=true,           % non-Latin characters in Acrobat’s bookmarks
-    pdftoolbar=true,        % show Acrobat’s toolbar?
-    pdfmenubar=true,        % show Acrobat’s menu?
-    pdffitwindow=false,     % window fit to page when opened
-    pdfstartview={FitH},    % fits the width of the page to the window
-%    pdfsubject={}, % subject of the document
-%    pdfkeywords={}, % list of keywords
-    linktoc=all,            % defines which part of an entry in the table
-                            %of contents is made into a link (none,section,page,all)
-    pdfnewwindow=true,      % links in new PDF window
-    colorlinks=true,        % false: boxed links; true: colored links
-    linkcolor=EEBlueDark,   % color of internal links (change box color with linkbordercolor)
-    citecolor=EEBlueDark,   % color of links to bibliography
-    filecolor=EEBlueDark,   % color of file links
-    urlcolor=EEBlueDark,    % color of external links
-    linkbordercolor={1 0 0}, 	% color of frame around internal links (if colorlinks=false)
-    citebordercolor={0 1 0}, 	% color of frame around citations
-    urlbordercolor={0 1 1},     % color of frame around URL links
+	%    bookmarks=true,         % show bookmarks bar? FIXME
+	unicode=true,           % non-Latin characters in Acrobat’s bookmarks
+	pdftoolbar=true,        % show Acrobat’s toolbar?
+	pdfmenubar=true,        % show Acrobat’s menu?
+	pdffitwindow=false,     % window fit to page when opened
+	pdfstartview={FitH},    % fits the width of the page to the window
+	%    pdfsubject={}, % subject of the document
+	%    pdfkeywords={}, % list of keywords
+	linktoc=all,            % defines which part of an entry in the table
+	%of contents is made into a link (none,section,page,all)
+	pdfnewwindow=true,      % links in new PDF window
+	colorlinks=true,        % false: boxed links; true: colored links
+	linkcolor=EEBlueDark,   % color of internal links (change box color with linkbordercolor)
+	citecolor=EEBlueDark,   % color of links to bibliography
+	filecolor=EEBlueDark,   % color of file links
+	urlcolor=EEBlueDark,    % color of external links
+	linkbordercolor={1 0 0}, 	% color of frame around internal links (if colorlinks=false)
+	citebordercolor={0 1 0}, 	% color of frame around citations
+	urlbordercolor={0 1 1},     % color of frame around URL links
 }
 
 % ---------------------------------------------
@@ -369,27 +369,27 @@
 % ---------------------------------------------
 \RequirePackage{listings}
 \lstdefinestyle{EEStyle}{
-    backgroundcolor=\color{white},
-    commentstyle=\color{EEBlueDark},
-    keywordstyle=\bfseries\color{EEUltramarine},
-    numberstyle=\tiny\color{EEBlue},
-    stringstyle=\color{EETangerine},
-    basicstyle=\ttfamily\small,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    firstnumber=1, % 2
-    stepnumber=1,  % 5
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2,
-    frame=lB,
-    frameround=tttt,
-    inputpath=src
+	backgroundcolor=\color{white},
+	commentstyle=\color{EEBlueDark},
+	keywordstyle=\bfseries\color{EEUltramarine},
+	numberstyle=\tiny\color{EEBlue},
+	stringstyle=\color{EETangerine},
+	basicstyle=\ttfamily\small,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	firstnumber=1, % 2
+	stepnumber=1,  % 5
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	frame=lB,
+	frameround=tttt,
+	inputpath=src
 }
 \lstset{style=EEStyle}
 
@@ -408,11 +408,11 @@
 \RequirePackage{etoolbox}
 \RequirePackage[titletoc]{appendix}
 \ifnum\strcmp{\locallang}{PL} = 0
-    \newcommand{\appendiceslisttitle}{Spis załączników}
-    \newcommand{\appendixprefix}{Załącznik}
+	\newcommand{\appendiceslisttitle}{Spis załączników}
+	\newcommand{\appendixprefix}{Załącznik}
 \else
-    \newcommand{\appendiceslisttitle}{List of Appendices}
-    \newcommand{\appendixprefix}{Appendix}
+	\newcommand{\appendiceslisttitle}{List of Appendices}
+	\newcommand{\appendixprefix}{Appendix}
 \fi
 \renewcommand{\appendixname}{\appendixprefix}
 
@@ -443,7 +443,7 @@
 \newlength\docparskip
 \setlength{\docparskip}{\parskip}
 \setlist[itemize,1]{nosep,
-        label=$\bullet$,    % ustawiony krój ma kwadratowe kropki
+	label=$\bullet$,    % ustawiony krój ma kwadratowe kropki
 }
 \setlist[itemize,2]{nosep,label=--}
 \setlist[itemize,3]{nosep,label=-}
@@ -476,170 +476,170 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\instytut}[1]{
-    \newcommand{\@instytut}{#1}
+	\newcommand{\@instytut}{#1}
 }
 \newcommand{\kierunek}[1]{
-    \newcommand{\@kierunek}{#1}
+	\newcommand{\@kierunek}{#1}
 }
 \newcommand{\specjalnosc}[1]{
-    \newcommand{\@specjalnosc}{#1}
+	\newcommand{\@specjalnosc}{#1}
 }
 \newcommand{\album}[1]{
-    \newcommand{\@album}{#1}
+	\newcommand{\@album}{#1}
 }
 \newcommand{\promotor}[1]{
-    \newcommand{\@promotor}{#1}
+	\newcommand{\@promotor}{#1}
 }
 \newcommand{\engtitle}[1]{
-    \newcommand{\@engtitle}{#1}
+	\newcommand{\@engtitle}{#1}
 }
 
 \ifnum\strcmp{\eethesis}{inz} = 0
-    \newcommand{\frontpageheader}{inzhead.png}
+	\newcommand{\frontpageheader}{inzhead.png}
 \fi
 \ifnum\strcmp{\eethesis}{mgr} = 0
-    \newcommand{\frontpageheader}{mgrhead.png}
+	\newcommand{\frontpageheader}{mgrhead.png}
 \fi
 \ifnum\strcmp{\eethesis}{bsc} = 0
-    \newcommand{\frontpageheader}{bschead.png}
+	\newcommand{\frontpageheader}{bschead.png}
 \fi
 \ifnum\strcmp{\eethesis}{msc} = 0
-    \newcommand{\frontpageheader}{mschead.png}
+	\newcommand{\frontpageheader}{mschead.png}
 \fi
 
 \ifnum\strcmp{\locallang}{PL} = 0
-    \newcommand{\kieruneklocal}{na~kierunku }
-    \newcommand{\specjalnosclocal}{w~specjalności }
-    \newcommand{\titlelocal}{\@title }
-    \newcommand{\albumlocal}{numer~albumu }
-    \newcommand{\promotorlocal}{promotor}
-    \newcommand{\citylocal}{WARSZAWA }
+	\newcommand{\kieruneklocal}{na~kierunku }
+	\newcommand{\specjalnosclocal}{w~specjalności }
+	\newcommand{\titlelocal}{\@title }
+	\newcommand{\albumlocal}{numer~albumu }
+	\newcommand{\promotorlocal}{promotor}
+	\newcommand{\citylocal}{WARSZAWA }
 \fi
 \ifnum\strcmp{\locallang}{EN} = 0
-    \newcommand{\kieruneklocal}{in~the~field~of~study }
-    \newcommand{\specjalnosclocal}{and~specialisation }
-    \newcommand{\titlelocal}{\@engtitle }
-    \newcommand{\albumlocal}{student record book number }
-    \newcommand{\promotorlocal}{supervisor }
-    \newcommand{\citylocal}{WARSAW }
+	\newcommand{\kieruneklocal}{in~the~field~of~study }
+	\newcommand{\specjalnosclocal}{and~specialisation }
+	\newcommand{\titlelocal}{\@engtitle }
+	\newcommand{\albumlocal}{student record book number }
+	\newcommand{\promotorlocal}{supervisor }
+	\newcommand{\citylocal}{WARSAW }
 \fi
 
 \let\oldmaketitle\maketitle
 \renewcommand{\maketitle}{
-    \linespread{1.15}
+	\linespread{1.15}
 
-    \thispagestyle{empty}
-    \begin{center}
-        \includegraphics[width=\textwidth]{PWHead.png}
-        \vskip 3em
-        \@instytut
-        \vskip 3em
-        \includegraphics[width=\linewidth]{\frontpageheader}
-        \vskip 1em
-        \kieruneklocal \@kierunek
-        \vskip .5em
-        \specjalnosclocal \@specjalnosc
-        \vskip 3em
-        \large \titlelocal
-        \vskip 3em
-        \LARGE \@author \\
-        \normalsize
-        \albumlocal \@album
-        \vskip 2em
-        \promotorlocal\\\@promotor
-        \vfill
-        \citylocal \@date
-    \end{center}
+	\thispagestyle{empty}
+	\begin{center}
+		\includegraphics[width=\textwidth]{PWHead.png}
+		\vskip 3em
+		\@instytut
+		\vskip 3em
+		\includegraphics[width=\linewidth]{\frontpageheader}
+		\vskip 1em
+		\kieruneklocal \@kierunek
+		\vskip .5em
+		\specjalnosclocal \@specjalnosc
+		\vskip 3em
+		\large \titlelocal
+		\vskip 3em
+		\LARGE \@author \\
+		\normalsize
+		\albumlocal \@album
+		\vskip 2em
+		\promotorlocal\\\@promotor
+		\vfill
+		\citylocal \@date
+	\end{center}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % streszczenie, abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\streszczeniepracy}[1]{
-    \newcommand{\@streszczeniepracy}{#1}
+	\newcommand{\@streszczeniepracy}{#1}
 }
 \newcommand{\slowakluczowe}[1]{
-    \newcommand{\@slowakluczowe}{#1}
+	\newcommand{\@slowakluczowe}{#1}
 }
 \newcommand{\thesisabstract}[1]{
-    \newcommand{\@thesisabstract}{#1}
+	\newcommand{\@thesisabstract}{#1}
 }
 \newcommand{\thesiskeywords}[1]{
-    \newcommand{\@thesiskeywords}{#1}
+	\newcommand{\@thesiskeywords}{#1}
 }
 
 % Streszczenie polskie
 \newcommand{\stronastreszczenia}{
-    \cleardoublepage
-    \thispagestyle{empty}
-    \begin{center}
-        \textbf{\large\@title}
+	\cleardoublepage
+	\thispagestyle{empty}
+	\begin{center}
+		\textbf{\large\@title}
 
-        \textbf{Streszczenie}
-    \end{center}
-    \@streszczeniepracy
+		\textbf{Streszczenie}
+	\end{center}
+	\@streszczeniepracy
 
-    \vskip 2em
-    \noindent\textbf{Słowa kluczowe: }
-    \@slowakluczowe
-    \cleardoublepage
+	\vskip 2em
+	\noindent\textbf{Słowa kluczowe: }
+	\@slowakluczowe
+	\cleardoublepage
 }
 
 % Abstract angielski
 \newcommand{\abstractpage}{
-    \cleardoublepage
-    \thispagestyle{empty}
-    \begin{center}
-        \textbf{\large\@engtitle}
+	\cleardoublepage
+	\thispagestyle{empty}
+	\begin{center}
+		\textbf{\large\@engtitle}
 
-        \textbf{Abstract}
-    \end{center}
-    \@thesisabstract
+		\textbf{Abstract}
+	\end{center}
+	\@thesisabstract
 
-    \vskip 2em
-    \noindent\textbf{Keywords: }
-    \@thesiskeywords
-    \cleardoublepage
+	\vskip 2em
+	\noindent\textbf{Keywords: }
+	\@thesiskeywords
+	\cleardoublepage
 }
 
 % Spięcie stron streszczeń we właściwej
 % kolejności w jedno polecenie.
 \newcommand{\abstractpages}{
-    \ifnum\strcmp{\locallang}{PL} = 0
-        \stronastreszczenia
-        \abstractpage
-    \else
-        \abstractpage
-        \stronastreszczenia
-    \fi
+	\ifnum\strcmp{\locallang}{PL} = 0
+		\stronastreszczenia
+		\abstractpage
+	\else
+		\abstractpage
+		\stronastreszczenia
+	\fi
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Oświadczenia o autorstwie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\authorship}{
-    \ifnum\strcmp{\locallang}{PL} = 0
-        \begin{tikzpicture}[remember picture, overlay]
-            \node [anchor=north west, inner sep=0pt] at (current page.north west)
-            {{\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};};
-            \node[anchor=north west, inner sep=0pt] at(-0.8, -.8) {\@author};
-            \node[anchor=north west, inner sep=0pt] at(-0.8, -1.75) {\@album};
-            \node[anchor=north west, inner sep=0pt] at(-0.8, -2.65) {\@kierunek};
-        \end{tikzpicture}
-    \else
-        \begin{tikzpicture}[remember picture, overlay]
-            \node [anchor=north west, inner sep=0pt] at (current page.north west)
-            {{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};};
-            \node[anchor=north west, inner sep=0pt] at(-0.8, -0.9) {\@author};
-            \node[anchor=north west, inner sep=0pt] at(-0.8, -2.33) {\@album};
-            \node[anchor=north west, inner sep=0pt] at(-0.8, -3.65) {\@kierunek};
-        \end{tikzpicture}\clearpage
-        \begin{tikzpicture}[remember picture, overlay]
-            \node [anchor=north west, inner sep=0pt] at (current page.north west)
-            {{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};};
-        \end{tikzpicture}
-    \fi
-    \cleardoublepage
+	\ifnum\strcmp{\locallang}{PL} = 0
+		\begin{tikzpicture}[remember picture, overlay]
+			\node [anchor=north west, inner sep=0pt] at (current page.north west)
+			{{\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};};
+			\node[anchor=north west, inner sep=0pt] at(-0.8, -.8) {\@author};
+			\node[anchor=north west, inner sep=0pt] at(-0.8, -1.75) {\@album};
+			\node[anchor=north west, inner sep=0pt] at(-0.8, -2.65) {\@kierunek};
+		\end{tikzpicture}
+	\else
+		\begin{tikzpicture}[remember picture, overlay]
+			\node [anchor=north west, inner sep=0pt] at (current page.north west)
+			{{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};};
+			\node[anchor=north west, inner sep=0pt] at(-0.8, -0.9) {\@author};
+			\node[anchor=north west, inner sep=0pt] at(-0.8, -2.33) {\@album};
+			\node[anchor=north west, inner sep=0pt] at(-0.8, -3.65) {\@kierunek};
+		\end{tikzpicture}\clearpage
+		\begin{tikzpicture}[remember picture, overlay]
+			\node [anchor=north west, inner sep=0pt] at (current page.north west)
+			{{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};};
+		\end{tikzpicture}
+	\fi
+	\cleardoublepage
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -647,69 +647,69 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
 \newcommand{\frontpages}{
-    \counterwithout{lstlisting}{chapter} % hack niestety
-    \pagestyle{empty}
-    \maketitle
-    \abstractpages
-    \authorship
-    \tableofcontents
-    \cleardoublepage
-    \pagestyle{headings}
+	\counterwithout{lstlisting}{chapter} % hack niestety
+	\pagestyle{empty}
+	\maketitle
+	\abstractpages
+	\authorship
+	\tableofcontents
+	\cleardoublepage
+	\pagestyle{headings}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Lista skrótów i symboli
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\acronymslist}{
-%    \cleardoublepage
-    \chapter*{\acronymstitle}
-    \pagestyle{plain}
-    \addcontentsline{toc}{chapter}{\acronymstitle}
-    \printglossary[type=\acronymtype,title={}]
-%    \printglossary[type=symbols,title={}] % problem z symbolami
-    % Alternatywna lista symboli - do użycia tylko w Overleaf
-    \input{symbols}
+	%    \cleardoublepage
+	\chapter*{\acronymstitle}
+	\pagestyle{plain}
+	\addcontentsline{toc}{chapter}{\acronymstitle}
+	\printglossary[type=\acronymtype,title={}]
+	%    \printglossary[type=symbols,title={}] % problem z symbolami
+	% Alternatywna lista symboli - do użycia tylko w Overleaf
+	\input{symbols}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Załączniki i ich lista
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\easyappendix[1]{
-    \chapter{#1}
-    \addcontentsline{app}{chapter}{\appendixname~\Roman{chapter}\hspace{.5em}~#1}
+	\chapter{#1}
+	\addcontentsline{app}{chapter}{\appendixname~\Roman{chapter}\hspace{.5em}~#1}
 }
 
 \makeatletter
 \newcommand\listofappendices{
-    % "Spis treści" załączników (zbędne ale skoro ma być - niech będzie)
-    \chapter*{\appendiceslisttitle}\@starttoc{app}
-    % Lista załączników niech sobie będzie, skoro musi ale
-    % nie zatruwajmy nią spisu treści.
-%    \addcontentsline{toc}{chapter}{\appendiceslisttitle}
+	% "Spis treści" załączników (zbędne ale skoro ma być - niech będzie)
+	\chapter*{\appendiceslisttitle}\@starttoc{app}
+	% Lista załączników niech sobie będzie, skoro musi ale
+	% nie zatruwajmy nią spisu treści.
+	%    \addcontentsline{toc}{chapter}{\appendiceslisttitle}
 }
 \makeatother
 
 \newcommand\easyappendices{
-    \listofappendices
-    \renewcommand{\appendixname}{\appendixprefix}
-    \begin{appendices}
-        \renewcommand{\thechapter}{\Roman{chapter}}
-        \input{appendices}
-    \end{appendices}
+	\listofappendices
+	\renewcommand{\appendixname}{\appendixprefix}
+	\begin{appendices}
+		\renewcommand{\thechapter}{\Roman{chapter}}
+		\input{appendices}
+	\end{appendices}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Jedno polecenie - kombajn stron końcowych (bez bibliografii)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\tailpages}{
-    % wykaz symboli i skrótów
-    \acronymslist
+	% wykaz symboli i skrótów
+	\acronymslist
 
-    % spis rysunków
-    \listoffigures
+	% spis rysunków
+	\listoffigures
 
-    % spis tabel
-    \listoftables
+	% spis tabel
+	\listoftables
 
-    \easyappendices
+	\easyappendices
 }

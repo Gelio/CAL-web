@@ -2,16 +2,16 @@ Czy chcesz, żeby Twoja praca dyplomowa wyglądała porządnie, schludnie a moż
 
 W niniejszym przykładzie znajdują się zastosowane w praktyce takie elementy \LaTeX{a} jak:
 \begin{itemize}
-    \item podział tekstu na rozdziały, podrozdziały i akapity
-    \item przypisy dolne,
-    \item wstawianie rysunków,
-    \item odwołania do rysunków w tekście,
-    \item cytaty i odwołania do bibliografii,
-    \item wypunktowania, takie jak na przykład niniejsze,
-    \item użycie kolorów dla tekstu,
-    \item tabele, w tym tabele kolorowane, % TODO
-    \item wzory, % TODO
-    \item wstawianie kodów źródłowych.
+	\item podział tekstu na rozdziały, podrozdziały i akapity
+	\item przypisy dolne,
+	\item wstawianie rysunków,
+	\item odwołania do rysunków w tekście,
+	\item cytaty i odwołania do bibliografii,
+	\item wypunktowania, takie jak na przykład niniejsze,
+	\item użycie kolorów dla tekstu,
+	\item tabele, w tym tabele kolorowane, % TODO
+	\item wzory, % TODO
+	\item wstawianie kodów źródłowych.
 \end{itemize}
 
 Każdy rozdział zaczyna się od tekstu\footnote{Niepoprawne jest rozpoczęcie podrozdziału (,,section'') zaraz po rozpoczęciu rozdziału (,,chapter'') bez tekstu między nimi.}.
@@ -32,21 +32,21 @@ Rysunki w \LaTeX{u} wstawiane są za pomocą \texttt{includegraphics}. Tego pole
 \end{figure}
 
 \begin{figure}
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.99\linewidth]{wektorowo.pdf}
-  \caption{Rysunek wektorowy}
-  \label{rys:wektorowopdf}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.99\linewidth]{wektorowo.png}
-  \caption{Rysunek rastrowy}
-  \label{rys:wektorowopng}
-\end{subfigure}
-\caption{Porównanie rysunku wektorowego i rastrowego}
-\label{rys:wektorowo}
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{wektorowo.pdf}
+		\caption{Rysunek wektorowy}
+		\label{rys:wektorowopdf}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{wektorowo.png}
+		\caption{Rysunek rastrowy}
+		\label{rys:wektorowopng}
+	\end{subfigure}
+	\caption{Porównanie rysunku wektorowego i rastrowego}
+	\label{rys:wektorowo}
 \end{figure}
 
 Istotną kwestią rysunków technicznych jest ich jakość. Jakość rysunków rastrowych jest ograniczona ich rozdzielczością mierzoną liczbą punktów (pikseli) na daną jednostkę długości. Dobry wydruk rastrowy to przynajmniej 600 dpi czyli punktów na cal. Można uzyskać ,,nieskończoną'' rozdzielczość stosując grafikę wektorową.
@@ -65,10 +65,10 @@ Zarządzanie bibliografią w \LaTeX{u} odbywa się w sposób zautomatyzowany. Ni
 
 Odniesienia do literatury robi się za pomocą polecenia \texttt{cite}. W argumencie tego polecenia podaje się znacznik danej pozycji a nie konkretny numer. Przekształceniem znaczników na konkretne numery zajmuje się \LaTeX{}. Noty bibliograficzne z ich znacznikami muszą znajdować się w osobnym pliku \href{./EE-dyplom.bib}{EE-dyplom.bib}. Niniejszy szablon zawiera przykładowe noty bibliograficzne różnorodnych typów literatury. Do realizacji pracy dyplomowej będą przydatne przede wszystkim deklaracje:
 \begin{itemize}
-    \item artykułów z czasopism naukowych,
-    \item artykułów z konferencji,
-    \item książek,
-    \item dokumentów technicznych.
+	\item artykułów z czasopism naukowych,
+	\item artykułów z konferencji,
+	\item książek,
+	\item dokumentów technicznych.
 \end{itemize}
 
 Oto przykładowe odwołanie do literatury~\cite{fowler2009}. Wszystkie odwołania robi się praktycznie tak samo. Jeśli chcemy odnieść się do kilku pozycji jednocześnie, to trzeba ich znaczniki wpisać po przecinku~\cite{maxwell1865, leksinski1995}. Można też odnieść się do konkretnej strony~\cite[s.~38]{leksinski1995}.
@@ -113,45 +113,45 @@ Cytaty obcojęzyczne są możliwe za pomocą polecenia \texttt{foreignquote} dla
 \section{Kolory}
 Na rysunku~\ref{rys:colorsample} pokazana jest propozycja zestawienia kolorów zdefiniowana w niniejszym szablonie. Podstawowa barwa Wydziału Elektrycznego, zgodnie z obowiązującymi na PW zasadami dotyczącymi prac dyplomowych to \textcolor{EEBlue}{EEBlue}. Dodatkowo zdefiniowane są jej dwa odcienie:
 \begin{itemize}
-    \item ton jaśniejszy (ang. \textit{tint}) \textcolor{EEBlueLight}{EEBlueLight} (EEBlueLight),
-    \item ton ciemniejszy (ang. \textit{shade}) \textcolor{EEBlueDark}{EEBlueDark}.
+	\item ton jaśniejszy (ang. \textit{tint}) \textcolor{EEBlueLight}{EEBlueLight} (EEBlueLight),
+	\item ton ciemniejszy (ang. \textit{shade}) \textcolor{EEBlueDark}{EEBlueDark}.
 \end{itemize}
 Odcienie i barwa podstawowa są jednolite chromatycznie, czyli w modelu HSV mają tę samą barwę ,,H''. Ton ciemniejszy ma mniejszą wartość (,,V'') a ton jaśniejszy większą wartość (,,V'') i mniejsze nasycenie (,,S''). Zaletą ich stosowania jest to, że te trzy tony bez problemu odróżnią osoby mające problemy z rozpoznawaniem barw.
 
 % Rysunek przy użyciu tikz
 \begin{figure}[!ht]
-    \centering
-        \begin{tikzpicture}every node/.append style = {anchor=center}
-            \filldraw[fill=EEBlue] (-0.5,-0.25) rectangle (10.5,8.75);
-            \fill[EEBlueLight] (0,7.5) rectangle (10,8.5);
-            % duża przerwa
-            \fill[EEBlueDark] (0,5.5) rectangle (10,6.5);
-            \fill[EEOrange] (0,4.25) rectangle (10,5.25);
-            \fill[EETangerine] (0,3) rectangle (10,4);
-            \fill[EEGold] (0,2) rectangle (10,3);
-            \fill[EEAzure] (0,1) rectangle (10,2);
-            \fill[EEUltramarine] (0,0) rectangle (10,1);
-            \node at (5,7.90) {\large \textcolor{EEBlueDark}{EEBlueLight} \#e2ecf8};
-            \node at (5,6.90) {\large \textcolor{EEBlueDark}{EEBlue} \#8ba5d3};
-            \node at (5,5.90) {\large \textcolor{EEBlueLight}{EEBlueDark} \#45536a};
-            \node at (5,4.65) {\large \textcolor{EEBlueDark}{EEOrange} \#f6a307};
-            \node at (5,3.40) {\large \textcolor{EEBlueDark}{EETangerine} \#ff7700};
-            \node at (5,2.40) {\large \textcolor{EEBlueDark}{EEGold} \#ffd100};
-            \node at (5,1.40) {\large \textcolor{EEBlueLight}{EEAzure} \#0088ff};
-            \node at (5,0.40) {\large \textcolor{EEBlueLight}{EEUltramarine} \#002eff};
-        \end{tikzpicture}
-    \caption{Próbka zdefiniowanych kolorów}
-    \label{rys:colorsample}
+	\centering
+	\begin{tikzpicture}every node/.append style = {anchor=center}
+		\filldraw[fill=EEBlue] (-0.5,-0.25) rectangle (10.5,8.75);
+		\fill[EEBlueLight] (0,7.5) rectangle (10,8.5);
+		% duża przerwa
+		\fill[EEBlueDark] (0,5.5) rectangle (10,6.5);
+		\fill[EEOrange] (0,4.25) rectangle (10,5.25);
+		\fill[EETangerine] (0,3) rectangle (10,4);
+		\fill[EEGold] (0,2) rectangle (10,3);
+		\fill[EEAzure] (0,1) rectangle (10,2);
+		\fill[EEUltramarine] (0,0) rectangle (10,1);
+		\node at (5,7.90) {\large \textcolor{EEBlueDark}{EEBlueLight} \#e2ecf8};
+		\node at (5,6.90) {\large \textcolor{EEBlueDark}{EEBlue} \#8ba5d3};
+		\node at (5,5.90) {\large \textcolor{EEBlueLight}{EEBlueDark} \#45536a};
+		\node at (5,4.65) {\large \textcolor{EEBlueDark}{EEOrange} \#f6a307};
+		\node at (5,3.40) {\large \textcolor{EEBlueDark}{EETangerine} \#ff7700};
+		\node at (5,2.40) {\large \textcolor{EEBlueDark}{EEGold} \#ffd100};
+		\node at (5,1.40) {\large \textcolor{EEBlueLight}{EEAzure} \#0088ff};
+		\node at (5,0.40) {\large \textcolor{EEBlueLight}{EEUltramarine} \#002eff};
+	\end{tikzpicture}
+	\caption{Próbka zdefiniowanych kolorów}
+	\label{rys:colorsample}
 \end{figure}
 
 Bladopomarańczowy kolor nazwany \textcolor{EEOrange}{EEOrange} jest dopełniającym dla podstawowego koloru wydziałowego EEBlue. Ton ten leży po przeciwnej stronie koła barw niż ton podstawowy a więc tworzy z nim silny kontrast. Może to dawać bardzo dobry lub bardzo kiepski efekt. Ponadto dla osób z całkowitym daltonizmem te dwie barwy mogą być trudno odróżnialne. Dlatego warto rozważyć jej łączenie z tonem jaśniejszym lub ciemniejszym barwy podstawowej.
 
 Dodatkowo zdefiniowana jest tetrada barw uzupełniających, która w połączeniu z barwą podstawową lub jej odcieniami może dać dobry efekt wizualny. Te barwy to:
 \begin{itemize}
-    \item \colorbox{EETangerine}{mandarynkowy} -- \textcolor{EETangerine}{EETangerine} (EETangerine),
-    \item \colorbox{EEGold}{złoty} --  \textcolor{EEGold}{EEGold} (EEGold),
-    \item \colorbox{EEAzure}{lazurowy} --  \textcolor{EEAzure}{EEAzure} (EEAzure),
-    \item \colorbox{EEUltramarine}{\textcolor{white}{ultramaryna}} --  \textcolor{EEUltramarine}{EEUltramarine} (EEUltramarine).
+	\item \colorbox{EETangerine}{mandarynkowy} -- \textcolor{EETangerine}{EETangerine} (EETangerine),
+	\item \colorbox{EEGold}{złoty} --  \textcolor{EEGold}{EEGold} (EEGold),
+	\item \colorbox{EEAzure}{lazurowy} --  \textcolor{EEAzure}{EEAzure} (EEAzure),
+	\item \colorbox{EEUltramarine}{\textcolor{white}{ultramaryna}} --  \textcolor{EEUltramarine}{EEUltramarine} (EEUltramarine).
 \end{itemize}
 Barwy mandarynkowa i złota mogą się dobrze kojarzyć z barwami loga Wydziału Elektrycznego.
 
@@ -162,24 +162,24 @@ W pracy dyplomowej użycie barw powinno być bardzo ograniczone i dobrze przemy�
 Prostą tabelą, wprowadzoną ręcznie jest przedstawiająca kilka zjawisk astronomicznych tabela~\ref{tab:zjawiska}. Tego rodzaju tabela wystarczy w większości prac. Wygląd tabelaryczny uzyskuje się za pomocą otoczenia \texttt{tabular}. Żeby tabelę opatrzyć podpisem (\texttt{caption}) i znacznikiem pozwalającym na odwołania, trzeba ją otoczyć \texttt{tabular} za pomocą środowiska \texttt{table}.
 
 \begin{table}[!b]
- \centering
-  \begin{tabular}{p{2.5cm}c|l}
-    Data        &   Godzina (UTC)   &   Zdarzenie\\\hline
-    2016-05-09  &   14:57           &   Tranzyt Merkurego\\\hline
-    2017-08-11 --~2017-08-13  & --- &   Maksimum Perseidów \\\hline
-    2018-07-27  &   20:22           &   Całkowite zaćmienie Księżyca\\\hline
-    2019-08-24  &   17:04           &   Koniunkcja Wenus i Mars w odległości - 0°17`\\\hline
-    2020-12-21  &   16:00           &   Koniunkcja Jowisz i Saturn w odległości 0°06`
-  \end{tabular}
- \caption{\label{tab:zjawiska}Wybrane zjawiska astronomiczne z lat 2016-2020}
+	\centering
+	\begin{tabular}{p{2.5cm}c|l}
+		Data                     & Godzina (UTC) & Zdarzenie                                     \\\hline
+		2016-05-09               & 14:57         & Tranzyt Merkurego                             \\\hline
+		2017-08-11 --~2017-08-13 & ---           & Maksimum Perseidów                            \\\hline
+		2018-07-27               & 20:22         & Całkowite zaćmienie Księżyca                  \\\hline
+		2019-08-24               & 17:04         & Koniunkcja Wenus i Mars w odległości - 0°17`  \\\hline
+		2020-12-21               & 16:00         & Koniunkcja Jowisz i Saturn w odległości 0°06`
+	\end{tabular}
+	\caption{\label{tab:zjawiska}Wybrane zjawiska astronomiczne z lat 2016-2020}
 \end{table}
 
 Podobnie jak dla rysunków tak i tabelom można wskazać posadowienie za pomocą oznaczeń literowych (h, b, t) i wykrzyknika. Liczbę kolumn i ułożenie w nich tekstu określa się jako argumenty polecenia \texttt{tabular}:
 \begin{itemize}
-    \item l -- dosunięcie do lewej,
-    \item r -- dosunięcie do prawej,
-    \item c -- centrowanie,
-    \item p -- styl akapitowy z szerokością określoną parametrem.
+	\item l -- dosunięcie do lewej,
+	\item r -- dosunięcie do prawej,
+	\item c -- centrowanie,
+	\item p -- styl akapitowy z szerokością określoną parametrem.
 \end{itemize}
 Jeśli kolumny mają być oddzielone pionowymi liniami to między odpowiednimi literami powinna pojawić się pionowa kreska ,,|''.
 
@@ -195,20 +195,20 @@ Tabele są prawdopodobnie najtrudniejszym elementem do wprowadzenia w \LaTeX{u} 
 
 {%
 \newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
- \begin{table}[!ht]
- \centering
-  \begin{tabular}{lll}\cline{1-1}\cline{3-3}
-   \rowcolor{EEBlue}
-   \mc{2}{|l|}{×} & \mc{1}{l|}{×}\\\hline\hline
-   \mc{1}{|l|}{×} & \mc{2}{>{\columncolor{EEBlueDark}}l|}{\textcolor{EEGold}{×}}\\\cline{2-3}
-   \rowcolor{EEBlueLight}
-   \mc{1}{|l|}{×} & × & \mc{1}{l|}{×}\\\hline
-   \rowcolor{EETangerine}
-   × & × & ×\\\hline
-  \end{tabular}
-  \caption{Bardziej skomplikowana tabelka}
-  \label{tab:kolorowatabela}
- \end{table}
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{lll}\cline{1-1}\cline{3-3}
+		\rowcolor{EEBlue}
+		\mc{2}{|l|}{×} & \mc{1}{l|}{×}                                                                \\\hline\hline
+		\mc{1}{|l|}{×} & \mc{2}{>{\columncolor{EEBlueDark}}l|}{\textcolor{EEGold}{×}}                 \\\cline{2-3}
+		\rowcolor{EEBlueLight}
+		\mc{1}{|l|}{×} & ×                                                            & \mc{1}{l|}{×} \\\hline
+		\rowcolor{EETangerine}
+		×              & ×                                                            & ×             \\\hline
+	\end{tabular}
+	\caption{Bardziej skomplikowana tabelka}
+	\label{tab:kolorowatabela}
+\end{table}
 }%
 
 Bardziej skomplikowana tabela~\ref{tab:kolorowatabela} została przygotowana w Kile, skopiowana tutaj i później zmodyfikowana.
@@ -219,8 +219,8 @@ Jakość aplikacji do edycji tekstu najłatwiej poznać po typografii wzorów. W
 
 Alternatywnie można skorzystać z edytorów równań dostępnych online, takich jak:
 \begin{itemize}
-    \item \href{https://latex.codecogs.com/eqneditor/editor.php}{CodeCogs}
-    \item \href{https://www.latex4technics.com/}{Latex4technics}
+	\item \href{https://latex.codecogs.com/eqneditor/editor.php}{CodeCogs}
+	\item \href{https://www.latex4technics.com/}{Latex4technics}
 \end{itemize}
 Ich zaletą jest niemal natychmiastowe pokazywanie efektu.
 
@@ -235,11 +235,11 @@ André-Marie Ampère urodził się 20 stycznia 1775 roku. Był francuskim fizyki
 \end{figure}
 
 \begin{equation}
-    \oint \vec{H} d\vec{l} = \int\limits_{S} \vec{J} \cdot d \vec{a} = I
+	\oint \vec{H} d\vec{l} = \int\limits_{S} \vec{J} \cdot d \vec{a} = I
 \end{equation}
 
 \begin{equation}
-    \nabla \times \vec{H} = \vec{J}
+	\nabla \times \vec{H} = \vec{J}
 \end{equation}
 
 \subsection{Michael Faraday}
@@ -252,23 +252,23 @@ Michael Faraday urodził się 22 września 1791 roku w niezamożnej rodzinie i o
 \end{figure}
 
 \begin{equation*}
-    \Phi_B = \iint\limits_{\sum (t)} \pmb{B}(t) \cdot d\pmb{A}
+	\Phi_B = \iint\limits_{\sum (t)} \pmb{B}(t) \cdot d\pmb{A}
 \end{equation*}
 
 \begin{equation}
-    \mathcal{E} = -\frac{d\Phi_B}{dt}
+	\mathcal{E} = -\frac{d\Phi_B}{dt}
 \end{equation}
 
- \begin{equation}
-     \nabla \times \pmb{E} = - \frac{\partial \pmb{B}}{\partial t}
- \end{equation}
+\begin{equation}
+	\nabla \times \pmb{E} = - \frac{\partial \pmb{B}}{\partial t}
+\end{equation}
 
 
 \subsection{Georg Simon Ohm}
 Georg Simon Ohm, pokazany na rysunku~\ref{rys:ohm}, urodził się 16 marca 1789 roku w Erlangen. W latach 1833-1849 był profesorem Politechniki w Norymberdze a następnie Uniwersytetu w Monachium. Sformułował prawo opisujące zależność między prądem a napięciem $U=R \cdot I$. Zmarł w roku 1854 w Monachium. Jego portret pokazany jest na rysunku~\ref{rys:ohm}.
 
 \begin{equation}
-    R = \frac{U}{I}
+	R = \frac{U}{I}
 \end{equation}
 
 \begin{figure}[!h]
@@ -278,14 +278,14 @@ Georg Simon Ohm, pokazany na rysunku~\ref{rys:ohm}, urodził się 16 marca 1789 
 \end{figure}
 
 \begin{equation*}
-    \vec{J} = nq \vec{v_d} =  \frac{nq^2 \tau}{m} \vec{E} = nq \mu \vec{E}
+	\vec{J} = nq \vec{v_d} =  \frac{nq^2 \tau}{m} \vec{E} = nq \mu \vec{E}
 \end{equation*}
 
 Wzór~\ref{eq:ohm} wiąże gęstość prądu $\pmb{J}$ z natężeniem pola elektrycznego $\pmb{E}$ w przewodniku.
 
 \begin{equation}
-    \pmb{J} = \sigma \pmb{E}
-    \label{eq:ohm}
+	\pmb{J} = \sigma \pmb{E}
+	\label{eq:ohm}
 \end{equation}
 
 
@@ -299,129 +299,129 @@ James Clerk Maxwell urodził się 13 czerwca 1831 roku w Edynburgu, w szkockiej 
 \end{figure}
 
 \begin{align}
-\oiint\nolimits_{\partial \Omega} \pmb{E} \cdot \mathrm{d}\pmb{S} &= \frac{1}{\varepsilon_0} \iiint\nolimits_\Omega \rho \, \mathrm{d}V &  \nabla \cdot \pmb{E} &= \frac {\rho} {\varepsilon_0} \label{eq:maxwell1} \\
-\oiint\nolimits_{\partial \Omega} \pmb{B} \cdot \mathrm{d}\pmb{S} &= 0 & \nabla \cdot \pmb{B} &= 0 \label{eq:maxwell2} \\
-\oint\nolimits_{\partial \Sigma} \pmb{E} \cdot \mathrm{d}\boldsymbol{\ell} &= -\frac{\mathrm{d}}{\mathrm{d}t}\iint\nolimits_{\Sigma}\pmb{B}\cdot\mathrm{d}\pmb{S} & \nabla \times \pmb{E} &= -\frac{\partial \pmb{B}}{\partial t} \label{eq:maxwell3} \\
-\oint\nolimits_{\partial \Sigma} \pmb{B} \cdot \mathrm{d}\boldsymbol{\ell} &= \mu_0 \iint\nolimits_{\Sigma} \pmb{J} \cdot \mathrm{d}\pmb{S} + \mu_0 \varepsilon_0 \frac{\mathrm{d}}{\mathrm{d}t} \iint\nolimits_{\Sigma} \pmb{E} \cdot \mathrm{d}\pmb{S} & \nabla \times \pmb{B} &= \mu_0\left(\pmb{J} + \varepsilon_0 \frac{\partial \pmb{E}} {\partial t} \right) \label{eq:maxwell4}
+	\oiint\nolimits_{\partial \Omega} \pmb{E} \cdot \mathrm{d}\pmb{S}          & = \frac{1}{\varepsilon_0} \iiint\nolimits_\Omega \rho \, \mathrm{d}V                                                                                                         & \nabla \cdot \pmb{E}  & = \frac {\rho} {\varepsilon_0} \label{eq:maxwell1}                                                    \\
+	\oiint\nolimits_{\partial \Omega} \pmb{B} \cdot \mathrm{d}\pmb{S}          & = 0                                                                                                                                                                          & \nabla \cdot \pmb{B}  & = 0 \label{eq:maxwell2}                                                                               \\
+	\oint\nolimits_{\partial \Sigma} \pmb{E} \cdot \mathrm{d}\boldsymbol{\ell} & = -\frac{\mathrm{d}}{\mathrm{d}t}\iint\nolimits_{\Sigma}\pmb{B}\cdot\mathrm{d}\pmb{S}                                                                                        & \nabla \times \pmb{E} & = -\frac{\partial \pmb{B}}{\partial t} \label{eq:maxwell3}                                            \\
+	\oint\nolimits_{\partial \Sigma} \pmb{B} \cdot \mathrm{d}\boldsymbol{\ell} & = \mu_0 \iint\nolimits_{\Sigma} \pmb{J} \cdot \mathrm{d}\pmb{S} + \mu_0 \varepsilon_0 \frac{\mathrm{d}}{\mathrm{d}t} \iint\nolimits_{\Sigma} \pmb{E} \cdot \mathrm{d}\pmb{S} & \nabla \times \pmb{B} & = \mu_0\left(\pmb{J} + \varepsilon_0 \frac{\partial \pmb{E}} {\partial t} \right) \label{eq:maxwell4}
 \end{align}
 
 
 \subsection{Jeszcze kilka przypadkowo wybranych wzorów}
 Równania normalnie otrzymują kolejne numery. Jeśli nie chcemy aby dane równanie było numerowane, bo jest na przykład zbyt mało ważne, to używamy gwiazdki przy oznaczeniu używanego otoczenia (czyli zazwyczaj equation). Należy pamiętać, że otoczenie otwarte z gwiazdką musi być również zamknięte z gwiazdką.
 \begin{equation*}
-    r = \sqrt{r_x^2 + r_y^2}
+	r = \sqrt{r_x^2 + r_y^2}
 \end{equation*}
 
 \begin{equation}
-    \frac{dx}{dx} = 1
+	\frac{dx}{dx} = 1
 \end{equation}
 
 \begin{equation}
-    \frac{d}{dx} \ln x = \frac{1}{x}
+	\frac{d}{dx} \ln x = \frac{1}{x}
 \end{equation}
 
 \begin{equation}
-    y = \varphi  (y^\prime)x + \psi(y^\prime)
+	y = \varphi  (y^\prime)x + \psi(y^\prime)
 \end{equation}
 
 \begin{equation}
-    f(t) = \frac{1}{\pi} \int\limits_0^\infty \mathrm{d} \omega \,\int\limits_{-\infty}^{+\infty} f(\tau)\, \cos \omega (t-\tau)  \mathrm{d}\tau
+	f(t) = \frac{1}{\pi} \int\limits_0^\infty \mathrm{d} \omega \,\int\limits_{-\infty}^{+\infty} f(\tau)\, \cos \omega (t-\tau)  \mathrm{d}\tau
 \end{equation}
 
 \[
-\mathfrak{F}^{-1}\left(\mathfrak{F} \left[ f\left(t \right ) \right ] \right ) = f \left(t \right )
-\qquad \textup{oraz} \qquad
-\mathfrak{F}\left(\mathfrak{F}^{-1} \left[ F\left(j\omega \right ) \right ] \right ) = F \left(j\omega \right )
+	\mathfrak{F}^{-1}\left(\mathfrak{F} \left[ f\left(t \right ) \right ] \right ) = f \left(t \right )
+	\qquad \textup{oraz} \qquad
+	\mathfrak{F}\left(\mathfrak{F}^{-1} \left[ F\left(j\omega \right ) \right ] \right ) = F \left(j\omega \right )
 \]
 
 \begin{equation*}
-    x \oplus y = \neg (x \equiv y) = (x \vee y) \wedge (\neg x \vee \neg y) = (x \wedge \neg y) \vee (\neg x \wedge y)
+	x \oplus y = \neg (x \equiv y) = (x \vee y) \wedge (\neg x \vee \neg y) = (x \wedge \neg y) \vee (\neg x \wedge y)
 \end{equation*}
 
 \begin{equation*}
-    \sum \frac{Q}{T} = 0
+	\sum \frac{Q}{T} = 0
 \end{equation*}
 
 \begin{equation}
-    \oint \frac{dQ}{T} = 0
+	\oint \frac{dQ}{T} = 0
 \end{equation}
 
 \begin{equation}
-    \pmb{a} = \lim\limits_{\Delta t \to 0} \frac{\Delta \pmb{v}}{\Delta t} = \frac{d\pmb{v}}{dt}
+	\pmb{a} = \lim\limits_{\Delta t \to 0} \frac{\Delta \pmb{v}}{\Delta t} = \frac{d\pmb{v}}{dt}
 \end{equation}
 
 \begin{equation}
-K = m\,c^2 - m_0\,c^2
- = m_0\,c^2 \left(
-  \frac{1}{ \sqrt{1 - \left( \frac{v}{c} \right)^2 } } -1
- \right)
+	K = m\,c^2 - m_0\,c^2
+	= m_0\,c^2 \left(
+	\frac{1}{ \sqrt{1 - \left( \frac{v}{c} \right)^2 } } -1
+	\right)
 \end{equation}
 
 \begin{equation}
-    \frac{\partial^2 y}{\partial x^2} = \frac{\mu}{F} \; \frac{\partial^2 y}{\partial t^2}
+	\frac{\partial^2 y}{\partial x^2} = \frac{\mu}{F} \; \frac{\partial^2 y}{\partial t^2}
 \end{equation}
 
 \begin{equation}
-    e^{\pm i\theta} = \cos \theta \pm i \sin\theta
+	e^{\pm i\theta} = \cos \theta \pm i \sin\theta
 \end{equation}
 
 \begin{equation}
-    U(M) = \lim\limits_{R\to 0} \iiint\limits_{G-K}\frac{\rho(P)}{r}dG
+	U(M) = \lim\limits_{R\to 0} \iiint\limits_{G-K}\frac{\rho(P)}{r}dG
 \end{equation}
 
 \begin{equation*}
-    \left| \, \int\limits_{C_R} \frac{dz}{\left( 1+z^2 \right )^3} \, \right| \leqslant \sup\limits_{z \in C_R} \frac{1}{\left| 1+z^2 \right|^3} \; \pi R
+	\left| \, \int\limits_{C_R} \frac{dz}{\left( 1+z^2 \right )^3} \, \right| \leqslant \sup\limits_{z \in C_R} \frac{1}{\left| 1+z^2 \right|^3} \; \pi R
 \end{equation*}
 
 W otoczeniu \texttt{align} można umieścić kilka wzorów jeden pod drugim oddzielając je znakiem nowego wiersza, czyli podwójnym ukośnikiem: \texttt{\textbackslash{}\textbackslash{}}. Wzory te poukładają się elegancko jeden pod drugim, jeśli w każdej linii umieścimy jeden lub więcej znaków \&. Ważne, żeby w każdej linii znak \texttt{\&} wystąpił tyle samo razy, gdyż wskazuje on miejsce wyrównania równań w kolumnie.
 
 \begin{align}
-    g & = \frac{v^2}{R+h} \\
-    v & = \sqrt{ \left( R+h \right) g }
+	g & = \frac{v^2}{R+h}               \\
+	v & = \sqrt{ \left( R+h \right) g }
 \end{align}
 
 \begin{align}
- y(t) = A_0
- +& A_1 \sin \omega t +
-    A_2 \sin 2 \omega t +
-    A_3 \sin 3 \omega t + \ldots + \nonumber \\
- +& B_1 \cos \omega t +
-    B_2 \cos 2 \omega t +
-    B_1 \cos 3 \omega t + \ldots
+	y(t) = A_0
+	+ & A_1 \sin \omega t +
+	A_2 \sin 2 \omega t +
+	A_3 \sin 3 \omega t + \ldots + \nonumber \\
+	+ & B_1 \cos \omega t +
+	B_2 \cos 2 \omega t +
+	B_1 \cos 3 \omega t + \ldots
 \end{align}
 
 \begin{align}
- \nu^\prime  &= \frac{\left(vt / \lambda \right) + \left( v_0t / \lambda \right)}{t} = \nonumber\\
-            &= \frac{v + v_0}{\lambda} = \nonumber\\
-            &= \frac{v + v_0}{v / \nu} = \nonumber\\
-            &= \nu \frac{v+v_0}{v} = \nonumber\\
-            &= \nu \left( 1 + \frac{v_0}{v} \right)
+	\nu^\prime & = \frac{\left(vt / \lambda \right) + \left( v_0t / \lambda \right)}{t} = \nonumber \\
+	           & = \frac{v + v_0}{\lambda} = \nonumber                                              \\
+	           & = \frac{v + v_0}{v / \nu} = \nonumber                                              \\
+	           & = \nu \frac{v+v_0}{v} = \nonumber                                                  \\
+	           & = \nu \left( 1 + \frac{v_0}{v} \right)
 \end{align}
 
 Można wygenerować zdecydowanie bardziej skomplikowane wzory. Otoczenie \texttt{gather} pozwala na łączenie na przykład macierzy ze ,,zwykłymi'' wzorami.
 
 \begin{gather}
- \begin{bmatrix} \Phi_{11} & \Phi_{12} \\ \Phi_{21} & \Phi_{22} \end{bmatrix}
- =
- \frac{1}{\det(X)}
-  \begin{bmatrix}
-   X_{22} Y_{11} - X_{12} Y_{21} &
-   X_{22} Y_{12} - X_{12} Y_{22} \\
-   X_{11} Y_{21} - X_{21} Y_{11} &
-   X_{11} Y_{22} - X_{21} Y_{12}
-   \end{bmatrix}
+	\begin{bmatrix} \Phi_{11} & \Phi_{12} \\ \Phi_{21} & \Phi_{22} \end{bmatrix}
+	=
+	\frac{1}{\det(X)}
+	\begin{bmatrix}
+		X_{22} Y_{11} - X_{12} Y_{21} &
+		X_{22} Y_{12} - X_{12} Y_{22}   \\
+		X_{11} Y_{21} - X_{21} Y_{11} &
+		X_{11} Y_{22} - X_{21} Y_{12}
+	\end{bmatrix}
 \end{gather}
 
 \begin{gather}
-a \times b = -b \times a =
-\begin{vmatrix}
-\pmb{i}    &     \pmb{j}      &      \pmb{k}    \\
-a_x        &     a_y          &      a_z        \\
-b_x        &     b_y          &      b_z
-\end{vmatrix}
-= \left(a_y b_z - b_y a_z \right)\pmb{i}
-+ \left(a_z b_x - b_z a_x \right)\pmb{j}
-+ \left(a_x b_y - b_x a_y \right)\pmb{k}
+	a \times b = -b \times a =
+	\begin{vmatrix}
+		\pmb{i} & \pmb{j} & \pmb{k} \\
+		a_x     & a_y     & a_z     \\
+		b_x     & b_y     & b_z
+	\end{vmatrix}
+	= \left(a_y b_z - b_y a_z \right)\pmb{i}
+	+ \left(a_z b_x - b_z a_x \right)\pmb{j}
+	+ \left(a_x b_y - b_x a_y \right)\pmb{k}
 \end{gather}
 
 % Na Wydziale Elektrycznym wzorów chemicznych raczej nie potrzebujemy zbyt często a te kilka przypadków da się zapisać jako zwykłe równania.
@@ -485,11 +485,11 @@ Można wskazać zakres linii, które powinny pojawić się w dokumencie. Jednak 
 Listing~\ref{lst:Keccak} ma automatycznie ustawiany podpis na podstawie nazwy pliku. W pewnych sytuacjach może być to wygodniejsze niż ręczne wprowadzanie nazwy.
 
 \lstinputlisting[language=C,
-    firstnumber=31,
-    firstline=31,
-    lastline=50,
-    caption=\lstname,
-    label={lst:Keccak}]{Keccak-inplace32BI.c}
+	firstnumber=31,
+	firstline=31,
+	lastline=50,
+	caption=\lstname,
+	label={lst:Keccak}]{Keccak-inplace32BI.c}
 
 \section{Ostatnie drobiazgi}
 Kilka ostatnich uwag odnośnie używania szablonu i \LaTeX{a}.
@@ -497,11 +497,11 @@ Kilka ostatnich uwag odnośnie używania szablonu i \LaTeX{a}.
 \subsection{Podstawowe style tekstu}
 W przykładowym dokumencie pojawiło się modyfikowanie wyglądu liter za pomocą kilku metod. Tu zostaną one zebrane na liście z przykładami:
 \begin{itemize}
-    \item \textbf{tekst wytłuszczony},
-    \item \textit{tekst pochylony},
-    \item \texttt{tekst maszynowy},
-    \item \underline{tekst podkreślony}
-    \item tekst \emph{wyróżniony} \textbf{odmiennym \emph{stylem}}, \textit{w zależności \emph{od sytuacji}}, \emph{jest to \textbf{rozwiązanie} \textit{uniwersalne}}.
+	\item \textbf{tekst wytłuszczony},
+	\item \textit{tekst pochylony},
+	\item \texttt{tekst maszynowy},
+	\item \underline{tekst podkreślony}
+	\item tekst \emph{wyróżniony} \textbf{odmiennym \emph{stylem}}, \textit{w zależności \emph{od sytuacji}}, \emph{jest to \textbf{rozwiązanie} \textit{uniwersalne}}.
 \end{itemize}
 
 \subsection{Wiszące znaki}
@@ -511,8 +511,8 @@ W polskiej tradycji piśmienniczej samotne literki nie powinny występować na k
 \subsection{Wypunktowania}
 \LaTeX{} ma duże możliwości jeśli chodzi o formatowanie wypunktowań. Jednak zgodnie z obowiązującymi na PW zaleceniami można stosować tylko dwa rodzaje punktorów:
 \begin{itemize}
-    \item standardową ,,kropkę'',
-    \item[--] myślnik.
+	\item standardową ,,kropkę'',
+	\item[--] myślnik.
 \end{itemize}
 Zatem nie można używać wypunktowań numerycznych, list opisowych i tak dalej.
 
@@ -520,14 +520,14 @@ Zatem nie można używać wypunktowań numerycznych, list opisowych i tak dalej.
 \subsection{Dywiz a myślnik}
 Podejście do typografii w \LaTeX{u} jest profesjonalne co wiąże się też z dbałością o rozróżnienie różnych rodzajów ,,myślników'':
 \begin{itemize}
-    \item pojedynczy znak minus ,,-'' to dywiz, stosowany do:
-    \begin{itemize}
-        \item przenoszenia wyrazów do nowej linii; uwaga: nie robimy tego ręcznie!
-        \item łączenia słów (na przykład: Golub-Dobrzyń).
-    \end{itemize}
-    \item dwa znaki minus obok siebie ,,-{}-'' % tu celowo oddzielone, żeby się nie połączyły
-    to ,,prawdziwy'' myślnik (--) o wyraźnie większej długości od dywizu -- można go stosować w zdaniach złożonych, oddzielając spacjami od sąsiadujących z nim wyrazów,
-    \item trzy znaki minus obok siebie praktycznie nie wystąpią w pracach technicznych a służą do oznaczania dialogów. --- Serio? --- Ano tak.
+	\item pojedynczy znak minus ,,-'' to dywiz, stosowany do:
+	      \begin{itemize}
+		      \item przenoszenia wyrazów do nowej linii; uwaga: nie robimy tego ręcznie!
+		      \item łączenia słów (na przykład: Golub-Dobrzyń).
+	      \end{itemize}
+	\item dwa znaki minus obok siebie ,,-{}-'' % tu celowo oddzielone, żeby się nie połączyły
+	      to ,,prawdziwy'' myślnik (--) o wyraźnie większej długości od dywizu -- można go stosować w zdaniach złożonych, oddzielając spacjami od sąsiadujących z nim wyrazów,
+	\item trzy znaki minus obok siebie praktycznie nie wystąpią w pracach technicznych a służą do oznaczania dialogów. --- Serio? --- Ano tak.
 \end{itemize}
 
 \subsection{Akronimy i symbole}
@@ -539,9 +539,9 @@ Pierwsze użycie akronimu w tekście jest rozpoznawane automatycznie i pojawia s
 
 Można też samodzielnie wybrać jaką formę ma przybrać akronim w tekście, co nie wpływa na rozpoznawanie pierwszego użycia skrótu:
 \begin{itemize}
-    \item krótkiej: \acrshort{IEEE}, \acrshort{PW}, \acrshort{IETiSIP},
-    \item długiej: \acrlong{IEEE}, \acrlong{PW}, \acrlong{IETiSIP},
-    \item pełnej: \acrfull{IEEE}, \acrfull{PW}, \acrfull{IETiSIP}.
+	\item krótkiej: \acrshort{IEEE}, \acrshort{PW}, \acrshort{IETiSIP},
+	\item długiej: \acrlong{IEEE}, \acrlong{PW}, \acrlong{IETiSIP},
+	\item pełnej: \acrfull{IEEE}, \acrfull{PW}, \acrfull{IETiSIP}.
 \end{itemize}
 
 Chociaż na powyższej liście występuje \gls{PW} to tutaj akronim jest traktowany jak pojawiający się po raz pierwszy. Dopiero kolejne użycie daje inny efekt: \gls{PW}.
@@ -564,19 +564,19 @@ Szablon wczytuje pakiet pozwalający na wyróżnienie w tekście informacji o sk
 
 W tekście można wyróżnić skróty klawiszowe, takie jak na przykład: \keys{\Alt, F4}, \keys{\ctrl, \Alt, \del}.
 \begin{itemize}
-    \item \keys{A, a, B, b, C, c, 1, 2, 3, PgUp}
-    \item \keys{\Space} \keys{\SPACE}
-    \item \keys{\backspace} \keys{\del} \keys{\backdel}
-    \item \keys{\return} \keys{\enter}
-    \item \keys{\shift} \keys{\capslock}
-    \item \keys{\ctrl} \keys{\Alt} \keys{\AltGr}
-    \item \keys{\tab}
-    \item \keys{\esc} \keys{\oldesc}
-    \item \keys{\winmenu}
-    \item \keys{\arrowkey{^}} \keys{\arrowkeyup}
-    \item \keys{\arrowkey{v}} \keys{\arrowkeydown}
-    \item \keys{\arrowkey{>}} \keys{\arrowkeyright}
-    \item \keys{\arrowkey{<}} \keys{\arrowkeyleft}
+	\item \keys{A, a, B, b, C, c, 1, 2, 3, PgUp}
+	\item \keys{\Space} \keys{\SPACE}
+	\item \keys{\backspace} \keys{\del} \keys{\backdel}
+	\item \keys{\return} \keys{\enter}
+	\item \keys{\shift} \keys{\capslock}
+	\item \keys{\ctrl} \keys{\Alt} \keys{\AltGr}
+	\item \keys{\tab}
+	\item \keys{\esc} \keys{\oldesc}
+	\item \keys{\winmenu}
+	\item \keys{\arrowkey{^}} \keys{\arrowkeyup}
+	\item \keys{\arrowkey{v}} \keys{\arrowkeydown}
+	\item \keys{\arrowkey{>}} \keys{\arrowkeyright}
+	\item \keys{\arrowkey{<}} \keys{\arrowkeyleft}
 \end{itemize}
 
 Jeśli opisujemy poruszanie się po menu to również można użyć ozdobnika graficznego: \menu{View > Zoom > Zoom in}.
