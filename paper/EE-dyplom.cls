@@ -329,7 +329,6 @@
 % Wypełniacze do testowania typografii
 % ---------------------------------------------
 \RequirePackage{lipsum}
-\RequirePackage{bredzenie}
 
 % ---------------------------------------------
 % Formatowanie tabel
