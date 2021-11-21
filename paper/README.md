@@ -1,28 +1,55 @@
-Szablon prac dyplomowych na Wydziale Elektrycznym Politechniki Warszawskiej,
-zgodny z Zarządzeniami JM Rektora PW: 24/2016, 43/2016, 57/2016.
+# CAL-web thesis
 
-Większość opcji ustawiona zgodnie z zaleceniami. Główne różnice - dla poprawy
-czytelności pracy:
+## Requirements
 
-- stopień pisma 12 pt (zamiast 11 pt)
-- zwiększone światło międzywierszowe (1.46557 zamiast 1.15)
-- wyróżniające się nagłówki rozdziałów
-- kolorowe, klikalne odnośniki
+- [latexmk](https://mg.readthedocs.io/latexmk.html)
+- [XeLaTeX](https://en.wikipedia.org/wiki/XeTeX)
+- [biber](<https://en.wikipedia.org/wiki/Biber_(LaTeX)>)
 
-Jak używać szablonu:
+On Ubuntu, they can be installed by running:
 
-1. Szablon jest przygotowany dla XeLaTeX więc jeśli używasz Overleaf to otwórz
-   "Menu" i zmień "Compiler" na "XeLaTeX".
-2. ustaw niżej właściwy typ pracy w linii "documentclass" wybierając dla
-   "thesis" jedną opcję z: inz, mgr, bsc, msc
-3. spersonalizuj pola w pliku "config.tex"
-4. modyfikuj, zmieniaj i dodawaj treść w katalogu "tekst"
-5. dodawaj rysunki w katalogu "rysunki" (gfx raczej nie używaj)
+```sh
+sudo apt install latexmk texlive-xetex biber
+```
 
-Dziękuję innym Autorom, których szablonami mogłem się inspirować:
+### Editor support
 
-- prof. dr hab. inż. Jacek Starzyński, Wydział Elektryczny, PW
-- Artur M. Brodzki i Piotr Woźniak, Wydział EiTI, PW
+Editor support for editing LaTeX varies by editor.
 
-Licencja szablonu: CC-BY 4.0 https://creativecommons.org/licenses/by/4.0/ 🄯
+### Neovim
+
+The following tools come in handy:
+
+- [vimtex](https://github.com/lervag/vimtex)
+
+  It should work out of the box.
+
+- [texlab](https://github.com/latex-lsp/texlab) (via
+  [lsp-config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#texlab))
+
+  See additional configuration in [.nvimrc](./.nvimrc).
+
+Compilation using vimtex is recommended. Forward search may not work due to
+using a multi-file project.
+
+## Compiling
+
+Compiling the thesis paper is done by invoking the following command:
+
+```sh
+latexmk
+```
+
+This will produce the `EE-dyplom.pdf` document.
+
+This works automatically due to [the `.latexmkrc` file](./.latexmkrc).
+
+Make sure you have installed [all the required tools](#requirements).
+
+## License
+
+This thesis paper is based on
+[EE-dyplom template for thesis papers](https://github.com/SP5LMA/EE-dyplom).
+
+Template license: CC-BY 4.0 <https://creativecommons.org/licenses/by/4.0/> 🄯
 Łukasz Makowski <lukasz.makowski@ee.pw.edu.pl>
