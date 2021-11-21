@@ -29,8 +29,38 @@ The following tools come in handy:
 
   See additional configuration in [.nvimrc](./.nvimrc).
 
-Compilation using vimtex is recommended. Forward search may not work due to
-using a multi-file project.
+The document will be built on save by texlab.
+
+Make sure to start neovim first and then open TeX files. Passing the file name
+directly to the `nvim` command will load the file before the configuration is
+loaded and result in incorrect recognition of TeX files.
+
+#### Forward search
+
+For forward-search, install
+[the Zathura PDF viewer](https://pwmt.org/projects/zathura/documentation/).
+
+On Ubuntu, you can install it using:
+
+```sh
+sudo apt install zathura
+```
+
+Then, do `\lv` (or `:VimtexView`) to do forward search.
+
+#### Inverse search
+
+Add the following to the `~/.config/zathura/zathurarc`:
+
+```text
+set synctex true
+set synctex-editor-command "nvim --headless -c 'VimtexInverseSearch %{line} %{input}'"
+```
+
+Then, ctrl + click will do inverse search.
+
+Reference:
+<https://www.math.cmu.edu/~gautam/sj/blog/20140310-zathura-fsearch.html>
 
 ## Compiling
 
