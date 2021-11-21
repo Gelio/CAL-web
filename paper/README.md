@@ -38,7 +38,9 @@ loaded and result in incorrect recognition of TeX files.
 #### Forward search
 
 For forward-search, install
-[the Zathura PDF viewer](https://pwmt.org/projects/zathura/documentation/).
+[the Zathura PDF viewer](https://pwmt.org/projects/zathura/documentation/). The
+reason is that the built-in PDF viewer is hard to configure to support forward-
+and inverse-search with support for project multiple files.
 
 On Ubuntu, you can install it using:
 
@@ -46,7 +48,7 @@ On Ubuntu, you can install it using:
 sudo apt install zathura
 ```
 
-Then, do `\lv` (or `:VimtexView`) to do forward search.
+Then, do `\lv` (or `:VimtexView`, or `:TexlabForward`) to do forward search.
 
 #### Inverse search
 
