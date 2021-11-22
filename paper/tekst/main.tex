@@ -1,3 +1,243 @@
 \chapter{Wstęp}
 
-Puste. Będzie wypełnione w kolejnych zadaniach.
+Tu opis:
+
+\begin{itemize}
+	\item czym jest BalticLSC
+	\item czym jest metamodelowanie
+	\item przedstawienie obliczeń BalticLSC jako modelu języka CAL
+	\item czym jest Sirius Desktop
+	\item czym jest Sirius Web
+\end{itemize}
+
+\section{Cel pracy}
+
+Cel --- weryfikacja jakich możliwości daje wykorzystanie Sirius Web w zakresie
+stworzenia edytora diagramów reprezentujących modele BalticLSC, a następnie
+dodanie mechanizmów pozwalających na sprawdzenie poprawności semantycznej
+modelu.
+
+\section{Istniejące rozwiązania}
+
+Opis alternatywnych rozwiązań --- budowanie rozwiązań specyficznych dla
+konkretnej domeny używając ogólnych bibliotek warstwy UI do diagramów, oraz
+dodawanie do nich samemu walidacji. Również konieczność tworzenia serwera
+obsługującego te diagramy.
+
+\section{Motywacja}
+
+Dzięki Sirius Web oraz metamodelowaniu można zbudować edytor diagramów wraz z
+walidacją semantyczną dla dowolnej domeny.
+
+\section{Zakres pracy}
+
+Co zostało zrobione w ramach pracy:
+
+\begin{enumerate}
+	\item Stworzenie metamodelu języka CAL w EMF\@.
+	\item Wykorzystanie tego metamodelu w Sirius Web.
+	\item Porównanie możliwości Sirius Web i Sirius Desktop. Zgłoszenie usterk autorom Sirius Web poprzez GitHub.
+	\item Dodanie do modelu elementów usprawniających pracę z nim (automatyzacja niektórych czynności, dodanie ograniczeń utrudniających zrobienie błędu).
+	\item Modyfikacja interfejsu użytkownika Sirius Web poprzez dodanie do niego przybornika z BalticLSC\@. Przybornik umożliwia w łatwy sposób dodanie nowych \texttt{UnitCall} do modelu.
+	\item Dodanie mechanizmu walidacji semantycznej modelu sprawdzającego poprawność modelu ze zdefinionwanymi w języku Java regułami.
+	\item Stworzenie planu integracji rozwiązania z BalticLSC\@.
+\end{enumerate}
+
+\noindent Co zostaje poza zakresem pracy:
+
+\begin{enumerate}
+	\item Integracja rozwiązania jako alternatywnego edytora diagramów dla systemu Sirius Web.
+\end{enumerate}
+
+\chapter{Opis rozwiązania}
+
+W tym rozdziale zostanie omówione przygotowane rozwiązanie.
+
+\section{Stworzony metamodel EMF dla języka CAL}
+
+Omówienie przygotowanego modelu. Zrzut ekranu przedstawiający model. Omówienie
+elementów oraz jakie one mają przełożenie na wykonanie obliczeń przez
+BalticLSC\@.
+
+\subsection{Warunkowa zmiana stylu elementów}
+
+Omówienie reguł warunkowej zmiany stylu elementów diagramu:
+
+\begin{enumerate}
+	\item \texttt{DataPin} zmieniają ikonę na podstawie swoich \textit{data
+		      multiplicity} oraz \textit{token multiplicity}.
+	\item \texttt{ComputedDataPin} zmieniają kolor na podstawie swojego
+	      \textit{data binding}.
+\end{enumerate}
+
+\subsection{Narzędzia edytora diagramów}
+
+Omówienie dodanych \textit{Tools} z Sirius:
+
+\begin{itemize}
+	\item usunięcie \texttt{UnitCall} lub \texttt{ApplicationDataPin} usuwa również powiązane \texttt{DataFlow}
+	\item usunięcie \texttt{ComputedDataPin} z poziomu edytora diagramów nie jest możliwe
+	\item ograniczenia na tworzenie \texttt{DataFlow} tak, aby były semantycznie poprawne
+	\item automatyczne usuwanie i tworzenie \texttt{ComputedDataPin} po zmianie \texttt{ComputationUnitRelease} dla danego \texttt{UnitCall}
+	\item okno dialogowe ułatwiające tworzenie \texttt{UnitCall} dla istniejącego \texttt{ComputationUnitRelease}
+	\item \ldots
+\end{itemize}
+
+\subsection{Reguły walidacyjne powiązane z
+	metamodelem}\label{sec:regulky-walidacyjne-metamodel}
+
+Omówienie \textit{semantic validation rule} z pliku \texttt{*.odesign}, które
+działają w Sirius Desktop.
+
+\subsection{Testy metamodelu}
+
+Omówienie dodanych testów jednostkowych modelu (głównie dotyczy automatycznego
+zarządzania \texttt{ComputedDataPin} w zależnosci od
+\texttt{ComputationUnitRelease} dla konkretnego \texttt{UnitCall}).
+
+\section{Użycie metamodelu EMF w Sirius Web}
+
+Opis jak wykorzystać metamodel EMF w Sirius Web.
+
+\begin{itemize}
+	\item konfiguracja Maven
+	\item odpowiednia modyfikacja klas Javy w Sirius Web
+\end{itemize}
+
+\noindent oraz jaki rezultat uzyskano.
+
+\subsection{Różnice między Sirius Web a Sirius Desktop}
+
+Omówienie różnic oraz usterek zgłoszonych przeze mnie w repozytorium Sirius
+Web.
+
+\section{Integracja przybornika BalticLSC w Sirius Web}
+
+Opis problemu dodawania nowych \texttt{UnitCall} do diagramu --- trzeba
+zdefiniować \texttt{ComputationUnitRelease} w diagramie.
+
+Rozwiązanie (zaczerpnięte z edytora diagramów BalticLSC) --- przybornik
+(toolbox).
+
+Opis jak to zrobiono, od strony backendu jak i frontendu. Omówienie trudności w
+modyfikacji interfejsu użytkownika Sirius Web (trzeba było skopiować kod
+źródłowy niektórych komponentów z biblioteki \textit{Sirius Components} do kodu
+aplikacji Sirius Web, ponieważ komponenty te nie umożliwiały modyfikacji
+interfejsu i wstawiania do nich nowych elementów --- najlepiej dać zrzut ekranu
+co można było łatwo zmienić, a co wymagało skopiowania kodu).
+
+\section{Walidacja semantyczna modelu}
+
+Informacja o informacjach diagnostycznych udostępnianych domyślnie przez Sirius
+Web.
+
+Brak uruchamiania reguł semantycznych zdefiniowanych w
+metamodelu~\ref{sec:regulky-walidacyjne-metamodel}.
+
+Opis dodanego rozwiązania (własne klasy Javowe które zwracają listę informacji
+diagnostycznych, oraz strumieniowanie ich do przeglądarki wykorzystując
+istniejące rozwiązanie do walidacji).
+
+\section{Plan integracji Sirius Web w BalticLSC}
+
+Omówienie przygotowanego planu integracji.
+
+\chapter{Informacje techniczne}
+
+\section{Wykorzystane biblioteki}
+
+Tabela z wykorzystywanymi bibliotekami i ich licencjami.
+
+\section{Projekt systemu}
+
+Diagram z backendami oraz frontendami BalticLSC, a także bazą danych
+PostgreSQL\@.
+
+\section{Projekt modułów}
+
+Informacje o modułach backendu (projekty Javy w Sirius Web).
+
+\section{Instrukcja wdrożenia}
+
+\subsection{Wymagania}
+
+Docker, lub Java 11, Maven, PostgreSQL
+
+\subsection{Instrukcja instalacji}
+
+Opis: albo Docker, albo instalacja manualna (potwórzenie instrukcji z
+\texttt{README.md}).
+
+\subsection{Instrukcja uruchomienia}
+
+Opis: albo Docker, albo manualnie uruchomienie serwera
+
+\section{Instrukcja użycia}
+
+Jak użyć aplikacji do stworzenia prostego modelu
+
+Powinno także zawierać informacje o logowaniu się do BalticLSC\@.
+
+\section{Instrukcja utrzymania}
+
+\subsection{Kopia zapasowa bazy danych}
+
+Jak stworzyć kopię bazy w PostgreSQL\@?
+
+\subsection{Aktualizowanie wersji Sirius Web}
+
+Opis metody aplikowania najnowszych zmian z repozytorium Sirius Web
+(generowanie \texttt{git patch} i aplikowanie ich).
+
+\section{Zabezpieczenia}
+
+Brak zabezpieczeń.
+
+\section{Testy akceptacyjne rozwiązania}
+
+Opis kilku testów, które użytkownik może chcieć wykonać aby sprawdzić, czy
+rozwiązanie działa poprawnie.
+
+\subsection{Wynik testów akceptacyjnych}
+
+Czy się udały?
+
+\chapter{Podsumowanie}
+
+\section{Wyniki pracy}
+
+Co zostało osiągnięte? Czy cel został zdobyty?
+
+\section{Wnioski}
+
+Sirius Web jest w fazie rozwoju, ale można już go użyć. Brakuje dokumentacji,
+więc wymagany jest \textit{reverse engineering}, czytanie kodu źródłowego,
+metoda prób i błędów, debuggowanie aplikacji, zgłaszanie usterek lub zadawanie
+pytań w repozytorium projektu.
+
+Występują różnice między Sirius Web a Sirius Desktop.
+
+\section{Możliwości na rozwój}
+
+Wymienić co można zrobić dalej:
+
+\begin{itemize}
+	\item integracja z BalticLSC
+	\item dodanie większej liczby reguł walidacji semantycznej
+\end{itemize}
+
+\section{Sekcje, o których pomyślałem, ale pomijam}\label{sec:pominiete-sekcje}
+
+W tej sekcji wymienię sekcje, o których pomyślałem, że mogą się znaleźć w pracy
+magisterskiej. Ostatecznie chciabym je pominąć ze względu na charakter pracy
+--- praca jest badawcza, a nie polegała na wytworzeniu nowego oprogramowania.
+Pominięte sekcje to:
+
+\begin{enumerate}
+	\item wykorzystana metoda wytwarzania oprogramowania
+	\item FURPS (wymagania funkcjonalne i niefunkcjonalne)
+\end{enumerate}
+
+Ta sekcja (\ref{sec:pominiete-sekcje}) zostanie usunięta z pracy magisterskiej
+i służy tylko ułatwieniu komunikacji z promotorem w sprawie ustalenia nagłówków
+sekcji pracy magisterskiej.
