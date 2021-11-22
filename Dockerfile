@@ -36,5 +36,9 @@ WORKDIR /app
 
 COPY --from=app-builder /app/staging/ ./
 
+ENV PORT=8080
+
+# NOTE: Heroku requires listening on the port passed in the $PORT environment variable
 # Configuration can be passed in by mounting application.properties into `/app/application.properties`
-CMD ["java", "-jar", "sirius-web-application.jar"]
+# NOTE: use shell to expand environment variables https://stackoverflow.com/a/40454758/4874344
+CMD ["sh", "-c", "java -jar sirius-web-application.jar --server.port=$PORT"]
