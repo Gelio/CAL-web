@@ -38,6 +38,11 @@ COPY --from=app-builder /app/staging/ ./
 
 ENV PORT=8080
 
+# NOTE: running the application as non-root, as recommended by Heroku
+# https://devcenter.heroku.com/articles/container-registry-and-runtime#run-the-image-as-a-non-root-user
+RUN useradd -m user
+USER user
+
 # NOTE: Heroku requires listening on the port passed in the $PORT environment variable
 # Configuration can be passed in by mounting application.properties into `/app/application.properties`
 # NOTE: use shell to expand environment variables https://stackoverflow.com/a/40454758/4874344
