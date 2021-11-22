@@ -21,4 +21,4 @@ docker run -p 5433:5432 --rm --name sirius-web-postgres \
 	-e POSTGRES_PASSWORD=dbpwd \
 	-e POSTGRES_DB=sirius-web-db \
 	-v $pgdata_volume_name:/var/lib/postgresql/data \
-	-d postgres
+	-d postgres:14.0
