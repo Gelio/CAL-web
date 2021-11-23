@@ -5,7 +5,16 @@ local base_dap_config = {
 	hostName = "127.0.0.1",
 	port = 8000,
 }
-local project_names = { "sirius-web-services", "sirius-web-services-api", "sirius-web-spring" }
+local project_names = {
+	"sirius-web-frontend",
+	"sirius-web-graphql",
+	"sirius-web-graphql-schema",
+	"sirius-web-persistence",
+	"sirius-web-sample-application",
+	"sirius-web-services",
+	"sirius-web-services-api",
+	"sirius-web-spring",
+}
 
 dap.configurations.java = vim.tbl_map(function(project_name)
 	return vim.tbl_extend("error", base_dap_config, {
