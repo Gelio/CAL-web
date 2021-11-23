@@ -53,6 +53,15 @@ jobs:
     needs: push-image
     runs-on: ubuntu-20.04
     environment: AzureVM
-    # TODO: ssh to VM, pull image, restart app
     steps:
-      - run: echo TODO
+      - name: Pull image and restart the application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          port: 22
+          script: |
+            cd cal-web
+            docker-compose pull
+            docker-compose up -d
