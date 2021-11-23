@@ -7,6 +7,7 @@ on:
         description:
           "Deploy to the VM after the image is pushed to Docker registry"
         required: false
+        default: true
 
 jobs:
   push-image:
@@ -49,7 +50,7 @@ jobs:
       # https://github.com/docker/build-push-action/blob/master/docs/advanced/test-before-push.md
 
   deploy-to-vm:
-    if: inputs.deployToVM
+    if: github.event.inputs.deployToVM
     needs: push-image
     runs-on: ubuntu-20.04
     environment: AzureVM
