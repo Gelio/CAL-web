@@ -18,6 +18,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import { useMachine } from "@xstate/react";
+import {
+  Representation,
+  Workbench as SiriusComponentsWorkbench,
+} from "@eclipse-sirius/sirius-components";
 import gql from "graphql-tag";
 import { useEffect } from "react";
 import {
@@ -39,6 +43,7 @@ import {
   HandleFetchedProjectEvent,
   HideToastEvent,
   SchemaValue,
+  SelectRepresentationEvent,
   ShowToastEvent,
 } from "./EditProjectViewMachine";
 import { Workbench } from "./Workbench";
@@ -145,12 +150,34 @@ export const EditProjectView = () => {
 
   let main = null;
   if (editProjectView === "loaded" && project) {
-    main = (
-      <Workbench
-        editingContextId={project.currentEditingContext.id}
-        representation={representation}
-      />
-    );
+    if (representation) {
+      main = (
+        <Workbench
+          editingContextId={project.currentEditingContext.id}
+          representation={representation}
+        />
+      );
+    } else {
+      // NOTE: the user needs to create a model in the project and a representation for it
+      // The `OnboardArea` component is not exposed in `sirius-components`
+      // (https://github.com/eclipse-sirius/sirius-components/issues/830#issuecomment-967976773),
+      // so we need to show the original `Workbench` component instead and
+      // switch to our one after the user selects a representation.
+      main = (
+        <SiriusComponentsWorkbench
+          editingContextId={project.currentEditingContext.id}
+          onRepresentationSelected={(newRepresentation: Representation) => {
+            const event: SelectRepresentationEvent = {
+              type: "SELECT_REPRESENTATION",
+              representation: newRepresentation,
+            };
+
+            dispatch(event);
+          }}
+          readOnly={false}
+        />
+      );
+    }
   } else if (editProjectView === "missing") {
     main = (
       <Grid container justifyContent="center" alignItems="center">
