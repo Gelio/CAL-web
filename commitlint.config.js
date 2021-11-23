@@ -20,5 +20,16 @@ module.exports = {
       ],
     ],
     "scope-empty": [1, "never"],
+    // NOTE: allow adding links in commit messages
+    // https://github.com/conventional-changelog/commitlint/issues/2112#issuecomment-690001646
+    "footer-max-line-length": [0, "always"],
+  },
+
+  parserPreset: {
+    parserOpts: {
+      // NOTE: allow adding links in commit messages
+      // https://github.com/conventional-changelog/commitlint/issues/2112#issuecomment-690001646
+      noteKeywords: ["link:"],
+    },
   },
 };
