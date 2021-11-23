@@ -1,0 +1,67 @@
+name: Deploy image to Docker registry
+on:
+  workflow_dispatch:
+    inputs:
+      deployToVM:
+        type: boolean
+        description:
+          "Deploy to the VM after the image is pushed to Docker registry"
+        required: false
+
+jobs:
+  push-image:
+    name: Build and push image to Docker registry
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Generate secret files
+        run: >
+          ./scripts/generate-secret-files.sh ${{ github.actor }} ${{
+          secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: voreny/cal-web:latest
+          cache-from: type=registry,ref=voreny/cal-web:latest
+          cache-to: type=inline
+          secret-files: |
+            ".npmrc=./frontend/.npmrc"
+            "settings.xml=./backend/settings.xml"
+
+      # TODO: run e2e tests
+      # https://github.com/docker/build-push-action/blob/master/docs/advanced/test-before-push.md
+
+  deploy-to-vm:
+    if: inputs.deployToVM
+    needs: push-image
+    runs-on: ubuntu-20.04
+    environment: AzureVM
+    steps:
+      - name: Pull image and restart the application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          port: 22
+          script: |
+            cd cal-web
+            docker-compose pull
+            docker-compose up -d
