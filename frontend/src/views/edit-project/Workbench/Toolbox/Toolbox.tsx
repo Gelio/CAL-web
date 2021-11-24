@@ -1,141 +1,72 @@
-import * as TE from "fp-ts/lib/TaskEither";
-import { pipe } from "fp-ts/lib/function";
-import { useEffect, useState } from "react";
-import { ToolboxEntry } from "./interop";
+import * as O from "fp-ts/lib/Option";
+import * as E from "fp-ts/lib/Either";
+import { ReactNode } from "react";
 import { UseToolboxEntryButton } from "./UseToolboxEntryButton";
 import { useRootObjectId } from "./root-object-id";
-import { isNone } from "fp-ts/lib/Option";
-import { isLeft } from "fp-ts/lib/Either";
-import { makeStyles } from "@material-ui/core";
+import { CircularProgress, styled, Typography } from "@material-ui/core";
+import { useBalticLSCToolboxEntries } from "./use-balticlsc-toolbox-entries";
 
 interface ToolboxProps {
   editingContextId: string;
+  authToken: O.Option<string>;
+  controls?: ReactNode;
 }
 
-const toolboxUrl = `${process.env.REACT_APP_BALTICLSC_API_URL}/backend/dev/toolbox/`;
-
-interface BalticLSCToolboxResponseBody {
-  data: ToolboxEntry[];
-  message: string;
-  success: boolean;
-}
-
-const fetchToolboxEntries = ({
+export const Toolbox = ({
+  editingContextId,
+  controls,
   authToken,
-  abortSignal,
-}: {
-  authToken: string;
-  abortSignal: AbortSignal;
-}): TE.TaskEither<Error, ToolboxEntry[]> => {
-  return pipe(
-    TE.tryCatch(
-      () =>
-        fetch(toolboxUrl, {
-          headers: { Authorization: `Bearer ${authToken}` },
-          signal: abortSignal,
-        }),
-      (reason) => reason as Error
-    ),
-    TE.chain((response) => {
-      if (!response.ok) {
-        if (response.status === 401) {
-          return TE.left(new Error("Invalid authentication token"));
-        } else {
-          return TE.left(
-            new Error(`Unexpected error (status code ${response.status})`)
-          );
-        }
-      }
-
-      return TE.tryCatch(
-        () => response.json(),
-        (reason) => {
-          console.error("Cannot parse toolbox response", reason);
-          return new Error("Cannot parse response");
-        }
-      );
-    }),
-    TE.chain((body: BalticLSCToolboxResponseBody) => {
-      if (body.success) {
-        return TE.of(body.data);
-      }
-
-      return TE.left(new Error(`Cannot get toolbox entries: ${body.message}`));
-    })
-  );
-};
-
-const useBalticLSCToolboxEntries = (authToken: string) => {
-  const [error, setError] = useState<Error | undefined>();
-  const [loading, setLoading] = useState(true);
-  const [toolboxEntries, setToolboxEntries] = useState<
-    ToolboxEntry[] | undefined
-  >();
-
-  useEffect(() => {
-    setLoading(true);
-    const abortController = new AbortController();
-    const runFetch = pipe(
-      fetchToolboxEntries({ authToken, abortSignal: abortController.signal }),
-      TE.apFirst(TE.fromIO(() => setLoading(false))),
-      TE.match(setError, (entries) => {
-        setToolboxEntries(entries);
-        setError(undefined);
-      })
-    );
-    runFetch();
-
-    return () => abortController.abort();
-  }, [authToken]);
-
-  return { error, loading, toolboxEntries };
-};
-
-const useStyles = makeStyles((theme) => ({
-  toolbox: {
-    margin: theme.spacing(2, 1),
-  },
-}));
-
-export const Toolbox = ({ editingContextId }: ToolboxProps) => {
-  // TODO: allow passing in the auth token, https://github.com/Gelio/CAL-web/issues/43
-  const authToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRlbW8iLCJzdWIiOiJkZW1vIiwianRpIjoiMjU2Y2RkZjRiZmQ0NGE5YzhmNTg1MGIxY2E0Zjc2YjciLCJzaWQiOiI3OGU5OTA1YzQ2NTU0OTkwODYwYzQxODQ3YmY1OGIxZiIsImV4cCI6MTYzNjkwNDQ2OCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.Mft3pbnrBqQRwXryFmyTNlNB4a9Y_ZHThe9T4IVI70A";
-
+}: ToolboxProps) => {
   const { error, loading, toolboxEntries } =
     useBalticLSCToolboxEntries(authToken);
   const rootObjectIdResOpt = useRootObjectId(editingContextId);
-  const styles = useStyles();
-
-  if (loading) {
-    return <div>Loading</div>;
-  }
-
-  if (error) {
-    return <div>Cannot load toolbox: {error.message}</div>;
-  }
-  // TODO: add a button to refresh the entries https://github.com/Gelio/CAL-web/issues/50
-  if (isNone(rootObjectIdResOpt)) {
-    return <div>Loading</div>;
-  }
-  const { value: rootObjectIdRes } = rootObjectIdResOpt;
-
-  if (isLeft(rootObjectIdRes)) {
-    return (
-      <div>Cannot load root object ID: {rootObjectIdRes.left.message}</div>
-    );
-  }
 
   return (
-    <div className={styles.toolbox}>
-      {toolboxEntries?.map((entry) => (
-        <UseToolboxEntryButton
-          toolboxEntry={entry}
-          key={entry.uid}
-          editingContextId={editingContextId}
-          rootObjectId={rootObjectIdRes.right}
-        />
-      ))}
-    </div>
+    <ToolboxContainer>
+      {controls}
+
+      {/* TODO: add a button to refresh the entries https://github.com/Gelio/CAL-web/issues/50 */}
+
+      {O.isNone(rootObjectIdResOpt) || loading ? (
+        <CircularProgress />
+      ) : error || E.isLeft(rootObjectIdResOpt.value) ? (
+        <>
+          {error && (
+            <Typography display="inline">
+              Could not load toolbox: {error.message}
+            </Typography>
+          )}
+          {E.isLeft(rootObjectIdResOpt.value) && (
+            <Typography display="inline">
+              {rootObjectIdResOpt.value.left.message}
+            </Typography>
+          )}
+        </>
+      ) : (
+        toolboxEntries?.map((entry) => (
+          <UseToolboxEntryButton
+            toolboxEntry={entry}
+            key={entry.uid}
+            editingContextId={editingContextId}
+            // SAFETY: we checked that the response is `Right`
+            rootObjectId={(rootObjectIdResOpt.value as E.Right<string>).right}
+          />
+        ))
+      )}
+    </ToolboxContainer>
   );
 };
+
+const ToolboxContainer = styled("div")(({ theme }) => ({
+  marginTop: theme.spacing(1),
+  marginBottom: theme.spacing(1),
+  paddingLeft: theme.spacing(1),
+  paddingRight: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+  borderBottomColor: theme.palette.divider,
+  borderBottomWidth: 1,
+  borderBottomStyle: "solid",
+  display: "flex",
+  alignItems: "center",
+  flexWrap: "wrap",
+}));
