@@ -48,6 +48,10 @@ import {
 } from "./EditProjectViewMachine";
 import { Workbench } from "./Workbench";
 import { NavigationBar } from "navigationBar/NavigationBar";
+import { useBalticLSCAuthToken } from "./use-balticlsc-auth-token";
+import { ToolboxAuthTokenControls } from "./Workbench/Toolbox";
+import { flow } from "fp-ts/lib/function";
+import * as O from "fp-ts/lib/Option";
 
 const getProjectQuery = gql`
   query getRepresentation($projectId: ID!) {
@@ -148,6 +152,8 @@ export const EditProjectView = () => {
     representationId,
   ]);
 
+  const balticLSCAuthToken = useBalticLSCAuthToken();
+
   let main = null;
   if (editProjectView === "loaded" && project) {
     if (representation) {
@@ -155,6 +161,13 @@ export const EditProjectView = () => {
         <Workbench
           editingContextId={project.currentEditingContext.id}
           representation={representation}
+          balticLSCAuthToken={balticLSCAuthToken.authToken}
+          toolboxControls={
+            <ToolboxAuthTokenControls
+              authToken={balticLSCAuthToken.authToken}
+              onAuthTokenChange={flow(O.of, balticLSCAuthToken.setAuthToken)}
+            />
+          }
         />
       );
     } else {
