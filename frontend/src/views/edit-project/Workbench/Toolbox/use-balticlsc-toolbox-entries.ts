@@ -3,6 +3,7 @@ import * as O from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/function";
 import { ToolboxEntry } from "./interop";
 import { useEffect, useState } from "react";
+import { httpOrigin } from "@eclipse-sirius/sirius-components";
 
 interface BalticLSCToolboxResponseBody {
   data: ToolboxEntry[];
@@ -10,7 +11,11 @@ interface BalticLSCToolboxResponseBody {
   success: boolean;
 }
 
-const toolboxUrl = `${process.env.REACT_APP_BALTICLSC_API_URL}/backend/dev/toolbox/`;
+const balticLSCAPIUrl =
+  process.env.REACT_APP_BALTICLSC_API_URL ??
+  `${httpOrigin}/api/balticlsc-proxy`;
+
+const toolboxUrl = `${balticLSCAPIUrl}/backend/dev/toolbox/`;
 
 const fetchToolboxEntries = ({
   authToken,
