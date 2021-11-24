@@ -43,7 +43,6 @@ export const Toolbox = ({
           )}
         </>
       ) : (
-        // SAFETY: we checked that toolboxEntries does not have any error and is not loading
         toolboxEntries?.map((entry) => (
           <UseToolboxEntryButton
             toolboxEntry={entry}
