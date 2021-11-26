@@ -51,7 +51,13 @@ public class SpringWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 
     private final IAccountRepository accountRepository;
 
-    public SpringWebSecurityConfiguration(IAccountRepository accountRepository) {
+    private final BalticLSCJWTAuthenticationFilter jwtFilter;
+
+    private final RestAuthenticationEntryPoint authenticationEntryPoint;
+
+    public SpringWebSecurityConfiguration(IAccountRepository accountRepository, BalticLSCJWTAuthenticationFilter jwtFilter, RestAuthenticationEntryPoint authenticationEntryPoint) {
+        this.jwtFilter = jwtFilter;
+        this.authenticationEntryPoint = authenticationEntryPoint;
         this.accountRepository = Objects.requireNonNull(accountRepository);
     }
 
@@ -62,8 +68,8 @@ public class SpringWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         http.authorizeRequests().antMatchers("/api/graphql").authenticated(); //$NON-NLS-1$
         http.authorizeRequests().antMatchers("/**").permitAll(); //$NON-NLS-1$
 
-        var jwtFilter = new BalticLSCJWTAuthenticationFilter();
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(this.jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling().authenticationEntryPoint(this.authenticationEntryPoint);
     }
 
     @Override
