@@ -3,6 +3,10 @@
   "author": "Eclipse Sirius",
   "version": "0.5.0",
   "license": "EPL-2.0",
+  "source": "./library/index.tsx",
+  "main": "dist/index.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/eclipse-sirius/sirius-web"
@@ -17,6 +21,8 @@
     "@eclipse-sirius/sirius-components": "0.5.3",
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
+    "@material-ui/styles": "^4.11.4",
+    "@swc/helpers": "^0.2.14",
     "@xstate/react": "1.5.1",
     "fontsource-roboto": "4.0.0",
     "fp-ts": "^2.11.5",
@@ -45,6 +51,8 @@
     "@types/react-router-dom": "5.1.8",
     "@types/uuid": "8.3.1",
     "jest-junit-reporter": "1.1.0",
+    "parcel": "^2.0.1",
+    "postcss": "^8.4.4",
     "prettier": "2.3.2",
     "react-scripts": "4.0.3",
     "typescript": "4.3.5"
@@ -57,7 +65,9 @@
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{js,ts,tsx,css}\"",
     "format-lint": "prettier --list-different \"src/**/*.{js,ts,tsx,css}\"",
-    "check-types": "tsc"
+    "check-types": "tsc",
+    "library:build": "parcel build",
+    "library:watch": "parcel watch"
   },
   "eslintConfig": {
     "extends": "react-app"

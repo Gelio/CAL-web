@@ -1,4 +1,7 @@
+# Output of the standalone application
 build
+# Output of the embeddable library
+dist
 
 # .npmrc contains secrets and is generated based on .npmrc-template
 .npmrc
