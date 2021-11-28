@@ -5,6 +5,8 @@ import { siriusWebTheme } from "../src/theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { CssBaseline } from "@material-ui/core";
 import { PropsWithChildren } from "react";
+import { useTokenStore } from "../src/auth";
+import { APIURLsInput, useAPIURLsStore } from "../src/api-urls";
 import "../src/fonts.css";
 import "../src/reset.css";
 import "../src/Sprotty.css";
@@ -13,13 +15,16 @@ import "../src/variables.css";
 interface AppProperties {
   projectId: string;
   authToken: string;
+  apiURLs: APIURLsInput;
 }
 
 export function renderApp(
   appProperties: AppProperties,
   container: HTMLElement
 ) {
-  // TODO: set auth token
+  useTokenStore.getState().setToken(appProperties.authToken);
+  useAPIURLsStore.getState().setURLs(appProperties.apiURLs);
+
   ReactDOM.render(
     <AppProviders>
       <Workbench
