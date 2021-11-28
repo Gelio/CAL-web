@@ -51,7 +51,17 @@ public class BalticLSCJWTAuthenticationFilter extends GenericFilterBean {
             if (jwt.isPresent()) {
                 var authentication = this.getAuthentication(jwt.get());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else if (httpServletRequest.getRequestURI().equals("/subscriptions")) { //$NON-NLS-1$
+                // NOTE: a workaround to add WebSocket authentication information
+                // See https://github.com/eclipse-sirius/sirius-components/issues/846
+                // for a description of the problem.
+                // TODO: remove the workaround after it is clear how to correctly
+                // authenticate WebSocket connections
+                var principal = new User("websocket-auth-workaround", SpringWebSecurityConfiguration.DEFAULT_PASSWORD, List.of()); //$NON-NLS-1$
+                var authentication = new UsernamePasswordAuthenticationToken(principal, SpringWebSecurityConfiguration.DEFAULT_PASSWORD);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
+
             filterChain.doFilter(servletRequest, servletResponse);
 
             this.resetAuthenticationAfterRequest();
