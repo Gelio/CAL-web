@@ -8,4 +8,5 @@ export const getAuthHeaders = (token: O.Option<string>) => ({
 export const getAuthErrorLink = () =>
   onError(({ graphQLErrors, networkError }) => {
     console.log({ graphQLErrors, networkError });
+    // TODO: show an error
   });

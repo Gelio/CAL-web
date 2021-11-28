@@ -22,7 +22,12 @@ import {
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { httpOrigin, wsOrigin } from "@eclipse-sirius/sirius-components";
-import { getAuthErrorLink, getAuthHeaders, useAuth } from "auth";
+import {
+  getAuthErrorLink,
+  getAuthHeaders,
+  TokenStore,
+  useTokenStore,
+} from "auth";
 import { PropsWithChildren, useMemo } from "react";
 import * as O from "fp-ts/lib/Option";
 
@@ -72,10 +77,12 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
+const tokenSelector = ({ token }: TokenStore) => token;
+
 export const ApolloGraphQLClientProvider = ({
   children,
 }: PropsWithChildren<{}>) => {
-  const { token } = useAuth();
+  const token = useTokenStore(tokenSelector);
   const cache = useMemo(() => new InMemoryCache(), []);
   const client = useMemo(
     () =>

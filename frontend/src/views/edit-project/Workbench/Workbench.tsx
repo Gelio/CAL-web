@@ -4,10 +4,9 @@ import {
   RepresentationContext,
   Selection,
 } from "@eclipse-sirius/sirius-components";
-import { Option } from "fp-ts/lib/Option";
 import { makeStyles } from "@material-ui/core";
 import { useMachine } from "@xstate/react";
-import { ReactNode, useContext } from "react";
+import { useContext } from "react";
 import { LeftSite } from "./LeftSite";
 import { HORIZONTAL, Panels, SECOND_PANEL } from "./Panels";
 import { RightSite } from "./RightSite";
@@ -22,8 +21,6 @@ import {
 interface WorkbenchProps {
   editingContextId: string;
   representation?: Representation;
-  balticLSCAuthToken: Option<string>;
-  toolboxControls?: ReactNode;
 }
 
 const useWorkbenchStyles = makeStyles(() => ({
@@ -54,8 +51,6 @@ const useWorkbenchStyles = makeStyles(() => ({
 export const Workbench = ({
   editingContextId,
   representation,
-  balticLSCAuthToken,
-  toolboxControls,
 }: WorkbenchProps) => {
   const classes = useWorkbenchStyles();
   const { registry } = useContext(RepresentationContext);
@@ -118,11 +113,7 @@ export const Workbench = ({
         className={classes.representationArea}
         data-testid="representation-area"
       >
-        <Toolbox
-          editingContextId={editingContextId}
-          authToken={balticLSCAuthToken}
-          controls={toolboxControls}
-        />
+        <Toolbox editingContextId={editingContextId} />
         <RepresentationComponent {...props} />
       </div>
     );
