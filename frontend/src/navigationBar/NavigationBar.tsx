@@ -19,6 +19,7 @@ import { SiriusIcon } from "@eclipse-sirius/sirius-components";
 import { Link as RouterLink } from "react-router-dom";
 import { Help } from "./Help";
 import { NavigationBarProps } from "./NavigationBar.types";
+import { AuthTokenControls } from "auth/AuthTokenControls";
 
 const useNavigationbarStyles = makeStyles((theme) => ({
   navbar: {
@@ -83,6 +84,7 @@ export const NavigationBar = ({ children }: NavigationBarProps) => {
           </div>
           {children}
           <div className={classes.right}>
+            <AuthTokenControls />
             <Help />
           </div>
         </Toolbar>

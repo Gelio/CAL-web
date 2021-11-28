@@ -159,6 +159,24 @@
       <artifactId>eu.balticlsc.model.CAL.design</artifactId>
       <version>${CAL.model.version}</version>
 		</dependency>
+    <!-- https://github.com/jwtk/jjwt -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>0.11.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>0.11.2</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.11.2</version>
+      <scope>runtime</scope>
+    </dependency>
 	</dependencies>
 
 	<build>

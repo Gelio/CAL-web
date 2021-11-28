@@ -12,9 +12,11 @@
  *******************************************************************************/
 package org.eclipse.sirius.web.sample.services;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
 import org.eclipse.sirius.web.services.api.projects.AccessLevel;
 import org.eclipse.sirius.web.services.api.projects.IProjectAccessPolicy;
 import org.springframework.stereotype.Service;
@@ -27,19 +29,38 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectAccessPolicy implements IProjectAccessPolicy {
 
+    private final IProjectRepository projectRepository;
+
+    public ProjectAccessPolicy(IProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
+
     @Override
     public Optional<AccessLevel> getAccessLevel(String username, UUID projectId) {
-        return Optional.of(AccessLevel.ADMIN);
+        if (this.ownsProject(username, projectId)) {
+            return Optional.of(AccessLevel.ADMIN);
+        }
+
+        return Optional.empty();
     }
 
     @Override
     public boolean canEdit(String username, UUID projectId) {
-        return true;
+        return this.ownsProject(username, projectId);
     }
 
     @Override
     public boolean canAdmin(String username, UUID projectId) {
-        return true;
+        return this.ownsProject(username, projectId);
     }
 
+    private Boolean ownsProject(String username, UUID projectId) {
+        // @formatter:off
+        return projectRepository.findById(projectId)
+            .map(project ->
+                Objects.equals(project.getOwner().getUsername(), username)
+            )
+            .orElse(false);
+        // @formatter:on
+    }
 }

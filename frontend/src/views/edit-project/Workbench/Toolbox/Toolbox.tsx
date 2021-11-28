@@ -1,30 +1,24 @@
 import * as O from "fp-ts/lib/Option";
 import * as E from "fp-ts/lib/Either";
-import { ReactNode } from "react";
 import { UseToolboxEntryButton } from "./UseToolboxEntryButton";
 import { useRootObjectId } from "./root-object-id";
 import { CircularProgress, styled, Typography } from "@material-ui/core";
 import { useBalticLSCToolboxEntries } from "./use-balticlsc-toolbox-entries";
+import { TokenStore, useTokenStore } from "auth";
 
 interface ToolboxProps {
   editingContextId: string;
-  authToken: O.Option<string>;
-  controls?: ReactNode;
 }
 
-export const Toolbox = ({
-  editingContextId,
-  controls,
-  authToken,
-}: ToolboxProps) => {
-  const { error, loading, toolboxEntries } =
-    useBalticLSCToolboxEntries(authToken);
+const tokenSelector = ({ token }: TokenStore) => token;
+
+export const Toolbox = ({ editingContextId }: ToolboxProps) => {
+  const token = useTokenStore(tokenSelector);
+  const { error, loading, toolboxEntries } = useBalticLSCToolboxEntries(token);
   const rootObjectIdResOpt = useRootObjectId(editingContextId);
 
   return (
     <ToolboxContainer>
-      {controls}
-
       {/* TODO: add a button to refresh the entries https://github.com/Gelio/CAL-web/issues/50 */}
 
       {O.isNone(rootObjectIdResOpt) || loading ? (

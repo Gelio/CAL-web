@@ -18,20 +18,19 @@ import java.util.UUID;
 import org.eclipse.sirius.web.graphql.datafetchers.IViewerProvider;
 import org.eclipse.sirius.web.services.api.viewer.IViewer;
 import org.eclipse.sirius.web.services.api.viewer.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import graphql.schema.DataFetchingEnvironment;
 
 /**
  * Service used to retrieve the current viewer.
- *
- * @author sbegaudeau
  */
 @Service
 public class ViewerProvider implements IViewerProvider {
     @Override
     public Optional<IViewer> getViewer(DataFetchingEnvironment environment) {
-        return Optional.of(new User(UUID.randomUUID(), "system")); //$NON-NLS-1$
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return Optional.of(new User(UUID.randomUUID(), authentication.getName()));
     }
-
 }

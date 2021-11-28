@@ -8,16 +8,10 @@ import {
   isTokenExpiredPipeline,
 } from "./is-token-expired";
 import { ChangeAuthenticationTokenButton } from "./ChangeAuthenticationTokenButton";
+import { useTokenStore } from "./token";
 
-interface ToolboxAuthTokenControlsProps {
-  authToken: O.Option<string>;
-  onAuthTokenChange: (authToken: string) => void;
-}
-
-export const ToolboxAuthTokenControls = ({
-  authToken,
-  onAuthTokenChange,
-}: ToolboxAuthTokenControlsProps) => {
+export const AuthTokenControls = () => {
+  const { token: authToken, setToken } = useTokenStore();
   const tokenExpiredResult = useMemo(
     () => O.map(isTokenExpiredPipeline)(authToken),
     [authToken]
@@ -27,7 +21,7 @@ export const ToolboxAuthTokenControls = ({
     <ToolboxControlsContainer elevation={1}>
       <ChangeAuthenticationTokenButton
         authenticationToken={authToken}
-        onAuthenticationTokenChange={onAuthTokenChange}
+        onAuthenticationTokenChange={setToken}
       />
       {O.isSome(tokenExpiredResult) ? (
         E.isLeft(tokenExpiredResult.value) ? (
