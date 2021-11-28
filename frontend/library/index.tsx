@@ -5,6 +5,10 @@ import { siriusWebTheme } from "../src/theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { CssBaseline } from "@material-ui/core";
 import { PropsWithChildren } from "react";
+import "../src/fonts.css";
+import "../src/reset.css";
+import "../src/Sprotty.css";
+import "../src/variables.css";
 
 interface AppProperties {
   projectId: string;
