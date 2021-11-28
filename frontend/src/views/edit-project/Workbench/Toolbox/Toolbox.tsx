@@ -4,7 +4,7 @@ import { UseToolboxEntryButton } from "./UseToolboxEntryButton";
 import { useRootObjectId } from "./root-object-id";
 import { CircularProgress, styled, Typography } from "@material-ui/core";
 import { useBalticLSCToolboxEntries } from "./use-balticlsc-toolbox-entries";
-import { TokenStore, useTokenStore } from "auth";
+import { TokenStore, useTokenStore } from "../../../../auth";
 
 interface ToolboxProps {
   editingContextId: string;

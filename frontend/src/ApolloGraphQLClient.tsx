@@ -27,7 +27,7 @@ import {
   getAuthHeaders,
   TokenStore,
   useTokenStore,
-} from "auth";
+} from "./auth";
 import { PropsWithChildren, useMemo } from "react";
 import * as O from "fp-ts/lib/Option";
 
