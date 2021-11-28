@@ -1,0 +1,38 @@
+name: Build example frontend application
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - "paper/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Generate .npmrc
+        run: ./scripts/generate-npmrc.sh ${{ secrets.GITHUB_TOKEN }}
+        working-directory: frontend/
+      - name: Install library dependencies
+        run: npm install
+        working-directory: frontend/
+      - name: Build the library
+        run: npm run library:build
+        working-directory: frontend/
+
+      - name: Install example application dependencies
+        run: npm install
+        working-directory: frontend-library-example/
+      - name: Build example application
+        run: npm run build
+        working-directory: frontend-library-example/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: frontend-library-example
+          path: frontend-library-example/dist/
