@@ -4,6 +4,8 @@ A web modeller for the CAL language.
 
 Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 
+![Application UI](https://user-images.githubusercontent.com/889383/144030193-36d29f62-fd6c-451e-a273-c56292ca1487.png)
+
 <!-- vim-markdown-toc GFM -->
 
 - [Setup](#setup)

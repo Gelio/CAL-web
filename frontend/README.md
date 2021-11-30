@@ -12,6 +12,8 @@ This projects consists of 2 parts:
 
    This is also the application that is hosted by the Sirius Web backend server.
 
+   ![Application UI](https://user-images.githubusercontent.com/889383/144030193-36d29f62-fd6c-451e-a273-c56292ca1487.png)
+
 2. A library exposing the Sirius Web workbench as a standalone component.
 
    The library exposes plain JavaScript functions and is framework-agnostic. It

@@ -3,6 +3,8 @@
 This project contains an example frontend application that embeds
 [the frontend library that renders the CAL-web (Sirius Web) workbench](../frontend/README.md).
 
+![Example application UI](https://user-images.githubusercontent.com/889383/144029928-b0ff259a-4b32-46b5-b3ac-6762c2cc9fdc.png)
+
 ## Installation
 
 ```sh
