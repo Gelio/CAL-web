@@ -28,6 +28,12 @@
       .app-explanation {
         max-width: 500px;
       }
+
+      #toggle-application {
+        border: solid 1px black;
+        padding: 3px;
+        margin-bottom: 5px;
+      }
     </style>
   </head>
   <body>
@@ -43,6 +49,14 @@
             This page is only meant as an example of how Sirius Web can be
             embedded as a library into another web application.
           </p>
+
+          <div>
+            <label>
+              BalticLSC auth token
+              <input name="auth-token" id="auth-token" />
+            </label>
+          </div>
+          <button id="toggle-application" disabled>Mount application</button>
         </div>
       </header>
 
