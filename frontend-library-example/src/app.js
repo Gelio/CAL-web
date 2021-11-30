@@ -1,5 +1,11 @@
 // @ts-check
-import { renderApp, unmountApp } from "@eclipse-sirius/sirius-web";
+import {
+  renderApp,
+  resolveWorkbenchProperties,
+  unmountApp,
+} from "@eclipse-sirius/sirius-web";
+import * as E from "fp-ts/lib/Either";
+import { pipe } from "fp-ts/lib/function";
 
 const container = document.getElementById("root");
 
@@ -16,30 +22,50 @@ console.assert(
   authTokenInput,
   "Authentication token input element was not found"
 );
+const apiURLs = {
+  // NOTE: assumes Sirius Web backend is running locally
+  siriusWebWSAPIURL: "ws://localhost:8080",
+  siriusWebHTTPAPIURL: "http://localhost:8080",
+};
 
 let appMounted = false;
-toggleApplicationButton.addEventListener("click", () => {
+toggleApplicationButton.addEventListener("click", async () => {
   if (appMounted) {
     unmountApp(container);
     toggleApplicationButton.textContent = "Mount application";
+    appMounted = false;
   } else {
-    toggleApplicationButton.textContent = "Unmount application";
-    renderApp(
-      {
-        authToken: authTokenInput.value,
-        projectId: "",
+    toggleApplicationButton.textContent = "Loading...";
+    toggleApplicationButton.disabled = true;
 
-        apiURLs: {
-          // NOTE: assumes Sirius Web backend is running locally
-          siriusWebWSAPIURL: "ws://localhost:8080",
-          siriusWebHTTPAPIURL: "http://localhost:8080",
+    const workbenchPropertiesResult = await resolveWorkbenchProperties({
+      apiURLs,
+      authToken: authTokenInput.value,
+      projectId: "89b137fd-8825-4671-b542-b738bbdac0ba",
+    });
+    pipe(
+      workbenchPropertiesResult,
+      E.match(
+        (error) => {
+          console.error("Could not get workbench properties", error);
+          toggleApplicationButton.textContent = "Error, check console";
         },
-      },
-      container
+        (workbenchProperties) => {
+          toggleApplicationButton.textContent = "Unmount application";
+          renderApp(
+            {
+              authToken: authTokenInput.value,
+              apiURLs,
+              workbenchProperties,
+            },
+            container
+          );
+          appMounted = true;
+        }
+      )
     );
+
+    toggleApplicationButton.disabled = false;
   }
-  appMounted = !appMounted;
 });
 toggleApplicationButton.disabled = false;
-
-toggleApplicationButton.click();

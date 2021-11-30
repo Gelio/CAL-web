@@ -16,6 +16,7 @@
     "parcel": "^2.0.1"
   },
   "dependencies": {
-    "@eclipse-sirius/sirius-web": "file:../frontend"
+    "@eclipse-sirius/sirius-web": "file:../frontend",
+    "fp-ts": "^2.11.5"
   }
 }
