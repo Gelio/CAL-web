@@ -4,6 +4,22 @@ A web modeller for the CAL language.
 
 Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
 
+<!-- vim-markdown-toc GFM -->
+
+- [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Building](#building)
+  - [Running the application](#running-the-application)
+  - [Configuring the application](#configuring-the-application)
+  - [Debugging the application](#debugging-the-application)
+  - [Enabling experimental model modifications](#enabling-experimental-model-modifications)
+  - [Building and running the application with Docker](#building-and-running-the-application-with-docker)
+  - [Using Docker Compose to run the application](#using-docker-compose-to-run-the-application)
+- [Keeping up with the upstream `sirius-web`](#keeping-up-with-the-upstream-sirius-web)
+- [Running tests](#running-tests)
+
+<!-- vim-markdown-toc -->
+
 ## Setup
 
 ### Prerequisites
