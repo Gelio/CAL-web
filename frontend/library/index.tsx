@@ -41,6 +41,16 @@ export function renderApp(
   );
 }
 
+/**
+ * Unmounts the application from a given container.
+ * A no-op if the application was not mounted in a given container.
+ *
+ * @returns was the app unmounted successfully
+ */
+export function unmountApp(container: HTMLElement) {
+  return ReactDOM.unmountComponentAtNode(container);
+}
+
 const AppProviders = ({ children }: PropsWithChildren<{}>) => {
   return (
     <ApolloGraphQLClientProvider>
