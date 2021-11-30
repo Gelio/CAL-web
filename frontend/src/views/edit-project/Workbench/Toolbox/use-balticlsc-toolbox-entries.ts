@@ -3,7 +3,7 @@ import * as O from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/function";
 import { ToolboxEntry } from "./interop";
 import { useEffect, useState } from "react";
-import { httpOrigin } from "@eclipse-sirius/sirius-components";
+import { APIURLsStore, useAPIURLsStore } from "../../../../api-urls";
 
 interface BalticLSCToolboxResponseBody {
   data: ToolboxEntry[];
@@ -11,19 +11,17 @@ interface BalticLSCToolboxResponseBody {
   success: boolean;
 }
 
-const balticLSCAPIUrl =
-  process.env.REACT_APP_BALTICLSC_API_URL ??
-  `${httpOrigin}/api/balticlsc-proxy`;
-
-const toolboxUrl = `${balticLSCAPIUrl}/backend/dev/toolbox/`;
-
 const fetchToolboxEntries = ({
   authToken,
   abortSignal,
+  balticLSCAPIUrl,
 }: {
   authToken: string;
   abortSignal: AbortSignal;
+  balticLSCAPIUrl: string;
 }): TE.TaskEither<Error, ToolboxEntry[]> => {
+  const toolboxUrl = `${balticLSCAPIUrl}/backend/dev/toolbox/`;
+
   return pipe(
     TE.tryCatch(
       () =>
@@ -62,12 +60,16 @@ const fetchToolboxEntries = ({
   );
 };
 
+const balticLSCAPIUrlSelector = ({ balticLSCAPIURL }: APIURLsStore) =>
+  balticLSCAPIURL;
+
 export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState(true);
   const [toolboxEntries, setToolboxEntries] = useState<
     ToolboxEntry[] | undefined
   >();
+  const balticLSCAPIUrl = useAPIURLsStore(balticLSCAPIUrlSelector);
 
   useEffect(() => {
     if (O.isNone(authToken)) {
@@ -83,6 +85,7 @@ export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
       fetchToolboxEntries({
         authToken: authToken.value,
         abortSignal: abortController.signal,
+        balticLSCAPIUrl,
       }),
       TE.apFirst(TE.fromIO(() => setLoading(false))),
       TE.match(setError, (entries) => {
@@ -93,7 +96,7 @@ export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
     runFetch();
 
     return () => abortController.abort();
-  }, [authToken]);
+  }, [authToken, balticLSCAPIUrl]);
 
   return { error, loading, toolboxEntries };
 };

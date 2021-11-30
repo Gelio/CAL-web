@@ -30,12 +30,12 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
-import { EditProjectNavbar } from "views/edit-project/EditProjectNavbar/EditProjectNavbar";
+import { EditProjectNavbar } from "./EditProjectNavbar/EditProjectNavbar";
 import {
   GQLGetProjectQueryData,
   GQLGetProjectQueryVariables,
   EditProjectViewParams,
-} from "views/edit-project/EditProjectView.types";
+} from "./EditProjectView.types";
 import {
   EditProjectViewContext,
   EditProjectViewEvent,
@@ -47,9 +47,9 @@ import {
   ShowToastEvent,
 } from "./EditProjectViewMachine";
 import { Workbench } from "./Workbench";
-import { NavigationBar } from "navigationBar/NavigationBar";
+import { NavigationBar } from "../../navigationBar/NavigationBar";
 
-const getProjectQuery = gql`
+export const getProjectQuery = gql`
   query getRepresentation($projectId: ID!) {
     viewer {
       project(projectId: $projectId) {

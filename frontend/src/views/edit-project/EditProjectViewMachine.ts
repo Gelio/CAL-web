@@ -13,10 +13,14 @@
 import {
   GQLGetProjectQueryData,
   Project,
-} from "views/edit-project/EditProjectView.types";
+  GQLEditingContext,
+  GQLRepresentation,
+} from "./EditProjectView.types";
 import { Representation } from "@eclipse-sirius/sirius-components";
 import { assign, Machine, send } from "xstate";
 import { pure } from "xstate/lib/actions";
+import * as E from "fp-ts/lib/Either";
+import { pipe } from "fp-ts/lib/function";
 
 export interface EditProjectViewStateSchema {
   states: {
@@ -152,24 +156,19 @@ export const editProjectViewMachine = Machine<
           project,
         };
 
-        const representations =
-          gQLProject.currentEditingContext.representations.edges.map(
-            ({ node }) => node
-          );
         let message: string | undefined;
-        if (representations.length === 0) {
-          message = [
-            "No representations found in the project.",
-            "A pre-created representation is required to work on the model.",
-          ].join(" ");
-        } else if (representations.length === 1) {
-          contextUpdate.representation = { ...representations[0] };
-        } else {
-          message = [
-            `${representations.length} representations found, but expected only 1 representation.`,
-            "Remove redundant representations and try again.",
-          ].join(" ");
-        }
+        pipe(
+          getRepresentationFromEditingContext(currentEditingContext),
+          E.match(
+            (m) => {
+              message = m;
+            },
+            (representation) => {
+              contextUpdate.representation = representation;
+            }
+          )
+        );
+
         const showToastEvent: ShowToastEvent | undefined = message && {
           type: "SHOW_TOAST",
           message,
@@ -195,3 +194,29 @@ export const editProjectViewMachine = Machine<
     },
   }
 );
+
+export const getRepresentationFromEditingContext = (
+  editingContext: GQLEditingContext
+): E.Either<string, GQLRepresentation> => {
+  const representations = editingContext.representations.edges.map(
+    ({ node }) => node
+  );
+
+  if (representations.length === 0) {
+    return E.left(
+      [
+        "No representations found in the project.",
+        "A pre-created representation is required to work on the model.",
+      ].join(" ")
+    );
+  } else if (representations.length === 1) {
+    return E.right({ ...representations[0] });
+  } else {
+    return E.left(
+      [
+        `${representations.length} representations found, but expected only 1 representation.`,
+        "Remove redundant representations and try again.",
+      ].join(" ")
+    );
+  }
+};

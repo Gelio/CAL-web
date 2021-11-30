@@ -11,6 +11,7 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 import {
+  ApolloCache,
   ApolloClient,
   ApolloProvider,
   DefaultOptions,
@@ -21,25 +22,30 @@ import {
 } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
-import { httpOrigin, wsOrigin } from "@eclipse-sirius/sirius-components";
 import {
   getAuthErrorLink,
   getAuthHeaders,
   TokenStore,
   useTokenStore,
-} from "auth";
+} from "./auth";
 import { PropsWithChildren, useMemo } from "react";
 import * as O from "fp-ts/lib/Option";
+import { APIURLsStore, useAPIURLsStore } from "./api-urls";
 
-const httpLink = (token: O.Option<string>) =>
+type SiriusWebURLs = Pick<
+  APIURLsStore,
+  "siriusWebWSAPIURL" | "siriusWebHTTPAPIURL"
+>;
+
+const httpLink = (httpUrl: string, token: O.Option<string>) =>
   new HttpLink({
-    uri: `${process.env.REACT_APP_HTTP_ORIGIN ?? httpOrigin}/api/graphql`,
+    uri: `${httpUrl}/api/graphql`,
     headers: getAuthHeaders(token),
   });
 
-const wsLink = (token: O.Option<string>) =>
+const wsLink = (wsUrl: string, token: O.Option<string>) =>
   new WebSocketLink({
-    uri: `${process.env.REACT_APP_WS_ORIGIN ?? wsOrigin}/subscriptions`,
+    uri: `${wsUrl}/subscriptions`,
     options: {
       reconnect: true,
       lazy: true,
@@ -52,7 +58,7 @@ const wsLink = (token: O.Option<string>) =>
     },
   });
 
-const splitLink = (token: O.Option<string>) =>
+const splitLink = (urls: SiriusWebURLs, token: O.Option<string>) =>
   split(
     ({ query }) => {
       const definition = getMainDefinition(query);
@@ -61,8 +67,8 @@ const splitLink = (token: O.Option<string>) =>
         definition.operation === "subscription"
       );
     },
-    wsLink(token),
-    httpLink(token)
+    wsLink(urls.siriusWebWSAPIURL, token),
+    httpLink(urls.siriusWebHTTPAPIURL, token)
   );
 
 const defaultOptions: DefaultOptions = {
@@ -83,17 +89,29 @@ export const ApolloGraphQLClientProvider = ({
   children,
 }: PropsWithChildren<{}>) => {
   const token = useTokenStore(tokenSelector);
+  const urls = useAPIURLsStore();
   const cache = useMemo(() => new InMemoryCache(), []);
   const client = useMemo(
-    () =>
-      new ApolloClient({
-        link: from([getAuthErrorLink(), splitLink(token)]),
-        cache,
-        connectToDevTools: true,
-        defaultOptions,
-      }),
-    [cache, token]
+    () => getApolloClient({ urls, token, cache }),
+    [cache, token, urls]
   );
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
+};
+
+export const getApolloClient = <T extends any>({
+  urls,
+  token,
+  cache,
+}: {
+  urls: APIURLsStore;
+  token: O.Option<string>;
+  cache: ApolloCache<T>;
+}) => {
+  return new ApolloClient({
+    link: from([getAuthErrorLink(), splitLink(urls, token)]),
+    cache,
+    connectToDevTools: true,
+    defaultOptions,
+  });
 };

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html,
+      body,
+      .app {
+        height: 100%;
+      }
+
+      .app {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #root {
+        flex-grow: 1;
+        display: grid;
+      }
+      .app-header {
+        padding-left: 1em;
+        border-bottom: solid 1px rgb(38, 30, 88);
+      }
+
+      .app-explanation {
+        max-width: 500px;
+      }
+
+      #toggle-application {
+        border: solid 1px black;
+        padding: 3px;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <h1>Embeddable Sirius Web workbench</h1>
+        <div class="app-explanation">
+          <p>
+            The project ID and authentication token are hardcoded into the
+            source code.
+          </p>
+          <p>
+            This page is only meant as an example of how Sirius Web can be
+            embedded as a library into another web application.
+          </p>
+
+          <div>
+            <label>
+              BalticLSC auth token
+              <input name="auth-token" id="auth-token" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Project ID
+              <input name="project-id" id="project-id" />
+            </label>
+          </div>
+          <button id="toggle-application" disabled>Mount application</button>
+        </div>
+      </header>
+
+      <div id="root"></div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

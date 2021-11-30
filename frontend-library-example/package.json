@@ -1,0 +1,22 @@
+{
+  "name": "frontend-library-example",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html",
+    "serve-built-files": "http-server dist --proxy http://localhost:8080 --port 1234"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.0.0",
+    "parcel": "^2.0.1"
+  },
+  "dependencies": {
+    "@eclipse-sirius/sirius-web": "file:../frontend",
+    "fp-ts": "^2.11.5"
+  }
+}

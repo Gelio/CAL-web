@@ -19,7 +19,7 @@ import { SiriusIcon } from "@eclipse-sirius/sirius-components";
 import { Link as RouterLink } from "react-router-dom";
 import { Help } from "./Help";
 import { NavigationBarProps } from "./NavigationBar.types";
-import { AuthTokenControls } from "auth/AuthTokenControls";
+import { AuthTokenControls } from "../auth/AuthTokenControls";
 
 const useNavigationbarStyles = makeStyles((theme) => ({
   navbar: {
