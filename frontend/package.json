@@ -68,8 +68,7 @@
     "format": "prettier --write \"src/**/*.{js,ts,tsx,css}\"",
     "format-lint": "prettier --list-different \"src/**/*.{js,ts,tsx,css}\"",
     "check-types": "tsc",
-    "library:build": "parcel build library/index.tsx",
-    "library:watch": "parcel watch library/index.tsx"
+    "library:build": "parcel build library/index.tsx"
   },
   "eslintConfig": {
     "extends": "react-app"
