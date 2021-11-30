@@ -20,7 +20,7 @@ import {
 import React, { useContext, useReducer } from "react";
 import { emphasize } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import { EditProjectNavbarProps } from "views/edit-project/EditProjectNavbar/EditProjectNavbar.types";
+import { EditProjectNavbarProps } from "./EditProjectNavbar.types";
 import {
   CONTEXTUAL_MENU_DISPLAYED__STATE,
   EMPTY__STATE,
@@ -47,7 +47,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
-import { NavigationBar } from "navigationBar/NavigationBar";
+import { NavigationBar } from "../../../navigationBar/NavigationBar";
 
 const useEditProjectViewNavbarStyles = makeStyles((theme) => ({
   center: {

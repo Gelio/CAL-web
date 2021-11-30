@@ -11,6 +11,7 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 import {
+  ApolloCache,
   ApolloClient,
   ApolloProvider,
   DefaultOptions,
@@ -91,15 +92,26 @@ export const ApolloGraphQLClientProvider = ({
   const urls = useAPIURLsStore();
   const cache = useMemo(() => new InMemoryCache(), []);
   const client = useMemo(
-    () =>
-      new ApolloClient({
-        link: from([getAuthErrorLink(), splitLink(urls, token)]),
-        cache,
-        connectToDevTools: true,
-        defaultOptions,
-      }),
+    () => getApolloClient({ urls, token, cache }),
     [cache, token, urls]
   );
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
+};
+
+export const getApolloClient = <T extends any>({
+  urls,
+  token,
+  cache,
+}: {
+  urls: APIURLsStore;
+  token: O.Option<string>;
+  cache: ApolloCache<T>;
+}) => {
+  return new ApolloClient({
+    link: from([getAuthErrorLink(), splitLink(urls, token)]),
+    cache,
+    connectToDevTools: true,
+    defaultOptions,
+  });
 };

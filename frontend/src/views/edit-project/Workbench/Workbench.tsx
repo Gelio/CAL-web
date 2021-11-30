@@ -18,7 +18,7 @@ import {
   workbenchMachine,
 } from "./WorkbenchMachine";
 
-interface WorkbenchProps {
+export interface WorkbenchProps {
   editingContextId: string;
   representation?: Representation;
 }
