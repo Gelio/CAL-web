@@ -22,6 +22,10 @@ console.assert(
   authTokenInput,
   "Authentication token input element was not found"
 );
+
+/** @type {HTMLInputElement} */
+const projectIDInput = document.getElementById("project-id");
+console.assert(projectIDInput, "Project ID input element was not found");
 const apiURLs = {
   // NOTE: assumes Sirius Web backend is running locally
   siriusWebWSAPIURL: "ws://localhost:8080",
@@ -41,7 +45,7 @@ toggleApplicationButton.addEventListener("click", async () => {
     const workbenchPropertiesResult = await resolveWorkbenchProperties({
       apiURLs,
       authToken: authTokenInput.value,
-      projectId: "89b137fd-8825-4671-b542-b738bbdac0ba",
+      projectId: projectIDInput.value,
     });
     pipe(
       workbenchPropertiesResult,
