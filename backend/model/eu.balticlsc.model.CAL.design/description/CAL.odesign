@@ -50,7 +50,7 @@
       <defaultLayer name="Default">
         <nodeMappings name="UnitCallNode" deletionDescription="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DeleteUnitCall']" semanticCandidatesExpression="feature:calls" domainClass="CAL::UnitCall">
           <borderedNodeMappings name="ComputedDataPinNode" deletionDescription="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DeleteComputedDataPin']" semanticCandidatesExpression="feature:pins" domainClass="CAL::ComputedDataPin">
-            <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.declared.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.declared.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" tooltipExpression="aql: (if self.declared.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.declared.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/computed-data-pin/single-data-single-token.png">
+            <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.declared.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.declared.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png" tooltipExpression="aql: (if self.declared.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.declared.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/data-pin-single.png">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
@@ -62,7 +62,7 @@
           </style>
         </nodeMappings>
         <nodeMappings name="ApplicationDataPin" deletionDescription="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DeleteApplicationDataPin']" semanticCandidatesExpression="feature:applicationDataPins" domainClass="CAL::ApplicationDataPin">
-          <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" tooltipExpression="aql: (if self.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin/provided/single-data-single-token.png">
+          <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="2" labelSize="12" showIcon="false" labelExpression="aql:(if self.binding == CAL::DataBinding::Required then '(in)' else '(out)' endif) + ' ' + self.name" iconPath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png" tooltipExpression="aql: (if self.binding == CAL::DataBinding::Required then 'Required' else 'Provided' endif) + ' Data Pin\n' + self.name" sizeComputationExpression="4" workspacePath="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single.png">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
@@ -76,7 +76,7 @@
           </style>
         </edgeMappings>
         <toolSections name="Tools">
-          <ownedTools xsi:type="tool_1:NodeCreationDescription" documentation="Creates a new node to call the Computation Unit Release.&#xA;&#xA;Shows a dialog to pick the unit release to call.&#xA;&#xA;This tool does not work in SIrius Web." name="UnitCall" label="Unit Call (works only in Sirius Desktop)" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" documentation="Creates a new node to call the Computation Unit Release.&#xA;&#xA;Shows a dialog to pick the unit release to call.&#xA;&#xA;This tool does not work in SIrius Web." name="UnitCall" label="Unit Call" nodeMappings="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']" iconPath="/eu.balticlsc.model.CAL.edit/icons/unit-call.png">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -235,16 +235,33 @@
           </ownedTools>
         </toolSections>
         <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Single">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-multiple-data.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Single and self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-single-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.dataMultiplicity == CAL::Multiplicity::Multiple and self.declared.tokenMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/data-pin-multiple-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.declared.binding == CAL::DataBinding::Required">
-            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style //@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style" referenceName="borderColor">
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" referenceName="borderColor">
               <value href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
             </featureCustomizations>
           </vsmElementCustomizations>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(CAL::ApplicationDataPin)">
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style" attributeName="workspacePath" value="aql:'/eu.balticlsc.model.CAL.edit/icons/application-data-pin/' + (if self.binding == CAL::DataBinding::Provided then 'provided/' else 'required/' endif) + self.getDataPinIconPath()"/>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.dataMultiplicity == CAL::Multiplicity::Multiple and self.tokenMultiplicity == CAL::Multiplicity::Single">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-multiple-data.png"/>
           </vsmElementCustomizations>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(CAL::ComputedDataPin)">
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='UnitCallNode']/@borderedNodeMappings[name='ComputedDataPinNode']/@style" attributeName="workspacePath" value="aql:'/eu.balticlsc.model.CAL.edit/icons/computed-data-pin/' + self.declared.getDataPinIconPath()"/>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.dataMultiplicity == CAL::Multiplicity::Single and self.tokenMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-single-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.dataMultiplicity == CAL::Multiplicity::Multiple and self.tokenMultiplicity == CAL::Multiplicity::Multiple">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style" attributeName="workspacePath" value="/eu.balticlsc.model.CAL.edit/icons/application-data-pin-multiple-data-multiple-tokens.png"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.binding == CAL::DataBinding::Required">
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='computation']/@ownedRepresentations[name='Computation%20diagram']/@defaultLayer/@nodeMappings[name='ApplicationDataPin']/@style" referenceName="borderColor">
+              <value href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+            </featureCustomizations>
           </vsmElementCustomizations>
         </customization>
       </defaultLayer>
