@@ -104,7 +104,7 @@ public interface ComputationUnitRelease extends EObject {
 	 * @return the value of the '<em>Calls</em>' reference list.
 	 * @see eu.balticlsc.model.CAL.CALPackage#getComputationUnitRelease_Calls()
 	 * @see eu.balticlsc.model.CAL.UnitCall#getUnit
-	 * @model opposite="unit" required="true"
+	 * @model opposite="unit"
 	 * @generated
 	 */
 	EList<UnitCall> getCalls();

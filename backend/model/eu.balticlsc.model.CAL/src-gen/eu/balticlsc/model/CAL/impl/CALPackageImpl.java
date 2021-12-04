@@ -823,7 +823,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getComputationUnitRelease_DeclaredPins(), this.getDeclaredDataPin(), null, "declaredPins", null,
 				0, -1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComputationUnitRelease_Calls(), this.getUnitCall(), this.getUnitCall_Unit(), "calls", null, 1,
+		initEReference(getComputationUnitRelease_Calls(), this.getUnitCall(), this.getUnitCall_Unit(), "calls", null, 0,
 				-1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
