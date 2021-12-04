@@ -41,7 +41,7 @@
         eType="#//UnitParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaredPins" upperBound="-1"
         eType="#//DeclaredDataPin" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="calls" lowerBound="1" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="calls" upperBound="-1"
         eType="#//UnitCall" eOpposite="#//UnitCall/unit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitParameter">
