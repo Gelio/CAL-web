@@ -1,5 +1,6 @@
 package org.eclipse.sirius.web.services.validation.semantic.rules;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,7 +63,8 @@ public class NoDataFlowCyclesTests {
         var diagnostics = rule.validate(application);
 
         assertThat(diagnostics).hasSize(1);
-        var expectedMessage = "Data flow must not form a cycle. Detected cycle: Call 1 -> Call 2 -> Call 3 -> Call 1"; //$NON-NLS-1$
+        assertThat(diagnostics.get(0).getSeverity()).isEqualTo(Diagnostic.WARNING);
+        var expectedMessage = "Data flow forms a cycle. This could be (but does not have to be) a mistake. Detected cycle: Call 1 -> Call 2 -> Call 3 -> Call 1"; //$NON-NLS-1$
         assertThat(diagnostics.get(0).getMessage()).isEqualTo(expectedMessage);
     }
 
@@ -101,7 +103,7 @@ public class NoDataFlowCyclesTests {
         // NOTE: this also makes sure that the reported cycle is shortened
         // This will not ensure the the shortest cycle is found. This only checks the if a cycle
         // is reported, it must be in its naively shortened representation (no extra immediate neighbors).
-        var expectedMessage = "Data flow must not form a cycle. Detected cycle: Call 1 -> Call 3 -> Call 5 -> Call 1"; //$NON-NLS-1$
+        var expectedMessage = "Data flow forms a cycle. This could be (but does not have to be) a mistake. Detected cycle: Call 1 -> Call 3 -> Call 5 -> Call 1"; //$NON-NLS-1$
         assertThat(diagnostics.get(0).getMessage()).isEqualTo(expectedMessage);
     }
 
@@ -144,7 +146,7 @@ public class NoDataFlowCyclesTests {
         var diagnostics = rule.validate(application);
 
         assertThat(diagnostics).hasSize(1);
-        var expectedMessage = "Data flow must not form a cycle. Detected cycle: Call 2 -> Call 3 -> Call 4 -> Call 2"; //$NON-NLS-1$
+        var expectedMessage = "Data flow forms a cycle. This could be (but does not have to be) a mistake. Detected cycle: Call 2 -> Call 3 -> Call 4 -> Call 2"; //$NON-NLS-1$
         assertThat(diagnostics.get(0).getMessage()).isEqualTo(expectedMessage);
     }
 

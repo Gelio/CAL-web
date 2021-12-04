@@ -27,10 +27,10 @@ public class NoDataFlowCycles implements ISemanticCALValidationRule {
         // @formatter:off
         return this.findCycle(applicationRelease)
             .map(cycle -> new BasicDiagnostic(
-                Diagnostic.ERROR,
+                Diagnostic.WARNING,
                 String.valueOf(cycle.hashCode()),
                 1,
-                String.format("Data flow must not form a cycle. Detected cycle: %s", this.formatCycle(cycle)), //$NON-NLS-1$
+                String.format("Data flow forms a cycle. This could be (but does not have to be) a mistake. Detected cycle: %s", this.formatCycle(cycle)), //$NON-NLS-1$
                 new Object[0]
             ))
             .stream()
