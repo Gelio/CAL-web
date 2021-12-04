@@ -4,9 +4,13 @@ import {
   RepresentationContext,
   Selection,
 } from "@eclipse-sirius/sirius-components";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Snackbar } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import { useMachine } from "@xstate/react";
-import { useContext } from "react";
+import * as O from "fp-ts/lib/Option";
+import { useAuthErrorStore } from "../../../auth/error";
+import { useContext, useEffect, useState } from "react";
 import { LeftSite } from "./LeftSite";
 import { HORIZONTAL, Panels, SECOND_PANEL } from "./Panels";
 import { RightSite } from "./RightSite";
@@ -17,6 +21,7 @@ import {
   WorkbenchEvent,
   workbenchMachine,
 } from "./WorkbenchMachine";
+import { pipe } from "fp-ts/lib/function";
 
 export interface WorkbenchProps {
   editingContextId: string;
@@ -53,6 +58,8 @@ export const Workbench = ({
   representation,
 }: WorkbenchProps) => {
   const classes = useWorkbenchStyles();
+  const authError = useAuthErrorStore();
+  const [authToastOpen, setAuthToastOpen] = useState(false);
   const { registry } = useContext(RepresentationContext);
   const [{ context }, dispatch] = useMachine<WorkbenchContext, WorkbenchEvent>(
     workbenchMachine,
@@ -63,6 +70,12 @@ export const Workbench = ({
     }
   );
   const { selection, displayedRepresentation } = context;
+
+  useEffect(() => {
+    if (O.isSome(authError.error)) {
+      setAuthToastOpen(true);
+    }
+  }, [authError.error]);
 
   const setSelection = (selection: Selection) => {
     const isRepresentation = registry.isRepresentation(selection.kind);
@@ -120,21 +133,55 @@ export const Workbench = ({
   }
 
   return (
-    <Panels
-      orientation={HORIZONTAL}
-      firstPanel={leftSite}
-      secondPanel={
-        <div className={classes.main} data-testid="representationAndProperties">
-          <Panels
-            orientation={HORIZONTAL}
-            resizablePanel={SECOND_PANEL}
-            firstPanel={main}
-            secondPanel={rightSite}
-            initialResizablePanelSize={300}
-          />
-        </div>
-      }
-      initialResizablePanelSize={300}
-    />
+    <>
+      <Panels
+        orientation={HORIZONTAL}
+        firstPanel={leftSite}
+        secondPanel={
+          <div
+            className={classes.main}
+            data-testid="representationAndProperties"
+          >
+            <Panels
+              orientation={HORIZONTAL}
+              resizablePanel={SECOND_PANEL}
+              firstPanel={main}
+              secondPanel={rightSite}
+              initialResizablePanelSize={300}
+            />
+          </div>
+        }
+        initialResizablePanelSize={300}
+      />
+
+      {/* NOTE: snackbar copied from sirius-components
+      https://github.com/eclipse-sirius/sirius-components/blob/ab8097c6c3593f10fdd16f9212762624a3639ccc/frontend/src/representations/RepresentationsWebSocketContainer.tsx#L149-L168*/}
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={authToastOpen}
+        autoHideDuration={6000}
+        onClose={() => setAuthToastOpen(false)}
+        message={pipe(
+          authError.error,
+          O.map(
+            (error) => `Authentication error: ${error.result.detailMessage}`
+          ),
+          O.getOrElse(() => "")
+        )}
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={() => setAuthToastOpen(false)}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      />
+    </>
   );
 };
