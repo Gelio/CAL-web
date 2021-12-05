@@ -73,12 +73,8 @@ public class EditingContextSearchService implements IEditingContextSearchService
 
     private final Timer timer;
 
-    private final boolean modelModificationsEnabled;
-
-    public EditingContextSearchService(IProjectRepository projectRepository, IDocumentRepository documentRepository,
-            IEditingContextEPackageService editingContextEPackageService, ComposedAdapterFactory composedAdapterFactory,
-            EPackage.Registry globalEPackageRegistry, MeterRegistry meterRegistry,
-            @Value("${eu.balticlsc.model.features.modificationsEnabled:false}") boolean modelModificationsEnabled) {
+    public EditingContextSearchService(IProjectRepository projectRepository, IDocumentRepository documentRepository, IEditingContextEPackageService editingContextEPackageService,
+            ComposedAdapterFactory composedAdapterFactory, EPackage.Registry globalEPackageRegistry, MeterRegistry meterRegistry) {
         this.projectRepository = Objects.requireNonNull(projectRepository);
         this.documentRepository = Objects.requireNonNull(documentRepository);
         this.editingContextEPackageService = Objects.requireNonNull(editingContextEPackageService);
@@ -86,7 +82,6 @@ public class EditingContextSearchService implements IEditingContextSearchService
         this.globalEPackageRegistry = Objects.requireNonNull(globalEPackageRegistry);
 
         this.timer = Timer.builder(TIMER_NAME).register(meterRegistry);
-        this.modelModificationsEnabled = modelModificationsEnabled;
     }
 
     @Override
@@ -121,24 +116,6 @@ public class EditingContextSearchService implements IEditingContextSearchService
                 resource.load(inputStream, null);
 
                 resource.eAdapters().add(new DocumentMetadataAdapter(documentEntity.getName()));
-
-                if (this.modelModificationsEnabled) {
-                    for (var obj : resource.getContents()) {
-                        // TODO: add ComputationUnitReleases
-                        this.logger.debug("Resource {}", obj.toString());
-                        if (obj instanceof ComputationApplicationRelease) {
-                            var computationApplication = (ComputationApplicationRelease) obj;
-                            var unit = CALFactory.eINSTANCE.createComputationUnitRelease();
-                            unit.setName("Auto-generated");
-                            computationApplication.getUnits().add(unit);
-                            try {
-                                this.logger.debug("Sleeping to simulate a network call");
-                                Thread.sleep(5000);
-                            } catch (Exception e) {
-                            }
-                        }
-                    }
-                }
             } catch (IOException | IllegalArgumentException exception) {
                 this.logger.warn("An error occured while loading document {}: {}.", documentEntity.getId(), exception.getMessage()); //$NON-NLS-1$
                 resourceSet.getResources().remove(resource);

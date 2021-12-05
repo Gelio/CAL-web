@@ -62,16 +62,11 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
 
     private final Timer timer;
 
-    private final boolean modelModificationsEnabled;
-
-    public EditingContextPersistenceService(IDocumentRepository documentRepository,
-            ApplicationEventPublisher applicationEventPublisher, MeterRegistry meterRegistry,
-            @Value("${eu.balticlsc.model.features.modificationsEnabled:false}") boolean modelModificationsEnabled) {
+    public EditingContextPersistenceService(IDocumentRepository documentRepository, ApplicationEventPublisher applicationEventPublisher, MeterRegistry meterRegistry) {
         this.documentRepository = Objects.requireNonNull(documentRepository);
         this.applicationEventPublisher = Objects.requireNonNull(applicationEventPublisher);
 
         this.timer = Timer.builder(TIMER_NAME).register(meterRegistry);
-        this.modelModificationsEnabled = modelModificationsEnabled;
     }
 
     @Override
@@ -102,11 +97,6 @@ public class EditingContextPersistenceService implements IEditingContextPersiste
         Optional<DocumentEntity> result = Optional.empty();
         HashMap<Object, Object> options = new HashMap<>();
         options.put(JsonResource.OPTION_ID_MANAGER, new EObjectIDManager());
-
-        if (this.modelModificationsEnabled) {
-            this.logger.debug("Saving a resource {}", resource.toString());
-            // TODO: remove unused auto-generated ComputationUnitReleases
-        }
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             resource.save(outputStream, options);
