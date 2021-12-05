@@ -122,7 +122,6 @@ public class ComputationUnitReleaseItemProvider extends ItemProviderAdapter impl
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(CALPackage.Literals.COMPUTATION_UNIT_RELEASE__PARAMETERS);
 			childrenFeatures.add(CALPackage.Literals.COMPUTATION_UNIT_RELEASE__DECLARED_PINS);
 		}
 		return childrenFeatures;
@@ -191,7 +190,6 @@ public class ComputationUnitReleaseItemProvider extends ItemProviderAdapter impl
 		case CALPackage.COMPUTATION_UNIT_RELEASE__VERSION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -209,9 +207,6 @@ public class ComputationUnitReleaseItemProvider extends ItemProviderAdapter impl
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(CALPackage.Literals.COMPUTATION_UNIT_RELEASE__PARAMETERS,
-				CALFactory.eINSTANCE.createUnitParameter()));
 
 		newChildDescriptors.add(createChildParameter(CALPackage.Literals.COMPUTATION_UNIT_RELEASE__DECLARED_PINS,
 				CALFactory.eINSTANCE.createDeclaredDataPin()));

@@ -95,22 +95,13 @@ public interface CALPackage extends EPackage {
 	int UNIT_CALL__PINS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Parameter Values</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_CALL__PARAMETER_VALUES = 3;
-
-	/**
 	 * The feature id for the '<em><b>Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNIT_CALL__UNIT = 4;
+	int UNIT_CALL__UNIT = 3;
 
 	/**
 	 * The number of structural features of the '<em>Unit Call</em>' class.
@@ -119,7 +110,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int UNIT_CALL_FEATURE_COUNT = 5;
+	int UNIT_CALL_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Unit Call</em>' class.
@@ -138,7 +129,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getConnectableDataPin()
 	 * @generated
 	 */
-	int CONNECTABLE_DATA_PIN = 9;
+	int CONNECTABLE_DATA_PIN = 7;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
@@ -315,22 +306,13 @@ public interface CALPackage extends EPackage {
 	int COMPUTATION_UNIT_RELEASE__VERSION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPUTATION_UNIT_RELEASE__PARAMETERS = 2;
-
-	/**
 	 * The feature id for the '<em><b>Declared Pins</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTATION_UNIT_RELEASE__DECLARED_PINS = 3;
+	int COMPUTATION_UNIT_RELEASE__DECLARED_PINS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Calls</b></em>' reference list.
@@ -339,7 +321,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTATION_UNIT_RELEASE__CALLS = 4;
+	int COMPUTATION_UNIT_RELEASE__CALLS = 3;
 
 	/**
 	 * The number of structural features of the '<em>Computation Unit Release</em>' class.
@@ -348,7 +330,7 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTATION_UNIT_RELEASE_FEATURE_COUNT = 5;
+	int COMPUTATION_UNIT_RELEASE_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Computation Unit Release</em>' class.
@@ -360,98 +342,6 @@ public interface CALPackage extends EPackage {
 	int COMPUTATION_UNIT_RELEASE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.UnitParameterImpl <em>Unit Parameter</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see eu.balticlsc.model.CAL.impl.UnitParameterImpl
-	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParameter()
-	 * @generated
-	 */
-	int UNIT_PARAMETER = 4;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER__TYPE = 1;
-
-	/**
-	 * The number of structural features of the '<em>Unit Parameter</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Unit Parameter</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link eu.balticlsc.model.CAL.impl.UnitParameterValueImpl <em>Unit Parameter Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see eu.balticlsc.model.CAL.impl.UnitParameterValueImpl
-	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParameterValue()
-	 * @generated
-	 */
-	int UNIT_PARAMETER_VALUE = 5;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER_VALUE__VALUE = 0;
-
-	/**
-	 * The feature id for the '<em><b>Declaration</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER_VALUE__DECLARATION = 1;
-
-	/**
-	 * The number of structural features of the '<em>Unit Parameter Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER_VALUE_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Unit Parameter Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_PARAMETER_VALUE_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.DataPin <em>Data Pin</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -459,7 +349,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getDataPin()
 	 * @generated
 	 */
-	int DATA_PIN = 10;
+	int DATA_PIN = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -523,7 +413,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getDeclaredDataPin()
 	 * @generated
 	 */
-	int DECLARED_DATA_PIN = 6;
+	int DECLARED_DATA_PIN = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -587,7 +477,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getComputationApplicationRelease()
 	 * @generated
 	 */
-	int COMPUTATION_APPLICATION_RELEASE = 7;
+	int COMPUTATION_APPLICATION_RELEASE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Calls</b></em>' containment reference list.
@@ -651,7 +541,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getApplicationDataPin()
 	 * @generated
 	 */
-	int APPLICATION_DATA_PIN = 8;
+	int APPLICATION_DATA_PIN = 6;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
@@ -733,7 +623,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getComputationUnitStatus()
 	 * @generated
 	 */
-	int COMPUTATION_UNIT_STATUS = 11;
+	int COMPUTATION_UNIT_STATUS = 9;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.UnitStrength <em>Unit Strength</em>}' enum.
@@ -743,17 +633,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitStrength()
 	 * @generated
 	 */
-	int UNIT_STRENGTH = 12;
-
-	/**
-	 * The meta object id for the '{@link eu.balticlsc.model.CAL.UnitParamType <em>Unit Param Type</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see eu.balticlsc.model.CAL.UnitParamType
-	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParamType()
-	 * @generated
-	 */
-	int UNIT_PARAM_TYPE = 13;
+	int UNIT_STRENGTH = 10;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.Multiplicity <em>Multiplicity</em>}' enum.
@@ -763,7 +643,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getMultiplicity()
 	 * @generated
 	 */
-	int MULTIPLICITY = 14;
+	int MULTIPLICITY = 11;
 
 	/**
 	 * The meta object id for the '{@link eu.balticlsc.model.CAL.DataBinding <em>Data Binding</em>}' enum.
@@ -773,7 +653,7 @@ public interface CALPackage extends EPackage {
 	 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getDataBinding()
 	 * @generated
 	 */
-	int DATA_BINDING = 15;
+	int DATA_BINDING = 12;
 
 	/**
 	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.UnitCall <em>Unit Call</em>}'.
@@ -817,17 +697,6 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getUnitCall_Pins();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link eu.balticlsc.model.CAL.UnitCall#getParameterValues <em>Parameter Values</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameter Values</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitCall#getParameterValues()
-	 * @see #getUnitCall()
-	 * @generated
-	 */
-	EReference getUnitCall_ParameterValues();
 
 	/**
 	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.UnitCall#getUnit <em>Unit</em>}'.
@@ -937,17 +806,6 @@ public interface CALPackage extends EPackage {
 	EAttribute getComputationUnitRelease_Version();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getParameters <em>Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
-	 * @see eu.balticlsc.model.CAL.ComputationUnitRelease#getParameters()
-	 * @see #getComputationUnitRelease()
-	 * @generated
-	 */
-	EReference getComputationUnitRelease_Parameters();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getDeclaredPins <em>Declared Pins</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -968,70 +826,6 @@ public interface CALPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComputationUnitRelease_Calls();
-
-	/**
-	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.UnitParameter <em>Unit Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Unit Parameter</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParameter
-	 * @generated
-	 */
-	EClass getUnitParameter();
-
-	/**
-	 * Returns the meta object for the attribute '{@link eu.balticlsc.model.CAL.UnitParameter#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParameter#getName()
-	 * @see #getUnitParameter()
-	 * @generated
-	 */
-	EAttribute getUnitParameter_Name();
-
-	/**
-	 * Returns the meta object for the attribute '{@link eu.balticlsc.model.CAL.UnitParameter#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParameter#getType()
-	 * @see #getUnitParameter()
-	 * @generated
-	 */
-	EAttribute getUnitParameter_Type();
-
-	/**
-	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.UnitParameterValue <em>Unit Parameter Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Unit Parameter Value</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParameterValue
-	 * @generated
-	 */
-	EClass getUnitParameterValue();
-
-	/**
-	 * Returns the meta object for the attribute '{@link eu.balticlsc.model.CAL.UnitParameterValue#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParameterValue#getValue()
-	 * @see #getUnitParameterValue()
-	 * @generated
-	 */
-	EAttribute getUnitParameterValue_Value();
-
-	/**
-	 * Returns the meta object for the reference '{@link eu.balticlsc.model.CAL.UnitParameterValue#getDeclaration <em>Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Declaration</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParameterValue#getDeclaration()
-	 * @see #getUnitParameterValue()
-	 * @generated
-	 */
-	EReference getUnitParameterValue_Declaration();
 
 	/**
 	 * Returns the meta object for class '{@link eu.balticlsc.model.CAL.DeclaredDataPin <em>Declared Data Pin</em>}'.
@@ -1214,16 +1008,6 @@ public interface CALPackage extends EPackage {
 	EEnum getUnitStrength();
 
 	/**
-	 * Returns the meta object for enum '{@link eu.balticlsc.model.CAL.UnitParamType <em>Unit Param Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Unit Param Type</em>'.
-	 * @see eu.balticlsc.model.CAL.UnitParamType
-	 * @generated
-	 */
-	EEnum getUnitParamType();
-
-	/**
 	 * Returns the meta object for enum '{@link eu.balticlsc.model.CAL.Multiplicity <em>Multiplicity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1299,14 +1083,6 @@ public interface CALPackage extends EPackage {
 		 * @generated
 		 */
 		EReference UNIT_CALL__PINS = eINSTANCE.getUnitCall_Pins();
-
-		/**
-		 * The meta object literal for the '<em><b>Parameter Values</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference UNIT_CALL__PARAMETER_VALUES = eINSTANCE.getUnitCall_ParameterValues();
 
 		/**
 		 * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
@@ -1395,14 +1171,6 @@ public interface CALPackage extends EPackage {
 		EAttribute COMPUTATION_UNIT_RELEASE__VERSION = eINSTANCE.getComputationUnitRelease_Version();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPUTATION_UNIT_RELEASE__PARAMETERS = eINSTANCE.getComputationUnitRelease_Parameters();
-
-		/**
 		 * The meta object literal for the '<em><b>Declared Pins</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1417,58 +1185,6 @@ public interface CALPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPUTATION_UNIT_RELEASE__CALLS = eINSTANCE.getComputationUnitRelease_Calls();
-
-		/**
-		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.impl.UnitParameterImpl <em>Unit Parameter</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see eu.balticlsc.model.CAL.impl.UnitParameterImpl
-		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParameter()
-		 * @generated
-		 */
-		EClass UNIT_PARAMETER = eINSTANCE.getUnitParameter();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute UNIT_PARAMETER__NAME = eINSTANCE.getUnitParameter_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute UNIT_PARAMETER__TYPE = eINSTANCE.getUnitParameter_Type();
-
-		/**
-		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.impl.UnitParameterValueImpl <em>Unit Parameter Value</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see eu.balticlsc.model.CAL.impl.UnitParameterValueImpl
-		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParameterValue()
-		 * @generated
-		 */
-		EClass UNIT_PARAMETER_VALUE = eINSTANCE.getUnitParameterValue();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute UNIT_PARAMETER_VALUE__VALUE = eINSTANCE.getUnitParameterValue_Value();
-
-		/**
-		 * The meta object literal for the '<em><b>Declaration</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference UNIT_PARAMETER_VALUE__DECLARATION = eINSTANCE.getUnitParameterValue_Declaration();
 
 		/**
 		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.impl.DeclaredDataPinImpl <em>Declared Data Pin</em>}' class.
@@ -1620,16 +1336,6 @@ public interface CALPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum UNIT_STRENGTH = eINSTANCE.getUnitStrength();
-
-		/**
-		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.UnitParamType <em>Unit Param Type</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see eu.balticlsc.model.CAL.UnitParamType
-		 * @see eu.balticlsc.model.CAL.impl.CALPackageImpl#getUnitParamType()
-		 * @generated
-		 */
-		EEnum UNIT_PARAM_TYPE = eINSTANCE.getUnitParamType();
 
 		/**
 		 * The meta object literal for the '{@link eu.balticlsc.model.CAL.Multiplicity <em>Multiplicity</em>}' enum.

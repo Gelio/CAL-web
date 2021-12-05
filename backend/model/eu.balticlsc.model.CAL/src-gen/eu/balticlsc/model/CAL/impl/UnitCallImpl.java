@@ -7,10 +7,7 @@ import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.ComputedDataPin;
 import eu.balticlsc.model.CAL.UnitCall;
-import eu.balticlsc.model.CAL.UnitParameterValue;
 import eu.balticlsc.model.CAL.UnitStrength;
-
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -23,8 +20,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,7 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getStrength <em>Strength</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getPins <em>Pins</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getParameterValues <em>Parameter Values</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.UnitCallImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
@@ -96,16 +90,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 	 * @ordered
 	 */
 	protected EList<ComputedDataPin> pins;
-
-	/**
-	 * The cached value of the '{@link #getParameterValues() <em>Parameter Values</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getParameterValues()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<UnitParameterValue> parameterValues;
 
 	/**
 	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
@@ -195,20 +179,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 					CALPackage.UNIT_CALL__PINS, CALPackage.COMPUTED_DATA_PIN__CALL);
 		}
 		return pins;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<UnitParameterValue> getParameterValues() {
-		if (parameterValues == null) {
-			parameterValues = new EObjectContainmentEList<UnitParameterValue>(UnitParameterValue.class, this,
-					CALPackage.UNIT_CALL__PARAMETER_VALUES);
-		}
-		return parameterValues;
 	}
 
 	/**
@@ -353,8 +323,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 		switch (featureID) {
 		case CALPackage.UNIT_CALL__PINS:
 			return ((InternalEList<?>) getPins()).basicRemove(otherEnd, msgs);
-		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
-			return ((InternalEList<?>) getParameterValues()).basicRemove(otherEnd, msgs);
 		case CALPackage.UNIT_CALL__UNIT:
 			return basicSetUnit(null, msgs);
 		}
@@ -375,8 +343,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return getStrength();
 		case CALPackage.UNIT_CALL__PINS:
 			return getPins();
-		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
-			return getParameterValues();
 		case CALPackage.UNIT_CALL__UNIT:
 			if (resolve)
 				return getUnit();
@@ -400,10 +366,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 		case CALPackage.UNIT_CALL__STRENGTH:
 			setStrength((UnitStrength) newValue);
 			return;
-		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
-			getParameterValues().clear();
-			getParameterValues().addAll((Collection<? extends UnitParameterValue>) newValue);
-			return;
 		case CALPackage.UNIT_CALL__UNIT:
 			setUnit((ComputationUnitRelease) newValue);
 			return;
@@ -424,9 +386,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return;
 		case CALPackage.UNIT_CALL__STRENGTH:
 			setStrength(STRENGTH_EDEFAULT);
-			return;
-		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
-			getParameterValues().clear();
 			return;
 		case CALPackage.UNIT_CALL__UNIT:
 			setUnit((ComputationUnitRelease) null);
@@ -449,8 +408,6 @@ public class UnitCallImpl extends MinimalEObjectImpl.Container implements UnitCa
 			return strength != STRENGTH_EDEFAULT;
 		case CALPackage.UNIT_CALL__PINS:
 			return pins != null && !pins.isEmpty();
-		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
-			return parameterValues != null && !parameterValues.isEmpty();
 		case CALPackage.UNIT_CALL__UNIT:
 			return unit != null;
 		}

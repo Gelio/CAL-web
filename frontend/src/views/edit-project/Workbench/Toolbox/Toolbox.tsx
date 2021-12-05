@@ -91,13 +91,17 @@ const RefreshToolboxButton = ({
 }: RefreshToolboxButtonProps) => {
   return (
     <Tooltip title="Refresh toolbox">
-      <IconButton
-        onClick={onClick}
-        disabled={disabled}
-        aria-label="Refresh toolbox"
-      >
-        <RefreshIcon />
-      </IconButton>
+      {/* NOTE: necessary to allow showing the tooltip when the button is disabled.
+        Otherwise, the tooltip would not receive events. */}
+      <span>
+        <IconButton
+          onClick={onClick}
+          disabled={disabled}
+          aria-label="Refresh toolbox"
+        >
+          <RefreshIcon />
+        </IconButton>
+      </span>
     </Tooltip>
   );
 };

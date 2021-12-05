@@ -7,8 +7,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="strength" eType="#//UnitStrength"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pins" upperBound="-1" eType="#//ComputedDataPin"
         changeable="false" containment="true" eOpposite="#//ComputedDataPin/call"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterValues" upperBound="-1"
-        eType="#//UnitParameterValue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" lowerBound="1" eType="#//ComputationUnitRelease"
         eOpposite="#//ComputationUnitRelease/calls"/>
   </eClassifiers>
@@ -37,26 +35,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ComputationUnitRelease">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//UnitParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaredPins" upperBound="-1"
         eType="#//DeclaredDataPin" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="calls" upperBound="-1"
         eType="#//UnitCall" eOpposite="#//UnitCall/unit"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UnitParameter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//UnitParamType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="UnitParamType">
-    <eLiterals name="Variable"/>
-    <eLiterals name="Config" value="1"/>
-    <eLiterals name="Port" value="2"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UnitParameterValue">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="declaration" lowerBound="1"
-        eType="#//UnitParameter"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclaredDataPin" eSuperTypes="#//DataPin"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComputationApplicationRelease">

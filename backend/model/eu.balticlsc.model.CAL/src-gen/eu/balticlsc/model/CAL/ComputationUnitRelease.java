@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getVersion <em>Version</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getParameters <em>Parameters</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getDeclaredPins <em>Declared Pins</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.ComputationUnitRelease#getCalls <em>Calls</em>}</li>
  * </ul>
@@ -70,18 +69,6 @@ public interface ComputationUnitRelease extends EObject {
 	 * @generated
 	 */
 	void setVersion(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link eu.balticlsc.model.CAL.UnitParameter}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameters</em>' containment reference list.
-	 * @see eu.balticlsc.model.CAL.CALPackage#getComputationUnitRelease_Parameters()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<UnitParameter> getParameters();
 
 	/**
 	 * Returns the value of the '<em><b>Declared Pins</b></em>' containment reference list.

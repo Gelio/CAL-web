@@ -96,20 +96,6 @@ public class CALSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case CALPackage.UNIT_PARAMETER: {
-			UnitParameter unitParameter = (UnitParameter) theEObject;
-			T result = caseUnitParameter(unitParameter);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case CALPackage.UNIT_PARAMETER_VALUE: {
-			UnitParameterValue unitParameterValue = (UnitParameterValue) theEObject;
-			T result = caseUnitParameterValue(unitParameterValue);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case CALPackage.DECLARED_DATA_PIN: {
 			DeclaredDataPin declaredDataPin = (DeclaredDataPin) theEObject;
 			T result = caseDeclaredDataPin(declaredDataPin);
@@ -213,36 +199,6 @@ public class CALSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseComputationUnitRelease(ComputationUnitRelease object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Unit Parameter</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Unit Parameter</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseUnitParameter(UnitParameter object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Unit Parameter Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Unit Parameter Value</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseUnitParameterValue(UnitParameterValue object) {
 		return null;
 	}
 

@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getStrength <em>Strength</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getPins <em>Pins</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getParameterValues <em>Parameter Values</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.UnitCall#getUnit <em>Unit</em>}</li>
  * </ul>
  *
@@ -88,18 +87,6 @@ public interface UnitCall extends EObject {
 	 * @generated
 	 */
 	EList<ComputedDataPin> getPins();
-
-	/**
-	 * Returns the value of the '<em><b>Parameter Values</b></em>' containment reference list.
-	 * The list contents are of type {@link eu.balticlsc.model.CAL.UnitParameterValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameter Values</em>' containment reference list.
-	 * @see eu.balticlsc.model.CAL.CALPackage#getUnitCall_ParameterValues()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<UnitParameterValue> getParameterValues();
 
 	/**
 	 * Returns the value of the '<em><b>Unit</b></em>' reference.

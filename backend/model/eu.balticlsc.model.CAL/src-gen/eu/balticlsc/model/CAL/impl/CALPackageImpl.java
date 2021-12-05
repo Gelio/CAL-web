@@ -16,9 +16,6 @@ import eu.balticlsc.model.CAL.DataPin;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
 import eu.balticlsc.model.CAL.Multiplicity;
 import eu.balticlsc.model.CAL.UnitCall;
-import eu.balticlsc.model.CAL.UnitParamType;
-import eu.balticlsc.model.CAL.UnitParameter;
-import eu.balticlsc.model.CAL.UnitParameterValue;
 import eu.balticlsc.model.CAL.UnitStrength;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -69,20 +66,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass unitParameterEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass unitParameterValueEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass declaredDataPinEClass = null;
 
 	/**
@@ -126,13 +109,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	private EEnum unitStrengthEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum unitParamTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -258,18 +234,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getUnitCall_ParameterValues() {
-		return (EReference) unitCallEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getUnitCall_Unit() {
-		return (EReference) unitCallEClass.getEStructuralFeatures().get(4);
+		return (EReference) unitCallEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -368,7 +334,7 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getComputationUnitRelease_Parameters() {
+	public EReference getComputationUnitRelease_DeclaredPins() {
 		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -378,78 +344,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getComputationUnitRelease_DeclaredPins() {
-		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getComputationUnitRelease_Calls() {
-		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getUnitParameter() {
-		return unitParameterEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getUnitParameter_Name() {
-		return (EAttribute) unitParameterEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getUnitParameter_Type() {
-		return (EAttribute) unitParameterEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getUnitParameterValue() {
-		return unitParameterValueEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getUnitParameterValue_Value() {
-		return (EAttribute) unitParameterValueEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getUnitParameterValue_Declaration() {
-		return (EReference) unitParameterValueEClass.getEStructuralFeatures().get(1);
+		return (EReference) computationUnitReleaseEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -628,16 +524,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 	 * @generated
 	 */
 	@Override
-	public EEnum getUnitParamType() {
-		return unitParamTypeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EEnum getMultiplicity() {
 		return multiplicityEEnum;
 	}
@@ -686,7 +572,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		createEAttribute(unitCallEClass, UNIT_CALL__NAME);
 		createEAttribute(unitCallEClass, UNIT_CALL__STRENGTH);
 		createEReference(unitCallEClass, UNIT_CALL__PINS);
-		createEReference(unitCallEClass, UNIT_CALL__PARAMETER_VALUES);
 		createEReference(unitCallEClass, UNIT_CALL__UNIT);
 
 		computedDataPinEClass = createEClass(COMPUTED_DATA_PIN);
@@ -700,17 +585,8 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		computationUnitReleaseEClass = createEClass(COMPUTATION_UNIT_RELEASE);
 		createEAttribute(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__NAME);
 		createEAttribute(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__VERSION);
-		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__PARAMETERS);
 		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__DECLARED_PINS);
 		createEReference(computationUnitReleaseEClass, COMPUTATION_UNIT_RELEASE__CALLS);
-
-		unitParameterEClass = createEClass(UNIT_PARAMETER);
-		createEAttribute(unitParameterEClass, UNIT_PARAMETER__NAME);
-		createEAttribute(unitParameterEClass, UNIT_PARAMETER__TYPE);
-
-		unitParameterValueEClass = createEClass(UNIT_PARAMETER_VALUE);
-		createEAttribute(unitParameterValueEClass, UNIT_PARAMETER_VALUE__VALUE);
-		createEReference(unitParameterValueEClass, UNIT_PARAMETER_VALUE__DECLARATION);
 
 		declaredDataPinEClass = createEClass(DECLARED_DATA_PIN);
 
@@ -735,7 +611,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		// Create enums
 		computationUnitStatusEEnum = createEEnum(COMPUTATION_UNIT_STATUS);
 		unitStrengthEEnum = createEEnum(UNIT_STRENGTH);
-		unitParamTypeEEnum = createEEnum(UNIT_PARAM_TYPE);
 		multiplicityEEnum = createEEnum(MULTIPLICITY);
 		dataBindingEEnum = createEEnum(DATA_BINDING);
 	}
@@ -784,9 +659,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEReference(getUnitCall_Pins(), this.getComputedDataPin(), this.getComputedDataPin_Call(), "pins", null, 0,
 				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getUnitCall_ParameterValues(), this.getUnitParameterValue(), null, "parameterValues", null, 0,
-				-1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUnitCall_Unit(), this.getComputationUnitRelease(), this.getComputationUnitRelease_Calls(),
 				"unit", null, 1, 1, UnitCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -817,31 +689,12 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEAttribute(getComputationUnitRelease_Version(), ecorePackage.getEString(), "version", null, 0, 1,
 				ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComputationUnitRelease_Parameters(), this.getUnitParameter(), null, "parameters", null, 0, -1,
-				ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComputationUnitRelease_DeclaredPins(), this.getDeclaredDataPin(), null, "declaredPins", null,
 				0, -1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComputationUnitRelease_Calls(), this.getUnitCall(), this.getUnitCall_Unit(), "calls", null, 0,
 				-1, ComputationUnitRelease.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(unitParameterEClass, UnitParameter.class, "UnitParameter", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUnitParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, UnitParameter.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUnitParameter_Type(), this.getUnitParamType(), "type", null, 0, 1, UnitParameter.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(unitParameterValueEClass, UnitParameterValue.class, "UnitParameterValue", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUnitParameterValue_Value(), ecorePackage.getEString(), "value", null, 0, 1,
-				UnitParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
-		initEReference(getUnitParameterValue_Declaration(), this.getUnitParameter(), null, "declaration", null, 1, 1,
-				UnitParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(declaredDataPinEClass, DeclaredDataPin.class, "DeclaredDataPin", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -895,11 +748,6 @@ public class CALPackageImpl extends EPackageImpl implements CALPackage {
 		initEEnum(unitStrengthEEnum, UnitStrength.class, "UnitStrength");
 		addEEnumLiteral(unitStrengthEEnum, UnitStrength.WEAK);
 		addEEnumLiteral(unitStrengthEEnum, UnitStrength.STRONG);
-
-		initEEnum(unitParamTypeEEnum, UnitParamType.class, "UnitParamType");
-		addEEnumLiteral(unitParamTypeEEnum, UnitParamType.VARIABLE);
-		addEEnumLiteral(unitParamTypeEEnum, UnitParamType.CONFIG);
-		addEEnumLiteral(unitParamTypeEEnum, UnitParamType.PORT);
 
 		initEEnum(multiplicityEEnum, Multiplicity.class, "Multiplicity");
 		addEEnumLiteral(multiplicityEEnum, Multiplicity.SINGLE);

@@ -139,7 +139,6 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(CALPackage.Literals.UNIT_CALL__PINS);
-			childrenFeatures.add(CALPackage.Literals.UNIT_CALL__PARAMETER_VALUES);
 		}
 		return childrenFeatures;
 	}
@@ -208,7 +207,6 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case CALPackage.UNIT_CALL__PINS:
-		case CALPackage.UNIT_CALL__PARAMETER_VALUES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -228,9 +226,6 @@ public class UnitCallItemProvider extends ItemProviderAdapter implements IEditin
 
 		newChildDescriptors.add(createChildParameter(CALPackage.Literals.UNIT_CALL__PINS,
 				CALFactory.eINSTANCE.createComputedDataPin()));
-
-		newChildDescriptors.add(createChildParameter(CALPackage.Literals.UNIT_CALL__PARAMETER_VALUES,
-				CALFactory.eINSTANCE.createUnitParameterValue()));
 	}
 
 	/**
