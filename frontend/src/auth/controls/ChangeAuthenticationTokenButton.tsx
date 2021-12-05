@@ -1,5 +1,4 @@
 import {
-  Button,
   IconButton,
   Modal,
   Paper,
@@ -9,8 +8,8 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import * as O from "fp-ts/lib/Option";
-import { FormEventHandler, useState } from "react";
-import { AuthTokenAcquiryInformation } from "./AuthTokenAcquiryInformation";
+import { useState } from "react";
+import { ChangeAuthTokenForm } from "./ChangeAuthTokenForm";
 
 interface ChangeAuthenticationTokenButtonProps {
   onAuthenticationTokenChange: (authenticationToken: string) => void;
@@ -63,53 +62,4 @@ const ModalContent = styled(Paper)(({ theme }) => ({
   transform: "translate(-50%, -50%)",
   padding: theme.spacing(3),
   minWidth: 400,
-}));
-
-interface ChangeAuthTokenFormProps {
-  initialAuthToken: O.Option<string>;
-  onSubmit: (authToken: string) => void;
-  onCancel: () => void;
-}
-
-const ChangeAuthTokenForm = ({
-  initialAuthToken,
-  onSubmit,
-  onCancel,
-}: ChangeAuthTokenFormProps) => {
-  const onFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-    onSubmit(formData.get("authToken").toString());
-  };
-  return (
-    <form onSubmit={onFormSubmit}>
-      <AuthTokenTextarea
-        defaultValue={O.toNullable(initialAuthToken)}
-        name="authToken"
-        placeholder="Enter your authentication token"
-      />
-
-      <AuthTokenAcquiryInformation />
-
-      <AuthTokenFormButtonsContainer>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </AuthTokenFormButtonsContainer>
-    </form>
-  );
-};
-
-const AuthTokenTextarea = styled("textarea")(({ theme }) => ({
-  width: "100%",
-  marginTop: theme.spacing(1),
-  resize: "vertical",
-  minHeight: "10em",
-  boxShadow: theme.shadows[1],
-}));
-const AuthTokenFormButtonsContainer = styled("div")(({ theme }) => ({
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: theme.spacing(2),
 }));
