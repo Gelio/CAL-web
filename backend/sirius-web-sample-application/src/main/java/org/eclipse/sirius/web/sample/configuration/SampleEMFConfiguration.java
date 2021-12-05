@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import eu.balticlsc.model.CAL.CALPackage;
-import eu.balticlsc.model.CAL.util.CALAdapterFactory;
+import eu.balticlsc.model.CAL.provider.CALItemProviderAdapterFactory;
 
 /**
  * Configuration of the EMF support for Sirius Web.
@@ -49,13 +49,12 @@ public class SampleEMFConfiguration {
 
     @Bean
     public ILabelFeatureProvider flowLabelFeatureProvider() {
-        return new LabelFeatureProvider(FlowPackage.eINSTANCE.getNsURI(), new FlowLabelFeatureSwitch(),
-                new FlowEditableSwitch());
+        return new LabelFeatureProvider(FlowPackage.eINSTANCE.getNsURI(), new FlowLabelFeatureSwitch(), new FlowEditableSwitch());
     }
 
     @Bean
     public AdapterFactory calAdapterFactory() {
-        return new CALAdapterFactory();
+        return new CALItemProviderAdapterFactory();
     }
 
     @Bean
