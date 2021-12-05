@@ -1,4 +1,5 @@
 import * as TE from "fp-ts/lib/TaskEither";
+import * as T from "fp-ts/lib/Task";
 import * as O from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/function";
 import { ToolboxEntry } from "./interop";
@@ -70,6 +71,9 @@ export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
     ToolboxEntry[] | undefined
   >();
   const balticLSCAPIUrl = useAPIURLsStore(balticLSCAPIUrlSelector);
+  const [refreshId, setRefreshId] = useState(Math.random);
+
+  const refresh = () => setRefreshId(Math.random());
 
   useEffect(() => {
     if (O.isNone(authToken)) {
@@ -87,16 +91,16 @@ export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
         abortSignal: abortController.signal,
         balticLSCAPIUrl,
       }),
-      TE.apFirst(TE.fromIO(() => setLoading(false))),
       TE.match(setError, (entries) => {
         setToolboxEntries(entries);
         setError(undefined);
-      })
+      }),
+      T.map(() => setLoading(false))
     );
     runFetch();
 
     return () => abortController.abort();
-  }, [authToken, balticLSCAPIUrl]);
+  }, [authToken, balticLSCAPIUrl, refreshId]);
 
-  return { error, loading, toolboxEntries };
+  return { error, loading, toolboxEntries, refresh };
 };
