@@ -6,8 +6,6 @@ import eu.balticlsc.model.CAL.CALPackage;
 import eu.balticlsc.model.CAL.ComputationUnitRelease;
 import eu.balticlsc.model.CAL.DeclaredDataPin;
 import eu.balticlsc.model.CAL.UnitCall;
-import eu.balticlsc.model.CAL.UnitParameter;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -35,7 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getName <em>Name</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getDeclaredPins <em>Declared Pins</em>}</li>
  *   <li>{@link eu.balticlsc.model.CAL.impl.ComputationUnitReleaseImpl#getCalls <em>Calls</em>}</li>
  * </ul>
@@ -82,16 +79,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 	 * @ordered
 	 */
 	protected String version = VERSION_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getParameters()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<UnitParameter> parameters;
 
 	/**
 	 * The cached value of the '{@link #getDeclaredPins() <em>Declared Pins</em>}' containment reference list.
@@ -186,20 +173,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	@Override
-	public EList<UnitParameter> getParameters() {
-		if (parameters == null) {
-			parameters = new EObjectContainmentEList<UnitParameter>(UnitParameter.class, this,
-					CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS);
-		}
-		return parameters;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EList<DeclaredDataPin> getDeclaredPins() {
 		if (declaredPins == null) {
 			declaredPins = new EObjectContainmentEList<DeclaredDataPin>(DeclaredDataPin.class, this,
@@ -245,8 +218,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
-			return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			return ((InternalEList<?>) getDeclaredPins()).basicRemove(otherEnd, msgs);
 		case CALPackage.COMPUTATION_UNIT_RELEASE__CALLS:
@@ -267,8 +238,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 			return getName();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__VERSION:
 			return getVersion();
-		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
-			return getParameters();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			return getDeclaredPins();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__CALLS:
@@ -291,10 +260,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 			return;
 		case CALPackage.COMPUTATION_UNIT_RELEASE__VERSION:
 			setVersion((String) newValue);
-			return;
-		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
-			getParameters().clear();
-			getParameters().addAll((Collection<? extends UnitParameter>) newValue);
 			return;
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			getDeclaredPins().clear();
@@ -322,9 +287,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 		case CALPackage.COMPUTATION_UNIT_RELEASE__VERSION:
 			setVersion(VERSION_EDEFAULT);
 			return;
-		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
-			getParameters().clear();
-			return;
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			getDeclaredPins().clear();
 			return;
@@ -347,8 +309,6 @@ public class ComputationUnitReleaseImpl extends MinimalEObjectImpl.Container imp
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		case CALPackage.COMPUTATION_UNIT_RELEASE__VERSION:
 			return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-		case CALPackage.COMPUTATION_UNIT_RELEASE__PARAMETERS:
-			return parameters != null && !parameters.isEmpty();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__DECLARED_PINS:
 			return declaredPins != null && !declaredPins.isEmpty();
 		case CALPackage.COMPUTATION_UNIT_RELEASE__CALLS:

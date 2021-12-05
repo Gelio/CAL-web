@@ -58,24 +58,6 @@ public interface CALFactory extends EFactory {
 	ComputationUnitRelease createComputationUnitRelease();
 
 	/**
-	 * Returns a new object of class '<em>Unit Parameter</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unit Parameter</em>'.
-	 * @generated
-	 */
-	UnitParameter createUnitParameter();
-
-	/**
-	 * Returns a new object of class '<em>Unit Parameter Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unit Parameter Value</em>'.
-	 * @generated
-	 */
-	UnitParameterValue createUnitParameterValue();
-
-	/**
 	 * Returns a new object of class '<em>Declared Data Pin</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

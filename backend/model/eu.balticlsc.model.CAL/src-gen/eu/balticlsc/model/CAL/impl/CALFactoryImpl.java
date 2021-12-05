@@ -64,10 +64,6 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 			return createDataFlow();
 		case CALPackage.COMPUTATION_UNIT_RELEASE:
 			return createComputationUnitRelease();
-		case CALPackage.UNIT_PARAMETER:
-			return createUnitParameter();
-		case CALPackage.UNIT_PARAMETER_VALUE:
-			return createUnitParameterValue();
 		case CALPackage.DECLARED_DATA_PIN:
 			return createDeclaredDataPin();
 		case CALPackage.COMPUTATION_APPLICATION_RELEASE:
@@ -91,8 +87,6 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 			return createComputationUnitStatusFromString(eDataType, initialValue);
 		case CALPackage.UNIT_STRENGTH:
 			return createUnitStrengthFromString(eDataType, initialValue);
-		case CALPackage.UNIT_PARAM_TYPE:
-			return createUnitParamTypeFromString(eDataType, initialValue);
 		case CALPackage.MULTIPLICITY:
 			return createMultiplicityFromString(eDataType, initialValue);
 		case CALPackage.DATA_BINDING:
@@ -114,8 +108,6 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 			return convertComputationUnitStatusToString(eDataType, instanceValue);
 		case CALPackage.UNIT_STRENGTH:
 			return convertUnitStrengthToString(eDataType, instanceValue);
-		case CALPackage.UNIT_PARAM_TYPE:
-			return convertUnitParamTypeToString(eDataType, instanceValue);
 		case CALPackage.MULTIPLICITY:
 			return convertMultiplicityToString(eDataType, instanceValue);
 		case CALPackage.DATA_BINDING:
@@ -167,28 +159,6 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 	public ComputationUnitRelease createComputationUnitRelease() {
 		ComputationUnitReleaseImpl computationUnitRelease = new ComputationUnitReleaseImpl();
 		return computationUnitRelease;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public UnitParameter createUnitParameter() {
-		UnitParameterImpl unitParameter = new UnitParameterImpl();
-		return unitParameter;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public UnitParameterValue createUnitParameterValue() {
-		UnitParameterValueImpl unitParameterValue = new UnitParameterValueImpl();
-		return unitParameterValue;
 	}
 
 	/**
@@ -265,28 +235,6 @@ public class CALFactoryImpl extends EFactoryImpl implements CALFactory {
 	 * @generated
 	 */
 	public String convertUnitStrengthToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UnitParamType createUnitParamTypeFromString(EDataType eDataType, String initialValue) {
-		UnitParamType result = UnitParamType.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertUnitParamTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

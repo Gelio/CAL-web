@@ -87,16 +87,6 @@ public class CALAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseUnitParameter(UnitParameter object) {
-			return createUnitParameterAdapter();
-		}
-
-		@Override
-		public Adapter caseUnitParameterValue(UnitParameterValue object) {
-			return createUnitParameterValueAdapter();
-		}
-
-		@Override
 		public Adapter caseDeclaredDataPin(DeclaredDataPin object) {
 			return createDeclaredDataPinAdapter();
 		}
@@ -193,34 +183,6 @@ public class CALAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createComputationUnitReleaseAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link eu.balticlsc.model.CAL.UnitParameter <em>Unit Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see eu.balticlsc.model.CAL.UnitParameter
-	 * @generated
-	 */
-	public Adapter createUnitParameterAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link eu.balticlsc.model.CAL.UnitParameterValue <em>Unit Parameter Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see eu.balticlsc.model.CAL.UnitParameterValue
-	 * @generated
-	 */
-	public Adapter createUnitParameterValueAdapter() {
 		return null;
 	}
 

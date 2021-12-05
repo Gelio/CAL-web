@@ -165,52 +165,6 @@ public class CALItemProviderAdapterFactory extends CALAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link eu.balticlsc.model.CAL.UnitParameter} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected UnitParameterItemProvider unitParameterItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link eu.balticlsc.model.CAL.UnitParameter}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createUnitParameterAdapter() {
-		if (unitParameterItemProvider == null) {
-			unitParameterItemProvider = new UnitParameterItemProvider(this);
-		}
-
-		return unitParameterItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link eu.balticlsc.model.CAL.UnitParameterValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected UnitParameterValueItemProvider unitParameterValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link eu.balticlsc.model.CAL.UnitParameterValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createUnitParameterValueAdapter() {
-		if (unitParameterValueItemProvider == null) {
-			unitParameterValueItemProvider = new UnitParameterValueItemProvider(this);
-		}
-
-		return unitParameterValueItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link eu.balticlsc.model.CAL.DeclaredDataPin} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -392,10 +346,6 @@ public class CALItemProviderAdapterFactory extends CALAdapterFactory
 			dataFlowItemProvider.dispose();
 		if (computationUnitReleaseItemProvider != null)
 			computationUnitReleaseItemProvider.dispose();
-		if (unitParameterItemProvider != null)
-			unitParameterItemProvider.dispose();
-		if (unitParameterValueItemProvider != null)
-			unitParameterValueItemProvider.dispose();
 		if (declaredDataPinItemProvider != null)
 			declaredDataPinItemProvider.dispose();
 		if (computationApplicationReleaseItemProvider != null)
