@@ -151,7 +151,7 @@ export const Workbench = ({
             />
           </div>
         }
-        initialResizablePanelSize={300}
+        initialResizablePanelSize={350}
       />
 
       {/* NOTE: snackbar copied from sirius-components
