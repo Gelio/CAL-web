@@ -71,6 +71,9 @@ export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
     ToolboxEntry[] | undefined
   >();
   const balticLSCAPIUrl = useAPIURLsStore(balticLSCAPIUrlSelector);
+  const [refreshId, setRefreshId] = useState(Math.random);
+
+  const refresh = () => setRefreshId(Math.random());
 
   useEffect(() => {
     if (O.isNone(authToken)) {
@@ -97,7 +100,7 @@ export const useBalticLSCToolboxEntries = (authToken: O.Option<string>) => {
     runFetch();
 
     return () => abortController.abort();
-  }, [authToken, balticLSCAPIUrl]);
+  }, [authToken, balticLSCAPIUrl, refreshId]);
 
-  return { error, loading, toolboxEntries };
+  return { error, loading, toolboxEntries, refresh };
 };

@@ -2,7 +2,14 @@ import * as O from "fp-ts/lib/Option";
 import * as E from "fp-ts/lib/Either";
 import { UseToolboxEntryButton } from "./UseToolboxEntryButton";
 import { useRootObjectId } from "./root-object-id";
-import { CircularProgress, styled, Typography } from "@material-ui/core";
+import {
+  CircularProgress,
+  IconButton,
+  styled,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import { useBalticLSCToolboxEntries } from "./use-balticlsc-toolbox-entries";
 import { TokenStore, useTokenStore } from "../../../../auth";
 
@@ -14,12 +21,15 @@ const tokenSelector = ({ token }: TokenStore) => token;
 
 export const Toolbox = ({ editingContextId }: ToolboxProps) => {
   const token = useTokenStore(tokenSelector);
-  const { error, loading, toolboxEntries } = useBalticLSCToolboxEntries(token);
+  const { error, loading, toolboxEntries, refresh } =
+    useBalticLSCToolboxEntries(token);
   const rootObjectIdResOpt = useRootObjectId(editingContextId);
 
   return (
     <ToolboxContainer>
-      {/* TODO: add a button to refresh the entries https://github.com/Gelio/CAL-web/issues/50 */}
+      <RefreshToolboxButtonContainer>
+        <RefreshToolboxButton disabled={loading} onClick={refresh} />
+      </RefreshToolboxButtonContainer>
 
       {O.isNone(rootObjectIdResOpt) || loading ? (
         <CircularProgress />
@@ -64,3 +74,30 @@ const ToolboxContainer = styled("div")(({ theme }) => ({
   alignItems: "center",
   flexWrap: "wrap",
 }));
+
+const RefreshToolboxButtonContainer = styled("div")(({ theme }) => ({
+  marginRight: theme.spacing(1),
+  borderRight: `solid 1px ${theme.palette.divider}`,
+  borderBottom: `solid 1px ${theme.palette.divider}`,
+  borderBottomRightRadius: 8,
+}));
+interface RefreshToolboxButtonProps {
+  onClick: () => void;
+  disabled: boolean;
+}
+const RefreshToolboxButton = ({
+  onClick,
+  disabled,
+}: RefreshToolboxButtonProps) => {
+  return (
+    <Tooltip title="Refresh toolbox">
+      <IconButton
+        onClick={onClick}
+        disabled={disabled}
+        aria-label="Refresh toolbox"
+      >
+        <RefreshIcon />
+      </IconButton>
+    </Tooltip>
+  );
+};
