@@ -38,16 +38,19 @@ import eu.balticlsc.model.CAL.provider.CALItemProviderAdapterFactory;
 @Configuration
 public class SampleEMFConfiguration {
     @Bean
+    @ConditionalOnProperty(prefix = "org.eclipse.sirius.web.features", name = "flowModel")
     public AdapterFactory flowAdapterFactory() {
         return new FlowItemProviderAdapterFactory();
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "org.eclipse.sirius.web.features", name = "flowModel")
     public EPackage flowEPackage() {
         return FlowPackage.eINSTANCE;
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "org.eclipse.sirius.web.features", name = "flowModel")
     public ILabelFeatureProvider flowLabelFeatureProvider() {
         return new LabelFeatureProvider(FlowPackage.eINSTANCE.getNsURI(), new FlowLabelFeatureSwitch(), new FlowEditableSwitch());
     }
