@@ -6,9 +6,9 @@ import { PropsWithChildren, useMemo } from "react";
 import {
   getTokenVerificationErrorTitle,
   isTokenExpiredPipeline,
-} from "./is-token-expired";
+} from "../is-token-expired";
 import { ChangeAuthenticationTokenButton } from "./ChangeAuthenticationTokenButton";
-import { useTokenStore } from "./token";
+import { useTokenStore } from "../token";
 
 export const AuthTokenControls = () => {
   const { token: authToken, setToken } = useTokenStore();
