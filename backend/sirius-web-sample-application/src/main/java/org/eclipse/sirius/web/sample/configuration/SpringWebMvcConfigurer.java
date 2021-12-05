@@ -14,9 +14,15 @@ package org.eclipse.sirius.web.sample.configuration;
 
 import java.util.Arrays;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.eclipse.sirius.web.spring.configuration.SiriusWebPathResourceResolver;
 import org.eclipse.sirius.web.spring.configuration.SpringWebMvcConfigurerConstants;
 import org.eclipse.sirius.web.spring.controllers.URLConstants;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -40,6 +46,28 @@ public class SpringWebMvcConfigurer implements WebMvcConfigurer {
 
     public SpringWebMvcConfigurer(Environment environment) {
         this.environment = environment;
+    }
+
+    @Bean
+    public Gson gson() {
+        var builder = new GsonBuilder();
+
+        if (!this.inDevMode()) {
+            var strategy = new ExclusionStrategy() {
+                @Override
+                public boolean shouldSkipClass(Class<?> clazz) {
+                    return false;
+                }
+
+                @Override
+                public boolean shouldSkipField(FieldAttributes field) {
+                    return field.getName().equals("stackTrace"); //$NON-NLS-1$
+                }
+            };
+            builder.addSerializationExclusionStrategy(strategy);
+        }
+
+        return builder.create();
     }
 
     @Override
@@ -79,9 +107,12 @@ public class SpringWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        boolean inDevMode = Arrays.asList(this.environment.getActiveProfiles()).contains("dev"); //$NON-NLS-1$
-        if (inDevMode) {
+        if (this.inDevMode()) {
             registry.addMapping(URLConstants.API_BASE_PATH + SpringWebMvcConfigurerConstants.ANY_PATTERN).allowedOriginPatterns(ALLOWED_ORIGIN_PATTERNS).allowCredentials(true);
         }
+    }
+
+    private boolean inDevMode() {
+        return Arrays.asList(this.environment.getActiveProfiles()).contains("dev"); //$NON-NLS-1$
     }
 }
