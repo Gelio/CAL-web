@@ -7,7 +7,7 @@ export type TokenDecodeError =
   | { type: "cannot parse payload"; error: unknown }
   | { type: "payload is not an object" };
 
-const getTokenPayload = (
+export const getTokenPayload = (
   authToken: string
 ): E.Either<TokenDecodeError, Record<string, unknown>> => {
   // See https://github.com/auth0/jwt-decode/blob/master/lib/index.js
@@ -20,7 +20,15 @@ const getTokenPayload = (
 
       return E.right(parts[1]);
     }),
-    E.map(atob),
+    E.chain((encodedToken) =>
+      E.tryCatch(
+        () => atob(encodedToken),
+        (): TokenDecodeError => ({
+          type: "cannot parse payload",
+          error: new Error("Invalid format"),
+        })
+      )
+    ),
     E.chain(safeParse),
     E.mapLeft(
       (error): TokenDecodeError => ({
@@ -43,9 +51,9 @@ const getTokenPayload = (
 export type TokenExpiryVerificationError =
   | { type: "missing expiry field" }
   | { type: "expiry field is not a number" };
-const isTokenExpired = (
+export const getTokenExpiryDate = (
   tokenPayload: Record<string, unknown>
-): E.Either<TokenExpiryVerificationError, boolean> => {
+): E.Either<TokenExpiryVerificationError, Date> => {
   if (!tokenPayload.hasOwnProperty("exp")) {
     return E.left<TokenExpiryVerificationError>({
       type: "missing expiry field",
@@ -59,12 +67,16 @@ const isTokenExpired = (
     });
   }
 
-  return E.right(expiry * 1000 <= Date.now());
+  return E.right(new Date(expiry * 1000));
 };
+
+export const isTokenExpired = (expiryDate: Date) =>
+  expiryDate.getTime() <= Date.now();
 
 export const isTokenExpiredPipeline = flow(
   getTokenPayload,
-  E.chainW(isTokenExpired)
+  E.chainW(getTokenExpiryDate),
+  E.map(isTokenExpired)
 );
 
 export const getTokenVerificationErrorTitle = (

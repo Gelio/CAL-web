@@ -1,4 +1,4 @@
-import { Button, styled } from "@material-ui/core";
+import { Button, Paper, styled } from "@material-ui/core";
 import { pipe } from "fp-ts/lib/function";
 import * as O from "fp-ts/lib/Option";
 import * as TE from "fp-ts/lib/TaskEither";
@@ -12,6 +12,7 @@ import {
 } from "react";
 import { AuthTokenAcquiryInformation } from "./AuthTokenAcquiryInformation";
 import { APIURLsStore, useAPIURLsStore } from "../../api-urls";
+import { AuthTokenDetails } from "./AuthTokenDetails";
 
 interface ChangeAuthTokenFormProps {
   initialAuthToken: O.Option<string>;
@@ -34,7 +35,7 @@ export const ChangeAuthTokenForm = ({
   };
   const balticLSCAPIUrl = useAPIURLsStore(balticLSCAPIUrlSelector);
   const demoUserToken = useDemoUserToken(balticLSCAPIUrl);
-  const tokenTextareaRef = useRef<HTMLTextAreaElement>();
+  const [token, setToken] = useState(O.toNullable(initialAuthToken));
   const abortController = useRef<O.Option<AbortController>>(O.none);
 
   const abort = () => {
@@ -51,27 +52,10 @@ export const ChangeAuthTokenForm = ({
     const newController = new AbortController();
     abortController.current = O.some(newController);
     const run = pipe(
-      T.fromIO(() => {
-        if (tokenTextareaRef.current) {
-          tokenTextareaRef.current.disabled = true;
-        }
-      }),
-      T.apSecond(demoUserToken.load(newController.signal)),
-      TE.match(
-        (error) => {
-          console.error("Could not fetch demo user token", error);
-        },
-        (token) => {
-          if (tokenTextareaRef.current) {
-            tokenTextareaRef.current.value = token;
-          }
-        }
-      ),
-      T.chainIOK(() => () => {
-        if (tokenTextareaRef.current) {
-          tokenTextareaRef.current.disabled = false;
-        }
-      })
+      demoUserToken.load(newController.signal),
+      TE.match((error) => {
+        console.error("Could not fetch demo user token", error);
+      }, setToken)
     );
 
     run();
@@ -80,11 +64,16 @@ export const ChangeAuthTokenForm = ({
   return (
     <form onSubmit={onFormSubmit}>
       <AuthTokenTextarea
-        defaultValue={O.toNullable(initialAuthToken)}
         name="authToken"
         placeholder="Enter your authentication token"
-        ref={tokenTextareaRef}
+        value={token}
+        onChange={(event) => setToken(event.target.value)}
+        disabled={demoUserToken.loading}
       />
+
+      <TokenDetailsContainer elevation={2}>
+        <AuthTokenDetails token={token} />
+      </TokenDetailsContainer>
 
       <AuthTokenAcquiryInformation />
 
@@ -210,3 +199,9 @@ const maybeInterruptTask = <T extends any>(abortSignal: AbortSignal) =>
 
     return T.of(value);
   });
+
+const TokenDetailsContainer = styled(Paper)(({ theme }) => ({
+  marginTop: theme.spacing(1),
+  marginBottom: theme.spacing(2),
+  padding: theme.spacing(2),
+}));
