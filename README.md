@@ -14,7 +14,6 @@ Based on [sirius-web](https://github.com/eclipse-sirius/sirius-web).
   - [Running the application](#running-the-application)
   - [Configuring the application](#configuring-the-application)
   - [Debugging the application](#debugging-the-application)
-  - [Enabling experimental model modifications](#enabling-experimental-model-modifications)
   - [Building and running the application with Docker](#building-and-running-the-application-with-docker)
   - [Using Docker Compose to run the application](#using-docker-compose-to-run-the-application)
 - [Keeping up with the upstream `sirius-web`](#keeping-up-with-the-upstream-sirius-web)
@@ -89,7 +88,7 @@ To configure the properties, do one of the following:
 - pass the properties to the `launch.sh` script:
 
   ```sh
-  ./backend/scripts/launch.sh --eu.balticlsc.model.features.modificationsEnabled=true
+  ./backend/scripts/launch.sh --logging.level.org.eclipse.sirius.web=debug
   ```
 
 - create an `application.properties` file in the current directory and launch
@@ -118,23 +117,6 @@ configuration. For neovim, there is an
 
 See [`launch-debug.sh`](./backend/scripts/launch-debug.sh) for details of debug
 settings.
-
-### Enabling experimental model modifications
-
-To enable experimental model modifications, pass the
-`--eu.balticlsc.model.features.modificationsEnabled=true` flag to the
-`launch.sh` or `launch-debug.sh` script:
-
-```sh
-./backend/scripts/launch.sh --eu.balticlsc.model.features.modificationsEnabled=true
-```
-
-This will run the application with experimental model modifications. This means
-that when loading the model, there will be an extra `ComputationUnitRelease`
-added to the model.
-
-The change is not meaningful right now, but it shows it is possible to modify
-the model programmatically when it is being loaded.
 
 ### Building and running the application with Docker
 
