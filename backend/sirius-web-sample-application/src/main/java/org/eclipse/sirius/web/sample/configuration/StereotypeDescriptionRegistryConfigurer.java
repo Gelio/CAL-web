@@ -324,26 +324,32 @@ public class StereotypeDescriptionRegistryConfigurer implements IStereotypeDescr
 
     private final boolean studiosEnabled;
 
-    public StereotypeDescriptionRegistryConfigurer(MeterRegistry meterRegistry,
-            @Value("${org.eclipse.sirius.web.features.studioDefinition:false}") boolean studiosEnabled,
-            Environment environment) {
+    private final boolean flowModelEnabled;
+
+    public StereotypeDescriptionRegistryConfigurer(MeterRegistry meterRegistry, @Value("${org.eclipse.sirius.web.features.studioDefinition:false}") boolean studiosEnabled,
+            @Value("${org.eclipse.sirius.web.features.flowModel:false}") boolean flowModelEnabled, Environment environment) {
         this.environment = Objects.requireNonNull(environment);
         this.stereotypeBuilder = new StereotypeBuilder(TIMER_NAME, meterRegistry);
         this.studiosEnabled = studiosEnabled;
+        this.flowModelEnabled = flowModelEnabled;
         this.random = new Random();
     }
 
     @Override
     public void addStereotypeDescriptions(IStereotypeDescriptionRegistry registry) {
-        registry.add(new StereotypeDescription(EMPTY_FLOW_ID, EMPTY_FLOW_LABEL, this::getEmptyFlowContent));
+        registry.add(new StereotypeDescription(EMPTY_CAL_ID, EMPTY_CAL_LABEL, this::getEmptyCALContent));
+        if (this.flowModelEnabled) {
+            registry.add(new StereotypeDescription(EMPTY_FLOW_ID, EMPTY_FLOW_LABEL, this::getEmptyFlowContent));
+        }
         if (this.studiosEnabled) {
             registry.add(new StereotypeDescription(EMPTY_DOMAIN_ID, EMPTY_DOMAIN_LABEL, this::getEmptyDomainContent));
             registry.add(new StereotypeDescription(EMPTY_VIEW_ID, EMPTY_VIEW_LABEL, this::getEmptyViewContent));
         }
-        registry.add(new StereotypeDescription(ROBOT_FLOW_ID, ROBOT_FLOW_LABEL, this::getRobotFlowContent));
-        registry.add(new StereotypeDescription(BIG_GUY_FLOW_ID, BIG_GUY_FLOW_LABEL, this::getBigGuyFlowContent));
-        registry.add(new StereotypeDescription(EMPTY_CAL_ID, EMPTY_CAL_LABEL, this::getEmptyCALContent));
-        registry.add(new StereotypeDescription(EMPTY_ID, EMPTY_LABEL, "New", this::getEmptyContent)); //$NON-NLS-1$
+        if (this.flowModelEnabled) {
+            registry.add(new StereotypeDescription(ROBOT_FLOW_ID, ROBOT_FLOW_LABEL, this::getRobotFlowContent));
+            registry.add(new StereotypeDescription(BIG_GUY_FLOW_ID, BIG_GUY_FLOW_LABEL, this::getBigGuyFlowContent));
+            registry.add(new StereotypeDescription(EMPTY_ID, EMPTY_LABEL, "New", this::getEmptyContent)); //$NON-NLS-1$
+        }
     }
 
     private String getEmptyDomainContent() {
