@@ -252,7 +252,7 @@ export const ProjectsView = () => {
                       <Button
                         to={`/upload/project`}
                         component={RouterLink}
-                        data-testid="create"
+                        data-testid="upload"
                         color="primary"
                         variant="outlined"
                       >
@@ -324,7 +324,7 @@ const ProjectsTable = ({ projects, onMore }: ProjectsTableProps) => {
               <TableCell variant="head"></TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody data-testid="projects">
             {projects.map((project) => (
               <TableRow key={project.id}>
                 <TableCell>
