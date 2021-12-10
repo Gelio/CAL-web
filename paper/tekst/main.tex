@@ -1,6 +1,88 @@
 \chapter{Wstęp}
 
-Wspomnieć czym jest BalticLSC.
+Za pomocą modeli programy komputerowe są w stanie odwzorować świat.
+Zawierają one uproszczoną reprezentację rzeczywistości, a logika programu
+umożliwia wykonywanie obliczeń na podstawie modelu, jego modyfikację, lub
+utrwalenie i udostępnienie do wglądu innym użytkownikom.
+Modele te mogą być prezentowane użytkownikowi na wiele sposobów. Jednym z nich
+jest reprezentacja graficzna w~formie diagramu. Taka metoda reprezentacji
+w niektórych przypadkach pozwala użytkownikowi na łatwiejsze zrozumienie modelu
+oraz jego modyfikację, w porównaniu do~formatu tekstowego, ponieważ jest
+wizualna i przestrzenna, co jest naturalniejsze dla mózgu człowieka.
+
+Przykładem modeli z reprezentacją graficzną, które są zrozumiałe zarówno dla
+człowieka, jak i maszyny, i
+przydają się podczas wytwarzania oprogramowania, są modele korzystające
+z~\gls{UML}~\cite{wikipedia-uml}. Przedstawiają
+one strukturę klas w programie oraz zależności między klasami. Na ich podstawie
+czytelnik może wysokopoziomowo zapoznać się~ze strukturą programu, a
+odpowiednie narzędzia pozwolą wygenerować kod klas w danym języku
+programowania, który może służyć jako początek do późniejszego rozwoju
+aplikacji. Przykładowy model \gls{UML} został przedstawiony na
+rysunku~\ref{rys:przykladowy-model-uml}.
+
+\begin{figure}[!hb]
+	\centering
+	\includegraphics[width=0.95\linewidth]{./images/example-uml-model.png}
+	\caption{Przykładowy model \gls{UML}.}\label{rys:przykladowy-model-uml}
+\end{figure}
+
+\gls{UML} jest przykładem uniwersalnego języka do opisu modeli klas programu.
+Nie jest on~związany z żadną konkretną tematyką klas i pozwala na modelowanie
+programów o~różnym zastosowaniu i przeznaczeniu. Istnieją także języki do opisu
+modeli ściślej związanych z~konkretną dziedziną, czyli \gls{DSL}. Takie języki
+są zazwyczaj mniejsze i mniej skomplikowane od języków uniwersalnych, a także
+mają dokładniejszą semantykę (znaczenie elementów modelu).
+
+Strukturę samego modelu opisuje metamodel. Jest to model, który definiuje jakie
+są~możliwe typy elementów modelu, jakie mają atrybuty, jak są połączone ze
+sobą (składnia języka modelowania). Sam metamodel może być opisany na przykład
+w języku UML\@ lub podobnym
+bazowanym na nim, który będzie możliwiał wprowadzenie większej liczby
+szczegółów. Taki metamodel często należy uzupełnić o zasady semantyczne ---
+informacje o znaczeniu elementów, które nie mogą być zapisane w strukturze
+metamodelu. Przykładową informacją semantyczną w modelu UML może być informacja
+o krotności asocjacji.
+
+\emph{BalticLSC} jest platformą do obliczeń rozproszonych wykonywaną z
+inicjatywy
+\emph{INTERREG Regionu Morza Bałtyckiego Unit Europejskiej}. Platforma ta
+pozwala
+wykonać obliczenia wykorzystując dostępne moduły obliczeniowe. Aplikacje
+obliczeniowe definiowane są w postaci diagramów przedstawiających przepływ
+danych między modułami obliczeniowymi. Przykład diagramu opisującego aplikację
+obliczeniową został przedstawiony na
+rysunku~\ref{rys:przykladowy-diagram-balticlsc}.  Model obliczeń opisany jest w
+języku \gls{CAL}, który jest opisany za pomocą metamodelu~\cite{cal-metamodel}.
+
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
+	\caption{Przykładowy diagram przedstawiający aplikację obliczeniową w
+		BalticLSC\@.}\label{rys:przykladowy-diagram-balticlsc}
+\end{figure}
+
+Istniejący edytor diagramów w BalticLSC dostępny jest jako część aplikacji
+przeglądarkowej udostępnionej przez platformę. Do komunikacji z aplikacją
+serwerową wykorzystuje inną reprezentację aplikacji obliczeniowej --- zapisuje
+ją w postaci pudełek (prostokątów) oraz połączeń między nimi. Nie komunikuje
+się on z aplikacją serwerową przesyłając informacje o strukturze modelu
+zgodnej z metamodelem języka \gls{CAL}. Sprawia to, że po obu stronach (serwera
+i aplikacji przeglądarkowej) potrzebne są dodatkowe transformacje
+przetwarzające ogólny opis diagramu na model aplikacji obliczeniowej.
+
+Sirius Web~\cite{sirius-web-github} jest narzędziem przygotowywanym przez firmę
+Eclipse do tworzenia edytorów
+diagramów działających w przeglądarce bazujących na metamodelach \gls{EMF}.
+Jest ono w fazie aktywnego rozwoju.
+
+W ramach tej pracy magisterskiej przygotowany został edytor diagramów dla
+systemu BalticLSC korzystający z \emph{Sirius Web}. Edytor ten bazuje na
+formalnym metamodelu \gls{EMF} opisującym język \gls{CAL} do
+opisu aplikacji obliczeniowej. Ponadto, dostarczona została metoda sprawdzania
+poprawności przygotowywanych przez użytkownika modeli na podstawie
+zdefiniowanych reguł walidacji.
 
 \section{Cel pracy}
 
