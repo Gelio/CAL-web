@@ -84,29 +84,70 @@ opisu aplikacji obliczeniowej. Ponadto, dostarczona została metoda sprawdzania
 poprawności przygotowywanych przez użytkownika modeli na podstawie
 zdefiniowanych reguł walidacji.
 
-\section{Cel pracy}
+\section{Motywacja i cel pracy}
+
+Sirius Web jest narzędziem pozwalającym na przygotowanie przeglądarkowego
+edytora diagramów w sposób sformalizowany, bazujący na metamodelu \gls{EMF}.
+Technologia \gls{EMF} jest dojrzała, a metamodele w
+przeszłości mogły być przygotowywane z wykorzystaniem oprogramowania Sirius
+Desktop. Wykorzystując Sirius Web można w prosty sposób otrzymać aplikację
+przeglądarkową umożliwiającą zbliżone możliwości przeglądania i edycji modeli,
+które dotychczas oferowała jedynie aplikacja wymagająca instalacji na
+komputerze użytkownika. Oprócz łatwiejszego dostępu do edytora diagramów dla
+nowych użytkowników, wykorzystanie technologii przeglądarkowych do budowy
+edytora diagramów pozwalają na dodanie mechanizmów kontroli dostępu do
+wybranych modeli dla pewnych użytkowników, a także możliwości współpracy nad
+modelem przez różne osoby w czasie rzeczywistym.
+
+W ustrukturyzowanym modelu zawierającym obiekty dziedzinowe w nietrudny sposób
+można wyrazić reguły determinujące poprawność semantyczną modelu. Sirius
+Desktop pozwala w tym zakresie na definiowanie semantycznych reguł
+walidacyjnych, które są uruchamiane po każdej modyfikacji modelu i pokazują
+błędnie umieszczone elementy. Odpowiednik tej funkcjonalności jest pożądany
+także w edytorach diagramów opartych na Sirius Web.
+
+Jedną z alternatyw do wykorzystania Sirius Web do budowy edytora diagramów jest
+wykorzystanie gotowych bibliotek JavaScript do wyświetlania i modyfikacji
+diagramów (przykłady: \emph{react-diagrams}~\cite{react-diagrams-github},
+\emph{Cytoscape.js}~\cite{cytoscape-js-homepage},
+\emph{vis-network}~\cite{vis-network-github}). Są one ogólnymi narzędziami
+pozwalającymi na zbudowanie własnego edytora diagramów. Dają sporą dowolność w
+kwestii wyświetlania diagramu oraz
+dostępnych funkcjonalności. Nie narzucają one
+wykorzystania ustrukturyzowanych modeli poprzez wymaganie stworzenia
+metamodelu. Z uwagi na swoją ogólność są trudniejsze do dostosowania do
+własnych potrzeb, ponieważ funkcjonalności takie jak zapisywanie modeli w bazie
+danych, współpraca w czasie rzeczywistym, walidacja modelu należy
+zaimplementować samemu. Ponadto, modyfikacja takiego edytora diagramów wymaga
+znajomości języka JavaScript.
+
+Korzyści płynące z łatwego do przygotowania przeglądarkowego edytora diagramów
+dla wybranych przez
+nas modeli prezentują technologię Sirius Web jako interesującą i wartą użycia.
 
 Celem tej pracy magisterskiej jest zbadanie możliwości udostępnianych przez
 edytor diagramów
 dostarczony przez Sirius Web poprzez wykorzystanie go do przygotowania edytora
 diagramów dla modeli języka CAL na platformie BalticLSC\@. Elementem edytora,
 na który należy zwrócić szczególną uwagę, jest możliwosć walidacji modeli,
-czyli weryfikacji ich poprawności strukturalnej i semantycznej.
+czyli weryfikacji ich~poprawności strukturalnej i semantycznej.
 
 Ponadto, praca ta będzie jednym z pierwszych zastosowań Sirius Web wykonanych
 przez osoby spoza zespołu budującego tą technologię, co może dostarczyć
 dodatkowych informacji zwrotnych na temat prostoty jego wykorzystania, a także
-napotkanych błędów i niedociągnięć. Dla osób rozważających budowę edytora
+napotkanych błędów i~niedociągnięć. Dla osób rozważających budowę edytora
 modeli w oparciu o Sirius Web, praca ta będzie stanowiła źródło informacji o
 wrażeniach z wykorzystania tej technologii, co pomoże podjąć bardziej świadomą
 decyzję o używanych technologiach.
 Z uwagi na brak dostępnej dokumentacji Sirius Web, praca ta może służyć również
 jako przykład wykorzystania własnego metamodelu w tym edytorze diagramów.
 
-\section{Motywacja}
-
-Dzięki Sirius Web oraz metamodelowaniu można zbudować edytor diagramów wraz z
-walidacją semantyczną dla dowolnej domeny.
+Taki edytor diagramów bazujący na Sirius Web mógłby również zostać wykorzystany
+w~aplikacji przeglądarkowej platformy BalticLSC\@. Jest on oparty o
+ustrukturyzowany opis modelu, co pozwoliłoby na uproszczenie metody komunikacji
+między serwerem aplikacyjnym a~aplikacją przeglądarkową, ponieważ nie byłyby
+wymagane transformacje z aktualnego, ogólnego formatu danych do formatu
+zgodnego z metamodelem.
 
 \section{Zakres pracy}
 
