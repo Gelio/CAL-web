@@ -1,17 +1,17 @@
 \chapter{Wstęp}
 
-Za pomocą modeli programy komputerowe są w stanie odwzorować świat.
+Świat jest odwzorowywany przez programy komputerowe za pomocą modeli.
 Zawierają one uproszczoną reprezentację rzeczywistości, a logika programu
 umożliwia wykonywanie obliczeń na podstawie modelu, jego modyfikację, lub
-utrwalenie i udostępnienie do wglądu innym użytkownikom.
+utrwalenie i udostępnienie do wglądu innym osobom.
 Modele te mogą być prezentowane użytkownikowi na wiele sposobów. Jednym z nich
 jest reprezentacja graficzna w~formie diagramu. Taka metoda reprezentacji
-w niektórych przypadkach pozwala użytkownikowi na łatwiejsze zrozumienie modelu
+ozwala użytkownikowi na łatwiejsze zrozumienie modelu
 oraz jego modyfikację, w porównaniu do~formatu tekstowego, ponieważ jest
-wizualna i przestrzenna, co jest naturalniejsze dla mózgu człowieka.
+wizualna i przestrzenna, a więc jest naturalniejszą formą dla mózgu człowieka.
 
 Przykładem modeli z reprezentacją graficzną, które są zrozumiałe zarówno dla
-człowieka, jak i maszyny, i
+człowieka, jak i maszyny, oraz
 przydają się podczas wytwarzania oprogramowania, są modele korzystające
 z~\gls{UML}~\cite{wikipedia-uml}. Przedstawiają
 one strukturę klas w programie oraz zależności między klasami. Na ich podstawie
@@ -32,7 +32,9 @@ Nie jest on~związany z żadną konkretną tematyką klas i pozwala na modelowan
 programów o~różnym zastosowaniu i przeznaczeniu. Istnieją także języki do opisu
 modeli ściślej związanych z~konkretną dziedziną, czyli \gls{DSL}. Takie języki
 są zazwyczaj mniejsze i mniej skomplikowane od języków uniwersalnych, a także
-mają dokładniejszą semantykę (znaczenie elementów modelu).
+mają dokładniejszą semantykę (znaczenie elementów modelu). Potrafią więc one
+odwzorować rzeczywistość w~sposób bardziej kompletny i zawrzeć więcej
+szczegółów.
 
 Strukturę samego modelu opisuje metamodel. Jest to model, który definiuje jakie
 są~możliwe typy elementów modelu, jakie mają atrybuty, jak są połączone ze
@@ -75,7 +77,24 @@ przetwarzające ogólny opis diagramu na model aplikacji obliczeniowej.
 Sirius Web~\cite{sirius-web-github} jest narzędziem przygotowywanym przez firmę
 Eclipse do tworzenia edytorów
 diagramów działających w przeglądarce bazujących na metamodelach \gls{EMF}.
-Jest ono w fazie aktywnego rozwoju.
+Technologia \gls{EMF} jest wykorzystywana od roku 2007, a metamodele
+w~przeszłości mogły być tworzone używając oprogramowania Sirius
+Desktop. Wykorzystując Sirius Web można w prosty sposób otrzymać aplikację
+przeglądarkową umożliwiającą możliwości przeglądania i edycji modeli zbliżone
+do tych,
+które dotychczas oferowała jedynie aplikacja wymagająca instalacji na
+komputerze użytkownika. Oprócz łatwiejszego dostępu do edytora diagramów dla
+nowych użytkowników, wykorzystanie technologii przeglądarkowych do budowy
+edytora diagramów pozwalają na dodanie mechanizmów kontroli dostępu do
+wybranych modeli dla pewnych użytkowników, a także możliwości współpracy nad
+modelem przez różne osoby w~czasie rzeczywistym.
+
+W ustrukturyzowanym modelu zawierającym obiekty dziedzinowe w nietrudny sposób
+można wyrazić reguły determinujące poprawność semantyczną modelu. Sirius
+Desktop pozwala w tym zakresie na definiowanie semantycznych reguł
+walidacyjnych, które są uruchamiane po każdej modyfikacji modelu i pokazują
+błędnie umieszczone elementy. Odpowiednik tej funkcjonalności jest pożądany
+także w edytorach diagramów opartych na Sirius Web.
 
 W ramach tej pracy magisterskiej przygotowany został edytor diagramów dla
 systemu BalticLSC korzystający z \emph{Sirius Web}. Edytor ten bazuje na
@@ -85,26 +104,6 @@ poprawności przygotowywanych przez użytkownika modeli na podstawie
 zdefiniowanych reguł walidacji.
 
 \section{Motywacja i cel pracy}
-
-Sirius Web jest narzędziem pozwalającym na przygotowanie przeglądarkowego
-edytora diagramów w sposób sformalizowany, bazujący na metamodelu \gls{EMF}.
-Technologia \gls{EMF} jest dojrzała, a metamodele w
-przeszłości mogły być przygotowywane z wykorzystaniem oprogramowania Sirius
-Desktop. Wykorzystując Sirius Web można w prosty sposób otrzymać aplikację
-przeglądarkową umożliwiającą zbliżone możliwości przeglądania i edycji modeli,
-które dotychczas oferowała jedynie aplikacja wymagająca instalacji na
-komputerze użytkownika. Oprócz łatwiejszego dostępu do edytora diagramów dla
-nowych użytkowników, wykorzystanie technologii przeglądarkowych do budowy
-edytora diagramów pozwalają na dodanie mechanizmów kontroli dostępu do
-wybranych modeli dla pewnych użytkowników, a także możliwości współpracy nad
-modelem przez różne osoby w czasie rzeczywistym.
-
-W ustrukturyzowanym modelu zawierającym obiekty dziedzinowe w nietrudny sposób
-można wyrazić reguły determinujące poprawność semantyczną modelu. Sirius
-Desktop pozwala w tym zakresie na definiowanie semantycznych reguł
-walidacyjnych, które są uruchamiane po każdej modyfikacji modelu i pokazują
-błędnie umieszczone elementy. Odpowiednik tej funkcjonalności jest pożądany
-także w edytorach diagramów opartych na Sirius Web.
 
 Jedną z alternatyw do wykorzystania Sirius Web do budowy edytora diagramów jest
 wykorzystanie gotowych bibliotek JavaScript do wyświetlania i modyfikacji
@@ -121,13 +120,15 @@ danych, współpraca w czasie rzeczywistym, walidacja modelu należy
 zaimplementować samemu. Ponadto, modyfikacja takiego edytora diagramów wymaga
 znajomości języka JavaScript.
 
+Sirius Web dostarcza większość z tych
+funkcjonalności wymagając jedynie wskazania metamodelu, który ma wykorzystywać.
 Korzyści płynące z łatwego do przygotowania przeglądarkowego edytora diagramów
 dla wybranych przez
-nas modeli prezentują technologię Sirius Web jako interesującą i wartą użycia.
+nas modeli prezentują technologię Sirius Web jako interesującą i wartą użycia,
+pomimo jej wczesnej fazy rozwoju i braku dokumentacji.
 
 Celem tej pracy magisterskiej jest zbadanie możliwości udostępnianych przez
-edytor diagramów
-dostarczony przez Sirius Web poprzez wykorzystanie go do przygotowania edytora
+Sirius Web poprzez wykorzystanie go do przygotowania edytora
 diagramów dla modeli języka CAL na platformie BalticLSC\@. Elementem edytora,
 na który należy zwrócić szczególną uwagę, jest możliwosć walidacji modeli,
 czyli weryfikacji ich~poprawności strukturalnej i semantycznej.
@@ -166,12 +167,12 @@ W ramach pracy magisterskiej wykonano następujące czynności:
 
 \vspace{1em}
 
-Poza zakresem pracy pozostały następujące czynności:
+\noindent Poza zakresem pracy pozostały następujące czynności:
 
-\begin{enumerate}
+\begin{itemize}
 	\item Integracja stworzonego rozwiązania jako alternatywnego edytora diagramów dla systemu BalticLSC\@.
 	\item Naprawa zgłoszonych usterek w Sirius Web.
-\end{enumerate}
+\end{itemize}
 
 \chapter{Tworzenie edytorów graficznych na bazie metamodeli}
 
