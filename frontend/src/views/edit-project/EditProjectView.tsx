@@ -20,6 +20,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useMachine } from "@xstate/react";
 import {
   Representation,
+  TreeItemContextMenuContribution,
   Workbench as SiriusComponentsWorkbench,
 } from "@eclipse-sirius/sirius-components";
 import gql from "graphql-tag";
@@ -48,6 +49,8 @@ import {
 } from "./EditProjectViewMachine";
 import { Workbench } from "./Workbench";
 import { NavigationBar } from "../../navigationBar/NavigationBar";
+import { DocumentTreeItemContextMenuContribution } from "./DocumentTreeItemContextMenuContribution";
+import { ObjectTreeItemContextMenuContribution } from "./ObjectTreeItemContextMenuContribution";
 
 export const getProjectQuery = gql`
   query getRepresentation($projectId: ID!) {
@@ -150,11 +153,25 @@ export const EditProjectView = () => {
 
   let main = null;
   if (editProjectView === "loaded" && project) {
+    const contributions = (
+      <>
+        <TreeItemContextMenuContribution
+          canHandle={(item) => item.kind === "Document"}
+          component={DocumentTreeItemContextMenuContribution}
+        />
+        <TreeItemContextMenuContribution
+          canHandle={(item) => item.kind.includes("::")}
+          component={ObjectTreeItemContextMenuContribution}
+        />
+      </>
+    );
+
     if (representation) {
       main = (
         <Workbench
           editingContextId={project.currentEditingContext.id}
           representation={representation}
+          children={contributions}
         />
       );
     } else {
@@ -175,6 +192,7 @@ export const EditProjectView = () => {
             dispatch(event);
           }}
           readOnly={false}
+          children={contributions}
         />
       );
     }

@@ -20,19 +20,19 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.6</version>
+		<version>2.6.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.eclipse.sirius.web</groupId>
 	<artifactId>sirius-web-sample-application</artifactId>
-	<version>0.5.0</version>
+	<version>2021.12.0</version>
 	<name>sirius-web-sample-application</name>
 	<description>Sirius Web Sample Application</description>
 
 	<properties>
 		<java.version>11</java.version>
-		<sirius.components.version>0.5.3</sirius.components.version>
-		<flow.version>1.0.8-SNAPSHOT</flow.version>
+		<sirius.components.version>2021.12.7</sirius.components.version>
+		<flow.version>1.0.10-SNAPSHOT</flow.version>
     <CAL.model.version>0.1.0-SNAPSHOT</CAL.model.version>
 	</properties>
 
@@ -87,22 +87,22 @@
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-graphql</artifactId>
-			<version>0.5.0</version>
+			<version>2021.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-services</artifactId>
-			<version>0.5.0</version>
+			<version>2021.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-spring</artifactId>
-			<version>0.5.0</version>
+			<version>2021.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-frontend</artifactId>
-			<version>0.5.0</version>
+			<version>2021.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>

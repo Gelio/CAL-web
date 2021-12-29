@@ -3,6 +3,8 @@ import {
   RepresentationComponentProps,
   RepresentationContext,
   Selection,
+  TreeItemContextMenuContext,
+  TreeItemContextMenuContribution,
 } from "@eclipse-sirius/sirius-components";
 import { makeStyles, Snackbar } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,7 +12,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useMachine } from "@xstate/react";
 import * as O from "fp-ts/lib/Option";
 import { useAuthErrorStore } from "../../../auth/error";
-import { useContext, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { LeftSite } from "./LeftSite";
 import { HORIZONTAL, Panels, SECOND_PANEL } from "./Panels";
 import { RightSite } from "./RightSite";
@@ -56,7 +64,8 @@ const useWorkbenchStyles = makeStyles(() => ({
 export const Workbench = ({
   editingContextId,
   representation,
-}: WorkbenchProps) => {
+  children,
+}: PropsWithChildren<WorkbenchProps>) => {
   const classes = useWorkbenchStyles();
   const authError = useAuthErrorStore();
   const [authToastOpen, setAuthToastOpen] = useState(false);
@@ -78,23 +87,38 @@ export const Workbench = ({
   }, [authError.error]);
 
   const setSelection = (selection: Selection) => {
-    const isRepresentation = registry.isRepresentation(selection.kind);
+    const representations: Representation[] = selection.entries.filter(
+      (entry) => registry.isRepresentation(entry.kind)
+    );
     const updateSelectionEvent: UpdateSelectionEvent = {
       type: "UPDATE_SELECTION",
       selection,
-      isRepresentation,
+      representations,
     };
     dispatch(updateSelectionEvent);
   };
 
+  const treeItemContextMenuContributions: ReactElement[] = [];
+  React.Children.forEach(children, (child) => {
+    if (
+      React.isValidElement(child) &&
+      child.type === TreeItemContextMenuContribution
+    ) {
+      treeItemContextMenuContributions.push(child);
+    }
+  });
+
   const leftSite = (
-    <LeftSite
-      editingContextId={editingContextId}
-      selection={selection}
-      setSelection={setSelection}
-      // TODO: change to `true` after testing that everything works
-      readOnly={false}
-    />
+    <TreeItemContextMenuContext.Provider
+      value={treeItemContextMenuContributions}
+    >
+      <LeftSite
+        editingContextId={editingContextId}
+        selection={selection}
+        setSelection={setSelection}
+        readOnly={false}
+      />
+    </TreeItemContextMenuContext.Provider>
   );
 
   const rightSite = (

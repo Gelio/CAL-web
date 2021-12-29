@@ -168,7 +168,7 @@ export const NewProjectView = () => {
                   name="name"
                   value={name}
                   placeholder="Enter the project name"
-                  data-testid="name"
+                  inputProps={{ "data-testid": "name" }}
                   autoFocus={true}
                   onChange={onNameChange}
                 />

@@ -149,6 +149,7 @@ export const EditProjectNavbar = ({ project }: EditProjectNavbarProps) => {
             aria-haspopup="true"
             onClick={onMoreClick}
             color="inherit"
+            data-testid="more"
           >
             <MoreVertIcon />
           </IconButton>
@@ -158,6 +159,7 @@ export const EditProjectNavbar = ({ project }: EditProjectNavbarProps) => {
       <Menu
         open={viewState === CONTEXTUAL_MENU_DISPLAYED__STATE}
         anchorEl={projectMenuAnchor}
+        data-testid="navbar-contextmenu"
         onClose={() => dispatch({ type: HANDLE_CLOSE_CONTEXT_MENU__ACTION })}
       >
         <MenuItem
@@ -167,6 +169,7 @@ export const EditProjectNavbar = ({ project }: EditProjectNavbarProps) => {
               type: HANDLE_SHOW_MODAL__ACTION,
             })
           }
+          data-testid="new-model"
         >
           <ListItemIcon>
             <AddIcon />
@@ -175,6 +178,7 @@ export const EditProjectNavbar = ({ project }: EditProjectNavbarProps) => {
         </MenuItem>
         <MenuItem
           divider
+          data-testid="upload-document"
           onClick={() =>
             dispatch({
               modalDisplayed: "UploadDocument",
@@ -220,6 +224,7 @@ export const EditProjectNavbar = ({ project }: EditProjectNavbarProps) => {
               type: HANDLE_SHOW_MODAL__ACTION,
             })
           }
+          data-testid="delete"
         >
           <ListItemIcon>
             <DeleteIcon />

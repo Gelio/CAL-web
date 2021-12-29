@@ -2,10 +2,6 @@ package org.eclipse.sirius.web.services.unitcalls;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import javax.management.InvalidAttributeValueException;
 
 import org.eclipse.sirius.web.core.api.ChildCreationDescription;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
@@ -167,19 +163,19 @@ public class CreateUnitCallEventHandler implements IEditingContextEventHandler {
         return unitCall;
     }
 
-    private String getUnitReleaseCreationDescriptionId(UUID editingContextId) {
+    private String getUnitReleaseCreationDescriptionId(String editingContextId) {
         return this.getChildCreationDescriptionId(editingContextId, "CAL::ComputationApplicationRelease", "Unit Release"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-    private String getDeclaredDataPinCreationDescriptionId(UUID editingContextId) {
+    private String getDeclaredDataPinCreationDescriptionId(String editingContextId) {
         return this.getChildCreationDescriptionId(editingContextId, "CAL::ComputationUnitRelease", "Declared Data Pin"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-    private String getUnitCallCreationDescriptionId(UUID editingContextId) {
+    private String getUnitCallCreationDescriptionId(String editingContextId) {
         return this.getChildCreationDescriptionId(editingContextId, "CAL::ComputationApplicationRelease", "Unit Call"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-    private String getChildCreationDescriptionId(UUID editingContextId, String parentClassId, String childLabel) {
+    private String getChildCreationDescriptionId(String editingContextId, String parentClassId, String childLabel) {
         return this.editService.getChildCreationDescriptions(editingContextId, parentClassId).stream().filter(c -> c.getLabel().contains(childLabel)).findFirst()
                 // NOTE: if the description cannot be found, it's a bug
                 .map(ChildCreationDescription::getLabel).orElseThrow();
