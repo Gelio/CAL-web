@@ -87,11 +87,13 @@ export const Workbench = ({
   }, [authError.error]);
 
   const setSelection = (selection: Selection) => {
-    const isRepresentation = registry.isRepresentation(selection.kind);
+    const representations: Representation[] = selection.entries.filter(
+      (entry) => registry.isRepresentation(entry.kind)
+    );
     const updateSelectionEvent: UpdateSelectionEvent = {
       type: "UPDATE_SELECTION",
       selection,
-      isRepresentation,
+      representations,
     };
     dispatch(updateSelectionEvent);
   };
