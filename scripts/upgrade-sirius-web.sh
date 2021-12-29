@@ -39,8 +39,9 @@ echo "Upgrading $commits_to_upstream_tip_count commit(s) to $upstream_tip_rev ($
 
 echo "Generating patch files"
 git format-patch "..$upstream_tip_hash"
-echo "Generated patch files. Applying them in the main repository"
+echo "Generated patch files. Fetching changes from all remotes and applying patches in the main repository"
 popd >/dev/null
+git fetch --all
 if ! git am -3 $submodule_directory/*.patch; then
 	echo ""
 	echo "Could not cleanly apply patches. You are on your own now"
