@@ -5,6 +5,8 @@ import org.eclipse.emf.ecore.EObject;
 import eu.balticlsc.model.CAL.ApplicationDataPin;
 import eu.balticlsc.model.CAL.ConnectableDataPin;
 import eu.balticlsc.model.CAL.DataBinding;
+import eu.balticlsc.model.CAL.DataPin;
+import eu.balticlsc.model.CAL.Multiplicity;
 
 /**
  * The services class used by VSM.
@@ -33,7 +35,6 @@ public class Services {
     		return false;
     	}
 
-    	// TODO: check if it handles nulls
     	var targetConnectableDataPin = (ConnectableDataPin) target;
     	var targetDataPin = targetConnectableDataPin.getDataPin();
     	var sourceConnectableDataPin = (ConnectableDataPin) source;
@@ -48,5 +49,17 @@ public class Services {
     			// Allows using this function when reconnecting the source of DataFlow
     			(targetIncomingDataFlow == null || targetIncomingDataFlow == self) &&
     			onDifferentUnitCalls;
+    }
+
+    public String getDataPinIconPath(EObject self) {
+    	if (!(self instanceof DataPin)) {
+    		return null;
+    	}
+
+    	var dataPin = (DataPin) self;
+    	var dataPart = dataPin.getDataMultiplicity() == Multiplicity.SINGLE ? "single-data" : "multiple-data";
+    	var tokenPart = dataPin.getTokenMultiplicity() == Multiplicity.SINGLE ? "single-token" : "multiple-tokens";
+
+    	return dataPart + "-" + tokenPart + ".png";
     }
 }
