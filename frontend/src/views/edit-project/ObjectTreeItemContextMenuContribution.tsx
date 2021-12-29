@@ -14,18 +14,25 @@ import {
   NewObjectModal,
   NewRepresentationModal,
   TreeItemContextMenuComponentProps,
-} from '@eclipse-sirius/sirius-components';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import AddIcon from '@material-ui/icons/Add';
-import { forwardRef, Fragment, useState } from 'react';
+} from "@eclipse-sirius/sirius-components";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import AddIcon from "@material-ui/icons/Add";
+import { forwardRef, Fragment, useState } from "react";
 
-type Modal = 'CreateNewObject' | 'CreateNewRepresentation';
+type Modal = "CreateNewObject" | "CreateNewRepresentation";
 
 export const ObjectTreeItemContextMenuContribution = forwardRef(
   (
-    { editingContextId, item, readOnly, setSelection, expandItem, onClose }: TreeItemContextMenuComponentProps,
+    {
+      editingContextId,
+      item,
+      readOnly,
+      setSelection,
+      expandItem,
+      onClose,
+    }: TreeItemContextMenuComponentProps,
     ref: React.ForwardedRef<HTMLLIElement>
   ) => {
     const [modal, setModal] = useState<Modal>(null);
@@ -37,7 +44,7 @@ export const ObjectTreeItemContextMenuContribution = forwardRef(
     };
 
     let modalElement = null;
-    if (modal === 'CreateNewObject') {
+    if (modal === "CreateNewObject") {
       modalElement = (
         <NewObjectModal
           editingContextId={editingContextId}
@@ -46,7 +53,7 @@ export const ObjectTreeItemContextMenuContribution = forwardRef(
           onClose={onClose}
         />
       );
-    } else if (modal === 'CreateNewRepresentation') {
+    } else if (modal === "CreateNewRepresentation") {
       modalElement = (
         <NewRepresentationModal
           editingContextId={editingContextId}
@@ -61,11 +68,12 @@ export const ObjectTreeItemContextMenuContribution = forwardRef(
       <Fragment key="object-tree-item-context-menu-contribution">
         <MenuItem
           key="new-object"
-          onClick={() => setModal('CreateNewObject')}
+          onClick={() => setModal("CreateNewObject")}
           data-testid="new-object"
           disabled={readOnly}
           ref={ref}
-          aria-disabled>
+          aria-disabled
+        >
           <ListItemIcon>
             <AddIcon fontSize="small" />
           </ListItemIcon>
@@ -73,10 +81,11 @@ export const ObjectTreeItemContextMenuContribution = forwardRef(
         </MenuItem>
         <MenuItem
           key="new-representation"
-          onClick={() => setModal('CreateNewRepresentation')}
+          onClick={() => setModal("CreateNewRepresentation")}
           data-testid="new-representation"
           disabled={readOnly}
-          aria-disabled>
+          aria-disabled
+        >
           <ListItemIcon>
             <AddIcon fontSize="small" />
           </ListItemIcon>

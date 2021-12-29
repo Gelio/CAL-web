@@ -15,19 +15,26 @@ import {
   Selection,
   ServerContext,
   TreeItemContextMenuComponentProps,
-} from '@eclipse-sirius/sirius-components';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import AddIcon from '@material-ui/icons/Add';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import { forwardRef, Fragment, useContext, useState } from 'react';
+} from "@eclipse-sirius/sirius-components";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import AddIcon from "@material-ui/icons/Add";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import { forwardRef, Fragment, useContext, useState } from "react";
 
-type Modal = 'CreateNewRootObject';
+type Modal = "CreateNewRootObject";
 
 export const DocumentTreeItemContextMenuContribution = forwardRef(
   (
-    { editingContextId, item, readOnly, setSelection, expandItem, onClose }: TreeItemContextMenuComponentProps,
+    {
+      editingContextId,
+      item,
+      readOnly,
+      setSelection,
+      expandItem,
+      onClose,
+    }: TreeItemContextMenuComponentProps,
     ref: React.ForwardedRef<HTMLLIElement>
   ) => {
     const { httpOrigin } = useContext(ServerContext);
@@ -40,7 +47,7 @@ export const DocumentTreeItemContextMenuContribution = forwardRef(
     };
 
     let modalElement = null;
-    if (modal === 'CreateNewRootObject') {
+    if (modal === "CreateNewRootObject") {
       modalElement = (
         <NewRootObjectModal
           editingContextId={editingContextId}
@@ -56,9 +63,10 @@ export const DocumentTreeItemContextMenuContribution = forwardRef(
         <MenuItem
           key="new-object"
           data-testid="new-object"
-          onClick={() => setModal('CreateNewRootObject')}
+          onClick={() => setModal("CreateNewRootObject")}
           ref={ref}
-          aria-disabled>
+          aria-disabled
+        >
           <ListItemIcon>
             <AddIcon fontSize="small" />
           </ListItemIcon>
@@ -73,7 +81,8 @@ export const DocumentTreeItemContextMenuContribution = forwardRef(
           type="application/octet-stream"
           data-testid="download"
           disabled={readOnly}
-          aria-disabled>
+          aria-disabled
+        >
           <ListItemIcon>
             <GetAppIcon fontSize="small" />
           </ListItemIcon>
