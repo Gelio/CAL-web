@@ -528,6 +528,12 @@
 \renewcommand{\maketitle}{
 	\linespread{1.15}
 
+	% TODO: upewnić się, że czcionki są poprawne (opisane załącznikiem 1. do
+	% zarządzenia 57/2016, czyli:
+	% * Florin SansPl Light
+	% * Helvetica Light (Switzerland Light)
+	% * Helvetica (Switzerland)
+
 	\thispagestyle{empty}
 	\begin{center}
 		\includegraphics[width=\textwidth]{PWHead.png}
@@ -652,6 +658,8 @@
 	\maketitle
 	\abstractpages
 	\authorship
+	% TODO: oświadczenie o udzieleniu licencji (jest wspomniane w zarządzeniu
+	% 107/2021 JM)
 	\tableofcontents
 	\cleardoublepage
 	\pagestyle{headings}
