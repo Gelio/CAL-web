@@ -25,7 +25,8 @@
 % Zalecane: stopień pisma 11 pt
 % ---------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{EE-dyplom}[2020/12/24 Praca dyplomowa na Wydziale Elektrycznym PW]
+\ProvidesClass{EE-dyplom}[2020/12/24 Praca dyplomowa na Wydziale Elektrycznym
+	PW]
 
 %\LoadClass[a4paper,11pt,twoside,openright]{report}
 % Alternatywnie: 12 pt
@@ -38,7 +39,6 @@
 \SetupKeyvalOptions{family=EE-dyplom.cls, prefix=ee}
 \DeclareStringOption[inz]{thesis}
 \ProcessKeyvalOptions*
-
 
 \ifnum\strcmp{\eethesis}{inz} = 0
 	\newcommand{\locallang}{PL}
@@ -213,8 +213,8 @@
 % ALBO styl harwardzki
 % ---------------------------------------------
 \RequirePackage[backend=biber,
-	style=ieee,     % styl numeryczny IEEE prawie jak PN
-	sorting=nyt,    % sortowanie spisu po nazwiskach
+	style=ieee,	% styl numeryczny IEEE prawie jak PN
+	sorting=nyt,	% sortowanie spisu po nazwiskach
 	citestyle=numeric-comp % kompaktowe odnośniki numeryczne typu [21-23]
 ]{biblatex}
 \addbibresource{EE-dyplom.bib}
@@ -305,23 +305,23 @@
 \RequirePackage{hyperref}
 \hypersetup{ % Na bazie https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
 	%    bookmarks=true,         % show bookmarks bar? FIXME
-	unicode=true,           % non-Latin characters in Acrobat’s bookmarks
-	pdftoolbar=true,        % show Acrobat’s toolbar?
-	pdfmenubar=true,        % show Acrobat’s menu?
-	pdffitwindow=false,     % window fit to page when opened
-	pdfstartview={FitH},    % fits the width of the page to the window
+	unicode=true,		% non-Latin characters in Acrobat’s bookmarks
+	pdftoolbar=true,	% show Acrobat’s toolbar?
+	pdfmenubar=true,	% show Acrobat’s menu?
+	pdffitwindow=false,	% window fit to page when opened
+	pdfstartview={FitH},	% fits the width of the page to the window
 	%    pdfsubject={}, % subject of the document
 	%    pdfkeywords={}, % list of keywords
-	linktoc=all,            % defines which part of an entry in the table
+	linktoc=all,		% defines which part of an entry in the table
 	%of contents is made into a link (none,section,page,all)
-	pdfnewwindow=true,      % links in new PDF window
-	colorlinks=true,        % false: boxed links; true: colored links
-	linkcolor=EEBlueDark,   % color of internal links (change box color with linkbordercolor)
-	citecolor=EEBlueDark,   % color of links to bibliography
-	filecolor=EEBlueDark,   % color of file links
-	urlcolor=EEBlueDark,    % color of external links
-	linkbordercolor={1 0 0}, 	% color of frame around internal links (if colorlinks=false)
-	citebordercolor={0 1 0}, 	% color of frame around citations
+	pdfnewwindow=true,	% links in new PDF window
+	colorlinks=true,	% false: boxed links; true: colored links
+	linkcolor=EEBlueDark,	% color of internal links (change box color with linkbordercolor)
+	citecolor=EEBlueDark,	% color of links to bibliography
+	filecolor=EEBlueDark,	% color of file links
+	urlcolor=EEBlueDark,	% color of external links
+	linkbordercolor={1 0 0},	% color of frame around internal links (if colorlinks=false)
+	citebordercolor={0 1 0},	% color of frame around citations
 	urlbordercolor={0 1 1},     % color of frame around URL links
 }
 
@@ -348,11 +348,15 @@
 % Zarządzenie definiuje go niejednoznacznie. Dla wskazanego
 % Pantone 2716C i 2716U podane wartości CMYK (50, 30, 0, 0)
 % są inne niż podaje to Pantone na swej stronie www (38, 26, 0, 0).
-\definecolor{EEBlue}{cmyk}{0.50, 0.30, 0, 0}            % #8ba5d3
-\definecolor{EEBlueLight}{cmyk}{0.14, 0.04, 0.03, 0}    % #e2ecf8
-\definecolor{EEBlueDark}{cmyk}{0.73, 0.55, 0.35, 0.32}  % #45536a
+\definecolor{EEBlue}{cmyk}{0.50, 0.30, 0, 0}
+% #8ba5d3
+\definecolor{EEBlueLight}{cmyk}{0.14, 0.04, 0.03, 0}
+% #e2ecf8
+\definecolor{EEBlueDark}{cmyk}{0.73, 0.55, 0.35, 0.32}
+% #45536a
 % Uzupełniający dla EEBlue - pomarańczowy
-\definecolor{EEOrange}{cmyk}{0.02, 0.41, 0.94, 0}       % #f6a307
+\definecolor{EEOrange}{cmyk}{0.02, 0.41, 0.94, 0}
+% #f6a307
 % Uzupełniające bliskie dla EEBlue, 10 stopni na kole barw
 \definecolor{EETangerine}{RGB}{255, 119, 0}
 \definecolor{EEGold}{RGB}{255, 209, 0}
@@ -362,7 +366,7 @@
 % ---------------------------------------------
 % Ścieżki do grafik
 % ---------------------------------------------
-\graphicspath{{gfx/}{rysunki/}}
+\graphicspath{{gfx/}{images/}}
 
 % ---------------------------------------------
 % Listingi programów
@@ -400,7 +404,6 @@
 \renewmenumacro{\menu}[>]{roundedmenus}
 \renewmenumacro{\directory}{pathswithfolder}
 \renewmenumacro{\keys}{shadowedroundedkeys}
-
 
 % ---------------------------------------------
 % Dodatki
@@ -460,7 +463,6 @@
 % ---------------------------------------------
 \RequirePackage{tikz}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -468,7 +470,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STRONA TYTUŁOWA
@@ -527,6 +528,12 @@
 \let\oldmaketitle\maketitle
 \renewcommand{\maketitle}{
 	\linespread{1.15}
+
+	% TODO: upewnić się, że czcionki są poprawne (opisane załącznikiem 1. do
+	% zarządzenia 57/2016, czyli:
+	% * Florin SansPl Light
+	% * Helvetica Light (Switzerland Light)
+	% * Helvetica (Switzerland)
 
 	\thispagestyle{empty}
 	\begin{center}
@@ -621,22 +628,28 @@
 	\ifnum\strcmp{\locallang}{PL} = 0
 		\begin{tikzpicture}[remember picture, overlay]
 			\node [anchor=north west, inner sep=0pt] at (current page.north west)
-			{{\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -.8) {\@author};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -1.75) {\@album};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -2.65) {\@kierunek};
+        {\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -.8)
+        {\@author};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -1.75)
+        {\@album};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -2.65)
+        {\@kierunek};
 		\end{tikzpicture}
 	\else
 		\begin{tikzpicture}[remember picture, overlay]
 			\node [anchor=north west, inner sep=0pt] at (current page.north west)
-			{{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -0.9) {\@author};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -2.33) {\@album};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -3.65) {\@kierunek};
+        {\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -0.9)
+        {\@author};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -2.33)
+        {\@album};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -3.65)
+        {\@kierunek};
 		\end{tikzpicture}\clearpage
 		\begin{tikzpicture}[remember picture, overlay]
 			\node [anchor=north west, inner sep=0pt] at (current page.north west)
-			{{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};};
+        {\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};
 		\end{tikzpicture}
 	\fi
 	\cleardoublepage
@@ -652,6 +665,8 @@
 	\maketitle
 	\abstractpages
 	\authorship
+	% TODO: oświadczenie o udzieleniu licencji (jest wspomniane w zarządzeniu
+	% 107/2021 JM)
 	\tableofcontents
 	\cleardoublepage
 	\pagestyle{headings}
@@ -676,6 +691,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\easyappendix[1]{
 	\chapter{#1}
+
 	\addcontentsline{app}{chapter}{\appendixname~\Roman{chapter}\hspace{.5em}~#1}
 }
 

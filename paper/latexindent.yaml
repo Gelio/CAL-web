@@ -13,3 +13,5 @@ modifyLineBreaks:
     afterHeading: 1
     items: 1
     beforeTextWrap: 1
+verbatimEnvironments:
+  tikzpicture: 1
