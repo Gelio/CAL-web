@@ -627,35 +627,29 @@
 \newcommand{\authorship}{
 	\ifnum\strcmp{\locallang}{PL} = 0
 		\begin{tikzpicture}[remember picture, overlay]
-			\node [anchor=north west, inner sep=0pt] at (current
-			page.north west)
-
-			{{\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -.8)
-			{\@author};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -1.75)
-			{\@album};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -2.65)
-			{\@kierunek};
+			\node [anchor=north west, inner sep=0pt] at (current page.north west)
+        {\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -.8)
+        {\@author};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -1.75)
+        {\@album};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -2.65)
+        {\@kierunek};
 		\end{tikzpicture}
 	\else
 		\begin{tikzpicture}[remember picture, overlay]
-			\node [anchor=north west, inner sep=0pt] at (current
-			page.north west)
-
-			{{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -0.9)
-			{\@author};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -2.33)
-			{\@album};
-			\node[anchor=north west, inner sep=0pt] at(-0.8, -3.65)
-			{\@kierunek};
+			\node [anchor=north west, inner sep=0pt] at (current page.north west)
+        {\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -0.9)
+        {\@author};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -2.33)
+        {\@album};
+			\node[anchor=north west, inner sep=0pt] at (-0.8, -3.65)
+        {\@kierunek};
 		\end{tikzpicture}\clearpage
 		\begin{tikzpicture}[remember picture, overlay]
-			\node [anchor=north west, inner sep=0pt] at (current
-			page.north west)
-
-			{{\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};};
+			\node [anchor=north west, inner sep=0pt] at (current page.north west)
+        {\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};
 		\end{tikzpicture}
 	\fi
 	\cleardoublepage
