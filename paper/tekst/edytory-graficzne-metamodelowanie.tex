@@ -6,24 +6,24 @@ Dzieje się to z uwagi na fakt, że ludzie bardziej efektycznie przyswajają
 informacje wizualne (obrazki, diagramy), niż
 tekst~\cite{images-more-effective-article}.
 W przypadku użytkownika
-wpływającego na zachowanie systemu w sposób wizualny (np.\ edytując diagram),
-korzysta on wtedy z edytora graficznego i modyfikuje pewien model
+wpływającego na~zachowanie systemu w sposób wizualny (np.\ edytując diagram),
+korzysta on wtedy z~edytora graficznego i modyfikuje pewien model
 rzeczywistości reprezentowany przez program. Model ten zaprojektowany jest
-przez twórcę aplikacji i jego struktura również może być reprezentowana na
+przez twórcę aplikacji i jego struktura również może być~reprezentowana na
 wiele sposobów. W sytuacji, gdy model został zaprojektowany przez twórcę
 aplikacji w środowisku graficznym poprzez narysowanie diagramu jego struktury
-mówimy, że ten model modelu to \emph{metamodel}.
+mówimy, że~ten model modelu to \emph{metamodel}.
 
 \section{Metamodelowanie}
 
 \emph{\Gls{metamodelowanie}} w kontekście wytwarzania oprogramowania to
 technika polegająca
-na przygotowaniu abstrakcyjnego modelu (metamodelu) opisującego strukturę
+na~przygotowaniu abstrakcyjnego modelu (metamodelu) opisującego strukturę
 modeli, które będą wykorzystywane w programie. Metamodel określa jakie są
-dopuszczalne typy obiektów w modelu, ich atrybuty, powiązania między nimi.
+dopuszczalne typy obiektów w~modelu, ich atrybuty, powiązania między nimi.
 Definiuje składnię języka projektowania. Przedrostek \emph{meta} oznacza, że
 poziom abstrakcji tego metamodelu jest wyższy niż poziom abstrakcji modelu,
-który opisuje.
+który opisuje~\cite{from-requirements-to-java-in-a-snap}.
 
 Wiele powszechnie znanych języków projektowania diagramów ma swoje metamodele
 definiujące ich strukturę:
@@ -35,13 +35,13 @@ definiujące ich strukturę:
 	\item \gls{BPMN} (język do opisu procesów biznesowych) ma swój
 	      metamodel~\cite{bpmn2-metamodel} również opisany w języku \gls{MOF}.
 
-	\item Istnieje artykuł proponujący metamodel dla \gls{ERM}~\cite{entity-relationship-metamodel}. Dla przypomnienia, \gls{ERM} pozwala przedstawić na diagramie encje bazy danych i powiązania między nimi.
+	\item Istnieje artykuł proponujący metamodel dla \gls{ERM}~\cite{entity-relationship-metamodel}. Dla~przypomnienia, \gls{ERM} pozwala przedstawić na diagramie encje bazy danych i~powiązania między nimi.
 \end{itemize}
 
 Aby model był funkcjonalny oprócz jego struktury (składni języka projektowania)
 należy zdefiniować i przestrzegać jego semantyki. To ona decyduje o tym jak
 należy interpretować model, a także jakie sytuacje, pomimo bycia poprawnymi
-strukturalnie, byłyby niewłaściwe z punktu widzenia ich sensowności.
+strukturalnie, byłyby niewłaściwe z~punktu widzenia ich sensowności.
 
 Przykładowo, dla w języku \gls{UML} z perspektywy struktury możliwe jest
 utworzenie dwóch klas i dwóch połączeń agregacji między nimi, co zostało
@@ -55,14 +55,16 @@ właściciel, jak i samochody są zawarte w obiekcie właściciela.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/invalid-uml-example.pdf}
-	\caption{Przykład modelu \gls{UML} nieprawidłowego semantycznie.
-		Samochód jest jednocześnie częścią osoby, a osoba jest zawarta
-		w samochodzie.
-	}\label{rys:nieprawidlowy-model-uml}
+	\caption{Przykład modelu \gls{UML} nieprawidłowego
+		semantycznie.}\label{rys:nieprawidlowy-model-uml}
+	\medskip
+	{\small Relacje kompozycji wskazują, że obie klasy są częścią drugiej z
+		klas,
+		co jest nielogiczne.}
 \end{figure}
 
 Dopiero znając znaczenie relacji kompozycji można zauważyć ten błąd semantyczny
-i go poprawić, na przykład jak na rysunku~\ref{rys:prawidlowy-model-uml}. Na
+i~go~poprawić, na przykład jak na rysunku~\ref{rys:prawidlowy-model-uml}. Na
 tym diagramie to osoba (\emph{Person}) jest obiektem nadrzędnym, który może
 zawierać w sobie odniesienia do samochodów (\emph{Car}). Taki diagram jest
 poprawny zarówno składniowo, jak i semantycznie.
@@ -72,10 +74,195 @@ poprawny zarówno składniowo, jak i semantycznie.
 
 	\includegraphics[width=0.95\linewidth]{./images/valid-uml-example.pdf}
 	\caption{Przykład prawidłowego modelu
-		\gls{UML}. Samochody są tutaj reprezentowane jako części
-		obiektu
-		\emph{Person} i nie mogą istnieć samodzielnie w
-		programie.}\label{rys:prawidlowy-model-uml}
+		\gls{UML}.}\label{rys:prawidlowy-model-uml}
+	\medskip
+	{\small Samochód jest częścią klasy \emph{Person}, a więc relacja
+		całość--część jest zrozumiała.}
 \end{figure}
 
 \section{Edytory graficzne na podstawie metamodeli}
+
+Metamodele mogą być zapisane w formacie, który jest przyjazny do odczytu
+maszynowego. Oznacza to, że narzędzia będą mogły go odczytać, zinterpretować, a
+także edytować. Sam~metamodel może mieć swój meta-metamodel, który zdefiniuje
+jego strukturę.
+
+Taki sformalizowany sposób przechowywania metamodelu ma wiele
+korzyści. Przede wszystkim metamodel może być wtedy projektowany i edytowany w
+narzędziu umożliwiającym robienie tego w najprostszy dla użytkownika sposób, na
+przykład poprzez reprezentację metamodelu jako diagram. Ponadto, narzędzia mogą
+wygenerować kod w konkretnym języku programowania. Zawierać on może klasy lub
+inne mechanizmy przedstawienia modelu w tym języku programowania oraz może
+wspierać operacje takie jak edycja, sprawdzenie poprawności składniowej
+modelu.
+
+Skoro znana jest struktura modelu, a więc wszystkie możliwe elementy i ich
+połączenia, możliwe jest stworzenie edytora modeli, który będzie oparty na
+metamodelu. Otrzymanie edytora diagramów dla danej dziedziny odbywa się dzięki
+temu niskim nakładem czasowym --- wystarczy zdefiniować metamodel dziedziny, a
+także zdefiniować wygląd elementów. Wymaga to mniejszej ilości czasu i
+umiejętności w porównaniu z budową edytora diagramów korzystając z
+edytorów diagramów ogólnego zastosowania.
+
+Przykładem zestawu narzędzi dostarczającego możliwości metamodelowania i
+późniejszego generowania edytora graficznego dla modelu jest \emph{Visual
+	Studio DSL Tools}~\cite{visual-studio-dsl-introduction} utworzone przez
+firmę \emph{Microsoft}. Jest to zestaw
+narzędzi do definiowania metamodelu, a następnie przygotowania rozszerzenia do
+\emph{Visual Studio} w formacie \gls{VSIX}. Po jego zainstalowaniu
+\emph{Visual Studio} nabiera możliwości graficznego edytowania modeli
+bazujących na danym metamodelu. Edycja przykładowego modelu przedstawiona jest
+na rysunku~\ref{rys:prawidlowy-model-uml}. Ponadto, tak przygotowany edytor
+może również generować klasy języka C\# pozwalające na reprezentację modelu, a
+także jego serializację i deserializację. Dodatkową funkcjonalnością jest
+również możliwość tworzenia plików na podstawie szablonów przygotowanych dla
+metamodelu. W ten sposób można wygenerować na przykład tabelę w~języku
+\gls{HTML} zawierającą wszystkie elementy konkretnego typu w modelu.
+
+\begin{figure}[!ht]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/visual-studio-dsl-example.png}
+	\caption{Edytowanie modelu w \emph{Visual Studio DSL
+			Tools}.}\label{rys:visual-studio-dsl-example}
+\end{figure}
+
+Innym narzędziem umożliwiającym przygotowanie edytora graficznego na podstawie
+metamodelu jest \emph{Sirius Desktop}~\cite{sirius-desktop-homepage} rozwijany
+przez firmę \emph{Eclipse}. Jest to rozszerzenie do~zintegrowanego środowiska
+programistycznego (\gls{IDE}) \emph{Eclipse}. Pozwala ono na zaprojektowanie
+metamodelu dla wybranej dziedziny używając języka \acrfull{EMF}. Ma on
+strukturę drzewiastą i jest
+zapisany w pliku \gls{XML} w formacie \emph{ECore} (rozszerzenie
+\texttt{*.ecore}). Przykładowy metamodel zdefiniowany w \emph{Sirius Desktop}
+widoczny jest na rysunku~\ref{rys:sirius-desktop-example-metamodel}. Na jego
+podstawie można wygenerować 5 pakietów opisanych w kolejnych akapitach.
+
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-metamodel.png}
+	\caption{Projektowanie metamodelu w \emph{Sirius
+			Desktop}.}\label{rys:sirius-desktop-example-metamodel}
+	\medskip
+	{\small Po lewej dostępne jest drzewo metaklas, na środku diagram
+		metaklas, a po prawej przybornik z~narzędziami do tworzenia
+		elementów
+		metamodelu.}
+\end{figure}
+
+Pierwszym pakietem jest pakiet bazowy zawierający klasy umożliwiające
+reprezentację modeli w
+kodzie języka Java, ich serializację i deserializację. Każdy obiekt metamodelu
+odpowiada klasie języka Java. Klasy te zawierają mechanizmy powiadamiana o
+zmianach (ang.~\emph{change detection}).
+Możliwa jest modyfikacja kodu tych klas, co zmienia zachowanie
+modelu.
+
+Drugim z pakietów jest pakiet \texttt{.design} z plikiem o rozszerzeniu
+\texttt{*.odesign} zawierający opis reprezentacji graficznych modelu. Każdy
+model może mieć wiele reprezentacji graficznych z~różnymi poziomami
+szczegółowości.
+Możliwe reprezentacje graficzne to diagram klas, diagram
+sekwencji, tabela, drzewo~\cite{dokumentacja-sirius-desktop}. Dla każdej
+reprezentacji należy zdefiniować jak elementy modelu mają być wyświetlane.
+
+Funkcjonalności ulepszające doświadczenia użytkownika z
+korzystania z edytora zawierają także możliwość ustalenia styli warunkowych
+(zmiany wyglądu elementu gdy spełnione zostaną ustalone warunki), zdefiniowanie
+narzędzi pomagających w edycji diagramu (przykładowo okno dialogowe
+wyświetlające formularz składający się z kilku kroków, który ostatecznie tworzy
+kilka powiązanych ze sobą obiektów w modelu, albo narzędzie do kaskadowego
+usuwania powiązanych elementów modelu), jak i możliwość opisania reguł
+walidacji semantycznej, które będą uruchamiane po każdej zmianie i będą mogły
+oznaczyć niepoprawne elementy modelu oraz zaproponować automatyczne ich
+naprawienie.
+
+Operacje wymagające wykonania dynamicznej logiki mogą być wprowadzone na 2
+sposoby: poprzez napisanie kodu w języku Java i udostępnienie go jako usługa
+dostępna w~metamodelu, lub poprzez napisanie wyrażenia w języku \gls{AQL}.
+Pozwala on~na~wybranie elementów z modelu (także podzbioru elementów
+spełniających pewne kryteria), ich~atrybutów, oraz wykonanie operacji
+logicznych na nich, na przykład ich~porównanie.
+
+Trzecim pakietem jest pakiet \texttt{.edit}. Składa się on z klas
+umożliwiających programatyczne odczytanie informacji o strukturze modelu ---
+klasy zawierają opisu właściwości obiektów modelu.
+
+Czwartym pakietem jest pakiet \texttt{.editor}. Zawiera on definicję wtyczki do
+środowiska \emph{Eclipse}, która dostarcza możliwości tworzenia i edycji
+modeli. To właśnie ten pakiet umożliwia użycie wszystkich pozostałych pakietów
+przez użytkownika i ostatecznie otrzymanie edytora graficznego. Edytor
+diagramów dla przykładowego modelu został zaprezentowany na
+rysunku~\ref{rys:sirius-desktop-example-model}.
+
+\begin{figure}[!ht]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]
+	{./images/sirius-desktop-model-editor.png}
+	\caption{Edycja przykładowego modelu w \emph{Sirius
+			Desktop}.}\label{rys:sirius-desktop-example-model}
+\end{figure}
+
+Piątym pakietem jest pakiet \texttt{.tests}. Można w nim tworzyć testy
+zachowania metamodelu korzystając z środowiska uruchomieniowego do testów
+\emph{JUnit}. Testy te przydają się~gdy~domyślne zachowanie modelu zostanie
+zmodyfikowane poprzez edycję klas bazowych modelu w~głównym pakiecie projektu.
+
+Edytor graficzny otrzymany dzięki pakietowi \texttt{.editor} jest wtyczką do
+środowiska \emph{Eclipse}, które jest aplikacją systemową wymagającą instalacji
+w systemie użytkownika zanim będzie on~mógł przeglądać i edytować modele.
+Od 2018 roku~\cite{sirius-components-repo-first-commit} firma \emph{Eclipse}
+pracuje nad~rozwiązaniem \emph{Sirius Web}~\cite{sirius-web-github}, którego
+celem jest przeniesienie edytora
+graficznego dotychczas dostępnego w aplikacji natywnej do przeglądarki
+internetowej. Interfejs użytkownika tego projektu jest widoczny na
+rysunku~\ref{rys:sirius-web-ui}.
+
+\begin{figure}[!ht]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]
+	{./images/sirius-web-editor.png}
+	\caption{Edytor modeli \emph{Sirius Web}.}\label{rys:sirius-web-ui}
+	{\small Źródło: \url{https://github.com/eclipse-sirius/sirius-web}}
+\end{figure}
+
+\emph{Sirius Web} składa się z 3 komponentów:
+
+\begin{itemize}
+	\item serwera aplikacyjnego stworzonego w technologii \emph{Java
+		      Spring}~\cite{java-spring-homepage} dostarczającego interfejsu sieciowego \gls{API} w formacie \emph{GraphQL} pozwalającego na wyświetlenie oraz modyfikację modelu,
+	\item bazy danych \emph{PostgreSQL}~\cite{postgresql-homepage} przechowującej informacje o modelach i użytkownikach,
+	\item aplikacji przeglądarkowej napisanej z wykorzystaniem biblioteki \emph{React}~\cite{react-homepage} umożliwiającej wyświetlenie i modyfikację modeli w formie drzewa obiektów lub diagramu.
+\end{itemize}
+
+Metamodele, na których bazuje \emph{Sirius Web} są w tym samym formacie EMF co
+metamodele w \emph{Sirius Desktop}. Można zatem w łatwy sposób stworzyć
+graficzny edytor modeli zarówno w~formie aplikacji natywnej, jak i
+przeglądarkowej. Posiadając istniejący metamodel \gls{EMF} z~\emph{Sirius
+	Desktop} można go w krótkim czasie przenieść do \emph{Sirius Web}. Jest
+to
+mozliwe, ponieważ serwer aplikacyjny korzysta z tych samych bibliotek i
+pakietów do obsługi metamodelu, które są wykorzystywane w edytorze
+\emph{Sirius Desktop}.
+
+Zmianie uległ natomiast sposób przechowywania modeli. W \emph{Sirius Desktop}
+były one~zapisane w plikach na dysku użytkownika. W \emph{Sirius Web} są one
+przechowywane w bazie danych \emph{PostgreSQL}. Taki format zapisu pozwala na
+równoczesny dostęp do modelu przez wielu użytkowników i natychmiastowe
+przesyłanie informacji o zmianach w czasie rzeczywistym dzięki użyciu
+\emph{GraphQL Subscriptions}~\cite{graphql-subscriptions} (dwukierunkowych
+połączeń do przesyłania ustrukturyzowanych danych między przeglądarką a
+serwerem opartych na protokole \emph{WebSocket}~\cite{wikipedia-websocket}).
+Oznacza to, że użytkownicy mogą w czasie rzeczywistym wspólnie edytować modele
+i natychmiast widzieć zmiany wprowadzone przez innych użytkowników.
+
+Udostępnienie edytora modeli jako aplikacja przeglądarkowa sprawia też, że jest
+on~bardziej dostępny dla użytkowników. Mogą oni przeglądać i edytować modele
+bez instalacji aplikacji natywnych w ich systemie --- wystarczy przeglądarka
+internetowa, która jest zainstalowana na większości komputerów konsumenckich.
+Można też w łatwiejszy sposób podzielić się~przygotowanym przez nas modelem,
+ponieważ wystarczy wysłać adres \gls{URL} innemu użytkownikowi zamiast wysyłać
+plik z modelem.
