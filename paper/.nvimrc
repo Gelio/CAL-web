@@ -22,6 +22,9 @@ lua <<EOF
 
   -- Reload the configuration
   require('lspconfig').texlab.setup(texlab_config)
+
+  -- Disable misspell since it shows false-positives (the thesis is in Polish)
+  require('null-ls').disable('misspell')
 EOF
 
 let g:tex_flavor = 'latex'
