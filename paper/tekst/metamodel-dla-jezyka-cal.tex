@@ -1,0 +1,45 @@
+\chapter{Metamodel dla języka CAL}
+
+\section{Język opisu obliczeń w BalticLSC}
+
+\section{Stworzony metamodel EMF dla języka CAL}
+
+Omówienie przygotowanego modelu. Zrzut ekranu przedstawiający model. Omówienie
+elementów oraz jakie one mają przełożenie na wykonanie obliczeń przez
+BalticLSC\@.
+
+\subsection{Warunkowa zmiana stylu elementów}
+
+Omówienie reguł warunkowej zmiany stylu elementów diagramu:
+
+\begin{enumerate}
+	\item \texttt{DataPin} zmieniają ikonę na podstawie swoich \textit{data
+		      multiplicity} oraz \textit{token multiplicity}.
+	\item \texttt{ComputedDataPin} zmieniają kolor na podstawie swojego
+	      \textit{data binding}.
+\end{enumerate}
+
+\subsection{Narzędzia edytora diagramów}
+
+Omówienie dodanych \textit{Tools} z Sirius:
+
+\begin{itemize}
+	\item usunięcie \texttt{UnitCall} lub \texttt{ApplicationDataPin} usuwa również powiązane \texttt{DataFlow}
+	\item usunięcie \texttt{ComputedDataPin} z poziomu edytora diagramów nie jest możliwe
+	\item ograniczenia na tworzenie \texttt{DataFlow} tak, aby były semantycznie poprawne
+	\item automatyczne usuwanie i tworzenie \texttt{ComputedDataPin} po zmianie \texttt{ComputationUnitRelease} dla danego \texttt{UnitCall}
+	\item okno dialogowe ułatwiające tworzenie \texttt{UnitCall} dla istniejącego \texttt{ComputationUnitRelease}
+	\item \ldots
+\end{itemize}
+
+\subsection{Reguły walidacyjne powiązane z
+	metamodelem}\label{sec:regulky-walidacyjne-metamodel}
+
+Omówienie \textit{semantic validation rule} z pliku \texttt{*.odesign}, które
+działają w Sirius Desktop.
+
+\subsection{Testy metamodelu}
+
+Omówienie dodanych testów jednostkowych modelu (głównie dotyczy automatycznego
+zarządzania \texttt{ComputedDataPin} w zależnosci od
+\texttt{ComputationUnitRelease} dla konkretnego \texttt{UnitCall}).
