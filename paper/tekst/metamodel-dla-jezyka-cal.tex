@@ -30,14 +30,16 @@ Porty modułów oraz aplikacji obliczeniowych mają różne ikony, które
 są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na ikonę:
 
 \begin{itemize}
-	\item różne krotności danych, które obsługuje port: dla pojedynczego pliku będzie to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
-	\item różną liczbę pakietów przyjmowanych lub wysyłanych danych (czy oczekuje pojedynczego zestawu danych wejściowych, czy moduł obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
+	\item różne krotności danych, które obsługuje port (\emph{data
+		      multiplicity}):  dla pojedynczego pliku będzie to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
+	\item różną liczbę pakietów przyjmowanych lub wysyłanych danych (\emph{token
+		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy moduł obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
 \end{itemize}
 
 Moduł obliczeniowy rozpoczyna obliczenia dopiero gdy na każdym jego wejściu
 znajdują się dane.
 
-Przykładowe aplikacje obliczeniowe zostały przedstawaione na
+Przykładowe aplikacje obliczeniowe zostały przedstawione na
 rysunkach~\ref{rys:sekwencyjna-aplikacja-obliczeniowa}
 i~\ref{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}.
 Pierwsza z nich (rysunek~\ref{rys:sekwencyjna-aplikacja-obliczeniowa}) jest
@@ -74,9 +76,86 @@ sekwencyjny.
 
 \section{Stworzony metamodel EMF dla języka CAL}
 
-Omówienie przygotowanego modelu. Zrzut ekranu przedstawiający model. Omówienie
-elementów oraz jakie one mają przełożenie na wykonanie obliczeń przez
-BalticLSC\@.
+Przygotowany metamodel \gls{EMF} dla języka \gls{CAL} widoczny jest na
+rysunku~\ref{rys:cal-emf-metamodel}. Bazuje on~na metamodelu
+opracowanym w ramach projektu BalticLSC~\cite{cal-metamodel}, który widoczny
+jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
+Na potrzeby edytora diagramów nie są potrzebne wszystkie elementy oryginalnego
+metamodelu. Niektóre klasy i właściwości zostały pominięte, ponieważ nie były
+istotne z~perspektywy edycji diagramu.
+
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.92\linewidth]{./images/cal-emf-metamodel.pdf}
+	\caption{Metamodel EMF języka CAL przygotowany w ramach tej
+		pracy.}\label{rys:cal-emf-metamodel}
+\end{figure}
+
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.92\linewidth]{./images/cal-metamodel-balticlsc.png}
+	\caption{Metamodel języka CAL używany w projekcie
+		BalticLSC\@.}\label{rys:cal-metamodel-balticlsc}
+
+	\medskip
+	{\small Źródło:
+		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
+\end{figure}
+
+Model w EMF jest strukturą drzewiastą. Korzeniem drzewa jest obiekt typu
+\texttt{ComputationApplicationRelease}, ktory odpowiada całemu diagramowi. Nie
+ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
+
+\begin{itemize}
+	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
+	      rodzajom modułów obliczeniowych dostępnych w systemie BalticLSC i opisują ich właściwości.
+
+	      Oprócz informacji o nazwie i wersji modułu zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują porty tego modułu obliczeniowego.
+
+	      Obiekty te nie są wyświetlane na diagramie (nie występują w wizualnej reprezentacji modelu). Można je zobaczyć jedynie w drzewie obiektów modelu.
+
+	\item \texttt{UnitCall} --- wywołania dostępnych modułów
+	      obliczeniowych. Każdy dostępny moduł obliczeniowy może zostać wywołany dowolną liczbę razy. Każde wywołanie to osobny obiekt \texttt{UnitCall} ze wskazaniem modułu, który ma zostać wywołany, a także z obiektami \texttt{ComputedDataPin}, które reprezentują porty tego modułu.
+
+	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułow obliczeniowych wyłącznie raz w modelu, a później wskazywaniu tych elementów w~każdym z wywołań modułu.
+
+	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{ComputationUnitRelease} i~dodać odpowiednie \texttt{DeclaredDataPin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu BalticLSC, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
+
+	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywolywanego modułu.
+
+	\item \texttt{ApplicationDataPin} --- porty aplikacji obliczeniowej
+	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości portu są dziedziczone z klasy \texttt{DataPin}.
+
+	      Z uwagi na fakt, że te porty będą łączone z innymi portami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
+
+	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem.
+
+	\item \texttt{DataFlow} --- połączenia między portami
+	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach węzłów
+	      obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub portami aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
+
+	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych.
+\end{itemize}
+
+Przykładowy diagram reprezentujący model EMF języka CAL wyświetlony w programie
+\emph{Sirius Desktop} został przedstawione na
+rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-cal-example-model.png}
+	\caption{Przykładowy diagram reprezentujący model EMF języka CAL w
+		\emph{Sirius Desktop}.}\label{rys:sirius-desktop-cal-example-model}
+\end{figure}
+% \end{noindent}
+
+Oprócz podstawowej struktury metamodelu oraz jego reprezentacji w formie
+diagramu zostały do niego dodane dodatkowe funkcjonalności. Zostały one opisane
+w kolejnych sekcjach.
 
 \subsection{Warunkowa zmiana stylu elementów}
 
