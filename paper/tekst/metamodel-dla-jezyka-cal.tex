@@ -159,14 +159,65 @@ w kolejnych sekcjach.
 
 \subsection{Warunkowa zmiana stylu elementów}
 
-Omówienie reguł warunkowej zmiany stylu elementów diagramu:
+% \begin{noindent}
+Użytkownik może wywnioskować dodatkowe informacje z diagramu jeżeli jego wygląd
+będzie zależał od właściwości elementów modelu. Takie rozwiązanie zastosowano
+dla dwóch elementów metamodelu dzięki wykorzystaniu \emph{Style
+	Customizations}~\cite{sirius-desktop-documentation-style-customizations}
+w \gls{EMF}.
+% \end{noindent}
+Funkcjonalność ta pozwala na wskazanie za pomocą języka \gls{AQL} w jakich
+sytuacjach styl elementu powinien zostać zmieniony, a następnie wskazać które
+właściwości powinny ulec zmianie oraz ich nowe wartości.
 
-\begin{enumerate}
-	\item \texttt{DataPin} zmieniają ikonę na podstawie swoich \textit{data
-		      multiplicity} oraz \textit{token multiplicity}.
-	\item \texttt{ComputedDataPin} zmieniają kolor na podstawie swojego
-	      \textit{data binding}.
-\end{enumerate}
+Pierwszym styl warunkowy został użyty dla portów w metamodelu. Porty
+(\texttt{DataPin}) zmieniają ikonę na podstawie swoich krotności danych oraz
+paczek danych (odpowiednio \emph{data multiplicity} i \emph{token
+	multiplicity}).
+
+Z uwagi na fakt, że oba parametry mogą mieć jedną z 2 wartości,
+co daje w sumie 4~możliwości, w klasie \texttt{Services} metamodelu stworzono
+metodę w języku Java, która zwraca nazwę odpowiedniej ikony.
+Dzięki możliwości wykorzystania języka programowania osiągnięto
+zamierzony efekt za pomocą jednego stylu warunkowego, a nie 4 różnych
+styli dla 4 możliwości. Kod metody zwracającej nazwę ikony dla portu
+został przedstawiony w listingu~\ref{lst:getDataPinIconPath-method}.
+
+\begin{lstlisting}[language=Java,
+    caption={Methoda zwracająca nazwę ikony dla portu.},
+    label={lst:getDataPinIconPath-method}]
+public String getDataPinIconPath(EObject self) {
+  if (!(self instanceof DataPin)) {
+    return null;
+  }
+
+  var dataPin = (DataPin) self;
+  var dataPart = dataPin.getDataMultiplicity() == Multiplicity.SINGLE ? "single-data" : "multiple-data";
+  var tokenPart = dataPin.getTokenMultiplicity() == Multiplicity.SINGLE ? "single-token" : "multiple-tokens";
+
+  return dataPart + "-" + tokenPart + ".png";
+}
+\end{lstlisting}
+
+Dla portów całej aplikacji obliczeniowej (\texttt{ApplicationDataPin} dla
+\texttt{ComputationApplicationRelease}) styl warunkowy był rozszerzeniem tego
+dla portów modułów obliczeniowych. Oprócz brania pod uwagę kroności danych oraz
+paczek danych, w tym stylu znaczenie ma ponadto kierunek portu. Porty wejściowe
+mają pogrubiony pasek z lewej strony, a porty wyjściowe z prawej. Dla tych
+portów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
+Dzięki wykorzystaniu metody z listingu~\ref{lst:getDataPinIconPath-method} oraz
+języka \gls{AQL} ta funkcjonalność została zrealizowana za pomocą jednego stylu
+warunkowego, zamiast 8 styli dla 8 różnych waruantow.
+
+Drugim wykorzystanym rodzajem styli warunkowych jest zmiana koloru obramowania
+portów na krawędziach modułów obliczeniowych (\texttt{ComputedDataPin}) w
+zależności od~kierunku przepływu danych. Porty wejściowe (\emph{required}) mają
+ramkę koloru fioletowego, a~porty wyjściowe (\emph{provided}) mają ramkę koloru
+pomarańczowego. Ta funkcjonalność została zaimplementowana za pomocą jednego
+stylu warunkowego.
+
+Wyniki działania obu rodzajów styli warunkowych widoczne są na
+rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 \subsection{Narzędzia edytora diagramów}
 
