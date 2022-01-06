@@ -92,6 +92,7 @@ istotne z~perspektywy edycji diagramu.
 		pracy.}\label{rys:cal-emf-metamodel}
 \end{figure}
 
+% TODO: bring the figure closer to the text that references it
 \begin{figure}[!hb]
 	\centering
 
@@ -221,16 +222,135 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 \subsection{Narzędzia edytora diagramów}
 
-Omówienie dodanych \textit{Tools} z Sirius:
+W metamodelach \gls{EMF} można zdefiniować narzędzia wspomagające i ułatwiające
+edycję modeli, a także pomagające uniknąć
+błędów~\cite{sirius-desktop-documentation-tools}. Również do metamodelu języka
+CAL dodano takie narzędzia, które zostaną omówione w tej sekcji.
 
-\begin{itemize}
-	\item usunięcie \texttt{UnitCall} lub \texttt{ApplicationDataPin} usuwa również powiązane \texttt{DataFlow}
-	\item usunięcie \texttt{ComputedDataPin} z poziomu edytora diagramów nie jest możliwe
-	\item ograniczenia na tworzenie \texttt{DataFlow} tak, aby były semantycznie poprawne
-	\item automatyczne usuwanie i tworzenie \texttt{ComputedDataPin} po zmianie \texttt{ComputationUnitRelease} dla danego \texttt{UnitCall}
-	\item okno dialogowe ułatwiające tworzenie \texttt{UnitCall} dla istniejącego \texttt{ComputationUnitRelease}
-	\item \ldots
-\end{itemize}
+Pierwszą grupą narzędzi dodanych do metamodelu EMF języka CAL są narzędzia
+automatyzujące pracę użytkownika, aby ten nie musiał manualnie wykonywać
+niektórych czynności, a~jednocześnie aby w modelu nie znajdowały się nieużywane
+elementy.
+
+Jednym z takich narzędzi jest automatyczne usuwanie połączeń między portami
+w~momencie, gdy ten port zostaje usunięty. W przypadku portów aplikacji
+obliczeniowej (\texttt{ApplicationDataPin}) narzędzie to zastępuje zwykłą
+operację usunięcia. Dla portów wywołania modułu obliczeniowego
+(\texttt{ComputedDataPin}), narzędzie to uruchamiane jest podczas usuwania tego
+modułu obliczeniowego. Dzięki temu narzędziu w modelu nie pozostają połączenia
+zakończone jedynie z jednej strony.
+
+Drugim z narzędzi automatyzujących pracę jest automatyczne zarządzanie
+portami wywołania modułu obliczeniowego (\texttt{ComputedDataPin}) w~momencie
+wskazania lub zmiany który moduł obliczeniowy ma zostać wywołany. Zmiana
+atrybutu \texttt{unit} obiektu \texttt{UnitCall} usuwa aktualnie powiązane z
+nim porty (o ile jakieś istniały) i tworzy nowe na podstawie definicji modułu
+obliczeniowego (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
+a~także jego zdeklarowanych portów \texttt{DeclaredDataPin}. Stworzone porty
+mają
+automatycznie ustawione odwołania na właściwe deklaracje portów.
+Wykorzystanie tego narzędzia zostało przedstawione na
+rysunku~\ref{rys:sirius-desktop-change-unit-to-call}.
+Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych portów
+i~tworzyć nowych podczas zmiany wywoływanego modułu. Przyśpiesza to~pracę z
+metamodelem i pomaga uniknąć błędów.
+
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-empty-unit-call.png}
+		\caption{Nowo utworzone wywołanie modułu obliczeniowego.}\label{ref:sirius-desktop-empty-unit-call}
+    \medskip
+    {\small To wywolanie nie ma wskazanego modułu, które ma wywołać, stąd
+      druga linia etykiety jest pusta.}
+    \vspace{50pt}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-before.png}
+		\caption{Wywołanie modułu obliczeniowego po wskazaniu modułu do wywołania.}\label{
+      rys:sirius-desktop-change-unit-to-call-before}
+    \medskip
+    {\small Porty zostały automatycznie utworzone zgodnie z deklaracją modułu
+      \emph{Bounding Labels}.}
+    \medskip
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-after.png}
+		\caption{Wywołanie modułu obliczeniowego po ponownym wskazaniu modułu do wywołania.}\label{
+      rys:sirius-desktop-change-unit-to-call-after}
+    \medskip
+    {\small Poprzednie porty zostały usunięte, a na ich miejsce zostały
+      utworzone nowe, bazując na zdeklarowanych portach modułu \emph{Object
+      Identification}.}
+	\end{subfigure}
+
+	\caption{Demonstracja działania narzędzia zarządzającego portami wywołań
+    modułów obliczeniowych.}\label{rys:sirius-desktop-change-unit-to-call}
+\end{figure}
+% \end{noindent}
+
+Inną grupą narzędzi są narzędzia pomagające w przestrzeganiu poprawności
+modelu. Do~tej~grupy można zaliczyć kilka narzędzi dotyczących tworzenia lub
+modyfikacji połączeń między portami. Dane mogą przepływać jedynie od portów
+wyjściowych do portów wejściowych. Ponadto, niemożliwe jest połączenie portów
+na tym samym wywołaniu modułu obliczeniowego. Oba te wymagania mogą być
+egzekwowane w modelu za pomocą narzędzi do tworzenia połączeń (\emph{Edge
+	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
+z nich za
+pomocą warunków \emph{Connection Start Precondition} oraz
+\emph{Connection Complete Precondition} ustalających czy połączenie może zostać
+rozpoczęte lub zakończone w~danym elemencie pozwala zabronić stworzenia
+połączenia. Drugie z nich za pomocą warunki \emph{Precondition} ustala kiedy
+zmiana jednego z końców połączenia jest możliwa.
+
+Drugim z narzędzi w grupie pomagających w przestrzeganiu poprawności jest
+narzędzie uniemożliwiające usuwanie portów wywołań modułów obliczeniowych
+(\texttt{ComputedDataPin}). Są one tworzone i usuwane automatycznie podczas
+wskazania modułu do wywołania i~niepoprawnym byłoby gdyby użytkownik mógł
+tworzyć lub usuwać je samemu, ponieważ licza portów mogłaby się wtedy nie
+zgadzać z liczbą zadeklarowanych portów w tym module obliczeniowym.
+
+Innym typem narzędzi są narzędzia ułatwiające tworzenie elementów modelu.
+Są~3~proste narzędzia umieszczających element w modelu: dla portu wejściowego i
+wyjściowego aplikacji, a także dla pustego wywołania modułu obliczeniowego, dla
+którego należy później wskazać moduł, który ma wywołać. Bardziej skomplikowanym
+narzędziem jest narzędzie pozwalające na dodanie do modelu wywołania modułu
+obliczeniowego, które pokazuje okno dialogowe pozwalające wybrać moduł oraz
+wskazać nazwę dodawanego obiektu. Wykorzystuje ono~możliwości \emph{Sirius
+	Desktop} do tworzenia okien dialogowych (zarówno jednorazowych
+jak~i~takich
+składających się z wielu kroków)~\cite{sirius-desktop-documentation-tools} i
+pozwala na dostarczeniu użytkownikowi
+bardziej interaktywnego i przyjemniejszego doświadczenia. Okno dialogowe
+pokazujące się po wybraniu
+tego narzędzia jest przedstawione na
+rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-tool.png}
+	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania modułu
+		obliczeniowego w \emph{Sirius Desktop}.}\label{rys:sirius-desktop-create-unit-call-tool}
+\end{figure}
+% \end{noindent}
+
+Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
+poprzez edycję diagramu lub właściwości już istniejącego elementu. Poprzez
+bezpośrednią edycję drzewa modelu narzędzia powiązane z metamodelem są
+pomijane, przez co można doprowadzić do sytuacji, że model nie będzie poprawny
+semantycznie. Przykładem operacji pomijającej narzędzia jest usunięcie portu
+aplikacji obliczeniowej (\texttt{ApplicationDataPin}) bezpośrednio z~drzewa
+modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie ono
+automatycznie usunięte (narzędzie, które je usuwa nie zostanie uruchomione), co
+prowadzi do istnienia w~modelu połączenia, którego jedynie jeden koniec jest
+poprawnie ustawiony. Takie sytuacje natomiast są wykrywane przez reguły
+walidacji strukturalnej metamodelu (połączenie musi mieć poprawne oba końce).
 
 \subsection{Reguły walidacyjne powiązane z
 	metamodelem}\label{sec:regulky-walidacyjne-metamodel}
