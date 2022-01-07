@@ -5,7 +5,7 @@
       <metamodel href="https://www.balticlsc.eu/model/CAL#/"/>
       <validationSet>
         <ownedRules xsi:type="validation:SemanticValidationRule" name="FlowCannotBeBetweenPinsFromSameUnitCall" level="ERROR" message="Data cannot flow between pins on the same unit call" targetClass="CAL::DataFlow">
-          <audits auditExpression="aql:self.source.eContainer() != self.target.eContainer()"/>
+          <audits auditExpression="aql:self.source.eContainer() != self.target.eContainer() or not self.source.eContainer().oclIsTypeOf(CAL::UnitCall)"/>
           <fixes name="Remove data flow">
             <initialOperation>
               <firstModelOperations xsi:type="tool:RemoveElement"/>
