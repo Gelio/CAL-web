@@ -340,7 +340,7 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-tool.png}
 	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania modułu
-		obliczeniowego w \emph{Sirius Desktop}.}\label{rys:sirius-desktop-create-unit-call-tool}
+		obliczeniowego w~\emph{Sirius Desktop}.}\label{rys:sirius-desktop-create-unit-call-tool}
 \end{figure}
 % \end{noindent}
 
@@ -359,8 +359,128 @@ walidacji strukturalnej metamodelu (połączenie musi mieć poprawne oba końce)
 \subsection{Reguły walidacyjne powiązane z
 	metamodelem}\label{sec:reguly-walidacyjne-metamodel}
 
-Omówienie \textit{semantic validation rule} z pliku \texttt{*.odesign}, które
-działają w Sirius Desktop.
+\emph{Sirius Desktop} dostarcza mechanizmu walidacji edytowanego modelu. Można
+go uruchomić poprzez wybranie opcji \menu{Diagram > Validate} z głównego menu
+programu. Wyświetlona zostanie wtedy lista informacji diagnostycznych
+dotyczących modelu.
+
+\emph{Sirius Desktop} domyślnie dostarcza informacji o błędach strukturalnych
+modelu. Będą to~ostrzeżenia o braku wymaganych atrybutów lub niepoprawnej
+krotności elementow (jeżeli dana właściwość powinna zawierać przykładowo co
+najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
+zaznaczone na diagramie za pomocą ikony czerwonego znaku \texttt{X} obok
+elementu, którego wiadomość dotyczy. Zostało to zilustrowane na
+rysunku~\ref{rys:sirius-desktop-syntax-validation}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-syntax-validation.png}
+	\caption{Walidacja składniowa modeli w \emph{Sirius
+  Desktop}.}\label{rys:sirius-desktop-syntax-validation}
+\end{figure}
+% \end{noindent}
+
+Dodatkowo w pliku \texttt{*.odesign} pakietu \texttt{.design} metamodelu można
+zdefiniować \emph{Semantic Validation
+	Rules}~\cite{sirius-desktop-documentation-validation-rules}.
+Pozwalają one na dodanie własnych reguł walidacji semantycznej modeli. To
+reguły powinny opisywać ograniczenia, których nie dostarcza opis strukury
+modelu i~zależą od połączenia kilku elementów ze sobą. Można
+wybrać jakich elementów reguła dotyczy, a~za~pomocą języka \gls{AQL} wskazać
+kiedy informacja diagnostyczna powinna być pokazana, a także jaka powinna być
+wiadomość wyświetlona użytkownikowi, oraz z jakim poziomem poważności
+(informacja, ostrzeżenie, błąd). Jeżeli wiadomo jak można naprawić błąd, można
+zdefiniować również listę akcji, które będą wykonywane gdy użytkownik wybierze
+opcje automatycznego naprawiania błędów diagnostycznych.
+
+Przykładową regułę walidacji semantycznej przedstawiono na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}.
+Zabrania ona~połączeń między portami znajdującymi się na tym samym wywołaniu
+modułu obliczeniowego. Jej struktura wyrażona w drzewie obiektów metamodelu
+jest widoczna na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree}, a jej
+właściwości na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-properties}.
+Widać tam element, dla którego wiadomość zostanie wyświetlona
+(\texttt{DataFlow}).
+Rysunek~\ref{rys:sirius-desktop-example-semantic-validation-rule-audit}
+przedstawia wyrażenie języka \gls{AQL}. Nie spełnienie warunku spowoduje
+pokazanie
+informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekt początkowy i
+końcowy połączenia ma wspólnego rodzica. Dzieje się tak wyłącznie jeżeli
+oba~porty są w
+tym samym wywołaniu modułu obliczeniowego. Należało wykluczyć sytuacje, w
+których połączenie jest między dwoma portami aplikacji obliczeniowej, ponieważ
+takie połączenia są dozwolone. Błąd wynikający z tej reguły został
+przedstawiony na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-failure}.
+
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{.8\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-tree.png}
+		\caption{Drzewo obiektów składających się na regułę walidacji
+      semantycznej.}\label{rys:sirius-desktop-example-semantic-validation-rule-tree}
+	\end{subfigure}
+
+  \medskip
+
+	\begin{subfigure}{.92\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-properties.png}
+		\caption{Właściwości reguły walidacji semantycznej.}\label{rys:sirius-desktop-example-semantic-validation-rule-properties}
+	\end{subfigure}
+
+  \medskip
+
+	\begin{subfigure}{.92\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-audit.png}
+		\caption{Warunek spełnienia reguły walidacji semantycznej.}\label{rys:sirius-desktop-example-semantic-validation-rule-audit}
+	\end{subfigure}
+
+  \begin{subfigure}{.92\textwidth}
+    \centering
+    \includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-failure.png}
+    \caption{Błąd --- reguła nie została
+    spełniona.}\label{rys:sirius-desktop-example-semantic-validation-rule-failure}
+  \end{subfigure}
+
+	\caption{Przykładowa reguła walidacji semantycznej w \emph{Sirius
+  Desktop}.}\label{rys:sirius-desktop-example-semantic-validation-rule}
+  \medskip
+  {\small Reguła zabrania występowania połączeń między portami na tym samym
+  wywołaniu modułu obliczeniowego.}
+\end{figure}
+% \end{noindent}
+
+Oprócz reguły walidacji semantycznej zaprezentowanej na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}
+zaprojektowano 5~innych reguł informujących użytkownika o błędach w metamodelu.
+Pierwsze dwie z~nich pomagają ustalić oczekiwany kierunek połączeń portów. Dla
+portów oznaczonych jako wymagane (\texttt{required}) połączenie powinno być
+wchodzące, a dla portów oznaczonych jako dostarczone (\texttt{provided}) ---
+wychodzące. Jest to informacja niewynikająca ze struktury metamodelu, więc
+została dostarczona jako reguła walidacji semantycznej. Oprócz 2 reguł
+wymagających połączenia danego typu są też 2 reguły, które zabraniają
+połączenia w~przeciwną stronę niż oczekiwana. Oznacza to, że jeżeli port nie
+będzie miał żadnego połączenia, będzie pokazana informacja o braku, a jeżeli
+dodatkowo port będzie miał połączenie w~przeciwną stronę (przykładowo, port
+wymagany będzie miał połączenie wychodzące), to będą 2~wiadomości: jedna o
+braku połączenia w oczekiwanym kierunku, a druga o~nieoczkiewanym połączeniu w
+przeciwnym kierunku.
+
+Ostatnią dodaną regułą jest sprawdzenie czy oba końce połączenia (obiektu
+\texttt{DataFlow}) są~zdefiniowane. Jeżeli krawędź nie jest połączona z dwoma
+obiektami, użytkownik dostaje o tym informacje oraz możliwość szybkiego
+usunięcia takiego połączenia. Jest to szczególnie ważne, ponieważ takie
+połączenia nie są pokazywane na diagramie, a jedynie wprowadzają zamieszanie w
+metamodelu i utrudniają badanie jego struktury przez narzędzia, które muszą
+oczekiwać, że krawędzie mogą nie być zaczepione z obu stron.
 
 \subsection{Testy metamodelu}
 
