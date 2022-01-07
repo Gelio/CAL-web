@@ -2,7 +2,7 @@
 
 Aby otrzymać graficzny edytor modeli wykorzystując \emph{Sirius Web} należy
 najpierw zaprojektować metamodel \gls{EMF} opisujący strukturę modeli oraz ich
-reprezentację graficzną, która później będzie możliwa do modyfikacji prze
+reprezentację graficzną, która później będzie możliwa do modyfikacji przez
 użytkowników. W tym rozdziale
 zostanie omówiony język \acrfull{CAL} służący do opisu obliczeń w systemie
 \emph{BalticLSC}, a~następnie omówiony zostanie przygotowany metamodel
@@ -11,7 +11,8 @@ zostanie omówiony język \acrfull{CAL} służący do opisu obliczeń w systemie
 \section{Język opisu obliczeń w BalticLSC}
 
 Obliczenia rozproszone wykonywane przez system \emph{BalticLSC} są zapisywane w
-formie \emph{aplikacji obliczeniowej} (\emph{computation application})
+formie \emph{aplikacji obliczeniowej}
+(\emph{\selectlanguage{english}computation application})
 korzystajac ze składni języka \acrfull{CAL} przygotowanego dla tego właśnie
 systemu.
 
@@ -30,9 +31,9 @@ Porty modułów oraz aplikacji obliczeniowych mają różne ikony, które
 są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na ikonę:
 
 \begin{itemize}
-	\item różne krotności danych, które obsługuje port (\emph{data
+	\item krotność danych, które obsługuje port (\emph{data
 		      multiplicity}):  dla pojedynczego pliku będzie to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
-	\item różną liczbę pakietów przyjmowanych lub wysyłanych danych (\emph{token
+	\item liczba pakietów przyjmowanych lub wysyłanych danych (\emph{token
 		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy moduł obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
 \end{itemize}
 
@@ -108,8 +109,9 @@ istotne z~perspektywy edycji diagramu.
 		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
 \end{figure}
 
-Model w EMF jest strukturą drzewiastą. Korzeniem drzewa jest obiekt typu
-\texttt{ComputationApplicationRelease}, ktory odpowiada całemu diagramowi. Nie
+Model w EMF ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
+\texttt{ComputationApplicationRelease}, ktory odpowiada całemu diagramowi
+(aplikacji obliczeniowej). Nie
 ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 
 \begin{itemize}
@@ -123,7 +125,7 @@ ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 	\item \texttt{UnitCall} --- wywołania dostępnych modułów
 	      obliczeniowych. Każdy dostępny moduł obliczeniowy może zostać wywołany dowolną liczbę razy. Każde wywołanie to osobny obiekt \texttt{UnitCall} ze wskazaniem modułu, który ma zostać wywołany, a także z obiektami \texttt{ComputedDataPin}, które reprezentują porty tego modułu.
 
-	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułow obliczeniowych wyłącznie raz w modelu, a później wskazywaniu tych elementów w~każdym z wywołań modułu.
+	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułow obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
 
 	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{ComputationUnitRelease} i~dodać odpowiednie \texttt{DeclaredDataPin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu BalticLSC, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
 
@@ -144,7 +146,7 @@ ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 \end{itemize}
 
 Przykładowy diagram reprezentujący model EMF języka CAL wyświetlony w programie
-\emph{Sirius Desktop} został przedstawione na
+\emph{Sirius Desktop} został przedstawiony na
 rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 % \begin{noindent}
@@ -174,7 +176,7 @@ Funkcjonalność ta pozwala na wskazanie za pomocą języka \gls{AQL} w jakich
 sytuacjach styl elementu powinien zostać zmieniony, a następnie wskazać które
 właściwości powinny ulec zmianie oraz ich nowe wartości.
 
-Pierwszym styl warunkowy został użyty dla portów w metamodelu. Porty
+Pierwszy styl warunkowy został użyty dla portów w metamodelu. Porty
 (\texttt{DataPin}) zmieniają ikonę na podstawie swoich krotności danych oraz
 paczek danych (odpowiednio \emph{data multiplicity} i \emph{token
 	multiplicity}).
@@ -212,7 +214,7 @@ mają pogrubiony pasek z lewej strony, a porty wyjściowe z prawej. Dla tych
 portów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
 Dzięki wykorzystaniu metody z listingu~\ref{lst:getDataPinIconPath-method} oraz
 języka \gls{AQL} ta funkcjonalność została zrealizowana za pomocą jednego stylu
-warunkowego, zamiast 8 styli dla 8 różnych waruantow.
+warunkowego, zamiast 8 styli dla 8 różnych wariantów.
 
 Drugim wykorzystanym rodzajem styli warunkowych jest zmiana koloru obramowania
 portów na krawędziach modułów obliczeniowych (\texttt{ComputedDataPin}) w
@@ -250,7 +252,7 @@ wskazania lub zmiany który moduł obliczeniowy ma zostać wywołany. Zmiana
 atrybutu \texttt{unit} obiektu \texttt{UnitCall} usuwa aktualnie powiązane z
 nim porty (o ile jakieś istniały) i tworzy nowe na podstawie definicji modułu
 obliczeniowego (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
-a~także jego zdeklarowanych portów \texttt{DeclaredDataPin}. Stworzone porty
+a~także jego zdeklarowanych portów (\texttt{DeclaredDataPin}). Stworzone porty
 mają
 automatycznie ustawione odwołania na właściwe deklaracje portów.
 Wykorzystanie tego narzędzia zostało przedstawione na
@@ -273,7 +275,7 @@ metamodelem i~pomaga uniknąć błędów.
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-empty-unit-call.png}
 		\caption{Nowo utworzone wywołanie modułu obliczeniowego.}\label{ref:sirius-desktop-empty-unit-call}
     \medskip
-    {\small To wywolanie nie ma wskazanego modułu, które ma wywołać, stąd
+    {\small To wywolanie nie~ma~wskazanego modułu, które ma wywołać, stąd
       druga linia etykiety jest pusta.}
     \vspace{50pt}
 	\end{subfigure}
@@ -283,7 +285,7 @@ metamodelem i~pomaga uniknąć błędów.
 		\caption{Wywołanie modułu obliczeniowego po wskazaniu modułu do wywołania.}\label{
       rys:sirius-desktop-change-unit-to-call-before}
     \medskip
-    {\small Porty zostały automatycznie utworzone zgodnie z deklaracją modułu
+    {\small Porty zostały automatycznie utworzone zgodnie z~deklaracją modułu
       \emph{Bounding Labels}.}
     \medskip
 	\end{subfigure}
@@ -312,30 +314,33 @@ egzekwowane w modelu za pomocą narzędzi do tworzenia połączeń (\emph{Edge
 	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
 z nich za
 pomocą warunków \emph{Connection Start Precondition} oraz
-\emph{Connection Complete Precondition} ustalających czy połączenie może zostać
-rozpoczęte lub zakończone w~danym elemencie pozwala zabronić stworzenia
-połączenia. Drugie z nich za pomocą warunki \emph{Precondition} ustala kiedy
+\emph{Connection Complete Precondition}, ustalających czy połączenie może
+zostać
+rozpoczęte lub zakończone w~danym elemencie, pozwala zabronić stworzenia
+połączenia. Drugie z nich za pomocą warunku \emph{Precondition} ustala kiedy
 zmiana jednego z końców połączenia jest możliwa.
 
 Drugim z narzędzi w grupie pomagających w przestrzeganiu poprawności jest
 narzędzie uniemożliwiające usuwanie portów wywołań modułów obliczeniowych
 (\texttt{ComputedDataPin}). Są one tworzone i usuwane automatycznie podczas
 wskazania modułu do wywołania i~niepoprawnym byłoby gdyby użytkownik mógł
-tworzyć lub usuwać je samemu, ponieważ licza portów mogłaby się wtedy nie
-zgadzać z liczbą zadeklarowanych portów w tym module obliczeniowym.
+tworzyć lub usuwać je samemu, ponieważ faktyczna liczba portów mogłaby się
+wtedy nie
+zgadzać z liczbą zadeklarowanych portów w~tym~module obliczeniowym.
 
 Innym typem narzędzi są narzędzia ułatwiające tworzenie elementów modelu.
 Są~3~proste narzędzia umieszczających element w modelu: dla portu wejściowego i
 wyjściowego aplikacji, a także dla pustego wywołania modułu obliczeniowego, dla
 którego należy później wskazać moduł, który ma wywołać. Bardziej skomplikowanym
-narzędziem jest narzędzie pozwalające na dodanie do modelu wywołania modułu
+narzędziem jest narzędzie pozwalające na~dodanie do modelu wywołania modułu
 obliczeniowego, które pokazuje okno dialogowe pozwalające wybrać moduł oraz
 wskazać nazwę dodawanego obiektu. Wykorzystuje ono~możliwości \emph{Sirius
 	Desktop} do tworzenia okien dialogowych (zarówno jednorazowych
-jak~i~takich
-składających się z wielu kroków)~\cite{sirius-desktop-documentation-tools} i
+jak~i~składających się z wielu
+kroków)~\cite{sirius-desktop-documentation-tools} i
 pozwala na dostarczeniu użytkownikowi
-bardziej interaktywnego i przyjemniejszego doświadczenia. Okno dialogowe
+bardziej interaktywnych i przyjemniejszych wrażeń z pracy z modelem. Okno
+dialogowe
 pokazujące się po wybraniu
 tego narzędzia jest przedstawione na
 rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
@@ -351,9 +356,10 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 % \end{noindent}
 
 Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
-poprzez edycję diagramu lub właściwości już istniejącego elementu. Poprzez
-bezpośrednią edycję drzewa modelu narzędzia powiązane z metamodelem są
-pomijane, przez co można doprowadzić do sytuacji, że model nie będzie poprawny
+poprzez edycję diagramu lub właściwości już istniejącego elementu. Podczas
+bezpośredniej edycji drzewa modelu narzędzia powiązane z metamodelem są
+pomijane, przez co można doprowadzić do sytuacji, w której model nie będzie
+poprawny
 semantycznie. Przykładem operacji pomijającej narzędzia jest usunięcie portu
 aplikacji obliczeniowej (\texttt{ApplicationDataPin}) bezpośrednio z~drzewa
 modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie ono
@@ -365,12 +371,12 @@ walidacji strukturalnej metamodelu (połączenie musi mieć poprawne oba końce)
 \subsection{Reguły walidacyjne powiązane z
 	metamodelem}\label{sec:reguly-walidacyjne-metamodel}
 
-\emph{Sirius Desktop} dostarcza mechanizmu walidacji edytowanego modelu. Można
+\emph{Sirius Desktop} dostarcza mechanizm walidacji edytowanego modelu. Można
 go uruchomić poprzez wybranie opcji \menu{Diagram > Validate} z głównego menu
 programu. Wyświetlona zostanie wtedy lista informacji diagnostycznych
 dotyczących modelu.
 
-\emph{Sirius Desktop} domyślnie dostarcza informacji o błędach strukturalnych
+\emph{Sirius Desktop} domyślnie dostarcza informacji o błędach składniowych
 modelu. Będą to~ostrzeżenia o braku wymaganych atrybutów lub niepoprawnej
 krotności elementow (jeżeli dana właściwość powinna zawierać przykładowo co
 najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
@@ -398,7 +404,8 @@ wybrać jakich elementów reguła dotyczy, a~za~pomocą języka \gls{AQL} wskaza
 kiedy informacja diagnostyczna powinna być pokazana, a także jaka powinna być
 wiadomość wyświetlona użytkownikowi, oraz z jakim poziomem poważności
 (informacja, ostrzeżenie, błąd). Jeżeli wiadomo jak można naprawić błąd, można
-zdefiniować również listę akcji, które będą wykonywane gdy użytkownik wybierze
+zdefiniować również sekwencję akcji, które będą wykonywane gdy użytkownik
+wybierze
 opcje automatycznego naprawiania błędów diagnostycznych.
 
 Przykładową regułę walidacji semantycznej przedstawiono na
@@ -412,16 +419,17 @@ rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-properties}.
 Widać tam element, dla którego wiadomość zostanie wyświetlona
 (\texttt{DataFlow}).
 Rysunek~\ref{rys:sirius-desktop-example-semantic-validation-rule-audit}
-przedstawia wyrażenie języka \gls{AQL}. Nie spełnienie warunku spowoduje
+przedstawia wyrażenie języka \gls{AQL}. Niespełnienie warunku spowoduje
 pokazanie
-informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekt początkowy i
-końcowy połączenia ma wspólnego rodzica. Dzieje się tak wyłącznie jeżeli
-oba~porty są w
-tym samym wywołaniu modułu obliczeniowego. Należało wykluczyć sytuacje, w
-których połączenie jest między dwoma portami aplikacji obliczeniowej, ponieważ
-takie połączenia są dozwolone. Błąd wynikający z tej reguły został
+informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekty początkowy i
+końcowy połączenia mają różnych rodziców. Nie jest to spełnione wyłącznie
+jeżeli oba~porty należą do tego samego wywołania modułu obliczeniowego.
+Błąd wynikający z tej reguły został
 przedstawiony na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-failure}.
+Należało wykluczyć sytuacje, w
+których połączenie jest między dwoma portami aplikacji obliczeniowej, ponieważ
+takie połączenia są dozwolone.
 
 % \begin{noindent}
 \begin{figure}
@@ -490,9 +498,9 @@ oczekiwać, że krawędzie mogą nie być zaczepione z obu stron.
 
 \subsection{Testy metamodelu}
 
-W sekcji~\ref{sec:cal-metamodel-tools} zmodyfikowano kod źródłowy klas
-metamodelu aby zautomatyzować pracę użytkownika z modelem. Aby upewnić się, że
-te modyfikacje ddziałają poprawnie, należy je~przetestować. Można to zrobić
+W sekcji~\ref{sec:cal-metamodel-tools} opisano modyfikacje kodu źródłowego klas
+metamodelu, które usprawniają pracę użytkownika z modelem. Aby upewnić się, że
+te modyfikacje działają poprawnie, należy je~przetestować. Można to zrobić
 projektując testy
 jednostkowe metamodelu w pakiecie \texttt{.tests}. \emph{Sirius Desktop}
 automatycznie generuje kod źródłowy posiadający odpowiednią strukturę do
@@ -500,7 +508,7 @@ tworzenia testów. Dla każdego obiektu metamodelu tworzona jest osobna klasa z
 jego testami.
 
 Oprócz zwykłych plików z testami wygenerowane zostały również pliki dla
-pakietów testów (\emph{\selectlanguage{english} test suite}), w których można
+pakietów testów (\emph{\selectlanguage{english}test suite}), w których można
 zdefiniować grupy testów,
 które mają zostać wykonane. W~ten~sposób można podzielić testów na kilka
 kategorii, na przykład testy krytyczne, testy normalne, testy o niskiej
@@ -530,19 +538,20 @@ następujące zachowania dodane w kodzie źródłowym klas metamodelu:
 	      Weryfikowane jest czy utworzone porty mają poprawnie ustawione odwołania na~zdeklarowane porty danego modułu obliczeniowego.
 \end{itemize}
 
-Są to jedyne dwie modyfikacje kodu źródłowego metamodelu, które dokonano.
+Są to jedyne dwie modyfikacje kodu źródłowego metamodelu, których dokonano.
 Wyniki uruchomienia testów jednostkowych przedstawione są na
 rysunku~\ref{rys:sirius-desktop-metamodel-tests}. Wszystkie zdefiniowane testy
 zakończyły się powodzeniem. Interfejs pokazuje 6 niepowodzeń (\emph{failures}),
 ponieważ z~7~wygenerowanych plików z testami (po jednym dla każdego obiektu
 metamodelu), tylko jeden ma zdefiniowane w sobie testy, a reszta jest pusta.
 Niepowodzenie informuje o braku testów zdefiniowanych w tych plikach.
+
 W przypadku tego metamodelu są przygotowane
 jedynie dwa testy, więc nie było potrzeby dzielić je na grupy
-(\emph{\selectlanguage{english} test suites}) --- jest tylko
-jedna grupa nadrzędna \emph{\selectlanguage{english} CAL All Tests}, która
+(\emph{\selectlanguage{english}test suites}) --- jest tylko
+jedna grupa nadrzędna \emph{\selectlanguage{english}CAL All Tests}, która
 zawiera w sobie grupę
-\emph{\selectlanguage{english} CAL Tests}, która zawiera poszczególne testy.
+\emph{\selectlanguage{english}CAL Tests}, która zawiera poszczególne testy.
 
 % \begin{noindent}
 \begin{figure}[!hb]
