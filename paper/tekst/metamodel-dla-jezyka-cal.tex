@@ -224,7 +224,7 @@ stylu warunkowego.
 Wyniki działania obu rodzajów styli warunkowych widoczne są na
 rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
-\subsection{Narzędzia edytora diagramów}
+\subsection{Narzędzia edytora diagramów}\label{sec:cal-metamodel-tools}
 
 W metamodelach \gls{EMF} można zdefiniować narzędzia wspomagające i ułatwiające
 edycję modeli, a także pomagające uniknąć
@@ -255,9 +255,15 @@ mają
 automatycznie ustawione odwołania na właściwe deklaracje portów.
 Wykorzystanie tego narzędzia zostało przedstawione na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call}.
+
+Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
+metamodelu. Została zmieniona definicja metody zmiany wskazania na moduł do
+wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
+poprzednie porty i tworzone są nowe. To zachowanie opisane jest w języku Java.
+
 Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych portów
 i~tworzyć nowych podczas zmiany wywoływanego modułu. Przyśpiesza to~pracę z
-metamodelem i pomaga uniknąć błędów.
+metamodelem i~pomaga uniknąć błędów.
 
 % \begin{noindent}
 \begin{figure}
@@ -484,6 +490,64 @@ oczekiwać, że krawędzie mogą nie być zaczepione z obu stron.
 
 \subsection{Testy metamodelu}
 
-Omówienie dodanych testów jednostkowych modelu (głównie dotyczy automatycznego
-zarządzania \texttt{ComputedDataPin} w zależnosci od
-\texttt{ComputationUnitRelease} dla konkretnego \texttt{UnitCall}).
+W sekcji~\ref{sec:cal-metamodel-tools} zmodyfikowano kod źródłowy klas
+metamodelu aby zautomatyzować pracę użytkownika z modelem. Aby upewnić się, że
+te modyfikacje ddziałają poprawnie, należy je~przetestować. Można to zrobić
+projektując testy
+jednostkowe metamodelu w pakiecie \texttt{.tests}. \emph{Sirius Desktop}
+automatycznie generuje kod źródłowy posiadający odpowiednią strukturę do
+tworzenia testów. Dla każdego obiektu metamodelu tworzona jest osobna klasa z
+jego testami.
+
+Oprócz zwykłych plików z testami wygenerowane zostały również pliki dla
+pakietów testów (\emph{test suite}), w których można zdefiniować grupy testów,
+które mają zostać wykonane. W~ten~sposób można podzielić testów na kilka
+kategorii, na przykład testy krytyczne, testy normalne, testy o niskiej
+ważności. Zgrupowanie testów pozwala na otrzymanie podsumowanego statusu
+wszystkich testów w danej grupie.
+
+Testy można później w łatwy i szybki sposób uruchomić zaznaczając pakiet z
+testami w eksploratorze projektów, a później wybierając z menu głównego
+\menu{Run > Run As > JUnit Test}. Uruchamiane są one wykorzystując popularny
+zestaw narzędzi \emph{JUnit}~\cite{junit-test-tutorial}.
+
+Posiadanie testów jednostkowych pozwala w szybszy sposób sprawdzić czy model
+nadal zachowuje się zgodnie z oczekiwaniami, co jest szczególnie ważne po
+modyfikacji jego kodu źródłowego lub generowaniu go na nowo po zmianach
+metamodelu. Należy testować kod~zmodyfikowany lub dodany. Nie należy testować
+kodu automatycznie generowanego przez \emph{Sirius Desktop} jeżeli nie został
+on zmodyfikowany.
+
+W ramach tej pracy magisterskiej przygotowano 2 testy jednostkowe weryfikujące
+następujące zachowania dodane w kodzie źródłowym klas metamodelu:
+
+\begin{itemize}
+	\item Czy połączenia między portami usuwanych wywołań węzłów obliczeniowych są również usuwane?
+
+	\item Czy porty są automatycznie usuwane i tworzone podczas zmiany wskazania modułu, który ma zostać wywołany w danym obiekcie \texttt{UnitCall}?
+
+	      Weryfikowane jest czy utworzone porty mają poprawnie ustawione odwołania na~zdeklarowane porty danego modułu obliczeniowego.
+\end{itemize}
+
+Są to jedyne dwie modyfikacje kodu źródłowego metamodelu, które dokonano.
+Wyniki uruchomienia testów jednostkowych przedstawione są na
+rysunku~\ref{rys:sirius-desktop-metamodel-tests}. Wszystkie zdefiniowane testy
+zakończyły się powodzeniem. Interfejs pokazuje 6 niepowodzeń (\emph{failures}),
+ponieważ z~7~wygenerowanych plików z testami (po jednym dla każdego obiektu
+metamodelu), tylko jeden ma zdefiniowane w sobie testy, a reszta jest pusta.
+Niepowodzenie informuje o braku testów zdefiniowanych w tych plikach.
+W przypadku tego metamodelu są przygotowane
+jedynie dwa testy, więc nie było potrzeby dzielić je na grupy (\emph{test
+	suites}) --- jest tylko
+jedna grupa nadrzędna \emph{CAL All Tests}, która zawiera w sobie grupę
+\emph{CAL Tests}, która zawiera poszczególne testy.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-metamodel-tests.png}
+	\caption{Wynik uruchomienia testów automatycznych
+  metamodelu.}\label{rys:sirius-desktop-metamodel-tests}
+\end{figure}
+% \end{noindent}
