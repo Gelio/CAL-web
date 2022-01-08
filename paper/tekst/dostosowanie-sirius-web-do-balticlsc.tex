@@ -335,18 +335,237 @@ na~uruchomienie ich z linii wiersza poleceń bez uruchamiania \emph{Sirius
 
 \section{Integracja przybornika BalticLSC w Sirius Web}
 
-Opis problemu dodawania nowych \texttt{UnitCall} do diagramu --- trzeba
-zdefiniować \texttt{ComputationUnitRelease} w diagramie.
+Edytor diagramów dostępny w aplikacji przeglądarkowej platformy
+\emph{BalticLSC}
+umożliwia dodawanie wywołań modułów obliczeniowych do diagramu za pomocą
+przybornika (ang.~\emph{\selectlanguage{english}toolbox}). Użytkownik
+przeglądający bibliotekę dostępnych modułów
+obliczeniowych może dodać wybrane z nich do przybornika. Zrzut ekranu
+biblioteki modułów z kilkoma modułami dodanymi do~przybornika jest widoczny na
+rysunku~\ref{rys:balticlsc-development-shelf}. W trakcie edycji
+diagramu ikony dodanych do~przybornika modułów są widoczne z lewej strony
+diagramu (rysunek~\ref{rys:balticlsc-diagram-toolbox}). Kliknięcie przycisku
+jednego z modułów zaznacza go, po
+czym kliknięcie na diagram dodaje moduł w określonym miejscu. Stan
+po dodaniu wywołania modułu obliczeniowego wybranego
+na~rysunku~\ref{rys:balticlsc-diagram-toolbox} jest widoczny na
+rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
-Rozwiązanie (zaczerpnięte z edytora diagramów BalticLSC) --- przybornik
-(toolbox).
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
 
-Opis jak to zrobiono, od strony backendu jak i frontendu. Omówienie trudności w
-modyfikacji interfejsu użytkownika Sirius Web (trzeba było skopiować kod
-źródłowy niektórych komponentów z biblioteki \textit{Sirius Components} do kodu
-aplikacji Sirius Web, ponieważ komponenty te nie umożliwiały modyfikacji
-interfejsu i wstawiania do nich nowych elementów --- najlepiej dać zrzut ekranu
-co można było łatwo zmienić, a co wymagało skopiowania kodu).
+  \includegraphics[width=0.95\linewidth]{./images/balticlsc-development-shelf.png}
+  \caption{Biblioteka modułów obliczeniowych platformy
+  \emph{BalticLSC}.}\label{rys:balticlsc-development-shelf}
+\end{figure}
+% \end{noindent}
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/balticlsc-diagram-toolbox.png}
+  \caption{Przybornik dostępny w edytorze diagramów platformy
+  \emph{BalticLSC}.}\label{rys:balticlsc-diagram-toolbox}
+\end{figure}
+% \end{noindent}
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/balticlsc-after-adding-unit-call.png}
+  \caption{Edytor diagramów \emph{BalticLSC} po dodaniu modułu obliczeniowego z
+  przybornika.}\label{rys:balticlsc-after-adding-unit-call}
+\end{figure}
+% \end{noindent}
+
+Rozwiązanie przybornika pozwala użytkownikowi podzielić proces pracy z modułami
+obliczeniowymi na 2 etapy: wybór interesujących modułów z listy potencjalnie
+tysięcy dostępnych modułów obliczeniowych, a później użycie
+wybranego podzbioru modułów na~diagramach.
+
+W edytorze diagramów z \emph{Sirius Web} domyślnie nie ma przybornika ani
+integracji z~zewnętrznymi serwisami w celu pobrania listy modułów
+obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
+dostępne w modelu muszą być zdefiniowane jako
+elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
+metamodelu \gls{EMF} nie pozwalają na komunikację z zewnętrznymi serwisami,
+więc pobieranie danych o modułach obliczeniowych znajdujących się w przyborniku
+danego użytkownika musi zostać zrealizowane na poziomie \emph{Sirius Web}.
+Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
+aplikacja \emph{Sirius Web} musi znać jego informacje uwierzytelniające, aby
+móc je~dołączyć wysyłając zapytanie \gls{API} do serwera \emph{BalticLSC}.
+Szczegóły odtworzenia
+mechanizmu przybornika w \emph{Sirius Web} oraz jego integracja z
+\emph{BalticLSC} zostały opisane w kolejnych sekcjach.
+
+\subsection{Pobranie zawartości
+	przybornika}\label{sec:pobranie-zawartosci-przybornika}
+
+Serwer aplikacyjny \emph{BalticLSC} udostępnia interfejs \gls{API} w formacie
+\gls{REST}, który jest używany do komunikacji z aplikacją przeglądarkową tego
+serwisu. Ten interfejs można również wykorzystać w \emph{Sirius Web} aby pobrać
+zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
+protokołu \gls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
+odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych modułach
+obliczeniowych. Zawiera ona wszystkie detale potrzebne do utworzenia obiektu
+modułu obliczeniowego (\texttt{ComputationUnitRelease}) oraz jego wywołania
+(\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych portach
+tego modułu.
+
+Należałoby więc z aplikacji przeglądarkowej \emph{Sirius Web} wysłać takie
+zapytanie do serwera \emph{BalticLSC}, a następnie wyświetlić otrzymane moduły
+obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
+\emph{BalticLSC} pojawiają się dwa problemy.
+
+Pierwszym problemem jest sposób uwierzytelniania użytkownika. Zawartość
+przybornika jest powiązana z konkrenym kontem użytkownika w systemie
+\emph{BalticLSC}. Wysyłając więc zapytanie o przybornik należy dodatkowo
+załączyć w nagłówku \gls{HTTP} \texttt{Authorization}
+token uwierzytelniający w formacie \gls{JWT}. W tokenie tym znajdują się
+informacje o nazwie użytkownika, do którego należy token (pole \texttt{sub}
+oraz \texttt{unique\_name}). Zawartość pola z
+danymi tokena widoczna jest na listingu~\ref{lst:balticlsc-jwt-payload}.
+Ponadto, każdy token \gls{JWT} posiada podpis weryfikujący jego prawdziwość.
+Służy on potwierdzeniu, że token został przygotowany przez serwis
+\emph{BalticLSC} w drodze poprawnego logowania do serwisu, a nie został
+wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
+
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=java,
+    caption={Zawartość pola z danymi w tokenie \gls{JWT} z serwisu
+      \emph{BalticLSC}.},
+    label={lst:balticlsc-jwt-payload}]
+{
+  "unique_name": "demo",
+  "sub": "demo",
+  "jti": "bcbbbbe299424a60a3dd4cb918a1364c",
+  "sid": "37a970ff48db49e6a5e4c4bb5912d4b4",
+  "exp": 1641671342,
+  "iss": "wut.balticlsc.eu",
+  "aud": "wut.balticlsc.eu"
+}
+\end{lstlisting}
+
+W pracy magisterskiej założono, że token \gls{JWT} zostanie dostarczony do
+edytora diagramów z zewnętrznego źródła. W przypadku wykorzystania edytora
+diagramów \emph{Sirius Web} w innej aplikacji przeglądarkowej, to właśnie ta
+zewnętrzna aplikacja przeglądarkowa dostarczy informacje o tokenie \gls{JWT}
+podczas wywoływania funkcji rozpoczynającej wyświetlanie diagramu. Zostało to
+opisane szczegółowo w sekcji~\ref{sec:uzycie-sirius-web-w-balcitlsc}.
+
+Podczas pracy z pełnym pełnym interfejsem \emph{Sirius Web} (a nie tylko samym
+edytorem diagramów) został dostarczony przycisk otwierający okno
+dialogowe, w którym użytkownik może wprowadzić swój token \gls{JWT}. Znajdują
+się w nim także instrukcje jak taki token pozyskać. Ponieważ jest to złożony
+proces, który wymaga otworzenia narzędzi programistycznych przeglądarki, został
+dostarczony przycisk \emph{\selectlanguage{english}GET DEMO USER TOKEN}, który
+pozwala pobrać token użytkownika demonstracyjnego \emph{BalticLSC}.
+Wysyła on zapytanie z prośbą o zalogowanie użytkownika demonstracyjnego,
+którego dane logowania są publiczne dostępne, a następnie otrzymany token
+uwierzytelniający wprowadza do pola widocznego w oknie dialogowym. W~ten~sposób
+można w łatwy sposób otrzymać poprawny token i rozpocząć działanie z
+\emph{Sirius Web} wykorzystując przybornik użytkownika demonstracyjnego.
+Zrzut ekranu przedstawiający okno dialogowe pozwalające wprowadzić token
+\gls{JWT} użytkownika jest widoczne na
+rysunku~\ref{rys:balticlsc-change-jwt-modal}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/balticlsc-change-jwt-modal-with-instructions.png}
+  \caption{Okno dialogowe do wprowadzenia tokenu \gls{JWT}
+    użytkownika.}\label{rys:balticlsc-change-jwt-modal}
+\end{figure}
+% \end{noindent}
+
+Drugim z problemów występujących podczas komunikacji z \gls{API}
+\emph{BalticLSC} jest mechanizm \gls{CORS}~\cite{cors-documentation}. Aktywuje
+się on ponieważ serwer
+aplikacyjny \emph{BalticLSC} oraz aplikacja przeglądarkowa \emph{Sirius Web} są
+uruchomione na różnych adresach w sieci Internet. Odpowiedzi z serwera
+aplikacyjnego \emph{BalticLSC} nie zawierają odpowiednich nagłówków \gls{HTTP}
+związanych z \gls{CORS},
+więc przeglądarka blokuje połączenia do tego serwera podczas próby ich wysłania
+ze
+strony internetowej zawierającej \emph{Sirius Web}. W~przypadku edytora
+diagramów dostarczonego z \emph{BalticLSC} \gls{CORS} nie występuje, ponieważ
+edytor diagramów oraz serwer znajdują się pod tym samym adresem internetowym
+\url{https://balticlsc.iem.pw.edu.pl/}, więc przeglądarka zezwala na te
+połączenia bez wymogu dodatkowych nagłówków w odpowiedziach z serwera.
+
+Rozwiązaniem na problem braku nagłówków \gls{CORS} w odpowiedziach z serwera
+\emph{BalticLSC} jest wykorzystanie innego serwera jako pośredniczącego w ruchu
+między aplikacją przeglądarkową \emph{Sirius Web}, a serwerem \emph{BalticLSC}
+(ang. \emph{\selectlanguage{english}proxy}). Schemat komunikacji między
+aplikacją \emph{Sirius Web} uruchomioną w przeglądarce a serwerem
+\emph{BalticLSC} z wykorzystaniem serwera pośredniczącego przedstawiono na
+rysunku~\ref{rys:balticlsc-proxy-sequence-diagram}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/balticlsc-proxy-sequence-diagram.pdf}
+  \caption{Diagram sekwencji pobierania listy modułów obliczeniowych z
+    wykorzystaniem serwera pośredniczącego.}\label{rys:balticlsc-proxy-sequence-diagram}
+\end{figure}
+% \end{noindent}
+
+% Kod źródłowy diagramu (Mermaid)
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IHByb3h5IGFzIFNlcndlciBTaXJpdXMgV2ViXG5wYXJ0aWNpcGFudCBiYWx0aWNsc2MgYXMgU2Vyd2VyIEJhbHRpY0xTQ1xuXG5icm93c2VyIC0-PisgcHJveHk6IFBvYmllcnogbGlzdMSZIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxucHJveHkgLT4-KyBiYWx0aWNsc2M6IFBvYmllcnogbGlzdMSZIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxuXG5iYWx0aWNsc2MgLS0-Pi0gcHJveHk6IExpc3RhIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxucHJveHkgLS0-Pi0gYnJvd3NlcjogTGlzdGEgbW9kdcWCw7N3IG9ibGljemVuaW93eWNoXG4iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+%
+% sequenceDiagram
+% participant browser as Przeglądarka
+% participant proxy as Serwer Sirius Web
+% participant balticlsc as Serwer BalticLSC
+%
+% browser ->>+ proxy: Pobierz listę modułów obliczeniowych
+% proxy ->>+ balticlsc: Pobierz listę modułów obliczeniowych
+%
+% balticlsc -->>- proxy: Lista modułów obliczeniowych
+% proxy -->>- browser: Lista modułów obliczeniowych
+
+Serwerem pośredniczącym może być na przykład serwer aplikacyjny \emph{Sirius
+	Web}. Dodano do niego odpowiedni mechanizm tak, aby wszystkie zapytania
+których adres
+zaczyna się~od~\texttt{/balticlsc-proxy} przesyłane były do serwera
+\emph{BalticLSC}, a odpowiedzi z serwera zwracane do~oryginalnego nadawcy
+zapytania.
+
+W przypadku uruchomienia edytora diagramów \emph{Sirius Web} jako część głównej
+aplikacji przeglądarkowej \emph{BalticLSC} pod tym samym adresem co serwer
+aplikacyjny tej platformy można zrezygnować z komunikacji z wykorzystaniem
+serwera pośredniczącego i wysyłać zapytania bezpośrednio do serwera
+aplikacyjnego \emph{BalticLSC}. W tej sytuacji mechanizm \gls{CORS} nie będzie
+wykorzystany i przeglądarka pozwoli na wykonanie połączenia.
+
+\subsection{Wyświetlenie zawartości przybornika w Sirius Web}
+
+W sekcji~\ref{sec:pobranie-zawartosci-przybornika} opisany został mechanizm, za
+pomocą którego aplikacja przeglądarkowa \emph{Sirius Web} ma dostęp do listy
+modułów obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
+przybornika należy teraz wyświetlić na ekranie w obrębie edytora diagramów, aby
+użytkownik mógł z niego skorzystać.
+
+\subsection{Dodanie wywołania modułu obliczeniowego do modelu}
+
+% Opis problemu dodawania nowych \texttt{UnitCall} do diagramu --- trzeba
+% zdefiniować \texttt{ComputationUnitRelease} w diagramie.
+%
+% Rozwiązanie (zaczerpnięte z edytora diagramów BalticLSC) --- przybornik
+% (toolbox).
+%
+% Opis jak to zrobiono, od strony backendu jak i frontendu. Omówienie trudności w
+% modyfikacji interfejsu użytkownika Sirius Web (trzeba było skopiować kod
+% źródłowy niektórych komponentów z biblioteki \textit{Sirius Components} do kodu
+% aplikacji Sirius Web, ponieważ komponenty te nie umożliwiały modyfikacji
+% interfejsu i wstawiania do nich nowych elementów --- najlepiej dać zrzut ekranu
+% co można było łatwo zmienić, a co wymagało skopiowania kodu).
 
 \section{Walidacja semantyczna modelu}
 
@@ -360,6 +579,7 @@ Opis dodanego rozwiązania (własne klasy Javowe które zwracają listę informa
 diagnostycznych, oraz strumieniowanie ich do przeglądarki wykorzystując
 istniejące rozwiązanie do walidacji).
 
-\section{Użycie edytora Sirius Web w BalticLSC}
+\section{Użycie edytora Sirius Web w
+  BalticLSC}\label{sec:uzycie-sirius-web-w-balcitlsc}
 
 Omówienie przygotowanego planu integracji.
