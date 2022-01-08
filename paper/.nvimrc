@@ -13,6 +13,11 @@ lua <<EOF
     ["local"] = "latexindent.yaml",
     modifyLineBreaks = true
   }
+  -- Disable forcing line breaks in bibtex files. Prevents bibtex errors
+  -- when URLs were broken into multiple lines.
+  -- Regular tex files are formatted with latexindent anyway which does not use
+  -- this setting.
+  texlab_settings.formatterLineLength = 0
   texlab_settings.forwardSearch = {
     executable = "zathura",
     -- texlab does not support for current cursor column, so hardcode 1
