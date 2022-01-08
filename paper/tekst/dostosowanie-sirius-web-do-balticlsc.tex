@@ -1,0 +1,43 @@
+\chapter{Dostosowanie Sirius Web dla systemu BalticLSC}
+
+\section{Użycie metamodelu języka CAL w Sirius Web}
+
+Opis jak wykorzystać metamodel EMF w Sirius Web.
+
+\begin{itemize}
+	\item konfiguracja Maven
+	\item odpowiednia modyfikacja klas Javy w Sirius Web
+\end{itemize}
+
+\noindent oraz jaki rezultat uzyskano.
+
+\section{Integracja przybornika BalticLSC w Sirius Web}
+
+Opis problemu dodawania nowych \texttt{UnitCall} do diagramu --- trzeba
+zdefiniować \texttt{ComputationUnitRelease} w diagramie.
+
+Rozwiązanie (zaczerpnięte z edytora diagramów BalticLSC) --- przybornik
+(toolbox).
+
+Opis jak to zrobiono, od strony backendu jak i frontendu. Omówienie trudności w
+modyfikacji interfejsu użytkownika Sirius Web (trzeba było skopiować kod
+źródłowy niektórych komponentów z biblioteki \textit{Sirius Components} do kodu
+aplikacji Sirius Web, ponieważ komponenty te nie umożliwiały modyfikacji
+interfejsu i wstawiania do nich nowych elementów --- najlepiej dać zrzut ekranu
+co można było łatwo zmienić, a co wymagało skopiowania kodu).
+
+\section{Walidacja semantyczna modelu}
+
+Informacja o informacjach diagnostycznych udostępnianych domyślnie przez Sirius
+Web.
+
+Brak uruchamiania reguł semantycznych zdefiniowanych w
+metamodelu~\ref{sec:reguly-walidacyjne-metamodel}.
+
+Opis dodanego rozwiązania (własne klasy Javowe które zwracają listę informacji
+diagnostycznych, oraz strumieniowanie ich do przeglądarki wykorzystując
+istniejące rozwiązanie do walidacji).
+
+\section{Użycie edytora Sirius Web w BalticLSC}
+
+Omówienie przygotowanego planu integracji.
