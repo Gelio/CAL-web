@@ -659,18 +659,250 @@ zainstalowana w projekcie \emph{Sirius Web}.
 
 \subsection{Dodanie wywołania modułu obliczeniowego do modelu}
 
-% Opis problemu dodawania nowych \texttt{UnitCall} do diagramu --- trzeba
-% zdefiniować \texttt{ComputationUnitRelease} w diagramie.
+W momencie kliknięcia przycisku z ikoną modułu obliczeniowego do modelu
+powinno być~dodane wywołanie tego modułu (obiekt \texttt{UnitCall}). Jeżeli
+jest to pierwszy raz~gdy~wywołanie tego modułu zostaje dodane do diagramu,
+należy przed tym dodać definicję modułu (obiekt
+\texttt{ComputationUnitRelease}) do modelu. Modyfikacja modelu poprzez
+aplikację przeglądarkową odbywa się poprzez wysłanie mutacji (\emph{mutation})
+w języku \emph{GraphQL} do serwera aplikacyjnego \emph{Sirius Web}, wskazując
+przy tym obiekt nadrzędny, do którego ma być dodany obiekt,
+oraz szczegóły dodawanego obiektu.
+
+\subsubsection{Wskazywanie miejsca dodania obiektu}
+
+Aby jednoznacznie określić miejsce, w którym ma być dodany obiekt, należy w
+szczegółach mutacji przekazać dwa identyfikatory:
+
+\begin{itemize}
+	\item Identyfikator kontekstu edycji danego modelu (\texttt{editingContextId}). Jest to obiekt związany ze szczegółami implementacyjnymi serwera aplikacyjnego \emph{BalticLSC}. Każdy projekt ma swój kontekst edycji, który można otrzymać wykonując zapytanie \emph{GraphQL} podając w szczegółach identyfikator projektu.
+	\item Identyfikator obiektu nadrzędnego, w którym ma zostać umieszczony nowy obiekt. Model ma strukturę drzewiastą, więc w przypadku tworzenia nowego modułu obliczeniowego lub jego wywołania rodzicem będzie obiekt \texttt{ComputationApplicationRelease}, czyli główny obiekt modelu.
+\end{itemize}
+
+Pierwszy z identyfikatorów jest dostępny w komponencie \texttt{Workbench},
+który przekazuje go~innym komponentom. Można go przekazać również do
+komponentu wyświetlającego przybornik, aby dołączyć go do mutacji dodającej
+elementy modelu.
+
+Drugi z identyfikatorów nie jest dostępny w~żadnym z komponentów
+znajdujących się~w~skopiowanym repozytorium \texttt{sirius-web}. Komponent
+\texttt{ExplorerWebSocketContainer} odpowiedzialny za wyświetlenie drzewa
+projektu po lewej stronie interfejsu użytkownika pobiera go podczas
+wyświetlania kolejnych poziomów drzewa, jednak nie udostępnia go poza
+komponent. Oznacza to, że identyfikator głównego obiektu modelu należy pobrać
+inną metodą. Interfejs zapytań \emph{GraphQL} dostarczony przez \emph{Sirius
+	Web} nie posiada zapytania pozwalającego na pobranie zawartości modelu.
+
+Jednym z możliwych rozwiązań było wykorzystanie tego samego mechanizmu, który
+używany jest w komponencie wyświetlającym drzewo projektu, czyli subskrypcji
+\emph{GraphQL} \texttt{treeEvent}. Jest to mechanizm, który pozwala aplikacji
+przeglądarkowej na otrzymywanie informacji o zmianach w drzewie modelu na żywo,
+tuż po tym jak zostały one wprowadzone. Sprawdza się on dobrze w przypadku
+drzewa modelu wyświetlanego ciągle jako część interfejsu użytkownika, ale nie
+jest najlepszym rozwiązaniem w przypadku jednorazowego pobierania informacji o
+modelu. W tym przypadku mechanizm subskrypcji zostanie wykorzystany tak, jakby
+był jednorazowym zapytaniem, ponieważ nasluchiwanie na zmiany zostanie
+zakończone tuż po otrzymaniu odpowiedzi. W porównaniu do zwykłego zapytania
+takie rozwiązanie wprowadza dodatkowy narzut w ruchu sieciowym.
+
+Utrudnieniem w pobieraniu identyfikatora korzenia modelu jest fakt, że
+subskrypcja \texttt{treeEvent} zwraca informacje jedynie o zawartości tych
+obiektów,
+których identyfikatory zostały przekazane do subskrypcji. Nawiązuje to do
+rozwijania kolejnych poziomów drzewa modelu w interfejsie użytkownika.
+Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący dokument
+\texttt{Document}, który
+w sobie zawiera korzeń modelu znany z metamodelu
+(\texttt{ComputationApplicationRelease}). Aby
+otrzymać identyfikator korzenia modelu należy więc pobrać informacje w dwóch
+krokach: najpierw pobrać informacje o dokumencie, a~później przekazać jego
+identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator korzenia
+modelu. Diagram sekwencji komunikatów \texttt{WebSocket} wymienianych między
+aplikacją przegladarkową a serwerem w celu otrzymania identyfikatora korzenia
+modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
+
+% Kod źródłowy diagramu:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IGJhY2tlbmQgYXMgU2Vyd2VyIFNpcml1cyBXZWJcblxuYnJvd3NlciAtKSsgYmFja2VuZDogU3RhcnQgdHJlZUV2ZW50IElEIDEgKHB1c3RhIGxpc3RhIHJvendpbmnEmXR5Y2ggd8SZesWCw7N3KVxuYmFja2VuZCAtLSktIGJyb3dzZXI6IE9kcG93aWVkxbogdHJlZUV2ZW50IElEIDEgLSBpZGVudHlmaWthdG9yIGRva3VtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkgYmFja2VuZDogU3RvcCB0cmVlRXZlbnQgSUQgMVxuXG5cbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0YXJ0IHRyZWVFdmVudCBJRCAyIChyb3p3aW5pxJl0eSB3xJl6ZcWCIGRva3VtZW50dSBtb2RlbHUpXG5iYWNrZW5kIC0tKS0gYnJvd3NlcjogT2Rwb3dpZWTFuiB0cmVlRXZlbnQgSUQgMiAtIGlkZW50eWZpa2F0b3Iga29yemVuaWEgbW9kZWx1XG5icm93c2VyIC0pIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDIiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+% Przekonwertowane do PDF dzięki https://cloudconvert.com/svg-to-pdf (Engine: imagemagick)
 %
-% Rozwiązanie (zaczerpnięte z edytora diagramów BalticLSC) --- przybornik
-% (toolbox).
+% sequenceDiagram
+% participant browser as Przeglądarka
+% participant backend as Serwer Sirius Web
 %
-% Opis jak to zrobiono, od strony backendu jak i frontendu. Omówienie trudności w
-% modyfikacji interfejsu użytkownika Sirius Web (trzeba było skopiować kod
-% źródłowy niektórych komponentów z biblioteki \textit{Sirius Components} do kodu
-% aplikacji Sirius Web, ponieważ komponenty te nie umożliwiały modyfikacji
-% interfejsu i wstawiania do nich nowych elementów --- najlepiej dać zrzut ekranu
-% co można było łatwo zmienić, a co wymagało skopiowania kodu).
+% browser -)+ backend: Start treeEvent ID 1 (pusta lista rozwiniętych węzłów)
+% backend --)- browser: Odpowiedź treeEvent ID 1 - identyfikator dokumentu modelu
+% browser -) backend: Stop treeEvent ID 1
+%
+%
+% browser -)+ backend: Start treeEvent ID 2 (rozwinięty węzeł dokumentu modelu)
+% backend --)- browser: Odpowiedź treeEvent ID 2 - identyfikator korzenia modelu
+% browser -) backend: Stop treeEvent ID 2
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-web-fetch-model-root-id.pdf}
+  \caption{Diagram sekwencji pobierania identyfikatora głównego obiektu
+    modelu}\label{rys:sirius-web-fetch-model-root-id}
+\end{figure}
+% \end{noindent}
+
+\subsubsection{Mutacja dodająca wywołanie modułu obliczeniowego}
+
+W domyślnym interfejsie użytkownika \emph{Sirius Web} obiekty można dodawać na
+dwa sposoby: wywołując narzędzia powiązane z metamodelem (opisane w
+sekcji~\ref{sec:cal-metamodel-tools}) lub tworząc obiekty bezpośrednio w modelu
+zgodnie ze strukturą metamodelu z wykorzystaniem drzewa obiektów.
+Ponieważ narzędzia tworzące elementy nie przyjmują parametrów z zewnątrz
+dostępna jest~jedynie metoda bezpośredniego tworzenia elementów.
+
+Mutacja
+wykorzystywana przez drzewo obiektów modelu to \texttt{createChild}.
+W jej parametrach należy przekazać wewnętrzny identyfikator typu obiektu, który
+ma
+zostać stworzony. Identyfikatory te są tworzone dla każdego obiektu
+występującego w
+metamodelu w sposób niemożliwy do odgadnięcia, więc otrzymanie informacji o
+tych identyfikatorach wymaga wysłania zapytania do serwera.
+
+Tworząc nowe wywołanie modułu obliczeniowego należy stworzyć wiele obiektów
+w~modelu: obiekt \texttt{UnitCall} oraz po jednym obiekcie
+\texttt{ComputedDataPin} na każdy port modułu obliczeniowego. Jeżeli ten moduł
+wykorzystywany jest po raz pierwszy w modelu, należy najpierw stworzyć obiekt
+\texttt{ComputationApplicationRelease} oraz po jednym obiekcie
+\texttt{DeclaredDataPin} na każdy port modułu obliczeniowego. Ponadto,
+te modyfikacje powinny odbyć się w obrębie jednej transakcji. Z uwagi na
+dużą liczbę obiektów do stworzenia w trybie transakcyjnym, a~także dodatkowe
+zapytania sieciowe w celu sprawdzenia czy moduł był~już~użyty w modelu,
+zdecydowano, że zostanie dodana do serwera aplikacyjnego nowa mutacja
+\texttt{createUnitCall}, która będzie odpowiedzialna za te operacje.
+
+Dodanie nowej mutacji do serwera \emph{Sirius Web} wymagało następujących
+kroków:
+
+\begin{itemize}
+	\item Dodanie klas typu \gls{DTO} w języku Java opisujących strukturę danych wejściowych i wyjściowych mutacji. Klasy oraz ich właściwości muszą mieć odpowiednie adnotacje pochodzące z kodu repozytorium \texttt{sirius-components}, aby~mogły być one przesyłane w języku \emph{GraphQL}. Dodano klasy i wyliczenia:
+
+	      \begin{itemize}
+		      \item \texttt{DataBinding},
+		      \item \texttt{Multiplicity},
+		      \item \texttt{DeclaredDataPinInput},
+		      \item \texttt{ComputationUnitReleaseInput},
+		      \item \texttt{CreateUnitCallInput}
+		      \item \texttt{CreateUnitCallSuccessPayload}.
+	      \end{itemize}
+
+	\item Opisanie dodanych struktur w schemacie danych (\emph{GraphQL
+		      schema}).
+
+	\item Implementacja klasy \texttt{MutationCreateUnitCallDataFetcher} odpowiedzialnej za~sprawdzenie poprawności danych wejściowych i przekazanie ich do dalszej obsługi.
+
+	\item Implementacja klasy \texttt{CreateUnitCallEventHandler} odpowiedzialnej za odpowiednie zmodyfikowanie modelu.
+
+	      To w tej klasie znajduje się logika sprawdzająca czy moduł jest już wykorzystywany w~modelu i dodawanie jego definicji jeżeli nie jest użyty lub użycie już dodanej definicji jeżeli istnieje, a później tworzenie wywołania tego modułu z odpowiednimi wskazaniami na definicję modułu.
+
+\end{itemize}
+
+Wszystkie dodane klasy zostaną automatycznie wzięte pod uwagę przez serwer
+aplikacyjny \emph{Sirius Web} podczas obsługi zapytań \gls{API} dzięki
+mechanizmowi wstrzykiwania zależności (\emph{Dependency Injection}) platformy
+\emph{Java Spring}.
+W kodzie obsługi mutacji można wykorzystywać klasy metamodelu \gls{EMF}.
+Sprawia to, że implementacja jest prostsza i szybsza w porównaniu do
+wykonywania tych samych operacji komunikując się przez warstwę zapytań
+\emph{GraphQL}.
+Dodatkowo wszystkie zmiany wprowadzane przez kod obsługi mutacji są widoczne
+na raz, ponieważ są wykonywane w obrębie jednej synchronicznej metody. Skutkuje
+to atomowością tej~operacji. Przeglądarka nie dostanie dostanie informacji o
+połowicznie zmodyfikowanym modelu --- aktualizacja zostanie przesłana dopiero
+po zakończeniu mutacji. Diagram aktywności przedstawiający dodanie wywołania
+modułu obliczeniowego jest przedstawiony
+na~rysunku~\ref{rys:sirius-web-create-unit-call-mutation-handler}. Treść
+przykładowej mutacji odpowiedzialnej za dodanie modułu \emph{Bounding Labels}
+posiadającego dwa porty znajduje się na
+listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
+
+% Źródło:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggVERcbiAgICBTdGFydCAtLT4gU2VhcmNoVW5pdFJlbGVhc2UoUG9zenVrYWogbW9kdcWCdSB3IG1vZGVsdSlcbiAgICBTZWFyY2hVbml0UmVsZWFzZSAtLT4gSWZVbml0UmVsZWFzZUV4aXN0cyhNb2R1xYIganXFvCB3eXdvxYJhbnkgdyBtb2RlbHU_KVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSB6YWRla2xhcm93YW5lIHBpbnkgbW9kdcWCdT8pXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLT58bmllfCBDcmVhdGVEZWNsYXJlZERhdGFQaW4oVXR3w7NyeiBvYmlla3QgRGVjbGFyZWREYXRhUGluIGkgcG93acSFxbwgeiBDb21wdXRhdGlvblVuaXRSZWxlYXNlKVxuICAgIENyZWF0ZURlY2xhcmVkRGF0YVBpbiAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZFxuICAgIElmQWxsRGVjbGFyZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IENyZWF0ZVVuaXRDYWxsXG4gICAgXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58dGFrfCBDcmVhdGVVbml0Q2FsbChVdHfDs3J6IG9iaWVrdCBVbml0Q2FsbCBpIGRvZGFqIGdvIGRvIG1vZGVsdSlcbiAgICBDcmVhdGVVbml0Q2FsbCAtLT4gSWZBbGxDb21wdXRlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSBwaW55IG1vZHXFgnU_KVxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0-fG5pZXwgQ3JlYXRlQ29tcHV0ZWREYXRhUGluKFV0d8Ozcnogb2JpZWt0IENvbXB1dGVkRGF0YVBpbiBpIHBvd2nEhcW8IHogVW5pdENhbGwpXG4gICAgQ3JlYXRlQ29tcHV0ZWREYXRhUGluIC0tPiBDb25uZWN0UGlucyhQb3dpxIXFvCBDb21wdXRlZERhdGFQaW4geiBvZHBvd2llZG5pbSBEZWNsYXJlZERhdGFQaW4pXG4gICAgQ29ubmVjdFBpbnMgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWRcblxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IFJldHVyblVuaXRDYWxsKFp3csOzxIcgaW5mb3JtYWNqZSBvIHN0d29yem9ueW0gVW5pdENhbGwpXG4gICAgUmV0dXJuVW5pdENhbGwgLS0-IEVuZChLb25pZWMpIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0
+% Konwertowane do PDF poprzez drukowanie do PDF w Google Chrome.
+% Wykorzystanie https://cloudconvert.com/ usuwało tekst z diagramu.
+%
+% graph TD
+%     Start --> SearchUnitRelease(Poszukaj modułu w modelu)
+%     SearchUnitRelease --> IfUnitReleaseExists(Moduł już wywołany w modelu?)
+%
+%     IfUnitReleaseExists -->|nie| CreateComputationUnitRelease(Utwórz obiekt ComputationUnitRelease i dodaj go do modelu)
+%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated(Czy utworzono wszystkie zadeklarowane porty modułu?)
+%     IfAllDeclaredDataPinsCreated -->|nie| CreateDeclaredDataPin(Utwórz obiekt DeclaredDataPin i powiąż z ComputationUnitRelease)
+%     CreateDeclaredDataPin --> IfAllDeclaredDataPinsCreated
+%     IfAllDeclaredDataPinsCreated --->|tak| CreateUnitCall
+%
+%     IfUnitReleaseExists -->|tak| CreateUnitCall(Utwórz obiekt UnitCall i dodaj go do modelu)
+%     CreateUnitCall --> IfAllComputedDataPinsCreated(Czy utworzono wszystkie porty modułu?)
+%     IfAllComputedDataPinsCreated -->|nie| CreateComputedDataPin(Utwórz obiekt ComputedDataPin i powiąż z UnitCall)
+%     CreateComputedDataPin --> ConnectPins(Powiąż ComputedDataPin z odpowiednim DeclaredDataPin)
+%     ConnectPins --> IfAllComputedDataPinsCreated
+%
+%     IfAllComputedDataPinsCreated --->|tak| ReturnUnitCall(Zwróć informacje o stworzonym UnitCall)
+%     ReturnUnitCall --> End(Koniec)
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.90\linewidth]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
+  \caption{Diagram aktywności dla dodania nowego wywołania modułu
+    obliczeniowego}\label{rys:sirius-web-create-unit-call-mutation-handler}
+\end{figure}
+% \end{noindent}
+
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    % NOTE: graphql is not supported, c adds basic highlighting for strings
+    language=c,
+    caption={Mutacja \emph{GraphQL} dodająca wywołanie modułu obliczeniowego do
+      modelu},
+    label={lst:sirius-web-createUnitCall-mutation}]
+mutation {
+  createUnitCall(input: {
+    	id: "cfcce8ef-47e3-4f5e-9ecc-847deba46219",
+    	rootObjectId:"9e778a79-c5bb-484d-9867-86d4caddec18",
+      editingContextId: "a7fdb460-e342-42a6-924e-d31cbb53db69",
+      unitRelease: {
+        id: "110f65c2-3fc6-411c-9ded-8c8cf96db52d",
+        name: "Bounding Labels",
+        version: "0.11",
+        pins: [
+          {
+            id: "c915d7a5-dec5-4b60-9fdb-00eed6591cc4",
+            name: "Input",
+            binding: REQUIRED,
+            tokenMultiplicity: SINGLE,
+            dataMultiplicity: SINGLE
+          },
+          {
+            id: "76c05ac4-4b34-4053-97e5-8d65748d1485",
+            name: "Output",
+            binding: PROVIDED,
+            tokenMultiplicity: SINGLE,
+            dataMultiplicity: SINGLE
+          }
+        ]
+      }
+  }) {
+    __typename
+    ... on CreateUnitCallSuccessPayload {
+      id
+      createdUnitCall {
+        id
+        kind
+        label
+      }
+    }
+  }
+}
+\end{lstlisting}
 
 \section{Walidacja semantyczna modelu}
 
@@ -688,3 +920,5 @@ istniejące rozwiązanie do walidacji).
   BalticLSC}\label{sec:uzycie-sirius-web-w-balcitlsc}
 
 Omówienie przygotowanego planu integracji.
+Uwzględnić jak miałyby być tworzone projekty i modele w tych projektach aby
+zapewnić kontrolę dostępu użytkowników do modeli.
