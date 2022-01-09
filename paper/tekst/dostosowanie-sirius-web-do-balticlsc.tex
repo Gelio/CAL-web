@@ -906,15 +906,234 @@ mutation {
 
 \section{Walidacja semantyczna modelu}
 
-Informacja o informacjach diagnostycznych udostępnianych domyślnie przez Sirius
-Web.
+\emph{Sirius Desktop} posiada funkcjonalność walidacji modelu pod względem
+składniowym (na podstawie atrybutów metamodelu) oraz semantycznym (na podstawie
+reguł \emph{\selectlanguage{english}Semantic Validation Rule} zdefiniowanych w
+pliku \texttt{*.odesign} metamodelu \gls{EMF}), co zostało opisane w
+sekcji~\ref{sec:reguly-walidacyjne-metamodel}.
 
-Brak uruchamiania reguł semantycznych zdefiniowanych w
-metamodelu~\ref{sec:reguly-walidacyjne-metamodel}.
+\emph{Sirius Web} w swoim interfejsie użytkownika posiada miejsce, w którym
+wyświetlają się~pewne informacje diagnostyczne dotyczące modelu. Po każdej
+modyfikacji struktury modelu aktualizowane są informacje w dolnej części panelu
+po lewej stronie. Zawierają one wyłącznie błędy wynikające z walidacji
+składniowej modelu. Pomimo zdefiniowanych reguł walidacji semantycznej, nie są
+one wyświetlane w aplikacji przeglądarkowej \emph{Sirius Web}. Na
+rysunku~\ref{rys:sirius-desktop-and-web-semantic-validation-comparison}
+porównano zwracane informacje diagnostyczne w \emph{Sirius Web} i \emph{Sirius
+	Desktop} dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
+widać błędy walidacji semantycznej pochodzące
+z reguł z metamodelu \gls{EMF}. Błędów tych brakuje w aplikacji
+przeglądarkowej. Problem ten został zgłoszony w repozytorium
+\texttt{sirius-web}\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
 
-Opis dodanego rozwiązania (własne klasy Javowe które zwracają listę informacji
-diagnostycznych, oraz strumieniowanie ich do przeglądarki wykorzystując
-istniejące rozwiązanie do walidacji).
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-failure.png}
+		\caption{Błąd walidacji semantycznej w \emph{Sirius Desktop}}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-web-no-emf-semantic-validation.png}
+		\caption{Brak błędów walidacji semantycznej w \emph{Sirius Web}}
+	\end{subfigure}
+
+	\caption{Obsługa reguł walidacji semantycznej \gls{EMF} w \emph{Sirius Web}
+    i \emph{Sirius Desktop}}\label{rys:sirius-desktop-and-web-semantic-validation-comparison}
+\end{figure}
+% \end{noindent}
+
+Oznacza to, że chcąc otrzymać informacje diagnostyczne z walidacji semantycznej
+modeli w \emph{Sirius Web} należy zaimplementować ten rodzaj walidacji samemu
+rozszerzając
+serwer aplikacyjny. Informacje z walidacji składniowej modelu są
+strumieniowane do przeglądarki za~pomocą subskrypcji \emph{GraphQL}. Po
+wyświetleniu diagramu aplikacja przeglądarkowa rejestruje subskrypcję
+\texttt{validationEvent} w interfejsie \gls{API} serwera przekazując
+identyfikator kontekstu edycji (\texttt{editingContextId}), o którego zmianach
+chce być powiadamiana. Po zmianach w~strukturze modelu serwer aplikacyjny
+przesyła do przeglądarki wiadomość \texttt{validationEvent} zawierającą listę
+informacji diagnostycznych, którą aplikacja przeglądarkowa wyświetla
+na~ekranie.
+
+W kodzie źródłowym serwera aplikacyjnego znajduje się klasa
+\texttt{ValidationDescription\-Provider}. Jest ona odpowiedzialna za
+przygotowanie zestawu funkcji uruchamianych w~momencie, gdy należy sprawdzić
+poprawność modelu. Domyślnie korzysta ona z~usługi
+\texttt{EMFValidationService} która jest zarejestrowana jako implementacja
+interfejsu \texttt{IValidationService}. Dostarcza ona informacji
+diagnostycznych z walidacji składniowej modelu. Chcąc dokonać dodatkowo
+walidacji
+semantycznej należy w metodzie \texttt{getDiagnosticsProvider} klasy
+\texttt{ValidationDescriptionProvider} wykonać tą walidację i dodać
+nowe elementy do listy wynikowych informacji diagnostycznych.
+
+Z uwagi na skomplikowanie dostępu programistycznego do reguł walidacji
+semantycznej zdefiniowanej w metamodelu \gls{EMF} zdecydowano, że dodatkowy
+mechanizm walidacji semantycznej w \emph{Sirius Web} zostanie zaimplementowany
+za pomocą osobnych klas języka Java, niekorzystających z reguł zdefiniowanych
+w metamodelu \gls{EMF}. Diagram klas systemu walidacji semantycznej widoczny
+jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
+
+% Źródło:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgZGlyZWN0aW9uIFJMXG4gICAgY2xhc3MgSVNlbWFudGljQ0FMVmFsaWRhdGlvblJ1bGUge1xuICAgICAgICA8PGludGVyZmFjZT4-XG4gICAgICAgIHZhbGlkYXRlKENvbXB1dGF0aW9uQXBwbGljYXRpb25SZWxlYXNlIG1vZGVsKSBMaXN0fkRpYWdub3N0aWN-XG4gICAgfVxuXG4gICAgY2xhc3MgRGF0YUZsb3dEaXJlY3Rpb25cbiAgICBEYXRhRmxvd0RpcmVjdGlvbiAuLnw-IElTZW1hbnRpY0NBTFZhbGlkYXRpb25SdWxlXG4gICAgY2xhc3MgTm9EYXRhRmxvd0N5Y2xlc1xuICAgIE5vRGF0YUZsb3dDeWNsZXMgLi58PiBJU2VtYW50aWNDQUxWYWxpZGF0aW9uUnVsZVxuICAgIGNsYXNzIE5vRGF0YUZsb3dMb29wc1xuICAgIE5vRGF0YUZsb3dMb29wcyAuLnw-IElTZW1hbnRpY0NBTFZhbGlkYXRpb25SdWxlXG5cbiAgICBjbGFzcyBWYWxpZGF0aW9uRGVzY3JpcHRpb25Qcm92aWRlclxuICAgIFZhbGlkYXRpb25EZXNjcmlwdGlvblByb3ZpZGVyIFwiMFwiIC0tPiBcIipcIiBJU2VtYW50aWNDQUxWYWxpZGF0aW9uUnVsZSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% Przekształcono do PDF za pomocą drukowania SVG do PDF w Google Chrome.
+% Potem użyto pdfcrop do przycięcia PDF.
+%
+% classDiagram
+%     direction RL
+%     class ISemanticCALValidationRule {
+%         <<interface>>
+%         validate(ComputationApplicationRelease model) List~Diagnostic~
+%     }
+%
+%     class DataFlowDirection
+%     DataFlowDirection ..|> ISemanticCALValidationRule
+%     class NoDataFlowCycles
+%     NoDataFlowCycles ..|> ISemanticCALValidationRule
+%     class NoDataFlowLoops
+%     NoDataFlowLoops ..|> ISemanticCALValidationRule
+%
+%     class ValidationDescriptionProvider
+%     ValidationDescriptionProvider --> "0..*" ISemanticCALValidationRule
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
+  \caption{Diagram klas związanych z walidacją semantyczną w \emph{Sirius
+    Web}.}\label{rys:sirius-web-semantic-validation-class-diagram}
+\end{figure}
+% \end{noindent}
+
+Podstawą architektury do walidacji semantycznej modeli jest interfejs
+\texttt{ISemanticCAL\-Validation\-Rule}. Jest on implementowany przez klasy
+będące
+poszczególnymi regułami walidacji semantycznej modeli języka \gls{CAL}. Każda
+taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
+instancję klasy \texttt{ComputationApplicationRelease}. Jest~to klasa
+wygenerowana na podstawie metamodelu \gls{EMF}
+będąca korzeniem drzewa modelu i~dzięki niej można dotrzeć do dowolnego
+elementu modelu. Metoda \texttt{validate} zwraca listę obiektów klasy
+\texttt{Diagnostic}
+zawierających informacje diagnostyczne o modelu. Jedna reguła walidacji
+semantycznej może zwrócić wiele informacji diagnostycznych, ponieważ może
+być~naruszona wiele razy przez różne obiekty w modelu. Informacje diagnostyczne
+mają różne kategorie --- mogą to być błędy (\emph{error}), ostrzeżenia
+(\emph{warning}) lub zwykłe informacje (\emph{info}).
+
+W ramach tej pracy magisterskiej zostały zaimplementowane 3 reguły walidacji
+semantycznej w \emph{Sirius Web}. Pierwsza z nich (\texttt{DataFlowDirection})
+weryfikuje kierunek przepływu
+danych na diagramie. Zgłasza ona błąd jeżeli obiekt \texttt{DataFlow} na
+diagramie zaczyna się~w~porcie oznaczonym jako wejściowy (\emph{required}) lub
+kończy się w porcie oznaczonym jako~wyjściowy (\emph{provided}).
+
+Druga reguła (\texttt{NoDataFlowLoops}) zgłasza jako błędy sytuacje, w których
+w modelu występuje
+połączenie między portami na tym samym wywołaniu modułu obliczeniowego.
+Taki moduł nigdy nie rozpocząłby pracy, ponieważ do rozpoczęcia działania
+wymaga danych dostarczonych na wszystkich swoich portach, a więc także danych
+dostarczonych od samego siebie, które będą dostępne dopiero po rozpoczęciu
+pracy (błędne koło).
+
+Trzecia reguła (\texttt{NoDataFlowCycles}) jest uogólnieniem reguły drugiej.
+Wykrywa ona~sytuacje, w których w grafie połączeń \texttt{DataFlow} znajduje
+się cykl. Może, ale nie musi to~być~błąd, dlatego informacje diagnostyczne
+pochodzące z tej reguły są oznaczone jako ostrzeżenie (\emph{warning}).
+Wiadomość
+tekstowa zawiera nazwy modułów obliczeniowych, które wchodzą w skład cyklu.
+Reguła ta wykonuje algorytm przeszukiwania grafu w głąb
+(\gls{DFS})~\cite{wikipedia-dfs}. Po tym następuje próba skrócenia cyklu
+poprzez eliminację elementów nieznaczących. Elementem nieznaczącym jest
+wierzchołek grafu $x_n$, dla którego istnieje krawędź między  poprzednim
+$x_{n-1}$ a kolejnym wierzchołkiem cyklu $x_{n+1}$. Wierzchołek $x_n$ można
+usunać z cyklu. Operacja usuwania nieznaczących elementów jest próbowana dla
+wszystkich wierzchołków w cyklu do momentu, gdy nie ma elementów nieznaczących.
+Skrócenie cyklu pozwoli użytkownikowi szybciej zlokalizować cykl na diagramie,
+ponieważ będzie on zawierał potencjalnie mniej elementów niż ten znaleziony
+przez algorytm \gls{DFS}. Nie ma gwarancji, że znaleziony cykl po skróceniu
+jest najkrótszym cyklem w grafie. Reguła zaprzestaje przeszukiwanie po
+znalezieniu pierwszego cyklu.
+
+Za pomocą mechanizmu wstrzykiwania zależności platformy \emph{Java Spring}
+wszystkie klasy oznaczone adnotacją \texttt{@Service} implementujące interfejs
+\texttt{ISemanticCALValidationRule} są dostępne w klasie
+\texttt{ValidationDescriptionProvider}. Wewnątrz implementacji metody
+\texttt{getDiagnosticsProvider} jeżeli przetwarzany aktualnie model pochodzi z
+metamodelu języka \gls{CAL} uruchamiane są reguły implementujące interfejs
+\texttt{ISemanticCALValidationRule}, a ich wyniki są łączone z wynikami
+walidacji składniowej. Implementacja metody zwracającej informacje
+diagnostyczne przedstawiona jest na
+listingu~\ref{lst:sirius-web-semantic-validation-merge-diagnostics}. Wynikowa
+lista informacji diagnostycznych przesyłana
+jest do aplikacji przeglądarkowej gdzie jest wyświetlana użytkownikowi. Wyniki
+walidacji semantycznej w \emph{Sirius Web} widoczne są na
+rysunku~\ref{rys:sirius-web-semantic-validation-results}.
+
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=java,
+    caption={Metoda zwracająca listę informacji diagnostycznych w \emph{Sirius
+      Web}},
+    label={lst:sirius-web-semantic-validation-merge-diagnostics}]
+private List<Object> getDiagnosticsProvider(VariableManager variableManager) {
+    var optionalEditingContext = variableManager.get(IEditingContext.EDITING_CONTEXT, IEditingContext.class);
+
+    var emfDiagnostics = optionalEditingContext.map(this.validationService::validate).orElseGet(List::of);
+
+    var calDiagnostics = optionalEditingContext
+            .flatMap(this::extractComputationApplicationRelease)
+            .map(applicationRelease ->
+                this.validationRules.stream()
+                    .flatMap(rule ->
+                      rule.validate(applicationRelease).stream()
+                    )
+                    .collect(Collectors.toList())
+            )
+            .orElseGet(List::of);
+
+    return Stream.concat(
+      emfDiagnostics.stream(),
+      calDiagnostics.stream()
+    ).collect(Collectors.toList());
+}
+\end{lstlisting}
+
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-web-semantic-validation-direction-and-no-loops-rules.png}
+		\caption{Błędy walidacji semantycznej związane z kierunkiem połączeń oraz
+      pętlami w grafie połączeń}
+	\end{subfigure}
+
+  \bigskip
+
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-web-semantic-validation-no-cycles-rule.png}
+		\caption{Ostrzeżenie o cyklu w grafie połączeń}
+	\end{subfigure}
+
+	\caption{Wyniki dodanego mechanizmu walidacji
+  semantycznej}\label{rys:sirius-web-semantic-validation-results}
+\end{figure}
+% \end{noindent}
+
+Warto zaznaczyć, że aktualizacja informacji diagnostycznych o modelu jest
+dokonywana wyłącznie po zmianie struktury modelu (dodaniu, usunięciu elementu,
+lub zmianie jego właściwości). Zmiana szczegółów
+wizualnych modelu, takich jak zmiana pozycji obiektów na diagramie albo zmiana
+ich rozmiaru nie powoduje wywołania kodu odpowiedzialnego za~inspekcję modelu i
+zbieranie informacji diagnostycznych. Dzięki temu w momencie zmian wizualnych
+diagramu wykonywane jest mniej operacji, co poprawia wydajność edytora.
 
 \section{Użycie edytora Sirius Web w
   BalticLSC}\label{sec:uzycie-sirius-web-w-balcitlsc}
