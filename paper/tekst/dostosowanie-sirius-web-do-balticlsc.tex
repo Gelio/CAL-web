@@ -549,8 +549,113 @@ wykorzystany i przeglądarka pozwoli na wykonanie połączenia.
 W sekcji~\ref{sec:pobranie-zawartosci-przybornika} opisany został mechanizm, za
 pomocą którego aplikacja przeglądarkowa \emph{Sirius Web} ma dostęp do listy
 modułów obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
-przybornika należy teraz wyświetlić na ekranie w obrębie edytora diagramów, aby
-użytkownik mógł z niego skorzystać.
+przybornika należy wyświetlić na ekranie w obrębie edytora diagramów, aby
+użytkownik mógł z niego skorzystać. Realizacja tej funkcjonalności wymaga
+modyfikacji interfejsu użytkownika \emph{Sirius Web}.
+
+Warstwa interfejsu użytkownika \emph{Sirius Web} napisana jest w języku
+\emph{TypeScript}~\cite{typescript-homepage}, który jest rozszerzeniem języka
+\emph{JavaScript} dodającym
+statyczne typowanie zmiennych. Kod~wykorzystuje bibliotekę
+\emph{React}~\cite{react-homepage} do podziału warstwy wizualnej na mniejsze
+komponenty i ich wyświetlenie. Podstawowe komponenty, z których można zbudować
+edytor modeli bazujący na serwerze aplikacyjnym \emph{Sirius Web} są
+zlokalizowane i udostępnione w repozytorium \texttt{sirius-components}.
+W repozytorium \texttt{sirius-web} są one wykorzystane do zbudowania
+przykładowej aplikacji przeglądarkowej do edycji modeli.
+Jest ona demonstracją jak można ich użyć i może zostać dostosowana do własnych
+potrzeb.
+
+Zdecydowano, że w domyślnym interfejsie użytkownika aplikacji \emph{Sirius Web}
+zaprezentowanym na rysunku~\ref{rys:sirius-web-base-metamodel-model}
+odpowiednie miejsce na wyświetlenie przybornika znajduje się~nad~diagramem,
+powyżej paska narzędzi, a poniżej górnej ciemnoniebieskiej belki z tytułem
+projektu. Komponent \texttt{Workbench} odpowiedzialny za wyświetlenie edytora
+diagramów (całość
+interfejsu \emph{Sirius Web} oprócz górnej ciemnoniebieskiej belki) nie
+ma możliwości pokazania dodatkowych komponentów zdefiniowanych przez
+programistę pracującego nad własnym edytorem diagramów. Wyświetla on zawsze
+komponenty w ustalonym porządku:
+
+\begin{itemize}
+	\item Panel z lewej strony składający się z drzewa elementów projektu na górze oraz informacji diagnostycznych modelu na dole.
+	\item Panel główny z edytorem aktualnie wybranego diagramu. Gdy żaden nie jest wybrany, wyświetlone są tam przyciski umożliwiające łatwe stworzenie pierwszego modelu w~projekcie.
+	\item Panel z prawej strony składający się z detali aktualnie wybranego elementu diagramu.
+\end{itemize}
+
+Chcąc dodać nowy element interfejsu użytkownika wymagane jest skopiowanie kodu
+źródłowego komponentu \texttt{Workbench} z repozytorium
+\texttt{sirius-components} do własnej kopii repozytorium \texttt{sirius-web} i
+skorzystanie w nim bezpośrednio z bardziej podstawowych komponentów.
+Nie wszystkie elementy, z których składa się komponent \texttt{Workbench} są
+udostępnione do wykorzystania w swoim repozytorium, więc oprócz samego głównego
+komponentu należało również skopiować
+implementację komponentów odpowiedzialnych za wyświetlenie rozszerzalnych
+paneli po lewej i prawej stronie (\texttt{LeftSite}, \texttt{RightSite},
+\texttt{Panels}) oraz za wyświetlenie listy informacji diagnostycznych
+(\texttt{ValidationWebSocketContainer}). O ile komponenty wizualne związane z
+panelami są niezależne od serwera aplikacyjnego \emph{Sirius Web}, to komponent
+pokazujący
+informacje diagnostyczne modelu zawiera w sobie treść subskrypcji WebSocket,
+która zależy od interfejsu \gls{API} dostarczonego przez serwer. Zmiany w tym
+interfejsie mogą wymagać zmian w kodzie komponentu
+\texttt{ValidationWebSocketContainer}. Jednak z uwagi na fakt, że treść tego
+komponentu jest skopiowana do własnego repozytorium, komponent ten może
+przestać działać po aktualizacji serwera aplikacyjnego \emph{Sirius Web}.
+Utrudnia to utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
+się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
+przeglądarkowej.
+
+Innym nieudostępnionym z \texttt{sirius-components} komponentem jest
+\texttt{OnboardArea}
+odpowiedzialny za wyświetlenie przycisków pozwalających na stworzenie nowego
+modelu w~projekcie i widoczny jest na
+rysunku~\ref{rys:sirius-web-new-model-template}. Jest on pokazywany gdy w
+projekcie nie ma jeszcze żadnych
+modeli lub nie został wybrany model do wyświetlenia.
+Komponent ten jest skomplikowany i zawiera dużo kodu. Jednocześnie w momencie,
+gdy jest on wyświetlony, nie ma potrzeby wyświetlać jeszcze przybornika z
+\emph{BalticLSC}. Podjęto decyzję, żeby przed wyborem modelu do wyświetlenia na
+diagramie wyświetlić oryginalny komponent \texttt{Workbench}, który wyświetli
+komponent \texttt{OnboardArea}. Po wybraniu modelu do wyświetlenia biblioteka
+\emph{React} podmienia komponent widoczny na ekranie na zmodyfikowaną kopię
+pochodzącą z lokalnego repozytorium. Dzięki temu zostaje zachowana
+funkcjonalność wyświetlenia komponentu \texttt{OnboardArea} bez potrzeby
+kopiowania jego implementacji.
+
+Problem związany z nieudostępnieniem wszystkich komponentów bazowych z
+% NOTE: allowbreak purposefully terminated with a space (ignore the chktex warning)
+\texttt{sirius-\allowbreak components} % chktex 1
+jest znany i został zgłoszony autorom
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/830}}.
+Planują oni również umożliwić dodawanie elementów w panelach po lewej i prawej
+stronie\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/693}}.
+Nie ma
+natomiast planów umożliwienia dodawania własnych elementów powyżej
+wyświetlonego diagramu.
+
+Skopiowane komponenty można dowolnie edytować i rozszerzać. W tym przypadku
+zmodyfikowano skopiowany komponent \texttt{Workbench} i dodano w nim
+przyciski odpowiedzialne za dodanie wywołania modułu obliczeniowego do
+diagramu. Każdy przycisk zawiera ikonę modułu, podobnie jak w interfejsie
+\emph{BalticLSC}, a po najechaniu kursorem wyświetla nazwę modułu oraz jego
+wersję, co zostało zaprezentowane na rysunku~\ref{rys:sirius-web-toolbox}.
+Ponadto dodany został przycisk
+pozwalający na odświeżenie przybornika poprzez ponowne pobranie jego
+zawartości.
+Do wyświetlenia przycisków zostały wykorzystane komponenty pochodzące
+z~biblioteki \emph{Material~UI}~\cite{material-ui-homepage}, która była już
+zainstalowana w projekcie \emph{Sirius Web}.
+
+\begin{figure}[!ht]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-web-toolbox.png}
+	\caption{Przybornik dodany w \emph{Sirius
+			Web}.}\label{rys:sirius-web-toolbox}
+\end{figure}
 
 \subsection{Dodanie wywołania modułu obliczeniowego do modelu}
 
