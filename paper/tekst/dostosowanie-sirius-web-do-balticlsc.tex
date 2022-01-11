@@ -1157,7 +1157,7 @@ Integracja \emph{BalticLSC} i~\emph{Sirius Web} pozostaje
 poza zakresem pracy magisterskiej.
 
 \subsection{Udostępnienie samodzielnego komponentu edytora diagramów z Sirius
-	Web}
+	Web}\label{sec:udostepnienie-samodzielnego-komponentu-Workbench}
 
 Chcąc wyświetlić edytor diagramów z \emph{Sirius Web} wewnątrz innej aplikacji
 musi być udostępniony interfejs programistyczny \gls{API}, który będzie
@@ -1338,7 +1338,71 @@ jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 
 \subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor diagramów}
 
-Opis example--application. Zrzut ekranu aby pokazać jak to wygląda.
+Wykorzystując bibliotekę JavaScript wyświetlającą edytor diagramów opisaną w
+sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} można
+zbudować aplikację przeglądarkową, która ten edytor wyświetli. Taki właśnie
+przykład wykonano w ramach tej pracy magisterskiej. Kod źródłowy tej aplikacji
+znajduje się w katalogu \directory{frontend-library-example}.
+
+Aplikacja jest
+napisana w języku JavaScript. Nie wykorzystuje żadnej znanej biblioteki
+(na~przykład \emph{React} czy \emph{Vue.js}) do~wyświetlenia interfejsu
+użytkownika.
+Aplikacja zawiera jedynie plik \path{index.html} definiujący strukturę strony
+internetowej
+oraz \path{app.js} zawierający kod~aplikacji. Interfejs użytkownika po
+uruchomieniu aplikacji widoczny jest na
+rysunku~\ref{rys:example-app-pre-mount}. Widać na nim informacje o
+przeznaczeniu tego przykładu, a także dwa pola tekstowe pozwalające na
+wprowadzenie identyfikatora projektu do edycji oraz token \gls{JWT}
+uwierzytelniający użytkownika w systemie \emph{BalticLSC}. Pierwszą z tych
+informacji można otrzymać z paska adresu pełnej aplikacji \emph{Sirius Web} ---
+jest to kolejny fragment adresu tuż po fragmencie \texttt{project}. Token
+\gls{JWT} można uzyskać w okna dialogowego pozwalającego go wprowadzić w pełnej
+aplikacji \emph{Sirius Web}. Po uzupełnieniu tych danych można
+nacisnąć przycisk \emph{Mount application}, który wyświetli edytor diagramów w
+dolnej części strony internetowej. Jest to zaprezentowane na
+rysunku~\ref{rys:example-app-mounted}. Można
+za jego pomocą dowolnie modyfikować i przeglądać model, podobnie jak w pełnej
+wersji aplikacji \emph{Sirius Web}. Naciśnięcie przycisku \emph{Unmount
+	application} schowa edytor ze strony i wróci ona do stanu początkowego,
+jak na rysunku~\ref{rys:example-app-pre-mount}.
+
+% \begin{noindent}
+\begin{figure}[!ht]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/example-app-pre-mount.png}
+  \caption{Przykładowa aplikacja przeglądarkowa przed wyświetleniem
+    edytora diagramów}\label{rys:example-app-pre-mount}
+\end{figure}
+% \end{noindent}
+
+% \begin{noindent}
+\begin{figure}[!ht]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/example-app-mounted.png}
+  \caption{Przykładowa aplikacja przeglądarkowa wyświetlająca edytor
+    diagramów}\label{rys:example-app-mounted}
+\end{figure}
+% \end{noindent}
+
+Kod przykładowej aplikacji przeglądarkowej wykonuje operacje w takim samym
+porządku jak przedstawiono na diagramie sekwencji na
+rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}. Do uruchomienia
+aplikacji używana jest biblioteka \emph{Parcel}. Za jej pomocą można
+przygotować również skompilowaną wersję tej~aplikacji, która będzie składała
+się z plików HTML, CSS oraz JavaScript, które będzie można wyświetlić na
+dowolnym serwerze internetowym. Ten przykład pokazuje, że biblioteka
+do~wyświetlenia edytora diagramów opisana w
+sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} może zostać
+wykorzystana w innej aplikacji JavaScript bez wykorzystywania innych bibliotek.
+Do wyświetlenia edytora diagramów potrzebuje jedynie informacji o tokenie
+uwierzytelniającym użytkownika oraz identyfikatorze projektu do edycji.
+Można będzie tą bibliotekę wykorzystać także w aplikacji przeglądarkowej
+platformy
+\emph{BalticLSC}.
 
 \subsection{Pomysł integracji Sirius Web i BalticLSC}
 
@@ -1347,4 +1411,5 @@ Uwzględnić jak miałyby być tworzone projekty i modele w tych projektach aby
 zapewnić kontrolę dostępu użytkowników do modeli.
 Dodać diagram sekwencji z planu integracji i diagram komponentów (nowy)
 
+% https://github.com/Gelio/CAL-web/blob/main/docs/integrating-with-balticlsc.md
 % https://github.com/Gelio/CAL-web/blob/main/docs/integrating-with-balticlsc.md
