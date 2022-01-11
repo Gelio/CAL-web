@@ -333,7 +333,8 @@ Niemniej jednak możliwość uruchomienia testów metamodelu w \emph{Maven} pozw
 na~uruchomienie ich z linii wiersza poleceń bez uruchamiania \emph{Sirius
 	Desktop}, co przydaje się~w~środowisku serwerowym.
 
-\section{Integracja przybornika BalticLSC w Sirius Web}
+\section{Integracja przybornika BalticLSC w Sirius
+  Web}\label{sec:integracja-przybornika-balticlsc}
 
 Edytor diagramów dostępny w aplikacji przeglądarkowej platformy
 \emph{BalticLSC}
@@ -906,7 +907,7 @@ mutation {
 }
 \end{lstlisting}
 
-\section{Walidacja semantyczna modelu}
+\section{Walidacja semantyczna modelu}\label{sec:walidacja-semantyczna-modelu}
 
 \emph{Sirius Desktop} posiada funkcjonalność walidacji modelu pod względem
 składniowym (na podstawie atrybutów metamodelu) oraz semantycznym (na podstawie
@@ -1336,7 +1337,8 @@ jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 \end{figure}
 % \end{noindent}
 
-\subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor diagramów}
+\subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor
+	diagramów}\label{sec:przykladowa-aplikacja-wykorzystujaca-edytor}
 
 Wykorzystując bibliotekę JavaScript wyświetlającą edytor diagramów opisaną w
 sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} można
@@ -1401,15 +1403,188 @@ wykorzystana w innej aplikacji JavaScript bez wykorzystywania innych bibliotek.
 Do wyświetlenia edytora diagramów potrzebuje jedynie informacji o tokenie
 uwierzytelniającym użytkownika oraz identyfikatorze projektu do edycji.
 Można będzie tą bibliotekę wykorzystać także w aplikacji przeglądarkowej
-platformy
-\emph{BalticLSC}.
+platformy \emph{BalticLSC}.
 
 \subsection{Pomysł integracji Sirius Web i BalticLSC}
 
-Omówienie przygotowanego planu integracji.
-Uwzględnić jak miałyby być tworzone projekty i modele w tych projektach aby
-zapewnić kontrolę dostępu użytkowników do modeli.
-Dodać diagram sekwencji z planu integracji i diagram komponentów (nowy)
+Biblioteka pozwalająca na wyświetlenie edytora diagramów opisana w
+sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} może zostać
+wykorzystana w dowolnej aplikacji przeglądarkowej, jak pokazano w
+sekcji~\ref{sec:przykladowa-aplikacja-wykorzystujaca-edytor}. Oznacza to, że z
+pewnymi założeniami można ją również osadzić w interfejsie użytkownika
+platformy \emph{BalticLSC}. Dokonanie tego jest poza zakresem tej pracy
+magisterskiej. Poniżej opisano natomiast jak można tego dokonać.
 
-% https://github.com/Gelio/CAL-web/blob/main/docs/integrating-with-balticlsc.md
-% https://github.com/Gelio/CAL-web/blob/main/docs/integrating-with-balticlsc.md
+Szczegóły aplikacji obliczeniowych są przechowywane w bazie danych połączonej z
+serwerem aplikacyjnym \emph{BalticLSC}. Serwer aplikacyjny \emph{Sirius Web}
+oczekuje, że dane edytowanych modeli będą przechowywane w bazie danych w innym
+formacie. Oznacza to, że serwery nie mogą korzystać z tej samej bazy danych
+jako źródła informacji o aplikacjach obliczeniowych. Serwer \emph{Sirius Web}
+na czas edytowania danego diagramu będzie posiadał kopię informacji o aplikacji
+obliczeniowej, która po zakończeniu edytowania będzie synchronizowana z bazą
+danych \emph{BalticLSC}. To ona będzie źródłem informacji o aplikacjach
+obliczeniowych.
+
+Aby zapobiec potrzebie synchronizacji istniejącego modelu \emph{Sirius Web} w
+momencie rozpoczynania edycji diagramu aplikacji obliczeniowej, model
+\emph{Sirius Web} może być tworzony na nowo za każdym razem gdy użytkownik
+będzie edytował diagram. Model \emph{Sirius Web} będzie miał znaczenie tylko
+dopóki
+użytkownik go edytuje lub przegląda. Gdy użytkownik zamyka edytor diagramów,
+po ewentualnym zapisie jego zaktualizowanej zawartości w bazie danych
+\emph{BalticLSC}, model przestaje być używany i może zostać zapomniany.
+
+Diagram komponentów zintegrowanych systemów \emph{Sirius Web} oraz
+\emph{BalticSLC} został przedstawiony na
+rysunku~\ref{rys:integration-component-diagram}.
+Diagram sekwencji przedstawiający ogólną zasadę działania połączonego systemu
+jest widoczny na rysunku~\ref{rys:integration-sequence-diagram}.
+Działanie rozpoczyna użytkownik chcący wyświetlić zawartość aplikacji
+obliczeniowej, zmienić ją, lub stworzyć nową. W tym celu wybiera odpowiedni
+przycisk w interfejsie użytkownika \emph{BalticLSC}.
+Po tym przeglądarka wysyła zapytanie do serwera aplikacyjnego \emph{Sirius
+	Web}, aby stworzyć nowy projekt oraz model w nim. Jeżeli jest to
+istniejąca aplikacja
+obliczeniowa należy odtworzyć jej zawartość w \emph{Sirius Web} poprzez dodanie
+odpowiednich elementów do nowo stworzonego modelu. Nie istnieje aktualnie żaden
+interfejs serwera \emph{Sirius Web} pozwalający na dodanie do modelu wielu
+elementów na raz, więc jest to
+element wymagający rozszerzenia.
+
+% Źródło: source/integration-component-diagram
+% https://online.visual-paradigm.com/
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/integration-component-diagram.pdf}
+  \caption{Diagram komponentów połączonych systemów \emph{BalticLSC} i \emph{Sirius
+    Web}}\label{rys:integration-component-diagram}
+\end{figure}
+% \end{noindent}
+
+% Źródło:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IFVzZXIgYXMgVcW8eXRrb3duaWtcbiAgcGFydGljaXBhbnQgQmFsdGljTFNDVUkgYXMgQXBsaWthY2phIHByemVnbMSFZGFya293YTxiciAvPkJhbHRpY0xTQ1xuICBwYXJ0aWNpcGFudCBCYWx0aWNMU0NCYWNrZW5kIGFzIEFwbGlrYWNqYSBzZXJ3ZXJvd2E8YnIgLz5CYWx0aWNMU0NcbiAgcGFydGljaXBhbnQgQ0FMV2ViQmFja2VuZCBhcyBBcGxpa2FjamEgc2Vyd2Vyb3dhPGJyLz5TaXJpdXMgV2ViXG4gIHBhcnRpY2lwYW50IENBTFdlYlVJIGFzIEJpYmxpb3Rla2EgeiBlZHl0b3JlbTxiciAvPmRpYWdyYW3Ds3dcblxuICBVc2VyIC0-PisgQmFsdGljTFNDVUk6IFJvenBvY3puaWogZWR5Y2rEmSBkaWFncmFtdVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFV0d8OzcnogcHJvamVrdFxuICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBQcm9qZWt0IHV0d29yem9ueVxuXG4gIGFsdCBFZHljamEgaXN0bmllasSFY2VqIGFwbGlrYWNqaSBvYmxpY3plbmlvd2VqXG4gICAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJCYWNrZW5kOiBEb2RhaiB6YXdhcnRvxZvEhyBhcGxpa2Fjamkgb2JsaWN6ZW5pb3dlaiBkbyBtb2RlbHVcbiAgICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBEb2Rhbm9cbiAgZW5kXG5cbiAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJVSTogV3nFm3dpZXRsIGVkeXRvciBkaWFncmFtw7N3XG4gIENBTFdlYlVJIC0-Pi0gQmFsdGljTFNDVUk6IFd5xZt3aWV0bG9ubyBlZHl0b3IgZGlhZ3JhbcOzd1xuICBCYWx0aWNMU0NVSSAtPj4tIFVzZXI6IFd5xZt3aWV0bG9ubyBlZHl0b3IgZGlhZ3JhbcOzd1xuXG4gIGxvb3BcbiAgICBVc2VyIC0-PisgQ0FMV2ViVUk6IFptb2R5ZmlrdWogZGlhZ3JhbVxuICAgIENBTFdlYlVJIC0tPj4tIFVzZXI6IFptb2R5Zmlrb3dhbm8gZGlhZ3JhbVxuICAgIENBTFdlYlVJIC0pIFVzZXI6IEluZm9ybWFjamUgZGlhZ25vc3R5Y3puZSAod2FsaWRhY2phIG1vZGVsdSlcbiAgZW5kXG5cbiAgVXNlciAtPj4rIEJhbHRpY0xTQ1VJOiBaYXBpc3ogZGlhZ3JhbVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFBvYmllcnogemF3YXJ0b8WbxIcgbW9kZWx1XG4gIENBTFdlYkJhY2tlbmQgLS0-Pi0gQmFsdGljTFNDVUk6IFphd2FydG_Fm8SHwqBtb2RlbHVcblxuICBCYWx0aWNMU0NVSSAtPj4rIEJhbHRpY0xTQ0JhY2tlbmQ6IFphcGlzeiB6YXdhcnRvxZvEhyBtb2RlbHVcbiAgQmFsdGljTFNDQmFja2VuZCAtLT4-LSBCYWx0aWNMU0NVSTogWmFwaXNhbm9cblxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYlVJOiBVa3J5aiBlZHl0b3IgZGlhZ3JhbcOzd1xuICBDQUxXZWJVSSAtLT4-LSBCYWx0aWNMU0NVSTogVWtyeXRvIGVkeXRvciBkaWFncmFtw7N3XG5cbiAgQmFsdGljTFNDVUkgLS0-Pi0gVXNlcjogRGlhZ3JhbSB6YXBpc2FueSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% SVG -> PDF za pomocą Chrome "Print to PDF", a potem pdfcrop
+% sequenceDiagram
+%   participant User as Użytkownik
+%   participant BalticLSCUI as Aplikacja przeglądarkowa<br />BalticLSC
+%   participant BalticLSCBackend as Aplikacja serwerowa<br />BalticLSC
+%   participant CALWebBackend as Aplikacja serwerowa<br/>Sirius Web
+%   participant CALWebUI as Biblioteka z edytorem<br />diagramów
+%
+%   User ->>+ BalticLSCUI: Rozpocznij edycję diagramu
+%   BalticLSCUI ->>+ CALWebBackend: Utwórz projekt
+%   CALWebBackend -->>- BalticLSCUI: Projekt utworzony
+%
+%   alt Edycja istniejącej aplikacji obliczeniowej
+%     BalticLSCUI ->>+ CALWebBackend: Dodaj zawartość aplikacji obliczeniowej do modelu
+%     CALWebBackend -->>- BalticLSCUI: Dodano
+%   end
+%
+%   BalticLSCUI ->>+ CALWebUI: Wyświetl edytor diagramów
+%   CALWebUI ->>- BalticLSCUI: Wyświetlono edytor diagramów
+%   BalticLSCUI ->>- User: Wyświetlono edytor diagramów
+%
+%   loop
+%     User ->>+ CALWebUI: Zmodyfikuj diagram
+%     CALWebUI -->>- User: Zmodyfikowano diagram
+%     CALWebUI -) User: Informacje diagnostyczne (walidacja modelu)
+%   end
+%
+%   User ->>+ BalticLSCUI: Zapisz diagram
+%   BalticLSCUI ->>+ CALWebBackend: Pobierz zawartość modelu
+%   CALWebBackend -->>- BalticLSCUI: Zawartość modelu
+%
+%   BalticLSCUI ->>+ BalticLSCBackend: Zapisz zawartość modelu
+%   BalticLSCBackend -->>- BalticLSCUI: Zapisano
+%
+%   BalticLSCUI ->>+ CALWebUI: Ukryj edytor diagramów
+%   CALWebUI -->>- BalticLSCUI: Ukryto edytor diagramów
+%
+%   BalticLSCUI -->>- User: Diagram zapisany
+
+% \begin{noindent}
+\begin{figure}[!ht]
+  \centering
+
+  \includegraphics[width=0.99\linewidth]{./images/integration-sequence-diagram.pdf}
+  \caption{Diagram sekwencji wykorzystania \emph{Sirius Web} w
+    \emph{BalticLSC}}\label{rys:integration-sequence-diagram}
+\end{figure}
+% \end{noindent}
+
+Po takim przygotowaniu modelu przeglądarka może wyświetlić edytor diagramów
+\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku JavaScript.
+Identyfikator projektu jest znany aplikacji przeglądarkowej \emph{BalticLSC},
+ponieważ został on właśnie przez nią stworzony, a~token uwierzytelniający
+\gls{JWT} jest również w jej posiadaniu.
+Od tego momentu użytkownik może swobodnie przeglądać oraz modyfikować model,
+włącznie z wykorzystaniem przybornika omówionego w
+sekcji~\ref{sec:integracja-przybornika-balticlsc}. Po każdej zmianie użytkownik
+będzie otrzymywał informacje diagnostyczne modelu, także te pochodzące z
+walidacji semantycznej poruszonej w
+sekcji~\ref{sec:walidacja-semantyczna-modelu}.
+
+Gdy użytkownik będzie chciał zakończyć pracę z diagramem wciśnie on przycisk
+odpowiedzialny za zapisanie diagramu. Wtedy aplikacja przeglądarkowa
+\emph{BalticLSC} powinna przesłać zawartość modelu do swojego serwera
+aplikacyjnego. Zarówno interfejs \emph{Sirius Web} pozwalający na pobranie
+zawartości modelu, jak
+i interfejs \emph{BalticLSC} umożliwiający synchronizację zawartości modelu nie
+są zaimplementowane i wymagają rozszerzenia.
+Po zapisaniu zawartości modelu aplikacja przeglądarkowa \emph{BalticLSC} może
+ukryć edytor modeli wywołując odpowiednią metodą z udostępnionej biblioteki.
+
+Należy zauważyć, że w tej sytuacji w bazie danych \emph{Sirius Web} będą
+pozostawały przestarzałe modele, z których żaden użytkownik nie skorzysta,
+ponieważ za każdym razem tworzony jest nowy projekt. Aby zapobiec
+przechowywaniu niepotrzebnych informacji w bazie danych można od czasu do czasu
+uruchamiać proces, który czyściłby projekty używane nie później niż~tydzień
+przed aktualną datą. W ten sposób w bazie danych pozostawałyby projekty
+stworzone najwcześniej tydzień temu, co w znaczny sposób ograniczy ilość
+miejsca zajmowanego przez bazę danych.
+
+Jednym z problemów przedstawionego rozwiązania jest możliwość utraty
+niezapisanych zmian w modelu podczas przypadkowego wyłączenia przeglądarki lub
+przejścia na inną stronę internetową. Informacja o poprzednio utworzonym
+projekcie zostałaby zapomniana, a podczas próby edycji aplikacji obliczeniowej
+zostałby stworzony nowy model. Aby zapobiec takim sytuacjom aplikacja
+przeglądarkowa \emph{BalticLSC} mogłaby przechowywać listę identyfikatorów
+ostatnio edytowanych projektów i umożliwić użytkownikowi powrót do takiego
+projektu na~wypadek, gdyby zapomniał on zapisać zmian przed wyjściem z edytora.
+
+Kolejnym z problemów, który może wystąpić, jest zapewnienie kontroli dostępu
+do~modeli dla aplikacji obliczeniowych różnych użytkowników systemu
+\emph{BalticLSC}. Na platformie \emph{BalticLSC} użytkownik może przeglądać
+zawartość i edytować jedynie te aplikacje obliczeniowe, które sam stworzył.
+Byłoby pożądane, aby podobne zachowanie było przestrzegane w~\emph{Sirius Web}.
+W ramach tej pracy magisterskiej zaimplementowano mechanizm kontroli dostępu
+do~projektów i modeli w \emph{Sirius Web} dla zapytań w formacie \gls{REST}
+oraz
+\emph{GraphQL}. Zapytania dotyczące projektów i modeli wymagają poprawnego
+nagłówka \texttt{Authorization}, w którym powinien znajdować się token
+uwierzytelniający \gls{JWT} pochodzący z aplikacji \emph{BalticLSC}.
+Na~podstawie pola \texttt{sub} zawierającego nazwę użytkownika serwer
+aplikacyjny
+decyduje o~przyznaniu lub odmowie dostępu do zasobu.
+
+Do pełnej weryfikacji poprawności tokena \gls{JWT} brakuje informacji o
+sekretnej wartości użytej do stworzenia tego tokena przez \emph{BalticLSC}. Na
+jej podstawie obliczany jest kryptograficzny skrót tokena, który potem może
+zostać zweryfikowany (również z wykorzystaniem tej sekretnej wartości) w celu
+sprawdzenia prawdziwości tokena. Ujawnienie takiej wartości pozwalałoby na
+utożsamienie się z dowolnym użytkownikiem \emph{BalticLSC}, dlatego w ramach
+tej pracy magisterskiej pominięto krok weryfikacji tokenów, aby nie trzeba było
+udostępniać sekretnej wartości poza system \emph{BalticLSC}. W przypadku
+integracji systemów należałoby wartość tą~wprowadzić do \emph{Sirius Web} w
+celu pełnej weryfikacji tokenów \gls{JWT}.
+
+O ile zapytania \gls{REST} oraz \emph{query} w \emph{GraphQL} są objęte
+kontrolą dostępu, to \emph{subscription} w \emph{GraphQL} już nie. Dodanie
+weryfikacji tokena tam wymaga specjalnej obsługi podczas inicjalizacji
+połączenia. Kod ten jest w repozytorium \texttt{sirius-components} i nie został
+udostępniony do modyfikacji. Weryfikacja tokenów \gls{JWT} nie jest więc
+możliwa dla subskrypcji \emph{GraphQL}. Problem został zgłoszny w repozytorium
+\texttt{sirius-components}\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/846}}.
