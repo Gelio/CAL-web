@@ -544,7 +544,8 @@ serwera pośredniczącego i wysyłać zapytania bezpośrednio do serwera
 aplikacyjnego \emph{BalticLSC}. W tej sytuacji mechanizm \gls{CORS} nie będzie
 wykorzystany i przeglądarka pozwoli na wykonanie połączenia.
 
-\subsection{Wyświetlenie zawartości przybornika w Sirius Web}
+\subsection{Wyświetlenie zawartości przybornika w Sirius
+	Web}\label{sec:wyswietlenie-zawartosci-przybornika-w-sirius-web}
 
 W sekcji~\ref{sec:pobranie-zawartosci-przybornika} opisany został mechanizm, za
 pomocą którego aplikacja przeglądarkowa \emph{Sirius Web} ma dostęp do listy
@@ -669,7 +670,8 @@ w języku \emph{GraphQL} do serwera aplikacyjnego \emph{Sirius Web}, wskazując
 przy tym obiekt nadrzędny, do którego ma być dodany obiekt,
 oraz szczegóły dodawanego obiektu.
 
-\subsubsection{Wskazywanie miejsca dodania obiektu}
+\subsubsection{Wskazywanie miejsca dodania
+	obiektu}\label{sec:wskazywanie-miejsca-dodania-elementu}
 
 Aby jednoznacznie określić miejsce, w którym ma być dodany obiekt, należy w
 szczegółach mutacji przekazać dwa identyfikatory:
@@ -1138,6 +1140,211 @@ diagramu wykonywane jest mniej operacji, co poprawia wydajność edytora.
 \section{Użycie edytora Sirius Web w
   BalticLSC}\label{sec:uzycie-sirius-web-w-balcitlsc}
 
+Do tej pory prezentowano edytor modeli \emph{Sirius Web} jako osobna aplikacja
+przeglądarkowa, niezwiązana z interfejsem użytkownika platformy
+\emph{BalticLSC}. Jedną z możliwości wykorzystania przygotowanego edytora
+modeli jest jego integracja jako alternatywny edytor diagramów aplikacji
+obliczeniowych w aplikacji przeglądarkowej \emph{BalticLSC}.
+W ramach tej pracy magisterskiej przygotowano kod aplikacji przeglądarkowej
+\emph{Sirius Web} tak, aby udostępnić osobno sam edytor modeli (komponent
+\texttt{Workbench} omówiony w
+sekcji~\ref{sec:wyswietlenie-zawartosci-przybornika-w-sirius-web}) w formacie,
+który może zostać użyty przez aplikację przeglądarkową \emph{BatlicLSC} w celu
+zastąpienia aktualnego edytora diagramów. Przygotowano również
+przykładową aplikację w języku JavaScript, która demonstruje wyświetlenie
+edytora diagramów z \emph{Sirius Web} w części swojego interfejsu.
+Integracja \emph{BalticLSC} i~\emph{Sirius Web} pozostaje
+poza zakresem pracy magisterskiej.
+
+\subsection{Udostępnienie samodzielnego komponentu edytora diagramów z Sirius
+	Web}
+
+Chcąc wyświetlić edytor diagramów z \emph{Sirius Web} wewnątrz innej aplikacji
+musi być udostępniony interfejs programistyczny \gls{API}, który będzie
+pozwalał wskazać docelowe miejsce w~aplikacji, w którym ma się
+pojawić edytor. Pozostałe elementy aplikacji \emph{Sirius Web}, takie
+jak~możliwość zarządzania projektami, wybierania projektu do edycji, a także
+tworzenia i~usuwania modeli powinny być niedostępne, ponieważ dla lepszych
+doświadczeń użytkownika takie operacje powinny być wykonane automatycznie
+podczas edycji konkretnej aplikacji obliczeniowej systemu \emph{BalticLSC}.
+
+Interfejs użytkownika aplikacji \emph{Sirius Web} jest napisany w języku
+JavaScript z wykorzystaniem biblioteki \emph{React}~\cite{react-homepage}.
+Aplikacja przeglądarkowa \emph{BalticLSC} jest również napisana w~języku
+JavaScript, natomiast korzysta z biblioteki \emph{Vue.js}~\cite{vue-homepage}.
+Z powodu wykorzystania różnych bibliotek kod \emph{Sirius Web} musi udostępnić
+funkcje zarządzające
+wyświetlaniem edytora w języku JavaScript, a nie polegać na mechanizmach
+biblioteki \emph{React} do wyświetlenia komponentu wewnątrz innej aplikacji.
+
+Struktura elementów na stronie internetowej reprezentowana jest jako drzewo
+\gls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \gls{HTML} i za
+pomocą różnych method interfejsu \gls{API} drzewa \gls{DOM} można otrzymać do
+nich dostęp z poziomu języka JavaScript. Aby wyświetlić komponent biblioteki
+\emph{React} należy znaleźć element drzewa \gls{DOM} gdzie komponent ma zostać
+umiejscowiony, a później przekazać go wraz z instancją komponentu do~metody
+\texttt{render} dostępnej w pakiecie \texttt{react-dom} biblioteki
+\emph{React}. Usunięcie tego komponentu ze strony internetowej realizowane jest
+poprzez wywołanie metody \texttt{unmountComponentAtNode} z tego samego pakietu
+\texttt{react-dom}. Metoda ta oczekuje jako~parametru elementu drzewa
+\gls{DOM}, w którym wyświetlony jest komponent.
+
+Aby umożliwić wyświetlenie edytora diagramów (komponentu \texttt{Workbench})
+bez względu na bibliotekę wykorzystywaną na stronie internetowej przygotowano
+moduł w standardzie \gls{ESM}~\cite{nodejs-esm-documentation}, który udostępnia
+niezależne od bibliotek funkcje umożliwiające wyświetlenie i usunięcie edytora
+diagramów \emph{Sirius Web} w wybranym miejscu na stronie internetowej. Diagram
+klas tego modułu został przedstawiony na
+rysunku~\ref{rys:sirius-web-library-class-diagram}. Udostępnione funkcje modułu
+zostały zgrupowane na diagramie w module \texttt{SiriusWebLibrary} ponieważ
+w~diagramach klas \gls{UML}
+nie ma możliwości wyrażenia pojedynczych funkcji niezwiązanych z żadną
+klasą\footnote{\url{https://softwareengineering.stackexchange.com/a/301576}}.
+Występujący na diagramie typ \texttt{WorkbenchPropertiesResult} jest typem
+\texttt{Either} z biblioteki \texttt{fp-ts}~\cite{fp-ts-github}. Z powodu
+reprezentacji jako unia typów w języku TypeScript nie mógł zostać dokładnie
+przedstawiony na diagramie UML\@.
+Kod modułu znajduje się~w~katalogu \directory{frontend / library}.
+Do kompilacji modułu wraz z jego zależnościami zostało wykorzystane narzędzie
+\emph{Parcel}~\cite{parcel-homepage}.
+Dla wstecznej kompatybilności ze standardem modułów
+\emph{CommonJS}~\cite{nodejs-commonjs-documentation} został również wydany
+moduł w tym formacie.
+
+% Źródło:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgZGlyZWN0aW9uIFRCXG4gICAgY2xhc3MgQXBwUHJvcGVydGllcyB7XG4gICAgICAgIDw8aW50ZXJmYWNlPj5cbiAgICAgICAgYXV0aFRva2VuOiBzdHJpbmdcbiAgICB9XG5cbiAgICBjbGFzcyBXb3JrYmVuY2hQcm9wZXJ0aWVzIHtcbiAgICAgICAgPDxpbnRlcmZhY2U-PlxuICAgICAgICBlZGl0aW5nQ29udGV4dElkOiBzdHJpbmdcbiAgICB9XG4gICAgQXBwUHJvcGVydGllcyBvLS0gXCIxXCIgV29ya2JlbmNoUHJvcGVydGllcyA6IHdvcmtiZW5jaFByb3BlcnRpZXNcblxuICAgIGNsYXNzIFJlcHJlc2VudGF0aW9uIHtcbiAgICAgICAgPDxpbnRlcmZhY2U-PlxuICAgICAgICBpZDogc3RyaW5nXG4gICAgICAgIGxhYmVsOiBzdHJpbmdcbiAgICAgICAga2luZDogc3RyaW5nXG4gICAgfVxuICAgIFdvcmtiZW5jaFByb3BlcnRpZXMgby0tIFwiMVwiIFJlcHJlc2VudGF0aW9uIDogcmVwcmVzZW50YXRpb25cblxuICAgIGNsYXNzIEFQSVVSTHNJbnB1dCB7XG4gICAgICAgIDw8aW50ZXJmYWNlPj5cbiAgICAgICAgYmFsdGljTFNDQVBJVVJMOiBzdHJpbmdcbiAgICAgICAgc2lyaXVzV2ViSFRUUEFQSVVSTDogc3RyaW5nXG4gICAgICAgIHNpcml1c1dlYldTQVBJVVJMOiBzdHJpbmdcbiAgICB9XG4gICAgQXBwUHJvcGVydGllcyBvLS0gXCIxXCIgQVBJVVJMc0lucHV0XG5cbiAgICBjbGFzcyBTaXJpdXNXZWJMaWJyYXJ5IHtcbiAgICAgICAgPDxtb2R1bGU-PlxuICAgICAgICByZW5kZXJBcHAoYXBwUHJvcGVydGllczogQXBwUHJvcGVydGllcywgY29udGFpbmVyOiBIVE1MRWxlbWVudCkkICB2b2lkXG4gICAgICAgIHVubW91bnRBcHAoY29udGFpbmVyOiBIVE1MRWxlbWVudCkkIHZvaWRcbiAgICAgICAgcmVzb2x2ZVdvcmtiZW5jaFByb3BlcnRpZXMoKSQgUHJvbWlzZX5Xb3JrYmVuY2hQcm9wZXJ0aWVzUmVzdWx0flxuICAgIH1cblxuICAgICIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% Zmieniono pozycje modułu SiriusWebLibrary na translate(600, 600) w pliku SVG
+% SVG -> PDF za pomocą "Print to PDF" z Google Chrome
+% Obcięte za pomocą pdfcrop
+% classDiagram
+%     direction TB
+%     class AppProperties {
+%         <<interface>>
+%         authToken: string
+%     }
+%
+%     class WorkbenchProperties {
+%         <<interface>>
+%         editingContextId: string
+%     }
+%     AppProperties o-- "1" WorkbenchProperties : workbenchProperties
+%
+%     class Representation {
+%         <<interface>>
+%         id: string
+%         label: string
+%         kind: string
+%     }
+%     WorkbenchProperties o-- "1" Representation : representation
+%
+%     class APIURLsInput {
+%         <<interface>>
+%         balticLSCAPIURL: string
+%         siriusWebHTTPAPIURL: string
+%         siriusWebWSAPIURL: string
+%     }
+%     AppProperties -- "1" APIURLsInput : apiURLs
+%
+%     class ResolveWorkbenchParamsInput {
+%         <<interface>>
+%         projectId: string
+%         authToken: string
+%     }
+%     ResolveWorkbenchParamsInput -- "1" APIURLsInput : apiURLs
+%
+%     class SiriusWebLibrary {
+%         <<module>>
+%         renderApp(appProperties: AppProperties, container: HTMLElement)$  void
+%         unmountApp(container: HTMLElement)$ void
+%         resolveWorkbenchProperties(ResolveWorkbenchParamsInput)$ Promise~WorkbenchPropertiesResult~
+%     }
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-class-diagram.pdf}
+  \caption{Diagram klas modułu wyświetlającego edytor diagramów \emph{Sirius
+    Web}.}\label{rys:sirius-web-library-class-diagram}
+\end{figure}
+% \end{noindent}
+
+Wyświetlenie komponentu \texttt{Workbench} wymaga przekazania mu parametrów
+dotyczących modelu, który ma zostać wyświetlony na diagramie. Są to
+identyfikator kontekstu edycji \texttt{editingContextId} omówiony w
+sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
+reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
+implementacyjnymi aplikacji \emph{Sirius Web}. Zakładając, że~w~każdym
+projekcie aplikacji \emph{Sirius Web} będzie znajdował się wyłącznie jeden
+model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
+wysyłając odpowiednie zapytania \emph{GraphQL} do serwera aplikacyjnego znając
+jedynie identyfikator projektu. Aby~uprościć udostępniany
+interfejs programistyczny \gls{API} modułu stworzono również funkcję
+\texttt{resolveWorkbenchProperties}, która oczekuje identyfikatora projektu, a
+zwraca parametry potrzebne do wyświetlenia komponentu \texttt{Workbench}, które
+uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \emph{Sirius Web}.
+Funkcja ta dodatkowo oczekuje dwóch parametrów:
+
+\begin{itemize}
+	\item tokena uwierzytelniającego \gls{JWT} aktualnego użytkownika wydanego przez platformę \emph{BalticLSC} (parametr \texttt{authToken}),
+	\item adresów URL serwera aplikacyjnego \emph{BalticLSC} oraz \emph{Sirius
+		      Web} (parametr \texttt{apiURLS}).
+\end{itemize}
+
+Są one wymagane zarówno do pobrania parametrów edytora diagramów w funkcji
+\texttt{resolveWorkbenchProperties}, jak i do późniejszego działania samego
+edytora. Diagram sekwencji przedstawiający wykorzystanie udostępnionego modułu
+jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
+
+% Źródło:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgTGliQ29uc3VtZXIgYXMgS29kIHd5a29yenlzdHVqxIVjeSBiaWJsaW90ZWvEmSBTaXJpdXMgV2ViXG4gICAgcGFydGljaXBhbnQgTGlicmFyeSBhcyBCaWJsaW90ZWthIHd5xZt3aWV0bGFqxIVjYSBlZHl0b3JcbiAgICBwYXJ0aWNpcGFudCBTaXJpdXNXZWJCYWNrZW5kIGFzIFNlcndlciBhcGxpa2FjeWpueSBTaXJpdXMgV2ViXG4gICAgcGFydGljaXBhbnQgUmVhY3QgYXMgQmlibGlvdGVrYSBSZWFjdFxuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogcmVzb2x2ZVdvcmtiZW5jaFByb3BlcnRpZXNcbiAgICBub3RlIG92ZXIgTGliQ29uc3VtZXIsTGlicmFyeTogWmF3aWVyYSBJRCBwcm9qZWt0dSwgdG9rZW4gSldULDxiciAvPmFkcmVzIHNlcndlcmEgU2lyaXVzIFdlYlxuICAgIExpYnJhcnkgLT4-KyBTaXJpdXNXZWJCYWNrZW5kIDogZ2V0UHJvamVjdFF1ZXJ5XG4gICAgbm90ZSBvdmVyIExpYnJhcnksU2lyaXVzV2ViQmFja2VuZCA6IFphcHl0YW5pZSBzaWVjaW93ZSBHcmFwaFFMXG5cbiAgICBTaXJpdXNXZWJCYWNrZW5kIC0tPj4tIExpYnJhcnk6IGVkaXRpbmdDb250ZXh0SWQsIFJlcHJlc2VudGF0aW9uXG5cbiAgICBMaWJyYXJ5IC0tPj4tIExpYkNvbnN1bWVyIDogV29ya2JlbmNoUHJvcGVydGllc1xuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogcmVuZGVyQXBwXG4gICAgTGlicmFyeSAtPj4rIFJlYWN0IDogcmVuZGVyICh3ecWbd2lldGwga29tcG9uZW50IFdvcmtiZW5jaClcbiAgICBSZWFjdCAtLT4-LSBMaWJyYXJ5IDogV3nFm3dpZXRsb25vIGtvbXBvbmVudCBXb3JrYmVuY2hcbiAgICBMaWJyYXJ5IC0tPj4tIExpYkNvbnN1bWVyIDogV3nFm3dpZXRsb25vIGtvbXBvbmVudCBXb3JrYmVuY2hcblxuICAgIG5vdGUgcmlnaHQgb2YgTGliQ29uc3VtZXIgOiBVxbx5dGtvd25payBtb8W8ZSB0ZXJheiBlZHl0b3dhxIcgZGlhZ3JhbVxuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogdW5tb3VudEFwcFxuICAgIExpYnJhcnkgLT4-KyBSZWFjdCA6IHVubW91bnRDb21wb25lbnRBdE5vZGVcbiAgICBSZWFjdCAtLT4-LSBMaWJyYXJ5IDogVXN1bmnEmXRvIGtvbXBvbmVudCB6ZSBzdHJvbnkgaW50ZXJuZXRvd2VqXG4gICAgTGlicmFyeSAtLT4-LSBMaWJDb25zdW1lciA6IFVzdW5pxJl0byBrb21wb25lbnQgemUgc3Ryb255IGludGVybmV0b3dlaiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% SVG -> PDF za pomocą Chrome "Print to PDF", a później pdfcrop
+% sequenceDiagram
+%     participant LibConsumer as Kod wykorzystujący<br />bibliotekę Sirius Web
+%     participant Library as Biblioteka<br />wyświetlająca edytor
+%     participant SiriusWebBackend as Serwer aplikacyjny<br/>Sirius Web
+%     participant React as Biblioteka React
+%
+%     LibConsumer ->>+ Library : resolveWorkbenchProperties
+%     note over LibConsumer,Library: Zawiera ID projektu, token JWT,<br />adres serwera Sirius Web
+%     Library ->>+ SiriusWebBackend : getProjectQuery
+%     note over Library,SiriusWebBackend : Zapytanie sieciowe GraphQL
+%
+%     SiriusWebBackend -->>- Library: editingContextId,<br />Representation
+%
+%     Library -->>- LibConsumer : WorkbenchProperties
+%
+%     LibConsumer ->>+ Library : renderApp
+%     Library ->>+ React : render (wyświetl komponent Workbench)
+%     React -->>- Library : Wyświetlono komponent Workbench
+%     Library -->>- LibConsumer : Wyświetlono komponent Workbench
+%
+%     note right of LibConsumer : Użytkownik może teraz edytować diagram
+%
+%     LibConsumer ->>+ Library : unmountApp
+%     Library ->>+ React : unmountComponentAtNode
+%     React -->>- Library : Usunięto komponent<br />ze strony internetowej
+%     Library -->>- LibConsumer : Usunięto komponent<br />ze strony internetowej
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-web-library-usage-sequence-diagram.pdf}
+  \caption{Diagram sekwencji wykorzystania biblioteki wyświetlającej edytor
+    diagramów}\label{rys:sirius-web-library-usage-sequence-diagram}
+\end{figure}
+% \end{noindent}
+
+\subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor diagramów}
+
+Opis example--application. Zrzut ekranu aby pokazać jak to wygląda.
+
+\subsection{Pomysł integracji Sirius Web i BalticLSC}
+
 Omówienie przygotowanego planu integracji.
 Uwzględnić jak miałyby być tworzone projekty i modele w tych projektach aby
 zapewnić kontrolę dostępu użytkowników do modeli.
+Dodać diagram sekwencji z planu integracji i diagram komponentów (nowy)
+
+% https://github.com/Gelio/CAL-web/blob/main/docs/integrating-with-balticlsc.md
