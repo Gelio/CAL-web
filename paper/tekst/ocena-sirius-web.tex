@@ -1,12 +1,468 @@
 \chapter{Ocena Sirius Web}
 
-\section{Różnice między Sirius Web a Sirius Desktop}
+W tej pracy magisterskiej wykorzystano rozwiązanie eksperymentalne i ciągle
+rozwijane rozwiązanie \emph{Sirius Web}.
+Mimo wykorzystywania tych samych metamodeli \gls{EMF} co dojrzała technologia
+\emph{Sirius Desktop} występują pewne różnice. Zmiana platformy aplikacji z
+natywnej na przeglądarkową ma swoje zalety. W tym rozdziale technologia
+\emph{Sirius Web} zostanie oceniona i porównana z jej poprzednikiem
+\emph{Sirius Desktop}, zarówno z perspektywy użytkownika edytora modeli, jak i
+programisty tworzącego lub modyfikującego ten edytor.
 
-Omówienie różnic oraz usterek zgłoszonych przeze mnie w repozytorium Sirius
-Web.
+\section{Interfejs użytkownika}
+
+Interfejs użytkownika \emph{Sirius Web} przede wszystkim dostępny jest on w
+przeglądarce, która jest domyślnie zainstalowana
+na większości komputerów konsumenckich. Nie jest wymagana instalacja dodatkowej
+aplikacji natywnej jaką jest \emph{Sirius Desktop}, a później pobieranie
+odpowiedniej definicji metamodelu. Osoba chcąca edytować diagram wystarczy że
+uruchomi stronę internetową i model zostanie jej wyświetlony lub będzie mogła
+stworzyć nowy model. Taka zmiana
+znacznie ułatwia wdrożenie nowych osób do systemu i umożliwienie im edytowanie
+lub nawet samo oglądanie diagramów. Chcąc podzielić się z inną osobą modelem
+wystarczy, że wysłany zostanie odpowiedni link, co jest dużo prostszą metodą
+redukującą bariery związane z przesyłaniem plików, które wcześniej było
+wymagane podczas korzystania z \emph{Sirius Desktop}.
+
+Sam interfejs użytkownika ma mniejsze możliwości dostosowywania przez
+użytkownika. Układ
+interfejsu jest sztywny, można co najwyżej zmienić szerokości lub wysokości
+niektórych paneli lub je schować. Większe zmiany układu jak zmiana kolejności
+elementów są możliwe jedynie poprzez zmianę kodu źródłowego aplikacji
+przeglądarkowej. Użytkownik nie ma na nie wpływu. Można natomiast na tyle
+zmodyfikować kod interfejsu użytkownika, aby zrobić wszystko to, co jest
+dostępne podczas dostosowywania interfejsu w \emph{Sirius Desktop}.
+
+Domyślny układ edytora diagramów zdaje się być bardziej intuicyjny od tego w
+\emph{Sirius Desktop}. Automatycznie rozwinięte są wszystkie potrzebne sekcje
+--- drzewo obiektów modelu, informacje diagnostyczne, a także szczegóły
+aktualnie zaznaczonego elementu modelu. W \emph{Sirius Desktop} użytkownik
+samemu musiał dostosować ten wygląd, co sprawia, że nowi użytkownicy mogli czuć
+się bardziej zagubieni.
+
+Zmianą na lepsze jest też zwiększona częstotliwość uruchamiania walidacji
+modelu. W \emph{Sirius Web} informacje diagnostyczne pojawiają się po każdej
+zmianie struktury modelu, podczas gdy w \emph{Sirius Desktop} należało
+manualnie wywołać walidację modelu, aby zobaczyć zaktualizowane informacje.
+Takie rozwiązanie pozwala użytkownikowi dużo szybciej dowiedzieć się o
+problemach w modelu i je naprawić. Nie musi on także powtarzać w kółko tej
+samej czynności walidacji.
+
+Informacje diagnostyczne wyświetlane domyślnie w \emph{Sirius Web} to jedynie
+błędy z walidacji składniowej modelu. Nie są uruchamiane reguły walidacji
+semantycznej (\emph{Semantic Validation Rule}) zdefiniowane w metamodelu, co
+zostało omówione w sekcji~\ref{sec:reguly-walidacyjne-metamodel}. Informacja o
+tym problemie została zgłoszona w repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
+Aby móc wykonywać walidację semantyczną modeli należy to rozwiązanie
+zaimplementować samemu, co zostało zademonstrowane w
+sekcji~\ref{sec:walidacja-semantyczna-modelu}.
+Oznacza to, że dodanie walidacji semantycznej do modelu jest znacznie
+trudniejsze niż w \emph{Sirius Desktop}, ponieważ wymaga modyfikacji kodu
+serwera aplikacyjnego. Ponadto, domyślnie nie ma przygotowanej architektury na
+dodawanie reguł walidacji semantycznej, co dodatkowo utrudnia ich wdrożenie.
+
+Informacje diagnostyczne pojawiające pojawiające się w \emph{Sirius Web} nie są
+jawnie związane z konkretnymi elementami diagramu. Na diagramie nie widać
+oznaczeń dla elementów, dla których występują błędy lub ostrzeżenia. Jedyna
+informacja pozwalająca powiązać informację diagnostyczną z konkretnym elementem
+diagramu to nazwa tego elementu występująca w treści wiadomości diagnostycznej.
+Jest to widoczne na rysunku~\ref{rys:validation-comparison-sirius-web}. Lepsze
+rozwiązanie tego problemu występuje w
+\emph{Sirius Desktop}, gdzie informacje diagnostyczne są ściśle powiązane z
+konkretnym elementem diagramu, obok którego wyświetlona jest ikona błędu.
+Wskazanie tej ikony powoduje wyświetlenie treści wiadomości diagnostycznej.
+Jest to zaprezentowane na
+rysunku~\ref{rys:validation-comparison-sirius-desktop}.
+Takie rozwiązanie pozwala użytkownikowi szybciej zlokalizować niepoprawne
+elementy diagramu i zrozumieć co jest w nim błędnego. W \emph{Sirius Web}
+użytkownik musi poświęcić więcej uwagi i wysiłku w celu zlokalizowania
+niepoprawnych elementów.
+
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-web-semantic-validation-direction-and-no-loops-rules.png}
+		\caption{Brak oznaczeń błędów na diagramie w \emph{Sirius
+      Web}}\label{rys:validation-comparison-sirius-web}
+	\end{subfigure}
+  \begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-failure.png}
+		\caption{Oznaczenia błędów na diagramie w \emph{Sirius
+      Desktop}}\label{rys:validation-comparison-sirius-desktop}
+	\end{subfigure}
+
+	\caption{Różnica w prezentacji informacji diagnostycznych}
+\end{figure}
+% \end{noindent}
+
+Innymi elementami zdefiniowanymi w metamodelu \gls{EMF}, które nie są w pełni
+wspierane w \emph{Sirius Web} są narzędzia edycji modelu. Podstawowe narzędzie
+tworzenia nowego węzła w modelu działa poprawnie.
+Pewne braki występują w większości pozostałych typów narzędzi. Narzędzie do
+tworzenia krawędzi nie zwraca uwagi na zdefiniowane warunki określające możliwe
+początki i końce połączenia (\emph{Connection Start Precondition} i
+\emph{Connection Complete Precondition}). Użytkownik może stworzyć krawędź
+między dwoma dowolnymi obiektami konkretnego typu i nie otrzymuje od edytora
+wskazówek bazujących na semantyce modelu. Usterka została zgłoszona w
+repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/779}}.
+
+Innym narzędziem związanym z krawędziami jest możliwość zmiany elementu
+początkowego lub docelowego krawędzi w sposób wizualny poprzez zaznaczenie i
+przesunięcie jednego z końców krawędzi. W przypadku \emph{Sirius Web} taka
+operacja jest niemożliwa, ponieważ krawędzie nie mają uchwytów na swoich
+końcach. Takie uchwyty są dostępne w \emph{Sirius Desktop}, co zostało pokazane
+na rysunku~\ref{rys:sirius-desktop-reconnect-edge}. W wersji
+przeglądarkowej tego edytora użytkownik może wybrać inny początek lub koniec
+z listy elementów modelu, co jest rozwiązaniem podatnym na błędy i
+wymagającym wysiłku, albo usunąć istniejącą krawędź i stworzyć nową.
+Usterka została zgłoszna w repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/780}
+}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.5\linewidth]{./images/sirius-desktop-reconnect-edge.png}
+  \caption{Uchwyty do zmiany końców krawędzi w \emph{Sirius
+    Desktop}}\label{rys:sirius-desktop-reconnect-edge}
+\end{figure}
+% \end{noindent}
+
+Kolejnym narzędziem metamodelu, które nie jest wspierane przez \emph{Sirius
+	Web} są okna dialogowe pozwalające na wytworzenie bardziej
+skomplikowanych
+schematów edycji modelu czy zautomatyzowanie niektórych czynności. Wyświetlenie
+własnego okna dialogowego pozwalałoby na uproszczenie tworzenia nowego
+wywołania modułu obliczeniowego w modelu, ponieważ użytkownik mógłby w oknie
+dialogowym wskazać moduł obliczeniowy do wywołania. Takie narzędzie
+przygotowano w \emph{Sirius Desktop}, co widać na
+rysunku~\ref{rys:sirius-desktop-create-unit-call-dialog}. W \emph{Sirius
+	Web} przy próbie wywołania tego narzędzia pojawia się błąd w konsoli
+serwera
+aplikacyjnego informujący, że to narzędzie nie jest zaimplementowane. Usterka
+została zgłoszona w repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/815}
+}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-dialog.png}
+  \caption{Okno dialogowe w \emph{Sirius Desktop} ułatwiające tworzenie nowego
+    obiektu}\label{rys:sirius-desktop-create-unit-call-dialog}
+\end{figure}
+% \end{noindent}
+
+W \emph{Sirius Desktop} przybornik z narzędziami metamodelu jest wyświetlony
+w osobnym oknie, co widać po prawej stronie
+rysunku~\ref{rys:sirius-desktop-model-editor-tools-right}. Zawiera on w każdym
+momencie wszystkie dostępne narzędzia.
+Użytkownik musi nauczyć się które narzędzia są dostępne dla których obiektów
+modelu i kiedy mogą zostać wykorzystane. Przykładowo, po wybraniu narzędzia
+\emph{Data Flow} służącego tworzeniu połączeń między portami użytkownik może
+wskazać jedynie jeden z portów. Brakuje wskazówek co należy dalej zrobić.
+\emph{Sirius Web} inaczej reprezentuje narzędzia. Są one umieszczone w
+przyborniku pokazywanym po kliknięciu myszą na element diagramu. Wyświetlone są
+jedynie narzędzia związane z wybranym elementem, co upraszcza wybór, ponieważ
+użytkownik nie musi wiedzieć które narzędzia mają sens dla wybranego elementu
+--- \emph{Sirius Web} automatycznie ogranicza wybór. Jest to rozwiązanie lepsze
+niż w \emph{Sirius Desktop} pod względem intuicyjności interfejsu.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-model-editor.png}
+  \caption{Interfejs \emph{Sirius Desktop} z narzędziami po prawej
+    stronie}\label{rys:sirius-desktop-model-editor-tools-right}
+\end{figure}
+% \end{noindent}
+
+W \emph{Sirius Web} występują 2 problemy związane z przybornikiem narzędzi. Po
+pierwsze niektóre narzędzia są wyświetlane podwójnie. Można to zobaczyć na
+rysunku~\ref{rys:sirius-web-duplicate-tools}. Pokazane są dwie ikony ze
+strzałką służące tworzeniu połączenia wychodzącego z portu \emph{output}, a
+także dwie ikony związane z usunięciem elementu (\emph{DeleteComputedDataPin}
+oraz ikona kosza). Taka duplikacja może zaskoczyć użytkownika i sprawić, że nie
+będzie on wiedział który przycisk należy wybrać, aby zrealizować oczekiwany cel
+oraz jakie są różnice między tymi przyciskami. W rzeczywistości oba przyciski w
+obu przypadkach mają taki sam skutek, więc duplikacja jest niepotrzebna.
+
+% \begin{noindent}
+\begin{figure}[!ht]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-web-duplicate-tools.png}
+  \caption{Zduplikowane narzędzia w \emph{Sirius
+    Web}}\label{rys:sirius-web-duplicate-tools}
+\end{figure}
+% \end{noindent}
+
+Kontynuując temat przybornika w \emph{Sirius Web}, z
+rysunku~\ref{rys:sirius-web-duplicate-tools} wynika, że dla portu wywołania
+modułu obliczeniowego pokazane są dwa narzędzia dotyczące jego usunięcia. W
+metamodelu rzeczywiście jest takie narzędzie, ale jest ono tam wyłącznie po to,
+aby zabronić usuwania tych elementów z diagramu, ponieważ są one zarządzane
+automatycznie i ich usunięcie natychmiast sprawiłoby, że diagram stałby
+się niepoprawny semantycznie (wywołanie modułu obliczeniowego miałoby mniej
+portów niż powiązany z nim moduł obliczeniowy). W \emph{Sirius Desktop}
+usunięcie tego portu z diagramu jest niemożliwe, co widać na
+rysunku~\ref{rys:sirius-desktop-blocked-deleting-pins}.
+\emph{Sirius Web} wyświetla odpowiednie ikony i pozwala je wybrać, co skutkuje
+wyświeleniem błędu w konsoli serwera aplikacyjnego, a po kilku sekundach
+wyświetleniem niejasnej wiadomości o przekroczeniu czasu przetwarzania żądania,
+przedstawionego na rysunku~\ref{rys:sirius-web-timeout-when-deleting-pins}.
+Takie rozwiązanie jest mylące dla użytkownika i pogarsza wrażenia z
+wykorzystania edytora.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-blocked-deleting-pins.png}
+  \caption{Zablokowana możliwość usunięcia portu wywołania modułu
+    obliczeniowego w \emph{Sirius Desktop}}\label{rys:sirius-desktop-blocked-deleting-pins}
+\end{figure}
+% \end{noindent}
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/sirius-web-timeout-when-deleting-pins.png}
+  \caption{Błąd podczas próby usunięcia portu wywołania modułu obliczeniowego w
+    \emph{Sirius Web}}\label{rys:sirius-web-timeout-when-deleting-pins}
+\end{figure}
+% \end{noindent}
+
+Niektóre elementy na diagramie wyświetlane są w inny sposób. Porty, które w
+metamodelu zostały oznaczone jako węzły krawędziowe (\emph{Border Node}) w
+\emph{Sirius Desktop} rzeczywiście są wyświetlane na krawędzi swojego rodzica
+(węzła wywołania modułu obliczeniowego), natomiast w \emph{Sirius Web} są
+wyświetlane w jego środku. Usterka jest znana i została zgłoszona\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/956}
+}. Różnice w wyświetlaniu węzłów krawędziowych zostały zaprezentowane na
+rysunku~\ref{rys:border-node-difference}.
+Przy okazji warto zauważyć, że \emph{Sirius Web} nie obsługuje wyświetlania
+krawędzi węzłów krawędziowych. Te widoczne na
+rysunku~\ref{rys:border-node-sirius-web} pochodzą z ikony i zostały specjalnie
+dodane po odkryciu tej usterki. Została ona zgłoszna w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/783}}.
+
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/border-node-sirius-desktop.png}
+		\caption{Węzły krawędziowe w \emph{Sirius Desktop} są wyświetlane na
+      krawędzi}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/border-node-sirius-web.png}
+		\caption{Węzły krawędziowe w \emph{Sirius Web} są wyświetlane wewnątrz
+      węzłą}\label{rys:border-node-sirius-web}
+	\end{subfigure}
+
+    \caption{Różnica w wyświetlaniu węzłów
+      krawędziowych}\label{rys:border-node-difference}
+\end{figure}
+% \end{noindent}
+
+Ikony obiektów metamodelu również są wyświetlane inaczej niż w \emph{Sirius
+	Desktop}. Jeżeli rozmiar ikony przekracza 16 pikseli na 16 pikseli,
+ikona
+zaczyna pojawiać się pod etykietą obiektu. Porównanie zachowania obu edytorów w
+tym przypadku zostało przedstawione na
+rysunku~\ref{rys:sirius-multiline-labels}. Problem został zgłoszony w
+repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/782}
+}. Jako próba jego obejścia zmniejszono ikony do rozmiaru 16 na 16 pikseli, aby
+tekst był czytelny.
+
+% \begin{noindent}
+\begin{figure}
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+    \includegraphics[width=.99\linewidth]{./images/sirius-desktop-multiline-label.png}
+		\caption{Dwuwierszowa etykieta obiektu w \emph{Sirius Desktop}}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{./images/sirius-web-multiline-label.png}
+		\caption{Ta sama etykieta w \emph{Sirius Web}}\label{rys:border-node-sirius-web}
+    \medskip
+    {\footnotesize Ponadto, ikona o rozmiarze większym niż $16\times16$ pikseli nachodzi na tekst.}
+	\end{subfigure}
+
+    \caption{Wyświetlanie dwuwierszowych
+      etykiet oraz większych ikon}\label{rys:sirius-multiline-labels}
+\end{figure}
+% \end{noindent}
+
+Pozostając w temacie etykiet obiektów są z nimi 2 problemy. Po pierwsze,
+znaki nowej linii w etykietach są zamieniane na zwykłe odstępy. Widać to na
+rysunku~\ref{rys:sirius-multiline-labels}, gdzie w \emph{Sirius Desktop} nazwa
+wywoływanego modułu
+obliczeniowego znajduje się w nowej linii, natomiast w \emph{Sirius Web} cała
+etykieta to jedna linia. Zaburza to estetykę diagramu. Usterka została
+zgłoszona w repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/781}
+}. Drugim z problemów związanym z etykietą jest jej edycja w sytuacji, gdy
+etykieta jest obliczana w języku \gls{AQL} na podstawie kilku właściwości
+obiektu. \emph{Sirius Desktop} nie pozwala na bezpośrednią edycję całej
+etykiety w tym przypadku, a \emph{Sirius Web} wyświetla pole do zmiany tekstu
+tylko po to, aby go później zignorować --- po zatwierdzeniu zmiany etykieta
+wraca do swojej początkowej wartości, a w konsoli serwera aplikacyjnego
+wyświetlany jest błąd. Usterka została zgłoszona w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/784}
+}.
+
+Warunkowe zmiany stylu elementów modelu (\emph{Style Customizations}) działają
+poprawnie. Dzięki nim ikony portów w \emph{Sirius Web} zmieniają się na
+podstawie swoich parametrów (krotności danych i tokenów). Drugi z stylów
+warunkówych w metamodelu dotyczący zmiany koloru krawędzi portu ze względu na
+jego typ (wejściowy lub wyjściowy) nie może zostać zweryfikowany, ponieważ
+krawędzie te w ogóle nie są wyświetlane.
+
+\emph{Sirius Web} nie wprowadza niektórych ograniczeń, które są przestrzegane w
+\emph{Sirius Desktop}. Jednym z nich jest zablokowanie możliwości zmiany
+rozmiaru węzłów. W metamodelu zabroniono zmiany rozmiaru portów i takiego
+zachowania można się spodziewać w aplikacji natywnej, natomiast w \emph{Sirius
+	Web} zmiana ich rozmiaru jest możliwa dowolnie, co zostało
+przedstawione na
+rysunku~\ref{rys:change-node-size}. Problem został zgłoszony w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/785}}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.6\linewidth]{./images/change-node-size.png}
+  \caption{Zmieniony rozmiar węzłów w Sirius Web}\label{rys:change-node-size}
+\end{figure}
+% \end{noindent}
+
+Interfejs użytkownika \emph{Sirius Web} zazwyczaj reguje na zmiany natychmiast.
+Animacje używane w edytorze diagramów występujące podczas dodawania lub
+usuwania z niego elementów sprawiają, że aplikacja jest przyjemniejsza w użyciu
+i sprawia wrażenie bardziej dopracowanej, a jednocześnie pomaga zrozumieć co
+się dzieje w modelu. Pomaga to szczególnie, gdy zmiany są wykonywane przez
+inną osobę edytującą ten diagram w czasie rzeczywistym.
+Problem z wydajnością występuje podczas przesuwania elementów w \emph{Sirius
+	Web}. Interfejs przesuwa elementy z opóźnieniem, a po upuszczeniu
+elementów
+często ignoruje przyciśnięcia klawiszy myszy przez około sekundę. Jest to
+wyjątek pośród ogólnie płynnego interfejsu, co dodatkowo uwidacznia ten
+problem.
+
+Udostępnienie aplikacji do edycji diagramów w przeglądarce powoduje, że na
+jej wydajność wpływa szybkość łącza Internet użytkownika. Architektura
+rozwiązania \emph{Sirius Web} powoduje, że aplikacja często musi komunikować
+się z serwerem aplikacyjnym. Dzieje się tak z uwagi na fakt, że informacje o
+modelu przechowywane są w bazie danych a metamodel \gls{EMF} jest
+interpretowany przez serwer. Do przeglądarki komunikowane są jedynie informacje
+o modelu, a nie metamodel. Dla przykładu, wywołanie narzędzia tworzącego nowe
+wywołanie modułu obliczeniowego wymaga przesłania zapytania typu
+\emph{mutation} do serwera aplikacyjnego, otrzymania odpowiedzi potwierdzającej
+tą zmianę, po czym asynchronicznie serwer wysyła jeszcze 3 wiadomości
+za pomocą połączenia \emph{GraphQL} \emph{subscription}:
+
+\begin{itemize}
+	\item \texttt{diagramEvent} z nową zawartością diagramu,
+	\item \texttt{validationEvent} z nowym zestawem informacji
+	      diagnostycznych,
+	\item \texttt{treeEvent} z nową zawartością drzewa modelu.
+\end{itemize}
+
+Te 3 wiadomości zawierają informacje o \textbf{całym} modelu. W przeciwieństwie
+do podejścia przyrostowego, w którym przesyłane byłyby jedynie informacje o
+zmianach względem poprzedniego stanu modelu, podejście z przesyłaniem
+wszystkich informacji za każdym razem powoduje, że przez sieć przesyłanych jest
+znacznie więcej danych. Ponadto, aplikacja przeglądarkowa musi je
+zinterpretować i odpowiednio zaaplikować w interfejsie, co również wymaga
+większej ilości obliczeń. Znaczenie tego problemu jest proporcjonalne do
+wielkości modelu --- im większy model, tym więcej informacji jest przesyłanych
+przez sieć przy każdej jego modyfikacji.
+
+Aplikacja działała płynnie podczas korzystania z niej w sytuacji, w której
+serwer aplikacyjny był uruchomiony na komputerze, na którym wykonywano test.
+Opóźnienia wynikające z narzutu na przesyłanie danych przez sieć były
+zauważalne, gdy została sztucznie ograniczona szybkość połączenia internetowego
+za pomocą narzędzi programisty w przeglądace \emph{Google Chrome}.
+Używanie ustawienia \emph{Fast 3G}, które ogranicza szybkość pobierania danych
+do 1.5~Mb/s i opóźnieniu
+500~ms~\cite{network-throttling-profiles-stackoverflow} sprawiło, że aplikacja
+przestała być używalna z uwagi na długi czas pobierania danych o modelu.
+Szczegółowe czasy oczekiwania na wyświetlenie elementów interfejsu z włączonym
+sztucznym opóźnieniem zostały zaprezentowane w
+tabeli~\ref{tab:sirius-web-ui-delay-throttled}.
+
+\begin{table}[!b]
+	\centering
+	\begin{tabular}{p{5cm}c}
+		\toprule
+		Element interfejsu       & Czas oczekiwania (sekundy) \\
+		\midrule
+		Drzewo modelu            & 92                         \\
+		Informacje diagnostyczne & 92                         \\
+		Diagram                  & 154                        \\
+		\bottomrule
+	\end{tabular}
+	\caption{Czas oczekiwania na wyświetlenie elementów interfejsu
+		\emph{Sirius
+			Web} z włączonym sztucznym opóźnieniem \emph{Fast
+			3G}}\label{tab:sirius-web-ui-delay-throttled}
+\end{table}
+
+Opóźnienie sieciowe nie ma wpływu na modyfikację pozycji elementów. Użytkownik
+może płynnie przesuwać węzły na diagramie. Wszelkie inne operacje wymagają
+informacji z serwera aplikacyjnego. Oznacza to, że korzystanie z edytora
+\emph{Sirius Web} wymaga szybkiego i stabilnego połączenia sieciowego. Nie jest
+to wymagane w przypadku \emph{Sirius Desktop}, w którym wydajność zależy
+wyłącznie od szybkości komputera używanego do edycji modeli.
+
+Możliwym rozwiązaniem problemu przesyłania zbyt dużej ilości danych przez sieć
+w \emph{Sirius Web} byłoby zmiana zawartości przesyłanych wiadomości na
+podejście przyrostowe. Komunikaty zawierałyby jedynie informacje o zmianach,
+które zazwyczaj można wyrazić zwięźlej niż przesyłając cała zawartość
+zaktualizowanego modelu.
+
+\section{Błędy techniczne}
+
+% TODO:
+% * Brak możliwości dodania uwierzytelniania do GraphQL Subscription
+% * Omówić pozostałe błędy techniczne z Notion
+% * Powiedzieć, że niektóre błedy zostały naprawione na GitHubie
+
 % https://github.com/eclipse-sirius/sirius-components/issues/created_by/Gelio
 % https://www.notion.so/gregorr/R-nice-wzgl-dem-Sirius-Desktop-21b79f2342c647c5b35a147a78bfe3f3
 
 \section{Użycie własnego metamodelu}
 
+% TODO:
+% * Brak dokumentacji jak użyć własny model
+% * Opisać moje doświadczenia
+
 \section{Dodawanie funkcjonalności do edytora}
+
+% TODO
+% * Opisać moje doświadczenia ogólnie
+% * Trudności w modyfikacji, bo nie wszystkie komponenty są wyeksportowane.
+% Konieczność kopiowania kodu
+% * Trudności w aktualizowaniu do nowych wersji, bo kod się mocno zmienia.
+% Szczególnie trudno jak się skopiowało coś z sirius-components
+% * Brak dokumentacji jak można rozszerzać edytor oraz jak on działa. Wymaga
+% reverse engineering
