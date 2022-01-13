@@ -1,5 +1,7 @@
 \chapter{Ocena Sirius Web}
 
+% TODO: sprawdzić wdowy
+
 W tej pracy magisterskiej wykorzystano rozwiązanie eksperymentalne i ciągle
 rozwijane rozwiązanie \emph{Sirius Web}.
 Mimo wykorzystywania tych samych metamodeli \gls{EMF} co dojrzała technologia
@@ -246,6 +248,26 @@ wykorzystania edytora.
 \end{figure}
 % \end{noindent}
 
+\subsection{Właściwości tylko do odczytu}
+
+\emph{Sirius Web} niepoprawnie obsługuje właściwości elementów modelu oznaczone
+jako
+\emph{tylko do odczytu} (\emph{readonly}). Czasami takie właściwości można
+swobodnie zmieniać, a czasami podczas zmiany pojawia się błąd w konsoli serwera
+aplikacyjnego i właściwość nie jest zmieniona. Oba zachowania są niepoprawne,
+ponieważ oczekiwaniem dla takich właściwości jest, że będą one tylko do
+odczytu, a więc już w interfejsie użytkownika nie będzie można wybrać dla nich
+innej wartości. W \emph{Sirius Desktop} użytkownik nie może zmienić wartości
+tych właściwości, ale tylko w jednej z dwóch zakładek pozwalających na
+wyświetlenie detali obiektu. Druga zakładka pozwala na ich zmianę.
+Zgłoszono w tym temacie dwie usterki w repozytorium
+projektu \emph{Sirius Web}\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/813}
+}\textsuperscript{,}\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/814}
+}. Jako obejście problemu w tej pracy magisterskiej zrezygnowano z używania
+właściwości \emph{tylko do odczytu}.
+
 \subsection{Wyświetlanie elementów diagramu}
 
 Niektóre elementy na diagramie wyświetlane są w inny sposób. Porty, które w
@@ -448,15 +470,100 @@ podejście przyrostowe. Komunikaty zawierałyby jedynie informacje o zmianach,
 które zazwyczaj można wyrazić zwięźlej niż przesyłając cała zawartość
 zaktualizowanego modelu.
 
-\section{Błędy techniczne}
+\section{Problemy techniczne}
 
-% TODO:
-% * Brak możliwości dodania uwierzytelniania do GraphQL Subscription
-% * Omówić pozostałe błędy techniczne z Notion
-% * Powiedzieć, że niektóre błedy zostały naprawione na GitHubie
+Poza problemami możliwymi do zauważenia w interfejsie użytkownika \emph{Sirius
+	Web} pojawiły się też problemy widzialne głównie dla inżynierów
+pracujących nad edytorem diagramów.
 
-% https://github.com/eclipse-sirius/sirius-components/issues/created_by/Gelio
-% https://www.notion.so/gregorr/R-nice-wzgl-dem-Sirius-Desktop-21b79f2342c647c5b35a147a78bfe3f3
+Głównym problemem rozwiązania \emph{Sirius Web} jest brak możliwości
+uwierzytelniania połączenia \emph{GraphQL} \emph{subscription} obsługiwanego za
+pomocą technologii \emph{WebSocket}. Za pomocą tego połączenia przesyłane są
+informacje o zawartości modeli i szczegółach wszystkich ich elementów. Jeżeli
+\emph{Sirius Web} zostałby wykorzystany do edycji modeli z danymi wrażliwymi
+lub poufnymi, nie byłoby gwarancji, że osoby postronne lub nieautoryzowane nie
+mają do nich dostępu. Jest to spora wada, która może zdyskwalifikować
+\emph{Sirius Web} jako rozwiązanie do edycji diagramów w niektórych
+zastosowaniach. Usterka ta została zgłoszona w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/846}}.
+
+Podczas korzystania z \emph{Sirius Web} widoczne były błędy w konsoli serwera
+aplikacyjnego po wykonaniu pewnych operacji. W przypadku wywołania narzędzia
+metamodelu odpowiedzialnego za kaskadowe usunięcie kilku elementów na raz, z
+których niektóre mogą nie istnieć, wyświetlany był wyjątek
+\texttt{NullPointerException} pomimo, że w tej samej sytuacji \emph{Sirius
+	Desktop} zachowywał się poprawnie i nie informował o występujących
+błędach.
+Usterka została zgłoszona w repozytorium projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/791}
+}. Obejściem problemu było dodanie bloków \texttt{If} w metamodelu
+sprawdzającego czy odpowieednia właściwość jest ustawiona (ma wartość inną niż
+\texttt{null}) zanim element zostanie usunięty.
+
+Kolejny wydruk na konsolę, który zdarzał się po wywołaniu narzędzia metamodelu
+do kaskadowego usuwania elementów, jest informacja o wiszącej referencji do
+elementu, który nie znajduje się w modelu (wyjątek
+\texttt{DanglingHREFException}). Jest to błąd, który pojawiał się wyłącznie w
+\emph{Sirius Web} --- w \emph{Sirius Desktop} nie było problemów z kaskadowym
+usuwaniem elementów. Usterka została zgłoszona w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/792}
+}.
+
+Niektóre z usterek zgłoszonych w repozytorium projektu na platformie
+\emph{GitHub} zostały naprawione podczas pisania tej pracy magisterskiej.
+Dodane zostało wsparcie dla akcji metamodelu wywołujących kod w języku Java
+(\emph{External Java Action})\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/613}}.
+Naprawiony został także błąd polegający na niepoprawnym obliczaniu ścieżek do
+ikon elementów w stylach warunkowych\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/865}
+}, dzięki któremu można było wykorzystać język \gls{AQL} do dynamicznego
+ustalenia ścieżki, co pozwoliło na uniknięcie tworzenia 7 zbliżonych do
+siebie styli warunkowych.
+
+Innym problemem pojawiającym się z nieokreśloną częstotliwością jest wyjątek
+\texttt{NonNullableFieldWasNullException} występujący podczas dodawaniu wielu
+elementów na raz do modelu. Taka sytuacja dzieje się, gdy do diagramu zostaje
+dodane nowe wywołanie modułu obliczeniowego. Może wtedy być stworzonych wiele
+obiektów podczas obsługi jednego zapytania \emph{GraphQL}. Wystąpienie tego
+wyjątku uniemożliwia dalszą pracę z modelem, ponieważ w interfejsie użytkownika
+nie zostaje wyświetlony żaden element diagramu. Nie pomaga odświeżenie strony
+internetowej czy ponowne uruchomienie serwera aplikacyjnego. Pracę można
+kontynuować tworząc nowy model i licząc na to, że problem nie wystąpi ponownie,
+lub usuwając z modelu wszystkie elementy pojedynczo korzystając z drzewa
+elementów modelu, które jest widoczne. Usterka została zgłoszona w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/828}
+}. Jest to kolejny poważny problem, który uniemożliwia komfortową pracę z
+edytorem diagramów, a niedeterminizm jego występowania sprawia, że jest on
+trudny w zdiagnozowaniu. Nie pojawia się on w przypadku tworzenia elementów
+pojedynczo, więc możliwym rozwiązaniem byłaby zmiana podejścia tworzenia wielu
+elementów na raz na wysyłanie wielu zapytań \emph{GraphQL} dodającym po jednym
+elemencie zamiast jednego zapytania dodającego kilka elementów. Jest to
+natomaist rozwiązanie mniej wydajne i bardziej komplikujące kod aplikacji.
+
+Niedogodnością pojawiającą się podczas pracy z aplikacją przeglądarkową
+\emph{Sirius Web} jest fakt, że nazwy komponentów w dostarczonym kodzie
+JavaScript są zobfuskowane. Utrudnia to analizę struktury aplikacji w
+narzędziach programisty w przeglądarce. Zrzut ekranu prezentujący zobfuskowane
+nazwy komponentów pochodzące z biblioteki \texttt{sirius-components} jest
+widoczny na rysunku~\ref{rys:sirius-web-minified-component-names}. Problem
+został zgłoszny w repozytorium
+projektu\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/issues/831}
+}.
+
+% \begin{noindent}
+\begin{figure}[!hb]
+  \centering
+
+  \includegraphics[width=0.7\linewidth]{./images/sirius-web-minified-component-names.png}
+  \caption{Zobfuskowane nazwy komponentów z biblioteki
+    \texttt{sirius-components}}\label{rys:sirius-web-minified-component-names}
+\end{figure}
+% \end{noindent}
 
 \section{Użycie własnego metamodelu}
 
