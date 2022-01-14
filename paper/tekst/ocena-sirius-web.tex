@@ -567,9 +567,56 @@ projektu\footnote{
 
 \section{Użycie własnego metamodelu}
 
-% TODO:
-% * Brak dokumentacji jak użyć własny model
-% * Opisać moje doświadczenia
+\emph{Sirius Web} jest technologią eksperymentalną i nie posiada ona jeszcze
+swojej dokumentacji technicznej. Oznacza to, że zrozumienie jak ona działa i co
+należy zmienić, aby osiągnąć zamierzone rezultaty wymaga analizy kodu
+źródłowego, inżynierii wstecznej, a~także metody prób i~błędów podczas
+dokonywania zmian w
+kodzie. Dostępne jest jedynie repozytorium \texttt{sirius-web} służące jako
+przykład wykorzystania biblioteki z repozytorium \texttt{sirius-components}
+do zbudowania edytora diagramów.
+Pomocnym okazała się możliwość zadawania pytań autorom projektu poprzez
+tworzenie zgłoszeń na platformie \emph{GitHub}. Właśnie w ten sposób zadano
+pytanie z prośbą o wyjaśnienie jak można użyć własnego metamodelu \gls{EMF} w
+\emph{Sirius Web}\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-web/issues/36}
+}. W odpowiedzi otrzymano krótkie wyjaśnienie oraz listę miejsc w kodzie
+wymagających edycji w celu użycia własnego metamodelu.
+
+Instrukcja ta była pomocna, ale dla osób nie mających wcześniej styczności z
+technologią \gls{EMF} i metamodelami tworzonymi w niej okazała się
+niewystarczająca, ponieważ wymagane były dodatkowe zasoby wyjaśniające jak taki
+metamodel stworzyć~\cite{dokumentacja-sirius-desktop,dokumentacja-aql} oraz jak
+umożliwić wykorzystanie pakietów Javy wygenerowanych przez \gls{EMF} w systemie
+\emph{Maven}~\cite{maven-tycho-tutorial}.
+Duża liczba nowych technologii do wykorzystania i skonfigurowania wymagała
+metody prób i błędów, która w połączeniu z długim czasem kompilacji aplikacji
+(zazwyczaj około minuty) powodowała frustrację. Z pewnością pomocne byłoby
+stworzenie dokumentacji opisującej krok po kroku proces tworzenia własnego
+metamodelu i wykorzystania go w \emph{Sirius Web}. Taka instrukcja obniżyłaby
+barierę wejścia i sprawiłaby, że rozpoczęcie pracy z tą technologią byłoby dużo
+szybsze i przyjemniejsze.
+
+Zaskoczeniem było też odkrywanie kolejnych funkcjonalności metamodelu
+\gls{EMF}, które nie były obsługiwane przez \emph{Sirius Web}, lub były
+obsługiwane wyłącznie częściowo. Zespół rozwijający tą technologię wykorzystuje
+ciągle ten sam metamodel podczas swojej pracy, który nie korzysta ze
+wszystkich możliwości \gls{EMF}. Konsekwencją tego jest brak ekspozycji autorów
+\emph{Sirius Web} na różne problemy wynikające z braku kompatybilności i
+konieczność powiadamiania ich o usterkach za pomocą \emph{GitHub Issues}.
+Pomocne w tym przypadku byłoby udostępnienie przez autorów projektu listy
+funkcjonalności metamodeli \gls{EMF}, które są wspierane, a także wypisanie
+tych, które są nieobsługiwane. W ten sposób przygotowując własny edytor
+na~bazie
+\emph{Sirius Web} można byłoby od razu zorientować się z których narzędzi można
+swobodnie korzystać, a na które nie warto zużywać czasu w metamodelu \gls{EMF}
+bo wiadomo, że należy je~opracować samemu.
+
+Podsumowując, znając wszystkie kroki potrzebne do wykorzystania własnego
+metamodelu \gls{EMF} w \emph{Sirius Web} można tego dokonać w krótkim czasie.
+Wymagane sa zmiany jedynie kilku miejsc w kodzie aplikacji. Brakuje
+dokumentacji tej technologii, która wskazałaby kolejne kroki tego
+procesu, aby rozpoczęcie pracy było prostsze, szybsze i mniej frustrujące.
 
 \section{Dodawanie funkcjonalności do edytora}
 
