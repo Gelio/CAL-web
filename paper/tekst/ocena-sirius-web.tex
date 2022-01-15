@@ -705,3 +705,56 @@ szybsze zapoznanie się z biblioteką i wykorzystanie jej. Największym probleme
 do rozwiązania w przypadku komponentów z biblioteki \texttt{sirius-components}
 jest udostępnienie łatwiejszego modyfikowania interfejsu użytkownika bez
 konieczności kopiowania dużej ilości kodu.
+
+\section{Aktualizacja wersji edytora}
+
+Projekt \emph{Sirius Web} jest aktywnie rozwijany. Od 15 grudnia 2021 r.\ do 15
+stycznia 2022 r.\ zostało wprowadzone do niego 45 zmian\footnote{
+	\url{https://github.com/eclipse-sirius/sirius-components/pulse/monthly}
+}, w których zmieniono sumarycznie ponad 9 tysięcy linii kodu.
+Nowe wersje zawierające poprawki usterek lub nowe funkcjonalności są wydawane
+co miesiąc. Każda nowa wersja wymaga serii zmian, które muszą być wykonane
+w kodzie źródłowym aplikacji przeglądarkowej lub serwera aplikacyjnego
+\emph{Sirius Web}, ponieważ kod \texttt{sirius-components} zmienia się w sposób
+niezachowujący wstecznej kompatybilności~\cite{sirius-components-changelog}.
+
+Aktualizacja do nowej wersji edytora wymaga wprowadzenia zmian w kodzie
+źródłowym \emph{Sirius Web}, które zostały wykonane przez zespół pracujący nad
+projektem w repozytorium \texttt{sirius-web}. Dzięki używaniu narzędzia
+\emph{git} zmiany te mogą być wprowadzone automatycznie za pomocą kilku komend
+linii poleceń. Wprowadzanie zmian w repozytorium \texttt{sirius-web} pokazuje
+jak one powinny być wykonane, co jest znacznym ułatwieniem w porównaniu do
+wyłącznego czytania listy zmian nowego wydania biblioteki.
+
+Każda modyfikacja kodu \emph{Sirius Web} powoduje, że jest to potencjalne
+miejsce na wystąpienie konfliktów podczas aplikowania zmian za pomocą narzędzia
+\emph{git}, które zostały wprowadzone w nowszej wersji edytora.
+Dzieje się tak, ponieważ kod w naszej wersji edytora zaczyna się wtedy różnić
+od edytora z repozytorium \texttt{sirius-web} i narzędzie \emph{git} nie może
+wywnioskować jak ma rozwiązać te niekompatybilności.
+Im większe zmiany, tym większa szansa na konflikt i tym jest on trudniejszy w
+rozwiązaniu.
+W niektórych przypadkach zmiany w \texttt{sirius-web} nie wynikają ze złamania
+kompatybilności wstecznej, a wynikają z nowych funkcjonalności edytora. Często
+wymagają one wtedy większego wysiłku we wdrożeniu do naszej kopii edytora.
+W takich chwiach można się zastanowić czy nie łatwiej byłoby zignorować tą
+zmianę wprowadzoną w \emph{Sirius Web}, ponieważ rozwiązywanie konfliktów w
+kodzie jest zbyt czasochłonne.
+
+Największym problemem utrzymania aplikacji \emph{Sirius Web} jest utrzymanie
+kodu źródłowego komponentów aplikacji przeglądarkowej skopiowanych z
+repozytorium \texttt{sirius-components}. Ich definicja znajduje się w innym
+repozytorium, więc narzędzie \emph{git} nie wykryje automatycznie tych zmian.
+Należy więc manualnie śledzić zmiany dla skopiowanych komponentów i samemu
+wprowadzać je do kodu. Jest to podejście znacznie bardziej czasochłonne
+niż to wykorzystujące automatyczną konsolidację zmian narzędzia \emph{git}.
+Pominięcie wprowadzenia zmian w tych komponentach może spowodować błędy podczas
+działania aplikacji, ponieważ może zostać naruszony kontrakt między tymi
+komponentami a resztą kodu.
+
+Podsumowując, aktualizacja edytora do nowszej wersji zazwyczaj jest prosta, ale
+wymaga tym więcej czasu im bardziej go zmodyfikowaliśmy w porównaniu do
+oryginalnej wersji z repozytorium \texttt{sirius-web}. We wprowadzaniu zmian
+znacznie pomaga narzędzie \emph{git}. Każda wersja biblioteki
+\texttt{sirius-components} zawiera zmiany łamiące kompatybilność wsteczną, co
+warto wziąć pod uwagę planując proces aktualizacji.
