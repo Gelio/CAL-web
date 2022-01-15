@@ -56,7 +56,9 @@ projekty \emph{Eclipse}, podczas gdy \emph{Maven} wykorzystuje repozytoria w
 swoim własnym formacie. Fragment pliku \texttt{pom.xml} konfigurujący to
 repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 
-\begin{lstlisting}[language=XML,
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=XML,
     caption={Konfiguracja repozytorium \emph{Eclipse} w \texttt{pom.xml}.},
     label={lst:pom-eclipse-repository}]
 <repositories>
@@ -73,7 +75,9 @@ zdefiniować, że~są~to~projekty \emph{Eclipse}, poprzez dodanie elementu
 \texttt{packaging} z wartością \texttt{eclipse-plugin}. Zostało
 to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
 
-\begin{lstlisting}[language=XML,
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=XML,
     caption={Plik \texttt{pom.xml} dla jednego z projektów metamodelu
       \gls{EMF}.},
     label={lst:pom-packaging}]
@@ -105,7 +109,9 @@ wersję środowiska uruchomieniowego języka Java. W tym przypadku jest to Java
 11. Jest to jedyna wersja oficjalnie obsługiwana przez \emph{Sirius Web}.
 Inne wersje nie są wspierane.
 
-\begin{lstlisting}[language=XML,
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=XML,
     caption={Konfiguracja rozszerzeń \emph{Maven Tycho} w \texttt{pom.xml}.},
     label={lst:pom-maven-tycho-plugins}]
 <build>
@@ -156,7 +162,9 @@ komendę \lstinline{mvn clean verify}. Model można teraz dodać do pliku
 głównego pakietu modelu, pakietu \texttt{.edit} oraz pakietu \texttt{.design}.
 Odwołania te widoczne są na listingu~\ref{lst:pom-metamodel-dependencies}.
 
-\begin{lstlisting}[language=XML,
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=XML,
     caption={Odwołania do pakietów metamodelu w \texttt{pom.xml} aplikacji
     serwerowej \emph{Sirius Web}},
     label={lst:pom-metamodel-dependencies}]
@@ -188,7 +196,9 @@ listingu~\ref{lst:registering-emf-classes}. Później w klasie
 Odpowiedni fragment znajduje się na
 listingu~\ref{lst:registering-odesign-path}.
 
-\begin{lstlisting}[language=Java,
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=Java,
     caption={Rejestracja klas przygotowanego metamodelu EMF w klasie
     \texttt{SampleEMFConfiguration}.},
     label={lst:registering-emf-classes}]
@@ -203,7 +213,9 @@ listingu~\ref{lst:registering-odesign-path}.
     }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java,
+\begin{lstlisting}[float,
+    floatplacement=hb,
+    language=Java,
     caption={Wskazanie ścieżki do pliku \texttt{*.odesign} w klasie
     \texttt{SampleSiriusConfiguration}.},
     label={lst:registering-odesign-path}]
