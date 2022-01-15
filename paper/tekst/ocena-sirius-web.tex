@@ -620,11 +620,88 @@ procesu, aby rozpoczęcie pracy było prostsze, szybsze i mniej frustrujące.
 
 \section{Dodawanie funkcjonalności do edytora}
 
-% TODO
-% * Opisać moje doświadczenia ogólnie
-% * Trudności w modyfikacji, bo nie wszystkie komponenty są wyeksportowane.
-% Konieczność kopiowania kodu
-% * Trudności w aktualizowaniu do nowych wersji, bo kod się mocno zmienia.
-% Szczególnie trudno jak się skopiowało coś z sirius-components
-% * Brak dokumentacji jak można rozszerzać edytor oraz jak on działa. Wymaga
-% reverse engineering
+Podstawowy edytor diagramów dostępny w repozytorium \texttt{sirius-web}
+pozwala na edycję modeli w sposób podobny do \emph{Sirius Desktop}.
+Jego kod źródłowy jest natomiast prostszy w edycji i rozszerzeniu w porównaniu
+do kodu \emph{Sirius Desktop}. Pozwala to dostosować edytor do swoich potrzeb i
+dodać funkcjonalności, które pomogą użytkownikom szybciej lub prościej pracować
+z modelami, lub których brakuje w porównaniu do natywnej wersji edytora.
+
+Modyfikacja kodu źródłowego serwera aplikacyjnego zazwyczaj sprowadza się do
+dodania nowych klas i modyfikacji niewielkiego fragmentu kodu, aby były one
+używane, chociaż nie jest to wymagane w każdym przypadku. Dzieje się tak dzięki
+funkcjonalności wstrzykiwania zależności (\emph{Dependency Injection})
+technologii \emph{Java Spring}. Tak właśnie było w przypadku dodawania nowych
+mutacji \emph{GraphQL}, aby dodać możliwość tworzenia modułu obliczeniowego
+wraz z jego wywołaniem w obrębie jednej transakcji. Trzeba było wtedy
+dodać kilka klas odpowiedzialnych za serializację i deserializację danych, oraz
+klasy odpowiedzialne za przetwarzanie zapytania, a później \emph{Sirius Web}
+automatycznie wykrył je i dodał możliwość wysyłania tego rodzaju mutacji.
+Jest to bardzo wygodne rozwiązanie, ponieważ kod można łatwo rozszerzyć bez
+modyfikacji istniejących klas w znacznym stopniu, co jest zgodne z
+zasadą \emph{Open--Closed Principle} % chktex 8
+z akronimu \emph{SOLID}. Mówi ona, że klasy powinny być otwarte na
+rozszerzenie, ale zamknięte na modyfikację.
+
+Nietrudno było również dodać mechanizm odpowiedzialny za walidację semantyczną
+metamodelu. Wymagało to modyfikacji istniejącej klasy związanej z przesyłaniem
+informacji diagnostycznych, ale modyfikacja ta była w dużej części dodaniem
+nowego kodu.
+
+W obu przypadkach zmiany okazały się proste do wykonania, jednak z uwagi na
+brak dokumentacji technicznej \emph{Sirius Web} należało spędzić dodatkowy czas
+na znalezienie odpowiedniego miejsca w kodzie do modyfikacji. Często wymagało
+to zajrzenia do kodu źródłowego z repozytorium \texttt{sirius-components}, w
+którym znajduje się większość kodu biblioteki edytora i zastosowaniu tam
+inżynierii wstecznej. W ten sposób ustalano jakie interfejsy należy
+zaimplementować, aby dostarczyć nowych funkcjonalności w serwerze aplikacyjnym
+lub edytorze. Udostępnienie dokumentacji technicznej \emph{Sirius Web} dla osób
+rozwijających edytor i umieszczenie przykładów takich rozszerzeń znacznie
+przyśpieszyłoby pracę z edytorem i sprawiłoby, że praca z nim byłaby
+przyjemniejsza.
+
+Część dodawanych funkcjonalności edytora wymaga zmodyfikowania kodu źródłowego
+aplikacji przeglądarkowej \emph{Sirius Web}. Zmiany te mają różny rozmiar i
+poziom skomplikowania w zależności od docelowego miejsca umieszczenia
+dodawanych lub zmienianych elementów interfejsu.
+Nowe podstrony aplikacji wyświetlające całkiem nowy układ interfejsu są proste
+do zaimplementowania, podobnie jak modyfikacja elementów niezwiązanych
+bezpośrednio z modelami. Wynika to z faktu, że istniejące elementy interfejsu
+aplikacji \emph{Sirius Web} to komponenty biblioteki \emph{React} pochodzące z
+repozytorium \texttt{sirius-components}. Nie umożliwiają one zmiany wyglądu lub
+dodawania nowych elementów w swoim wnętrzu.
+
+Standardowym, choć nieco uciążliwym rozwiązaniem w tym przypadku jest
+skopiowanie kodu komponentów wyższego poziomu składających się z mniejszych
+części, a następnie dodanie lub zmodyfikowanie ich układu. Takim złożonym
+komponentem wyższego poziomu jest \texttt{Workbench} omówiony w
+sekcji~\ref{sec:wyswietlenie-zawartosci-przybornika-w-sirius-web} wyświetlający
+cały interfejs edytora diagramów wraz z panelami po prawej i lewej stronie.
+Oprócz wyświetlania komponentów zawiera on także logikę synchronizującą je,
+która również musiała być skopiowana, ponieważ nie została udostępniona osobno
+z repozytorium \texttt{sirius-components}. Podobnie z niektórymi komponentami
+niższego poziomu wykorzystywanymi przez \texttt{Workbench}. Je także trzeba
+było skopiować, aby zachować ten sam wygląd interfejsu użytkownika.
+
+Ostatecznie dla widoku edytora diagramów kod skopiowany z repozytorium
+\texttt{sirius-\allowbreak components} % chktex 1
+stanowi ponad $37\%$ całego kodu
+odpowiedzialnego za ten widok (1245 z 3320 linii). Jest to kod, który musi być
+utrzymywany przez osoby przygotowujące edytor, co utrudnia utrzymanie projektu.
+Zwiększa on także czas jego kompilacji, ponieważ jest on kompilowany jako
+część aplikacji mimo, że w rzeczywistości pochodzi z biblioteki. W niektórych
+przypadkach zwiększa on ilość danych przesyłanych do przeglądarki, ponieważ kod
+ten musi być przez nią przetworzony, co negatywnie wpływa na szybkość ładowania
+aplikacji. Wszystkich tych negatywnych efektów można byłoby uniknąć, gdyby z
+\texttt{sirius-components} udostępnionych było więcej komponentów i funkcji.
+
+Dzięki lepszym narzędziom wspomagającym inspekcję kodu biblioteki
+\texttt{sirius-components} znalezienie odpowiedniego miejsca do modyfikacji
+kodu aplikacji przeglądarkowej jest prostsze niż było to w przypadku serwera
+aplikacyjnego \emph{Sirius Web}. Nadal wymagało to jednak inżynierii wstecznej
+i czytania kodu źródłowego komponentów. Dodanie dokumentacji technicznej
+opisującej dostępne do wykorzystania komponenty oraz ich parametry umożliwiłoby
+szybsze zapoznanie się z biblioteką i wykorzystanie jej. Największym problemem
+do rozwiązania w przypadku komponentów z biblioteki \texttt{sirius-components}
+jest udostępnienie łatwiejszego modyfikowania interfejsu użytkownika bez
+konieczności kopiowania dużej ilości kodu.
