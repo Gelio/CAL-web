@@ -110,7 +110,7 @@ istotne z~perspektywy edycji diagramu.
 \end{figure}
 
 Model w EMF ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
-\texttt{ComputationApplicationRelease}, ktory odpowiada całemu diagramowi
+\texttt{Computation\-Application\-Release}, ktory odpowiada całemu diagramowi
 (aplikacji obliczeniowej). Nie
 ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 
@@ -127,7 +127,7 @@ ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 
 	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułow obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
 
-	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{ComputationUnitRelease} i~dodać odpowiednie \texttt{DeclaredDataPin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu BalticLSC, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
+	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu BalticLSC, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
 
 	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywolywanego modułu.
 
@@ -207,7 +207,7 @@ public String getDataPinIconPath(EObject self) {
 }
 \end{lstlisting}
 
-Dla portów całej aplikacji obliczeniowej (\texttt{ApplicationData\-Pin} dla
+Dla portów całej aplikacji obliczeniowej (\texttt{Application\-Data\-Pin} dla
 \texttt{Computation\-Application\-Release}) styl warunkowy był
 rozszerzeniem tego
 dla portów modułów obliczeniowych. Oprócz brania pod uwagę kroności danych oraz
@@ -242,7 +242,7 @@ elementy.
 
 Jednym z takich narzędzi jest automatyczne usuwanie połączeń między portami
 w~momencie, gdy ten port zostaje usunięty. W przypadku portów aplikacji
-obliczeniowej (\texttt{ApplicationDataPin}) narzędzie to zastępuje zwykłą
+obliczeniowej (\texttt{Application\-Data\-Pin}) narzędzie to zastępuje zwykłą
 operację usunięcia. Dla portów wywołania modułu obliczeniowego
 (\texttt{ComputedDataPin}), narzędzie to uruchamiane jest podczas usuwania tego
 modułu obliczeniowego. Dzięki temu narzędziu w modelu nie pozostają połączenia
