@@ -811,7 +811,7 @@ kroków:
 	\item Opisanie dodanych struktur w schemacie danych (\emph{GraphQL
 		      schema}).
 
-	\item Implementacja klasy \texttt{MutationCreateUnitCallDataFetcher} odpowiedzialnej za~sprawdzenie poprawności danych wejściowych i przekazanie ich do dalszej obsługi.
+	\item Implementacja klasy \texttt{MutationCreateUnitCall\-Data\-Fetcher} odpowiedzialnej za~sprawdzenie poprawności danych wejściowych i przekazanie ich do dalszej obsługi.
 
 	\item Implementacja klasy \texttt{CreateUnitCallEventHandler} odpowiedzialnej za odpowiednie zmodyfikowanie modelu.
 
@@ -975,15 +975,15 @@ informacji diagnostycznych, którą aplikacja przeglądarkowa wyświetla
 na~ekranie.
 
 W kodzie źródłowym serwera aplikacyjnego znajduje się klasa
-\texttt{ValidationDescription\-Provider}. Jest ona odpowiedzialna za
+\texttt{Validation\-Description\-Provider}. Jest ona odpowiedzialna za
 przygotowanie zestawu funkcji uruchamianych w~momencie, gdy należy sprawdzić
 poprawność modelu. Domyślnie korzysta ona z~usługi
-\texttt{EMFValidationService} która jest zarejestrowana jako implementacja
+\texttt{EMF\-Validation\-Service}, która jest zarejestrowana jako implementacja
 interfejsu \texttt{IValidationService}. Dostarcza ona informacji
 diagnostycznych z walidacji składniowej modelu. Chcąc dokonać dodatkowo
 walidacji
-semantycznej należy w metodzie \texttt{getDiagnosticsProvider} klasy
-\texttt{ValidationDescriptionProvider} wykonać tą walidację i dodać
+semantycznej należy w metodzie \texttt{getDiagnostics\-Provider} klasy
+\texttt{Validation\-Description\-Provider} wykonać tą walidację i~dodać
 nowe elementy do listy wynikowych informacji diagnostycznych.
 
 Z uwagi na skomplikowanie dostępu programistycznego do reguł walidacji
