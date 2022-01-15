@@ -189,7 +189,9 @@ zamierzony efekt za pomocą jednego stylu warunkowego, a nie 4 różnych
 styli dla 4 możliwości. Kod metody zwracającej nazwę ikony dla portu
 został przedstawiony w listingu~\ref{lst:getDataPinIconPath-method}.
 
-\begin{lstlisting}[language=Java,
+\begin{lstlisting}[float,
+    floatplacement=ht,
+    language=Java,
     caption={Methoda zwracająca nazwę ikony dla portu.},
     label={lst:getDataPinIconPath-method}]
 public String getDataPinIconPath(EObject self) {
@@ -205,8 +207,8 @@ public String getDataPinIconPath(EObject self) {
 }
 \end{lstlisting}
 
-Dla portów całej aplikacji obliczeniowej (\texttt{ApplicationDataPin} dla
-\texttt{Computation-\linebreak ApplicationRelease}) styl warunkowy był
+Dla portów całej aplikacji obliczeniowej (\texttt{ApplicationData\-Pin} dla
+\texttt{Computation\-Application\-Release}) styl warunkowy był
 rozszerzeniem tego
 dla portów modułów obliczeniowych. Oprócz brania pod uwagę kroności danych oraz
 paczek danych, w tym stylu znaczenie ma ponadto kierunek portu. Porty wejściowe
