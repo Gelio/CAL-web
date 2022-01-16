@@ -100,6 +100,21 @@ bo każda zmiana modelu musi zostać wprowadzona przez serwer aplikacyjny.
 Problem pogarsza fakt, że przy każdej zmianie wysyłane są wszystkie informacje
 o modelu zamiast jedynie informacji o zmienionych fragmentach.
 
+Centralizacja przechowywania modeli w obrębie serwera aplikacyjnego często
+oznacza, że pożądaną funkcjonalnością jest kontrola dostępu użytkowników do
+modeli. W organizacjach użytkownicy powinni mieć ograniczony dostęp do zasobów
+i być uwierzytelnieni. \emph{Sirius Web} domyślnie nie ma żadnych ograniczeń
+dostępu do modeli, jednak większość operacji można zabezpieczyć za pomocą
+rozwiązania \emph{Spring Security}. Jedyny kanał, który nie może zostać
+zabezpieczony, są subskrypcje \emph{GraphQL}, które wymagają specjalnej metody
+uwierzytelnienia. Za ich pomocą dowolna osoba może otrzymać informacje o
+zawartości dowolnego modelu. Jest to poważna wada, ponieważ nie można wtedy
+zapewnić kontroli dostępu, co jest podstawowym wymaganiem w aplikacjach
+wykorzystywanych w organizacjach. Prawdopodobnie skreśla to \emph{Sirius Web}
+jako możliwe rozwiązanie chyba, że wdrożone są dodatkowe mechanizmy
+bezpieczeństwa niemożliwiające dostępu do serwera aplikacyjnego osobom
+nieuwierzytelnionym.
+
 Projekt \emph{Sirius Web} jest aktywnie rozwijany. W ciągu miesiąca (od 15
 grudnia 2021 r.\ do 15 stycznia 2022 r.) zostało wydanych 9 nowych wersji tego
 oprogramowania. Niektóre z nich wymagały jedynie pobrania nowych plików
@@ -116,15 +131,66 @@ Podsumowując, wszystkie zamierzone cele pracy magisterskiej zostały osiągnię
 
 \section{Wnioski}
 
-Sirius Web jest w fazie rozwoju, ale można już go użyć. Brakuje dokumentacji,
-więc wymagany jest \textit{reverse engineering}, czytanie kodu źródłowego,
-metoda prób i błędów, debuggowanie aplikacji, zgłaszanie usterek lub zadawanie
-pytań w repozytorium projektu.
+\emph{Sirius Web} jest technologią eksperymentalną, nieposiadającą jeszcze
+dokumentacji ani wielu przykładów zastosowania. Brakuje też listy
+nieobsługiwanych funkcjonalności w porównaniu do \emph{Sirius Desktop}. Praca z
+tego typu projektem wprowadza ryzyko, ponieważ trudniej oszacować czas
+i wysiłek potrzebny na jego wykorzystanie czy wdrożenie nowych funkcjonalności.
+Niektóre proste z pozoru dodatki mogą okazać się nietrywialne z uwagi na sposób
+działania rozwiązania.
 
-Występują różnice między Sirius Web a Sirius Desktop.
+Kolejnym ryzykiem, które należy brać pod uwagę szczególnie wykorzystując nowe
+technologie jest możliwość znalezienia usterek, które będą wymagały czasu na
+ich naprawienie. Większość z problemów zgłoszonych w projekcie \emph{Sirius
+	Web}
+nie zostało naprawionych pomimo, że od ich zgłoszenia minęły w niektórych
+przypadkach nawet 3 miesiące. Planując projekt warto uwzględnić na jego samym
+początku czas na sprawdzenie możliwości wykorzystywanych narzędzi i w przypadku
+niepewności przygotować przykład ich zastosowania, który pomógłby w
+znalezieniu problemów lub brakujących funkcjonalności na wczesnym etapie
+projektu. W ten sposób można wcześniej zmienić harmonogram projektu i podjąć
+działania minimalizujące negatywne efekty, jak na przykład przeznaczenie
+większej ilości czasu na naprawę usterek albo całkowita rezygnacja z niektórych
+funkcjonalności.
 
-Najpierw sprawdzić czy funkcjonalność działa, a dopiero potem spędzać czas na
-dodanie jej w metamodelu
+Rozpoczynając pracę z nowymi technologiami warto najpierw poznać podstawy ich
+działania, a dopiero później próbować je w znaczącym stopniu zmodyfikować.
+Warto także najpierw spróbować wykorzystać je osobno zanim spróbuje się je
+zintegrować ze sobą. Tak było z \emph{Java Spring}, \emph{Maven} oraz
+\gls{EMF}, z którymi autor pracy nie miał wcześniej doświadczenia. Próby
+modyfikacji bez znajomości zasad działania tych technologii prowadziły do
+błędów, często trudnych do zrozumienia, oraz frustracji. Spędzenie kilku godzin
+na poznawaniu tych technologii i wykorzystaniu ich w izolacji przed
+modyfikowaniem \emph{Sirius Web} używającego ich wszystkich sprawiło, że
+szybciej wykonano postępy.
+
+Mając do czynienia z dwoma podobnymi technologiami korzystającymi z tego samego
+źródła trzeba mieć na uwadze możliwe niekompatybilności. Aby je zweryfikować
+należy wykorzystać je zaczynając od tych najprostszych, zanim przejdzie się do
+bardziej skomplikowanych. Pozwoli to zaoszczędzić czas spędzony na
+dostosowywaniu jednego z rozwiązań podczas gdy drugie nie będzie w stanie
+obsłużyć tych samych funkcjonalności. Tak było w przypadku wsparcia różnych
+składników metamodeli \gls{EMF} przez \emph{Sirius Desktop} i \emph{Sirius
+	Web}. Najpierw zainwestowano czas w przygotowywanie kompletnego
+metamodelu z
+wykorzystaniem \emph{Sirius Desktop}, po czym okazało się, że część z
+funkcjonalności nie jest wspierana przez \emph{Sirius Web} lub jest wspierana
+częściowo i metamodel wymaga zmian. Zmarnowano w ten sposób czas na
+przygotowywanie elementów, które ostatecznie nie były potrzebne, ponieważ celem
+pracy było wykorzystanie metamodelu wyłącznie w \emph{Sirius Web}.
+
+Wykorzystanie technologii \emph{Docker}~\cite{wikipedia-docker} znacznie
+ułatwia rozpoczęcie pracy z
+nowymi narzędziami oraz wdrożenie projektu wewnątrz maszyny wirtualnej.
+Stworzenie obrazu \emph{Docker} zawierającego serwer aplikacyjny \emph{Sirius
+	Web} umożliwiło dużo szybsze wdrożenie aplikacji oraz jej aktualizację
+do nowej
+wersji, ponieważ wystarczyło zainstalować silnik \emph{Docker}, a później
+pobrać i uruchomić obraz. Nie było wymagane instalowanie środowiska \emph{Java}
+wewnątrz maszyny wirtualnej. Nie występowały też błędy związane z
+kompatybilnością czy brakiem narzędzi zainstalowanych na jednym ze środowisk.
+Warto rozważyć technologię \emph{Docker} w projektach, aby ułatwić ich
+wdrożenie.
 
 \section{Możliwości na rozwój}
 
