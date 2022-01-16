@@ -194,9 +194,36 @@ wdrożenie.
 
 \section{Możliwości na rozwój}
 
-Wymienić co można zrobić dalej:
+Wyniki pracy magisterskiej można rozwijać na kilka sposobów. Niektóre
+możliwości rozwoju zostały omówione w tej sekcji.
 
-\begin{itemize}
-	\item integracja z BalticLSC
-	\item dodanie większej liczby reguł walidacji semantycznej
-\end{itemize}
+\paragraph{Wdrożenie edytora w systemie \emph{BalticLSC}.}
+Jedną z możliwości jest integracja przygotowanego edytora modeli z systemem
+\emph{BalticLSC}. Można zastąpić dotychczasowy używany tam edytor diagramów lub
+użyć \emph{Sirius Web} jako alternatywnego. Taki krok umożliwiłby użytkownikom
+\emph{BalticLSC} korzystanie z narzędzia, które pozbawione jest niektórych
+usterek znanych z aktualnego rozwiązania, jak na przykład brak wsparcia
+wyświetlania na diagramie modułów, które zostały usunięte z przybornika.
+Inną zaletą \emph{Sirius Web} nad aktualnym edytorem jest możliwość współpracy
+użytkowników nad diagramem w czasie rzeczywistym. Taka integracja wymaga zmian
+w serwerach aplikacyjnych zarówno \emph{Sirius Web}, jak i \emph{BalticLSC}.
+Zostały one opisane w
+sekcji~\ref{sec:pomysl-integracji-sirius-web-i-balticlsc}.
+
+\paragraph{Dodanie reguł walidacji semantycznej.}
+Inną metodą rozwoju wyników pracy magisterskiej jest ustalenie i
+zaprojektowanie większej liczby reguł walidacji semantycznej. W~ten~sposób
+jeżeli edytor diagramów będzie wykorzystany w systemie \emph{BalticLSC}, jego
+użytkownicy otrzymają więcej szczegółowych informacji diagnostycznych o błędach
+lub ostrzeżeniach w~modelu. Pomoże im to łatwiej zauważyć niepoprawne
+ustawienia elementów lub pomyłki, które zrobili.
+
+\paragraph{Kontrybucja do projektu \emph{Sirius Web}.}
+Projekt \emph{Sirius Web} ma otwarte źródło. Można więc pomóc autorom tego
+projektu naprawić znalezione w nim usterki poprzez zaimplementowanie
+brakujących funkcjonalności lub poprawę błędów. Będzie to przydatne nie tylko
+dla potencjalnego wdrożenia edytora w \emph{BalticLSC}, ale także dla innych
+osób próbujących wykorzystać \emph{Sirius Web} do własnych zastosowań.
+Oprócz modyfikacji kodu można także pomóc w tworzeniu dokumentacji, która jest
+kluczowa do szerszego rozprzestrzenienia się projektu i~jego wykorzystania
+przez inne osoby.
