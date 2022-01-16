@@ -1,23 +1,229 @@
 \chapter{Podsumowanie}
 
+W tym rozdziale zostaną opisane wyniki pracy magisterskiej oraz wnioski
+wyciągnięte podczas jej realizacji, a także możliwości dalszy rozwój
+przygotowanego rozwiązania.
+
 \section{Wyniki pracy}
 
-Co zostało osiągnięte? Czy cel został zdobyty?
+W ramach tej pracy magisterskiej technologia \emph{Sirius Web} została
+wykorzystana do stworzenia edytora diagramów opisujących aplikacje obliczeniowe
+systemu \emph{BalticLSC}. Wykorzystuje on~przygotowany specjalnie w tym celu
+metamodel \gls{EMF} języka \gls{CAL}. Do edytora zostały dodane narzędzia i
+funkcjonalności pomagające w efektywniejszym i szybszym tworzeniu modeli.
+Ocenione zostały także możliwości edytora i porównane z możliwościami
+konkurencyjnej poprzedniej wersji edytora bazującego na metamodelach \gls{EMF},
+czyli \emph{Sirius Desktop}.
+
+Edytor użyty jest domyślnie jako część interfejsu przykładowej aplikacji
+wykorzystującej bibliotekę \emph{React}.
+Jako jedna z części tej pracy udostępniono interfejs programistyczny
+pozwalający na wyświetlenie edytora w dowolnej aplikacji przeglądarkowej
+wykorzystując wyłącznie funkcje w języku \emph{JavaScript}, bez wymogu używania
+konkretnej biblioteki.
+Pozwala to~na~wykorzystanie go jako
+alternatywny edytor diagramów platformy \emph{BalticLSC}, która wykorzystuje
+bibliotekę \emph{Vue.js}. Zostało to
+zademonstrowane w sekcji~\ref{sec:przykladowa-aplikacja-wykorzystujaca-edytor}
+poprzez przygotowanie aplikacji przeglądarkowej wyświetlającej
+edytor diagramów jako część swojego interfejsu.
+
+Edytor domyślnie pozwala na wyświetlenie modeli w formie diagramów, zgodnie z
+definicją jego reprezentacji z metamodelu \gls{EMF}, oraz na podstawowe
+możliwości
+edycji tych modeli. Zachowana jest funkcjonalność interpretacji języka
+\gls{AQL} do wyrażenia bardziej zaawansowanej logiki czy wyrażeń opisujących
+właściwości metamodelu. Jednak nie wszystkie mozliwości metamodeli \gls{EMF}
+wspierane przez \emph{Sirius Desktop} są obsługiwane przez \emph{Sirius Web}.
+Niektóre elementy są również inaczej wyświetlane co sprawia, że metamodel
+należy szczególnie dostosować pod \emph{Sirius Web}.
+
+Różnice między \emph{Sirius Web} i \emph{Sirius Desktop}, a także błędy w
+funkcjonowaniu oraz~brakujące funkcjonalności edytora sprawiły, że autorom
+projektu zostało zgłoszonych 20~usterek w~repozytorium projektu
+\texttt{sirius-components} na platformie \emph{GitHub}. Dwie z nich zostały
+rozwiązane podczas pisania pracy magisterskiej. Część problemów posiadała
+alternatywne rozwiązania, które pomimo swoich wad pozwalały uzyskać zamierzony
+efekt. W innych przypadkach brakujące funkcjonalności należało zaimplementować
+samemu lub zaakceptować istnienie problemu.
+
+Funkcjonalnościami dodanymi do edytora w ramach pracy magisterskiej są
+mechanizm walidacji semantycznej modeli języka \gls{CAL} oraz implementacja
+przybornika wyświetlającego listę dostępnych modułów aplikacyjnych z platformy
+\emph{BalticLSC}. Modyfikacja kodu serwera aplikacyjnego zazwyczaj była
+łatwiejsza od modyfikacji kodu aplikacji przeglądarkowej, ponieważ dzięki
+mechanizmowi wstrzykiwania zależności z platformy \emph{Java Spring}
+często wystarczyło jedynie dodać nowe klasy i ewentualnie zmienić kilka linii w
+już istniejących.
+
+Zmiana kodu interfejsu użytkownika aplikacji przeglądarkowej była pracochłonna
+i wiązała się ze skopiowaniem kodu źródłowego tych komponentów, które mają być
+modyfikowane. \emph{Sirius Web} nie udostępnia prostych metod na dodanie
+własnych elementów interfejsu do istniejących komponentów, więc kopiowanie i
+edycja ich kodu źródłowego jest jedynym rozwiązaniem. Dodaje to natomiast pracy
+przy późniejszych aktualizacjach do nowszych wersji, ponieważ należy upewnić
+się
+czy kod skopiowanych komponentów został zmieniony. Jeżeli tak, należy odtworzyć
+te zmiany, ponieważ w przeciwnym wypadku aplikacja może działać niepoprawnie.
+
+Wykorzystanie, a później modyfikacja edytora \emph{Sirius Web} była utrudniona
+przez brak dokumentacji, niewielką liczbę publicznie dostępnych przykładów
+wykorzystania rozwiązania oraz małą liczbę użytkowników zadających pytania,
+których odpowiedzi byłyby widoczne publicznie. Te wszystkie aspekty wynikają z
+krótkiego czasu życia projektu, ponieważ został on rozpoczęty w 2018 roku, a
+dopiero w 2020 roku jego kod źródłowy został udostępniony na platformie
+\emph{GitHub}. Praca nad edytorem wymagała poświęcenia sporej ilości czasu na
+zrozumienie jak \emph{Sirius Web} działa poprzez czytanie kodu źródłowego
+przykładowej aplikacji z repozytorium \texttt{sirius-web}, jak i poszczególnych
+klas biblioteki z repozytorium \texttt{sirius-components}. Gdy znalezienie
+odpowiedzi na nurtujące pytania zajmowało zbyt dużo czasu, zadawano pytanie
+autorom projektu za pomocą \emph{GitHub Issues}.
+
+Umożliwienie edycji modeli w przeglądarce ma sporo zalet w porównaniu do
+edytorów funkcjonujących jako aplikacje natywne, takie jak \emph{Sirius
+	Desktop}. Nie wymaga ona procesu instalacji, więc można szybciej
+udostępnić
+model innym użytkownikom. Łatwiej jest przeprowadzać aktualizację metamodelu do
+nowszej wersji. Zmiany w modelach są automatycznie propagowane do wszystkich
+użytkowników w czasie rzeczywistym. Sam interfejs został też~odświeżony i
+wygląda bardziej estetycznie w porównaniu do \emph{Sirius Desktop}.
+
+Wykorzystanie sieci Internet do obsługi edytora ma też swoje wady. Niektóre z
+nich są~szczególnie problematyczne i widoczne z uwagi na przyjęty schemat
+komunikacji między aplikacją przeglądarkową a serwerem aplikacyjnym. Na wolnych
+lub niestabilnych łączach aplikacja edytor może działać ze sporym opóźnieniem i
+powodować frustrację podczas jego obsługi, bo każda zmiana modelu musi zostać
+wprowadzona przez serwer aplikacyjny. Problem pogarsza fakt, że przy każdej
+zmianie z serwera przesyłane są wszystkie informacje o modelu zamiast jedynie
+informacji o zmienionych fragmentach.
+
+Centralizacja przechowywania modeli w obrębie serwera aplikacyjnego często
+oznacza, że~pożądaną funkcjonalnością jest kontrola dostępu użytkowników do
+modeli. W organizacjach użytkownicy powinni mieć ograniczony dostęp do zasobów
+i być uwierzytelnieni. \emph{Sirius Web} domyślnie nie narzuca żadnych
+ograniczeń dostępu do modeli, jednak większość operacji można zabezpieczyć za
+pomocą rozwiązania \emph{Spring Security}. Jedynym kanałem, który nie~może
+zostać
+zabezpieczony, są subskrypcje \emph{GraphQL}, które wymagają specjalnej metody
+uwierzytelnienia. Za ich pomocą dowolna osoba może otrzymać informacje o
+zawartości dowolnego modelu. Jest to poważna wada, ponieważ nie można wtedy
+zapewnić kontroli dostępu, co jest podstawowym wymaganiem w aplikacjach
+wykorzystywanych w organizacjach. Prawdopodobnie skreśla to \emph{Sirius Web}
+jako możliwe rozwiązanie chyba, że~wdrożone są~dodatkowe mechanizmy
+bezpieczeństwa niemożliwiające dostęp do serwera aplikacyjnego osobom
+nieuwierzytelnionym.
+
+Projekt \emph{Sirius Web} jest aktywnie rozwijany. W ciągu miesiąca
+(od~15~grudnia~2021~r.~do~15~stycznia~2022~r.) zostało wydanych 9 nowych
+wersji tego
+oprogramowania. Niektóre z nich wymagały jedynie pobrania nowych plików
+źródłowych, a inne z nich wprowadzały zmiany łamiące kompatybilność wsteczną i
+wymagające niekiedy znacznych zmian w kodzie źródłowym. Zmiany te były najpierw
+wprowadzane przez zespół pracujący nad tą technologią w~repozytorium
+\texttt{sirius-web}. Można było te zmiany wykorzystać podczas aktualizacji
+własnej kopii edytora. Było to natomiast tym trudniejsze, im bardziej edytor
+został przez nas zmodyfikowany, ponieważ wtedy kod bardziej się róznił i
+narzędzia umożliwiające automatyczne wprowadzanie zmian (pochodzące z systemu
+kontroli wersji \emph{git}) nie wiedziały jak je wprowadzić.
+
+Podsumowując, wszystkie zamierzone cele pracy magisterskiej zostały osiągnięte.
 
 \section{Wnioski}
 
-Sirius Web jest w fazie rozwoju, ale można już go użyć. Brakuje dokumentacji,
-więc wymagany jest \textit{reverse engineering}, czytanie kodu źródłowego,
-metoda prób i błędów, debuggowanie aplikacji, zgłaszanie usterek lub zadawanie
-pytań w repozytorium projektu.
+\emph{Sirius Web} jest technologią eksperymentalną, nieposiadającą jeszcze
+dokumentacji ani wielu przykładów zastosowania. Brakuje też listy
+nieobsługiwanych funkcjonalności w porównaniu do~\emph{Sirius Desktop}. Praca z
+tego typu projektem wprowadza ryzyko, ponieważ trudniej oszacować czas
+i wysiłek potrzebny na jego wykorzystanie czy wdrożenie nowych funkcjonalności.
+Niektóre proste z pozoru dodatki mogą okazać się nietrywialne w wykonaniu z
+uwagi na sposób działania rozwiązania.
 
-Występują różnice między Sirius Web a Sirius Desktop.
+Kolejnym ryzykiem, które należy brać pod uwagę szczególnie wykorzystując nowe
+technologie jest możliwość znalezienia usterek, które będą wymagały czasu na
+ich naprawienie. Większość z problemów zgłoszonych w projekcie \emph{Sirius
+	Web}
+nie zostało naprawionych pomimo, że od ich zgłoszenia minęły w niektórych
+przypadkach nawet 3 miesiące. Planując projekt warto uwzględnić na jego samym
+początku czas na sprawdzenie możliwości wykorzystywanych narzędzi. W przypadku
+niepewności należy przygotować przykład ich zastosowania, który pomógłby w
+znalezieniu problemów lub brakujących funkcjonalności na wczesnym etapie
+projektu. W~ten~sposób można wcześniej zmienić harmonogram projektu i podjąć
+działania minimalizujące negatywne efekty, jak na przykład przeznaczenie
+większej ilości czasu na~naprawę usterek albo całkowita rezygnacja z niektórych
+funkcjonalności.
+
+Rozpoczynając pracę z nowymi technologiami warto najpierw poznać podstawy
+ich~działania, a dopiero później próbować je w znaczącym stopniu zmodyfikować.
+Warto także spróbować wykorzystać je osobno zanim spróbuje się je
+zintegrować ze sobą. Tak było z~\emph{Java Spring}, \emph{Maven} oraz
+\gls{EMF}, z którymi autor pracy nie miał wcześniej doświadczenia. Próby
+modyfikacji bez znajomości zasad działania tych technologii prowadziły do
+błędów, często trudnych do zrozumienia, oraz frustracji. Spędzenie kilku godzin
+na poznawaniu tych technologii i~wykorzystaniu ich w izolacji przed
+modyfikowaniem \emph{Sirius Web} używającego ich~wszystkich sprawiło, że
+szybciej wykonano postępy.
+
+Mając do czynienia z dwoma podobnymi technologiami korzystającymi z tego samego
+źródła trzeba mieć na uwadze możliwe niekompatybilności. Aby je zweryfikować
+należy wykorzystać je~zaczynając od najprostszych funkcjonalności zanim
+przejdzie się do
+bardziej skomplikowanych. Pozwoli to zaoszczędzić czas spędzony na
+dostosowywaniu jednego z~rozwiązań podczas gdy drugie nie będzie w stanie
+obsłużyć tych samych funkcjonalności. Tak było w przypadku wsparcia różnych
+składników metamodeli \gls{EMF} przez \emph{Sirius Desktop} i \emph{Sirius
+	Web}. Najpierw zainwestowano czas w przygotowywanie kompletnego
+metamodelu z
+wykorzystaniem \emph{Sirius Desktop}, po czym okazało się, że część
+funkcjonalności nie jest wspierana przez \emph{Sirius Web} lub jest wspierana
+częściowo i metamodel wymaga zmian. Zmarnowano w ten sposób czas
+na~przygotowywanie elementów, które ostatecznie nie były potrzebne, ponieważ
+celem
+pracy było wykorzystanie metamodelu wyłącznie w \emph{Sirius Web}.
+
+Wykorzystanie technologii \emph{Docker}~\cite{wikipedia-docker} znacznie
+ułatwia rozpoczęcie pracy z
+nowymi narzędziami oraz wdrożenie projektu.
+Stworzenie obrazu \emph{Docker} zawierającego serwer aplikacyjny \emph{Sirius
+	Web} umożliwiło dużo szybsze wdrożenie aplikacji oraz jej aktualizację
+do~nowej wersji. Wystarczyło zainstalować silnik \emph{Docker}, a później
+pobrać i uruchomić obraz. Nie~było wymagane instalowanie środowiska \emph{Java}
+wewnątrz maszyny wirtualnej. Nie~występowały też błędy związane z
+kompatybilnością czy brakiem narzędzi zainstalowanych na jednym ze~środowisk.
+Warto rozważyć technologię \emph{Docker} w projektach, aby ułatwić ich
+wdrożenie.
 
 \section{Możliwości na rozwój}
 
-Wymienić co można zrobić dalej:
+Wyniki pracy magisterskiej można rozwijać na kilka sposobów. Niektóre
+możliwości rozwoju zostały omówione w tej sekcji.
 
-\begin{itemize}
-	\item integracja z BalticLSC
-	\item dodanie większej liczby reguł walidacji semantycznej
-\end{itemize}
+\paragraph{Wdrożenie edytora w systemie \emph{BalticLSC}.}
+Jedną z możliwości jest integracja przygotowanego edytora modeli z systemem
+\emph{BalticLSC}. Można zastąpić dotychczasowy używany tam edytor diagramów lub
+użyć \emph{Sirius Web} jako alternatywnego. Taki krok umożliwiłby użytkownikom
+\emph{BalticLSC} korzystanie z narzędzia, które pozbawione jest niektórych
+usterek znanych z aktualnego rozwiązania, jak na przykład brak wsparcia
+wyświetlania na diagramie modułów, które zostały usunięte z przybornika.
+Inną zaletą \emph{Sirius Web} nad aktualnym edytorem jest możliwość współpracy
+użytkowników nad diagramem w czasie rzeczywistym. Taka integracja wymaga zmian
+w serwerach aplikacyjnych zarówno \emph{Sirius Web}, jak i \emph{BalticLSC}.
+Zostały one opisane w
+sekcji~\ref{sec:pomysl-integracji-sirius-web-i-balticlsc}.
+
+\paragraph{Dodanie reguł walidacji semantycznej.}
+Inną metodą rozwoju wyników pracy magisterskiej jest ustalenie i
+zaprojektowanie większej liczby reguł walidacji semantycznej. W~ten~sposób
+jeżeli edytor diagramów będzie wykorzystany w systemie \emph{BalticLSC}, jego
+użytkownicy otrzymają więcej szczegółowych informacji diagnostycznych o błędach
+lub ostrzeżeniach w~modelu. Pomoże im to łatwiej zauważyć niepoprawne
+ustawienia elementów lub pomyłki, które zrobili.
+
+\paragraph{Kontrybucja do projektu \emph{Sirius Web}.}
+Projekt \emph{Sirius Web} ma otwarte źródło. Można więc pomóc autorom tego
+projektu naprawić znalezione w nim usterki poprzez zaimplementowanie
+brakujących funkcjonalności lub poprawę błędów. Będzie to przydatne nie tylko
+dla potencjalnego wdrożenia edytora w \emph{BalticLSC}, ale także dla innych
+osób próbujących wykorzystać \emph{Sirius Web} do własnych zastosowań.
+Oprócz modyfikacji kodu można także pomóc w tworzeniu dokumentacji, która jest
+kluczowa do szerszego rozprzestrzenienia się projektu i~jego wykorzystania
+przez inne osoby.
