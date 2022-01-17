@@ -1,65 +1,64 @@
 \chapter{Dostosowanie Sirius Web dla systemu BalticLSC}
 
-Z metamodelu EMF języka \gls{CAL} systemu \emph{BalticLSC}
+Z metamodelu \EMF{} języka \CAL{} systemu \BalticLSC{}
 opisanego w rozdziale~\ref{chapter:cal-metamodel} do tej pory korzystano w
-\emph{Sirius Desktop}, w którym to został on przygotowany. W tym rozdziale
-zostaną opisane kroki potrzebne do użycia go w \emph{Sirius Web}, aby otrzymać
-aplikację przeglądarkową umożliwiającą edycję modeli języka \gls{CAL}.
-Zostaną również omówione modyfikacje edytora \emph{Sirius Web}, które
-zostały wykonane, aby poprawić jego integrację z systemem \emph{BalticLSC} oraz
+\SiriusDesktop{}, w którym to został on przygotowany. W tym rozdziale
+zostaną opisane kroki potrzebne do użycia go w \SiriusWeb{}, aby otrzymać
+aplikację przeglądarkową umożliwiającą edycję modeli języka \CAL{}.
+Zostaną również omówione modyfikacje edytora \SiriusWeb{}, które
+zostały wykonane, aby poprawić jego integrację z systemem \BalticLSC{} oraz
 umożliwić realizację walidacji semantycznej modelu.
 
 \section{Użycie metamodelu języka CAL w Sirius Web}
 
-Chcąc wykorzystać metamodel \gls{EMF} w \emph{Sirius Web} należy wskazać gdzie
+Chcąc wykorzystać metamodel \EMF{} w \SiriusWeb{} należy wskazać gdzie
 on się znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
-dołączone do pliku \gls{JAR} serwera, a później odczytane przez moduły
-\emph{Sirius
-	Web} podczas uruchamiania aplikacji.
+dołączone do pliku \JAR{} serwera, a później odczytane przez moduły
+\SiriusWeb{} podczas uruchamiania aplikacji.
 
-Dla \emph{Sirius Web} nie istnieje obecnie dokumentacja, co utrudnia jego
-wykorzystanie z~własnym metamodelem. W serwisie GitHub istnieje repozytorium
+Dla \SiriusWeb{} nie istnieje obecnie dokumentacja, co utrudnia jego
+wykorzystanie z~własnym metamodelem. W serwisie \GitHub{} istnieje repozytorium
 \texttt{sirius-web}~\cite{sirius-web-github} zawierające kod~źródłowy aplikacji
 przeglądarkowej
-bazującej na \emph{Sirius Web}. Jest ona skonfigurowana do~wykorzystywania
+bazującej na \SiriusWeb{}. Jest ona skonfigurowana do~wykorzystywania
 metamodelu \emph{Sample Flow}~\cite{flow-network-github}
 przygotowanego przez firmę \emph{Obeo Network}. Znajduje się on w innym
 repozytorium (\texttt{Flow-Designer}~\cite{flow-network-github}) i jest
-zwykłym metamodelem \gls{EMF}.
+zwykłym metamodelem \EMF{}.
 Należy więc wzorować się na tym przykładowym repozytorium w celu stworzenia
 własnego edytora modeli.
 W ramach tej pracy magisterskiej stworzono kopię repozytorium
 \texttt{sirius-web} i skonfigurowano je, aby wykorzystywało metamodel
-języka \gls{CAL} opisany w rozdziale~\ref{chapter:cal-metamodel}.
+języka \CAL{} opisany w rozdziale~\ref{chapter:cal-metamodel}.
 
-\emph{Sirius Web} do zarządzania projektem i wyrażania zależności między
+\SiriusWeb{} do zarządzania projektem i wyrażania zależności między
 pakietami wykorzystuje narzędzie \emph{Apache Maven}~\cite{maven-homepage}.
-Aby wykorzystać klasy metamodelu \gls{EMF} w \emph{Sirius Web}
-należy do katalogów wygenerowanych przez \emph{Sirius Desktop} dodać pliki
-\gls{POM} (\texttt{pom.xml}), które zawierają informacje o nazwie projektu i
+Aby wykorzystać klasy metamodelu \EMF{} w \SiriusWeb{}
+należy do katalogów wygenerowanych przez \SiriusDesktop{} dodać pliki
+\POM{} (\texttt{pom.xml}), które zawierają informacje o nazwie projektu i
 jego
-zależnościach. Wygenerowane projekty metamodelu \gls{EMF} to projekty
-\emph{Eclipse}.
+zależnościach. Wygenerowane projekty metamodelu \EMF{} to projekty
+\Eclipse{}.
 Oznacza to, że zależności projektów,
 na~które składa się całość metamodelu są zapisane w plikach
 \texttt{MANIFEST.MF}, a pozostałe informacje o~projekcie znajdują się w
 plikach \texttt{build.properties}, \texttt{plugin.properties} oraz
-\texttt{plugin.xml}. Te pliki nie są wykrywane domyślnie przez \emph{Maven},
+\texttt{plugin.xml}. Te pliki nie są wykrywane domyślnie przez \Maven{},
 więc
 próba wykorzystania takiego projektu zakończy się błędem. Aby wykorzystać je w
-\emph{Sirius Web} należy odpowiednio skonfigurować ich pliki
-\gls{POM}~\cite{maven-tycho-tutorial}.
+\SiriusWeb{} należy odpowiednio skonfigurować ich pliki
+\POM{}~\cite{maven-tycho-tutorial}.
 
 Po pierwsze należy do listy repozytoriów pakietów dodać repozytorium
-\emph{Eclipse} w formacie \texttt{p2}. Jest to format wykorzystywany przez
-projekty \emph{Eclipse}, podczas gdy \emph{Maven} wykorzystuje repozytoria w
+\Eclipse{} w formacie \texttt{p2}. Jest to format wykorzystywany przez
+projekty \Eclipse{}, podczas gdy \Maven{} wykorzystuje repozytoria w
 swoim własnym formacie. Fragment pliku \texttt{pom.xml} konfigurujący to
 repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=XML,
-    caption={Konfiguracja repozytorium \emph{Eclipse} w \texttt{pom.xml}},
+    caption={Konfiguracja repozytorium \Eclipse{} w \texttt{pom.xml}},
     label={lst:pom-eclipse-repository}]
 <repositories>
   <repository>
@@ -70,8 +69,8 @@ repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 </repositories>
 \end{lstlisting}
 
-Kolejno w plikach \texttt{pom.xml} projektów metamodelu \gls{EMF} należy
-zdefiniować, że~są~to~projekty \emph{Eclipse}, poprzez dodanie elementu
+Kolejno w plikach \texttt{pom.xml} projektów metamodelu \EMF{} należy
+zdefiniować, że~są~to~projekty \Eclipse{}, poprzez dodanie elementu
 \texttt{packaging} z wartością \texttt{eclipse-plugin}. Zostało
 to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
 
@@ -79,7 +78,7 @@ to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
     floatplacement=hb,
     language=XML,
     caption={Plik \texttt{pom.xml} dla jednego z projektów metamodelu
-      \gls{EMF}},
+      \EMF{}},
     label={lst:pom-packaging}]
 <?xml version="1.0" encoding="UTF-8" ?>
 <project
@@ -102,11 +101,11 @@ to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
 Następnie w sekcji \texttt{build} pliku \texttt{pom.xml} należy dodać pluginy
 \emph{Maven Tycho}~\cite{maven-tycho-homepage}. Jest~to~zestaw rozszerzeń do
 \emph{Apache Maven}
-pozwalający na wykorzystanie projektów \emph{Eclipse}. Fragment
+pozwalający na wykorzystanie projektów \Eclipse{}. Fragment
 wymaganej konfiguracji znajduje się na
 listingu~\ref{lst:pom-maven-tycho-plugins}. Ważne jest, aby wskazać konkretną
-wersję środowiska uruchomieniowego języka Java. W tym przypadku jest to Java
-11. Jest to jedyna wersja oficjalnie obsługiwana przez \emph{Sirius Web}.
+wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to Java
+11. Jest to jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
 Inne wersje nie są wspierane.
 
 \begin{lstlisting}[float,
@@ -153,11 +152,11 @@ Inne wersje nie są wspierane.
 </build>
 \end{lstlisting}
 
-Tak przygotowany projekt \emph{Maven} będzie wykrywał zależności zdefiniowane w
-odpowiednich plikach \emph{Eclipse} i będzie możliwy do wykorzystania jako
-zależność w innych projektach \emph{Maven}. Można to potwierdzić uruchamiając
+Tak przygotowany projekt \Maven{} będzie wykrywał zależności zdefiniowane w
+odpowiednich plikach \Eclipse{} i będzie możliwy do wykorzystania jako
+zależność w innych projektach \Maven{}. Można to potwierdzić uruchamiając
 komendę \lstinline{mvn clean verify}. Model można teraz dodać do pliku
-\texttt{pom.xml} aplikacji serwerowej \emph{Sirius Web} (projekt
+\texttt{pom.xml} aplikacji serwerowej \SiriusWeb{} (projekt
 \texttt{sirius-web-sample-application}) dodając odwołania do 3 pakietów:
 głównego pakietu modelu, pakietu \texttt{.edit} oraz pakietu \texttt{.design}.
 Odwołania te widoczne są na listingu~\ref{lst:pom-metamodel-dependencies}.
@@ -166,7 +165,7 @@ Odwołania te widoczne są na listingu~\ref{lst:pom-metamodel-dependencies}.
     floatplacement=hb,
     language=XML,
     caption={Odwołania do pakietów metamodelu w \texttt{pom.xml} aplikacji
-    serwerowej \emph{Sirius Web}},
+    serwerowej \SiriusWeb{}},
     label={lst:pom-metamodel-dependencies}]
 <dependency>
   <groupId>eu.balticlsc.model</groupId>
@@ -186,7 +185,7 @@ Odwołania te widoczne są na listingu~\ref{lst:pom-metamodel-dependencies}.
 \end{lstlisting}
 
 Taka konfiguracja zależności między projektami pozwala na wykorzystanie klas
-metamodelu w kodzie źródłowym \emph{Sirius Web}. Należy teraz w klasie
+metamodelu w kodzie źródłowym \SiriusWeb{}. Należy teraz w klasie
 \texttt{SampleEMFConfiguration} zarejestrować klasy
 odpowiedzialne za metamodel: \texttt{EPackage} oraz \texttt{AdapterFactory}.
 Fragment kodu realizujący to jest znajduje się na
@@ -199,7 +198,7 @@ listingu~\ref{lst:registering-odesign-path}.
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=Java,
-    caption={Rejestracja klas przygotowanego metamodelu EMF w klasie
+    caption={Rejestracja klas przygotowanego metamodelu \EMF{} w klasie
       \texttt{SampleEMFConfiguration}},
     label={lst:registering-emf-classes}]
     @Bean
@@ -225,8 +224,8 @@ listingu~\ref{lst:registering-odesign-path}.
     }
 \end{lstlisting}
 
-Po tych modyfikacjach w aplikacji \emph{Sirius Web} można tworzyć i edytować
-modele nowo stworzonego metamodelu \gls{EMF}. Zrzut ekranu z aplikacji
+Po tych modyfikacjach w aplikacji \SiriusWeb{} można tworzyć i edytować
+modele nowo stworzonego metamodelu \EMF{}. Zrzut ekranu z aplikacji
 przeglądarkowej widoczny jest
 na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
 
@@ -235,12 +234,12 @@ na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-base-metamodel-model.png}
-  \caption{Edycja modelu bazującego na przygotowanym metamodelu EMF w
-    \emph{Sirius Web}}\label{rys:sirius-web-base-metamodel-model}
+  \caption{Edycja modelu bazującego na przygotowanym metamodelu \EMF{} w
+    \SiriusWeb{}}\label{rys:sirius-web-base-metamodel-model}
 \end{figure}
 % \end{noindent}
 
-W \emph{Sirius Web} można zdefiniować szablony modeli, które użytkownik może
+W \SiriusWeb{} można zdefiniować szablony modeli, które użytkownik może
 wykorzystać chcąc stworzyć nowy model w projekcie. Umożliwia to prostszy
 sposób na stworzenie chociażby pustego modelu, ponieważ przycisk tworzenia
 modelu
@@ -251,14 +250,14 @@ Aby dodać nowy szablon należy dodać nowy opis \emph{stereotypu} w metodzie
 \texttt{StereotypeDescriptionRegistryConfigurer}. Kod odpowiedzialny za dodanie
 nowego pustego szablonu modelu został przedstawiony
 na~listingu~\ref{lst:empty-cal-model-template}. Interfejs użytkownika aplikacji
-\emph{Sirius Web} wyświetlający nowo dodany szablon pustego modelu języka
-\gls{CAL} został przedstawiony na
+\SiriusWeb{} wyświetlający nowo dodany szablon pustego modelu języka
+\CAL{} został przedstawiony na
 rysunku~\ref{rys:sirius-web-new-model-template}.
 
 \begin{lstlisting}[float,
     floatplacement=!hb,
     language=Java,
-    caption={Dodanie nowego pustego szablonu modelu języka CAL},
+    caption={Dodanie nowego pustego szablonu modelu języka \CAL{}},
     label={lst:empty-cal-model-template}]
     @Override
     public void addStereotypeDescriptions(IStereotypeDescriptionRegistry registry) {
@@ -282,26 +281,26 @@ rysunku~\ref{rys:sirius-web-new-model-template}.
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-new-model-template.png}
   \caption{Szablon nowego pustego modelu języka
-    \gls{CAL} w \emph{Sirius Web}}\label{rys:sirius-web-new-model-template}
+    \CAL{} w \SiriusWeb{}}\label{rys:sirius-web-new-model-template}
 \end{figure}
 % \end{noindent}
 
 \subsection{Uruchamianie testów metamodelu za pomocą Maven}
 
 W sekcji~\ref{sec:testy-metamodelu} opisano testy zmodyfikowanego zachowania
-metamodelu EMF\@. Były one~uruchamianie w \emph{Sirius Desktop}. Z uwagi na
+metamodelu EMF\@. Były one~uruchamianie w \SiriusDesktop{}. Z uwagi na
 fakt, że
-wygenerowany projekt z testami jest projektem typu \emph{Eclipse}, \emph{Apache
+wygenerowany projekt z testami jest projektem typu \Eclipse{}, \emph{Apache
 	Maven} nie ma możliwości wykonania tych testów podczas standardowego
 polecenia
 wykonania testów \lstinline{mvn test}.
 
 Z pomocą przychodzi tutaj zestaw narzędzi \emph{Maven Tycho} wykorzystany do
-połączenia metamodelu \gls{EMF} z \emph{Sirius Web}. Zawiera on rozszerzenie
+połączenia metamodelu \EMF{} z \SiriusWeb{}. Zawiera on rozszerzenie
 \texttt{tycho-surefire-plugin}~\cite{maven-surefire-plugin-homepage}, które w
 trakcie fazy wykonywania testów
-integracyjnych w \emph{Maven} wykonuje również testy metamodelu zdefiniowane w
-\emph{JUnit} i opisane w sekcji~\ref{sec:testy-metamodelu}.
+integracyjnych w \Maven{} wykonuje również testy metamodelu zdefiniowane w
+\JUnit{} i opisane w sekcji~\ref{sec:testy-metamodelu}.
 Wykorzystanie go w pliku \texttt{pom.xml} projektu z testami (folder
 \texttt{.tests}) przedstawione jest na
 listingu~\ref{lst:pom-maven-surefire-plugin}. Należy w nim wskazać gdzie
@@ -331,25 +330,25 @@ nazwę klasy grupującej wszystkie testy.
 \end{lstlisting}
 
 Po tak zmodyfikowanej konfiguracji
-testy metamodelu \gls{EMF} w \emph{Maven} można uruchomić komendą
+testy metamodelu \EMF{} w \Maven{} można uruchomić komendą
 \lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
 (\texttt{verify}), a
 więc po fazie budowania aplikacji (\texttt{package}). Powoduje to, że
-uruchomienie testów metamodelu za~pomoca \emph{Maven} trwa dłużej (około
+uruchomienie testów metamodelu za~pomoca \Maven{} trwa dłużej (około
 18 sekund), niż
-wewnątrz \emph{Sirius Desktop} (mniej niż~1~sekunda), ponieważ projekt
+wewnątrz \SiriusDesktop{} (mniej niż~1~sekunda), ponieważ projekt
 najpierw musi zostać zbudowany. Dodatkowy narzut czasowy wprowadza także
 komunikacja
-\emph{Maven} z repozytorium \emph{Eclipse}, z którego pobierane są pakiety.
-Niemniej jednak możliwość uruchomienia testów metamodelu w \emph{Maven} pozwala
-na~uruchomienie ich z linii wiersza poleceń bez uruchamiania \emph{Sirius
-	Desktop}, co przydaje się~w~środowisku serwerowym.
+\Maven{} z repozytorium \Eclipse{}, z którego pobierane są pakiety.
+Niemniej jednak możliwość uruchomienia testów metamodelu w \Maven{} pozwala
+na~uruchomienie ich z linii wiersza poleceń bez uruchamiania \SiriusDesktop{},
+co przydaje się~w~środowisku serwerowym.
 
 \section{Integracja przybornika BalticLSC w Sirius
   Web}\label{sec:integracja-przybornika-balticlsc}
 
 Edytor diagramów dostępny w aplikacji przeglądarkowej platformy
-\emph{BalticLSC}
+\BalticLSC{}
 umożliwia dodawanie wywołań modułów obliczeniowych do diagramu za pomocą
 przybornika (ang.~\emph{\selectlanguage{english}toolbox}). Użytkownik
 przeglądający bibliotekę dostępnych modułów
@@ -370,7 +369,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-development-shelf.png}
   \caption{Biblioteka modułów obliczeniowych platformy
-    \emph{BalticLSC}}\label{rys:balticlsc-development-shelf}
+    \BalticLSC{}}\label{rys:balticlsc-development-shelf}
 \end{figure}
 % \end{noindent}
 
@@ -380,7 +379,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-diagram-toolbox.png}
   \caption{Przybornik dostępny w edytorze diagramów platformy
-    \emph{BalticLSC}}\label{rys:balticlsc-diagram-toolbox}
+    \BalticLSC{}}\label{rys:balticlsc-diagram-toolbox}
 \end{figure}
 % \end{noindent}
 
@@ -389,7 +388,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-after-adding-unit-call.png}
-  \caption{Edytor diagramów \emph{BalticLSC} po dodaniu modułu obliczeniowego z
+  \caption{Edytor diagramów \BalticLSC{} po dodaniu modułu obliczeniowego z
     przybornika}\label{rys:balticlsc-after-adding-unit-call}
 \end{figure}
 % \end{noindent}
@@ -399,58 +398,59 @@ obliczeniowymi na 2 etapy: wybór interesujących modułów z listy potencjalnie
 tysięcy dostępnych modułów obliczeniowych, a później użycie
 wybranego podzbioru modułów na~diagramach.
 
-W edytorze diagramów z \emph{Sirius Web} domyślnie nie ma przybornika ani
+W edytorze diagramów z \SiriusWeb{} domyślnie nie ma przybornika ani
 integracji z~zewnętrznymi serwisami w celu pobrania listy modułów
 obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
 dostępne w modelu muszą być zdefiniowane jako
 elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
-metamodelu \gls{EMF} nie pozwalają na komunikację z zewnętrznymi serwisami,
+metamodelu \EMF{} nie pozwalają na komunikację z zewnętrznymi serwisami,
 więc pobieranie danych o modułach obliczeniowych znajdujących się w przyborniku
-danego użytkownika musi zostać zrealizowane na poziomie \emph{Sirius Web}.
+danego użytkownika musi zostać zrealizowane na poziomie \SiriusWeb{}.
 Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
-aplikacja \emph{Sirius Web} musi znać jego informacje uwierzytelniające, aby
-móc je~dołączyć wysyłając zapytanie \gls{API} do serwera \emph{BalticLSC}.
+aplikacja \SiriusWeb{} musi znać jego informacje uwierzytelniające, aby
+móc je~dołączyć wysyłając zapytanie \emphgls{API} do serwera \BalticLSC{}.
 Szczegóły odtworzenia
-mechanizmu przybornika w \emph{Sirius Web} oraz jego integracja z
-\emph{BalticLSC} zostały opisane w kolejnych sekcjach.
+mechanizmu przybornika w \SiriusWeb{} oraz jego integracja z
+\BalticLSC{} zostały opisane w kolejnych sekcjach.
 
 \subsection{Pobranie zawartości
 	przybornika}\label{sec:pobranie-zawartosci-przybornika}
 
-Serwer aplikacyjny \emph{BalticLSC} udostępnia interfejs \gls{API} w formacie
-\gls{REST}, który jest używany do komunikacji z aplikacją przeglądarkową tego
-serwisu. Ten interfejs można również wykorzystać w \emph{Sirius Web} aby pobrać
+Serwer aplikacyjny \BalticLSC{} udostępnia interfejs \emphgls{API} w formacie
+\emphgls{REST}, który jest używany do komunikacji z aplikacją przeglądarkową
+tego
+serwisu. Ten interfejs można również wykorzystać w \SiriusWeb{} aby pobrać
 zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
-protokołu \gls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
+protokołu \emphgls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
 odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych modułach
 obliczeniowych. Zawiera ona wszystkie detale potrzebne do utworzenia obiektu
 modułu obliczeniowego (\texttt{ComputationUnitRelease}) oraz jego wywołania
 (\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych portach
 tego modułu.
 
-Należałoby więc z aplikacji przeglądarkowej \emph{Sirius Web} wysłać takie
-zapytanie do serwera \emph{BalticLSC}, a następnie wyświetlić otrzymane moduły
+Należałoby więc z aplikacji przeglądarkowej \SiriusWeb{} wysłać takie
+zapytanie do serwera \BalticLSC{}, a następnie wyświetlić otrzymane moduły
 obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
-\emph{BalticLSC} pojawiają się dwa problemy.
+\BalticLSC{} pojawiają się dwa problemy.
 
 Pierwszym problemem jest sposób uwierzytelniania użytkownika. Zawartość
 przybornika jest powiązana z konkrenym kontem użytkownika w systemie
-\emph{BalticLSC}. Wysyłając więc zapytanie o przybornik należy dodatkowo
-załączyć w nagłówku \gls{HTTP} \texttt{Authorization}
-token uwierzytelniający w formacie \gls{JWT}. W tokenie tym znajdują się
+\BalticLSC{}. Wysyłając więc zapytanie o przybornik należy dodatkowo
+załączyć w nagłówku \emphgls{HTTP} \texttt{Authorization}
+token uwierzytelniający w formacie \emphgls{JWT}. W tokenie tym znajdują się
 informacje o nazwie użytkownika, do którego należy token (pole \texttt{sub}
 oraz \texttt{unique\_name}). Zawartość pola z
 danymi tokena widoczna jest na listingu~\ref{lst:balticlsc-jwt-payload}.
-Ponadto, każdy token \gls{JWT} posiada podpis weryfikujący jego prawdziwość.
+Ponadto, każdy token \emphgls{JWT} posiada podpis weryfikujący jego prawdziwość.
 Służy on potwierdzeniu, że token został przygotowany przez serwis
-\emph{BalticLSC} w drodze poprawnego logowania do serwisu, a nie został
+\BalticLSC{} w drodze poprawnego logowania do serwisu, a nie został
 wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
 
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=java,
-    caption={Zawartość pola z danymi w tokenie \gls{JWT} z serwisu
-      \emph{BalticLSC}},
+    caption={Zawartość pola z danymi w tokenie \emphgls{JWT} z serwisu
+      \BalticLSC{}},
     label={lst:balticlsc-jwt-payload}]
 {
   "unique_name": "demo",
@@ -463,27 +463,29 @@ wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
 }
 \end{lstlisting}
 
-W pracy magisterskiej założono, że token \gls{JWT} zostanie dostarczony do
+W pracy magisterskiej założono, że token \emphgls{JWT} zostanie dostarczony do
 edytora diagramów z zewnętrznego źródła. W przypadku wykorzystania edytora
-diagramów \emph{Sirius Web} w innej aplikacji przeglądarkowej, to właśnie ta
-zewnętrzna aplikacja przeglądarkowa dostarczy informacje o tokenie \gls{JWT}
+diagramów \SiriusWeb{} w innej aplikacji przeglądarkowej, to właśnie ta
+zewnętrzna aplikacja przeglądarkowa dostarczy informacje o tokenie
+\emphgls{JWT}
 podczas wywoływania funkcji rozpoczynającej wyświetlanie diagramu. Zostało to
 opisane szczegółowo w sekcji~\ref{sec:uzycie-sirius-web-w-balcitlsc}.
 
-Podczas pracy z pełnym pełnym interfejsem \emph{Sirius Web} (a nie tylko samym
+Podczas pracy z pełnym pełnym interfejsem \SiriusWeb{} (a nie tylko samym
 edytorem diagramów) został dostarczony przycisk otwierający okno
-dialogowe, w którym użytkownik może wprowadzić swój token \gls{JWT}. Znajdują
+dialogowe, w którym użytkownik może wprowadzić swój token \emphgls{JWT}.
+Znajdują
 się w nim także instrukcje jak taki token pozyskać. Ponieważ jest to złożony
 proces, który wymaga otworzenia narzędzi programistycznych przeglądarki, został
 dostarczony przycisk \emph{\selectlanguage{english}GET DEMO USER TOKEN}, który
-pozwala pobrać token użytkownika demonstracyjnego \emph{BalticLSC}.
+pozwala pobrać token użytkownika demonstracyjnego \BalticLSC{}.
 Wysyła on zapytanie z prośbą o zalogowanie użytkownika demonstracyjnego,
 którego dane logowania są publiczne dostępne, a następnie otrzymany token
 uwierzytelniający wprowadza do pola widocznego w oknie dialogowym. W~ten~sposób
 można w łatwy sposób otrzymać poprawny token i rozpocząć działanie z
-\emph{Sirius Web} wykorzystując przybornik użytkownika demonstracyjnego.
+\SiriusWeb{} wykorzystując przybornik użytkownika demonstracyjnego.
 Zrzut ekranu przedstawiający okno dialogowe pozwalające wprowadzić token
-\gls{JWT} użytkownika jest widoczne na
+\emphgls{JWT} użytkownika jest widoczne na
 rysunku~\ref{rys:balticlsc-change-jwt-modal}.
 
 % \begin{noindent}
@@ -491,32 +493,33 @@ rysunku~\ref{rys:balticlsc-change-jwt-modal}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-change-jwt-modal-with-instructions.png}
-  \caption{Okno dialogowe do wprowadzenia tokenu \gls{JWT}
+  \caption{Okno dialogowe do wprowadzenia tokenu \emphgls{JWT}
     użytkownika}\label{rys:balticlsc-change-jwt-modal}
 \end{figure}
 % \end{noindent}
 
-Drugim z problemów występujących podczas komunikacji z \gls{API}
-\emph{BalticLSC} jest mechanizm \gls{CORS}~\cite{cors-documentation}. Aktywuje
+Drugim z problemów występujących podczas komunikacji z \emphgls{API}
+\BalticLSC{} jest mechanizm \emphgls{CORS}~\cite{cors-documentation}. Aktywuje
 się on ponieważ serwer
-aplikacyjny \emph{BalticLSC} oraz aplikacja przeglądarkowa \emph{Sirius Web} są
+aplikacyjny \BalticLSC{} oraz aplikacja przeglądarkowa \SiriusWeb{} są
 uruchomione na różnych adresach w sieci Internet. Odpowiedzi z serwera
-aplikacyjnego \emph{BalticLSC} nie zawierają odpowiednich nagłówków \gls{HTTP}
-związanych z \gls{CORS},
+aplikacyjnego \BalticLSC{} nie zawierają odpowiednich nagłówków \emphgls{HTTP}
+związanych z \emphgls{CORS},
 więc przeglądarka blokuje połączenia do tego serwera podczas próby ich wysłania
 ze
-strony internetowej zawierającej \emph{Sirius Web}. W~przypadku edytora
-diagramów dostarczonego z \emph{BalticLSC} \gls{CORS} nie występuje, ponieważ
+strony internetowej zawierającej \SiriusWeb{}. W~przypadku edytora
+diagramów dostarczonego z \BalticLSC{} \emphgls{CORS} nie występuje, ponieważ
 edytor diagramów oraz serwer znajdują się pod tym samym adresem internetowym
 \url{https://balticlsc.iem.pw.edu.pl/}, więc przeglądarka zezwala na te
 połączenia bez wymogu dodatkowych nagłówków w odpowiedziach z serwera.
 
-Rozwiązaniem na problem braku nagłówków \gls{CORS} w odpowiedziach z serwera
-\emph{BalticLSC} jest wykorzystanie innego serwera jako pośredniczącego w ruchu
-między aplikacją przeglądarkową \emph{Sirius Web}, a serwerem \emph{BalticLSC}
+Rozwiązaniem na problem braku nagłówków \emphgls{CORS} w odpowiedziach z
+serwera
+\BalticLSC{} jest wykorzystanie innego serwera jako pośredniczącego w ruchu
+między aplikacją przeglądarkową \SiriusWeb{}, a serwerem \BalticLSC{}
 (ang. \emph{\selectlanguage{english}proxy}). Schemat komunikacji między
-aplikacją \emph{Sirius Web} uruchomioną w przeglądarce a serwerem
-\emph{BalticLSC} z wykorzystaniem serwera pośredniczącego przedstawiono na
+aplikacją \SiriusWeb{} uruchomioną w przeglądarce a serwerem
+\BalticLSC{} z wykorzystaniem serwera pośredniczącego przedstawiono na
 rysunku~\ref{rys:balticlsc-proxy-sequence-diagram}.
 
 % \begin{noindent}
@@ -543,50 +546,50 @@ rysunku~\ref{rys:balticlsc-proxy-sequence-diagram}.
 % balticlsc -->>- proxy: Lista modułów obliczeniowych
 % proxy -->>- browser: Lista modułów obliczeniowych
 
-Serwerem pośredniczącym może być na przykład serwer aplikacyjny \emph{Sirius
-	Web}. Dodano do niego odpowiedni mechanizm tak, aby wszystkie zapytania
+Serwerem pośredniczącym może być na przykład serwer aplikacyjny \SiriusWeb{}.
+Dodano do niego odpowiedni mechanizm tak, aby wszystkie zapytania
 których adres
 zaczyna się~od~\texttt{/balticlsc-proxy} przesyłane były do serwera
-\emph{BalticLSC}, a odpowiedzi z serwera zwracane do~oryginalnego nadawcy
+\BalticLSC{}, a odpowiedzi z serwera zwracane do~oryginalnego nadawcy
 zapytania.
 
-W przypadku uruchomienia edytora diagramów \emph{Sirius Web} jako część głównej
-aplikacji przeglądarkowej \emph{BalticLSC} pod tym samym adresem co serwer
+W przypadku uruchomienia edytora diagramów \SiriusWeb{} jako część głównej
+aplikacji przeglądarkowej \BalticLSC{} pod tym samym adresem co serwer
 aplikacyjny tej platformy można zrezygnować z komunikacji z wykorzystaniem
 serwera pośredniczącego i wysyłać zapytania bezpośrednio do serwera
-aplikacyjnego \emph{BalticLSC}. W tej sytuacji mechanizm \gls{CORS} nie będzie
+aplikacyjnego \BalticLSC{}. W tej sytuacji mechanizm \emphgls{CORS} nie będzie
 wykorzystany i przeglądarka pozwoli na wykonanie połączenia.
 
 \subsection{Wyświetlenie zawartości przybornika w Sirius
 	Web}\label{sec:wyswietlenie-zawartosci-przybornika-w-sirius-web}
 
 W sekcji~\ref{sec:pobranie-zawartosci-przybornika} opisany został mechanizm, za
-pomocą którego aplikacja przeglądarkowa \emph{Sirius Web} ma dostęp do listy
+pomocą którego aplikacja przeglądarkowa \SiriusWeb{} ma dostęp do listy
 modułów obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
 przybornika należy wyświetlić na ekranie w obrębie edytora diagramów, aby
 użytkownik mógł z niego skorzystać. Realizacja tej funkcjonalności wymaga
-modyfikacji interfejsu użytkownika \emph{Sirius Web}.
+modyfikacji interfejsu użytkownika \SiriusWeb{}.
 
-Warstwa interfejsu użytkownika \emph{Sirius Web} napisana jest w języku
-\emph{TypeScript}~\cite{typescript-homepage}, który jest rozszerzeniem języka
-\emph{JavaScript} dodającym
+Warstwa interfejsu użytkownika \SiriusWeb{} napisana jest w języku
+\TypeScript{}~\cite{typescript-homepage}, który jest rozszerzeniem języka
+\JavaScript{} dodającym
 statyczne typowanie zmiennych. Kod~wykorzystuje bibliotekę
-\emph{React}~\cite{react-homepage} do podziału warstwy wizualnej na mniejsze
+\React{}~\cite{react-homepage} do podziału warstwy wizualnej na mniejsze
 komponenty i ich wyświetlenie. Podstawowe komponenty, z których można zbudować
-edytor modeli bazujący na serwerze aplikacyjnym \emph{Sirius Web} są
+edytor modeli bazujący na serwerze aplikacyjnym \SiriusWeb{} są
 zlokalizowane i udostępnione w repozytorium \texttt{sirius-components}.
 W repozytorium \texttt{sirius-web} są one wykorzystane do zbudowania
 przykładowej aplikacji przeglądarkowej do edycji modeli.
 Jest ona demonstracją jak można ich użyć i może zostać dostosowana do własnych
 potrzeb.
 
-Zdecydowano, że w domyślnym interfejsie użytkownika aplikacji \emph{Sirius Web}
+Zdecydowano, że w domyślnym interfejsie użytkownika aplikacji \SiriusWeb{}
 zaprezentowanym na rysunku~\ref{rys:sirius-web-base-metamodel-model}
 odpowiednie miejsce na wyświetlenie przybornika znajduje się~nad~diagramem,
 powyżej paska narzędzi, a poniżej górnej ciemnoniebieskiej belki z tytułem
 projektu. Komponent \texttt{Workbench} odpowiedzialny za wyświetlenie edytora
 diagramów (całość
-interfejsu \emph{Sirius Web} oprócz górnej ciemnoniebieskiej belki) nie
+interfejsu \SiriusWeb{} oprócz górnej ciemnoniebieskiej belki) nie
 ma możliwości pokazania dodatkowych komponentów zdefiniowanych przez
 programistę pracującego nad własnym edytorem diagramów. Wyświetla on zawsze
 komponenty w ustalonym porządku:
@@ -608,14 +611,15 @@ implementację komponentów odpowiedzialnych za wyświetlenie rozszerzalnych
 paneli po lewej i prawej stronie (\texttt{LeftSite}, \texttt{RightSite},
 \texttt{Panels}) oraz za wyświetlenie listy informacji diagnostycznych
 (\texttt{ValidationWebSocketContainer}). O ile komponenty wizualne związane z
-panelami są niezależne od serwera aplikacyjnego \emph{Sirius Web}, to komponent
+panelami są niezależne od serwera aplikacyjnego \SiriusWeb{}, to komponent
 pokazujący
 informacje diagnostyczne modelu zawiera w sobie treść subskrypcji WebSocket,
-która zależy od interfejsu \gls{API} dostarczonego przez serwer. Zmiany w tym
+która zależy od interfejsu \emphgls{API} dostarczonego przez serwer. Zmiany w
+tym
 interfejsie mogą wymagać zmian w kodzie komponentu
 \texttt{ValidationWebSocketContainer}. Jednak z uwagi na fakt, że treść tego
 komponentu jest skopiowana do własnego repozytorium, komponent ten może
-przestać działać po aktualizacji serwera aplikacyjnego \emph{Sirius Web}.
+przestać działać po aktualizacji serwera aplikacyjnego \SiriusWeb{}.
 Utrudnia to utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
 się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
 przeglądarkowej.
@@ -629,10 +633,10 @@ projekcie nie ma jeszcze żadnych
 modeli lub nie został wybrany model do wyświetlenia.
 Komponent ten jest skomplikowany i zawiera dużo kodu. Jednocześnie w momencie,
 gdy jest on wyświetlony, nie ma potrzeby wyświetlać jeszcze przybornika z
-\emph{BalticLSC}. Podjęto decyzję, żeby przed wyborem modelu do wyświetlenia na
+\BalticLSC{}. Podjęto decyzję, żeby przed wyborem modelu do wyświetlenia na
 diagramie wyświetlić oryginalny komponent \texttt{Workbench}, który wyświetli
 komponent \texttt{OnboardArea}. Po wybraniu modelu do wyświetlenia biblioteka
-\emph{React} podmienia komponent widoczny na ekranie na zmodyfikowaną kopię
+\React{} podmienia komponent widoczny na ekranie na zmodyfikowaną kopię
 pochodzącą z lokalnego repozytorium. Dzięki temu zostaje zachowana
 funkcjonalność wyświetlenia komponentu \texttt{OnboardArea} bez potrzeby
 kopiowania jego implementacji.
@@ -654,21 +658,21 @@ Skopiowane komponenty można dowolnie edytować i rozszerzać. W tym przypadku
 zmodyfikowano skopiowany komponent \texttt{Workbench} i dodano w nim
 przyciski odpowiedzialne za dodanie wywołania modułu obliczeniowego do
 diagramu. Każdy przycisk zawiera ikonę modułu, podobnie jak w interfejsie
-\emph{BalticLSC}, a po najechaniu kursorem wyświetla nazwę modułu oraz jego
+\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę modułu oraz jego
 wersję, co zostało zaprezentowane na rysunku~\ref{rys:sirius-web-toolbox}.
 Ponadto dodany został przycisk
 pozwalający na odświeżenie przybornika poprzez ponowne pobranie jego
 zawartości.
 Do wyświetlenia przycisków zostały wykorzystane komponenty pochodzące
 z~biblioteki \emph{Material~UI}~\cite{material-ui-homepage}, która była już
-zainstalowana w projekcie \emph{Sirius Web}.
+zainstalowana w projekcie \SiriusWeb{}.
 
 \begin{figure}[!ht]
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-web-toolbox.png}
-	\caption{Przybornik dodany w \emph{Sirius
-			Web}}\label{rys:sirius-web-toolbox}
+	\caption{Przybornik dodany w
+		\SiriusWeb{}}\label{rys:sirius-web-toolbox}
 \end{figure}
 
 \subsection{Dodanie wywołania modułu obliczeniowego do modelu}
@@ -679,7 +683,7 @@ jest to pierwszy raz~gdy~wywołanie tego modułu zostaje dodane do diagramu,
 należy przed tym dodać definicję modułu (obiekt
 \texttt{ComputationUnitRelease}) do modelu. Modyfikacja modelu poprzez
 aplikację przeglądarkową odbywa się poprzez wysłanie mutacji (\emph{mutation})
-w języku \emph{GraphQL} do serwera aplikacyjnego \emph{Sirius Web}, wskazując
+w języku \GraphQL{} do serwera aplikacyjnego \SiriusWeb{}, wskazując
 przy tym obiekt nadrzędny, do którego ma być dodany obiekt,
 oraz szczegóły dodawanego obiektu.
 
@@ -690,7 +694,7 @@ Aby jednoznacznie określić miejsce, w którym ma być dodany obiekt, należy w
 szczegółach mutacji przekazać dwa identyfikatory:
 
 \begin{itemize}
-	\item Identyfikator kontekstu edycji danego modelu (\texttt{editingContextId}). Jest to obiekt związany ze szczegółami implementacyjnymi serwera aplikacyjnego \emph{BalticLSC}. Każdy projekt ma swój kontekst edycji, który można otrzymać wykonując zapytanie \emph{GraphQL} podając w szczegółach identyfikator projektu.
+	\item Identyfikator kontekstu edycji danego modelu (\texttt{editingContextId}). Jest to obiekt związany ze szczegółami implementacyjnymi serwera aplikacyjnego \BalticLSC{}. Każdy projekt ma swój kontekst edycji, który można otrzymać wykonując zapytanie \GraphQL{} podając w szczegółach identyfikator projektu.
 	\item Identyfikator obiektu nadrzędnego, w którym ma zostać umieszczony nowy obiekt. Model ma strukturę drzewiastą, więc w przypadku tworzenia nowego modułu obliczeniowego lub jego wywołania rodzicem będzie obiekt \texttt{ComputationApplicationRelease}, czyli główny obiekt modelu.
 \end{itemize}
 
@@ -705,12 +709,12 @@ znajdujących się~w~skopiowanym repozytorium \texttt{sirius-web}. Komponent
 projektu po lewej stronie interfejsu użytkownika pobiera go podczas
 wyświetlania kolejnych poziomów drzewa, jednak nie udostępnia go poza
 komponent. Oznacza to, że identyfikator głównego obiektu modelu należy pobrać
-inną metodą. Interfejs zapytań \emph{GraphQL} dostarczony przez \emph{Sirius
-	Web} nie posiada zapytania pozwalającego na pobranie zawartości modelu.
+inną metodą. Interfejs zapytań \GraphQL{} dostarczony przez \SiriusWeb{} nie
+posiada zapytania pozwalającego na pobranie zawartości modelu.
 
 Jednym z możliwych rozwiązań było wykorzystanie tego samego mechanizmu, który
 używany jest w komponencie wyświetlającym drzewo projektu, czyli subskrypcji
-\emph{GraphQL} \texttt{treeEvent}. Jest to mechanizm, który pozwala aplikacji
+\GraphQL{} \texttt{treeEvent}. Jest to mechanizm, który pozwala aplikacji
 przeglądarkowej na otrzymywanie informacji o zmianach w drzewie modelu na żywo,
 tuż po tym jak zostały one wprowadzone. Sprawdza się on dobrze w przypadku
 drzewa modelu wyświetlanego ciągle jako część interfejsu użytkownika, ale nie
@@ -732,7 +736,7 @@ w sobie zawiera korzeń modelu znany z metamodelu
 otrzymać identyfikator korzenia modelu należy więc pobrać informacje w dwóch
 krokach: najpierw pobrać informacje o dokumencie, a~później przekazać jego
 identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator korzenia
-modelu. Diagram sekwencji komunikatów \texttt{WebSocket} wymienianych między
+modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
 aplikacją przegladarkową a serwerem w celu otrzymania identyfikatora korzenia
 modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 
@@ -765,7 +769,7 @@ modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 
 \subsubsection{Mutacja dodająca wywołanie modułu obliczeniowego}
 
-W domyślnym interfejsie użytkownika \emph{Sirius Web} obiekty można dodawać na
+W domyślnym interfejsie użytkownika \SiriusWeb{} obiekty można dodawać na
 dwa sposoby: wywołując narzędzia powiązane z metamodelem (opisane w
 sekcji~\ref{sec:cal-metamodel-tools}) lub tworząc obiekty bezpośrednio w modelu
 zgodnie ze strukturą metamodelu z wykorzystaniem drzewa obiektów.
@@ -793,11 +797,11 @@ zapytania sieciowe w celu sprawdzenia czy moduł był~już~użyty w modelu,
 zdecydowano, że zostanie dodana do serwera aplikacyjnego nowa mutacja
 \texttt{createUnitCall}, która będzie odpowiedzialna za te operacje.
 
-Dodanie nowej mutacji do serwera \emph{Sirius Web} wymagało następujących
+Dodanie nowej mutacji do serwera \SiriusWeb{} wymagało następujących
 kroków:
 
 \begin{itemize}
-	\item Dodanie klas typu \gls{DTO} w języku Java opisujących strukturę danych wejściowych i wyjściowych mutacji. Klasy oraz ich właściwości muszą mieć odpowiednie adnotacje pochodzące z kodu repozytorium \texttt{sirius-components}, aby~mogły być one przesyłane w języku \emph{GraphQL}. Dodano klasy i wyliczenia:
+	\item Dodanie klas typu \emphgls{DTO} w języku \Java{} opisujących strukturę danych wejściowych i wyjściowych mutacji. Klasy oraz ich właściwości muszą mieć odpowiednie adnotacje pochodzące z kodu repozytorium \texttt{sirius-components}, aby~mogły być one przesyłane w języku \GraphQL{}. Dodano klasy i wyliczenia:
 
 	      \begin{itemize}
 		      \item \texttt{DataBinding},
@@ -820,13 +824,13 @@ kroków:
 \end{itemize}
 
 Wszystkie dodane klasy zostaną automatycznie wzięte pod uwagę przez serwer
-aplikacyjny \emph{Sirius Web} podczas obsługi zapytań \gls{API} dzięki
+aplikacyjny \SiriusWeb{} podczas obsługi zapytań \emphgls{API} dzięki
 mechanizmowi wstrzykiwania zależności (\emph{Dependency Injection}) platformy
 \emph{Java Spring}.
-W kodzie obsługi mutacji można wykorzystywać klasy metamodelu \gls{EMF}.
+W kodzie obsługi mutacji można wykorzystywać klasy metamodelu \EMF{}.
 Sprawia to, że implementacja jest prostsza i szybsza w porównaniu do
 wykonywania tych samych operacji komunikując się przez warstwę zapytań
-\emph{GraphQL}.
+\GraphQL{}.
 Dodatkowo wszystkie zmiany wprowadzane przez kod obsługi mutacji są widoczne
 na raz, ponieważ są wykonywane w obrębie jednej synchronicznej metody. Skutkuje
 to atomowością tej~operacji. Przeglądarka nie dostanie dostanie informacji o
@@ -876,7 +880,7 @@ listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
     floatplacement=hb,
     % NOTE: graphql is not supported, c adds basic highlighting for strings
     language=c,
-    caption={Mutacja \emph{GraphQL} dodająca wywołanie modułu obliczeniowego do
+    caption={Mutacja \GraphQL{} dodająca wywołanie modułu obliczeniowego do
       modelu},
     label={lst:sirius-web-createUnitCall-mutation}]
 mutation {
@@ -921,23 +925,23 @@ mutation {
 
 \section{Walidacja semantyczna modelu}\label{sec:walidacja-semantyczna-modelu}
 
-\emph{Sirius Desktop} posiada funkcjonalność walidacji modelu pod względem
+\SiriusDesktop{} posiada funkcjonalność walidacji modelu pod względem
 składniowym (na podstawie atrybutów metamodelu) oraz semantycznym (na podstawie
 reguł \emph{\selectlanguage{english}Semantic Validation Rule} zdefiniowanych w
-pliku \texttt{*.odesign} metamodelu \gls{EMF}), co zostało opisane w
+pliku \texttt{*.odesign} metamodelu \EMF{}), co zostało opisane w
 sekcji~\ref{sec:reguly-walidacyjne-metamodel}.
 
-\emph{Sirius Web} w swoim interfejsie użytkownika posiada miejsce, w którym
+\SiriusWeb{} w swoim interfejsie użytkownika posiada miejsce, w którym
 wyświetlają się~pewne informacje diagnostyczne dotyczące modelu. Po każdej
 modyfikacji struktury modelu aktualizowane są informacje w dolnej części panelu
 po lewej stronie. Zawierają one wyłącznie błędy wynikające z walidacji
 składniowej modelu. Pomimo zdefiniowanych reguł walidacji semantycznej, nie są
-one wyświetlane w aplikacji przeglądarkowej \emph{Sirius Web}. Na
+one wyświetlane w aplikacji przeglądarkowej \SiriusWeb{}. Na
 rysunku~\ref{rys:sirius-desktop-and-web-semantic-validation-comparison}
-porównano zwracane informacje diagnostyczne w \emph{Sirius Web} i \emph{Sirius
-	Desktop} dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
+porównano zwracane informacje diagnostyczne w \SiriusWeb{} i \SiriusDesktop{}
+dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
 widać błędy walidacji semantycznej pochodzące
-z reguł z metamodelu \gls{EMF}. Błędów tych brakuje w aplikacji
+z reguł z metamodelu \EMF{}. Błędów tych brakuje w aplikacji
 przeglądarkowej. Problem ten został zgłoszony w repozytorium
 \texttt{sirius-web}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
@@ -948,26 +952,26 @@ przeglądarkowej. Problem ten został zgłoszony w repozytorium
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-example-semantic-validation-rule-failure.png}
-		\caption{Błąd walidacji semantycznej w \emph{Sirius Desktop}}
+		\caption{Błąd walidacji semantycznej w \SiriusDesktop{}}
 	\end{subfigure}
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-web-no-emf-semantic-validation.png}
-		\caption{Brak błędów walidacji semantycznej w \emph{Sirius Web}}
+		\caption{Brak błędów walidacji semantycznej w \SiriusWeb{}}
 	\end{subfigure}
 
-	\caption{Obsługa reguł walidacji semantycznej \gls{EMF} w \emph{Sirius Web}
-    i \emph{Sirius Desktop}}\label{rys:sirius-desktop-and-web-semantic-validation-comparison}
+	\caption{Obsługa reguł walidacji semantycznej \EMF{} w \SiriusWeb{}
+    i \SiriusDesktop{}}\label{rys:sirius-desktop-and-web-semantic-validation-comparison}
 \end{figure}
 % \end{noindent}
 
 Oznacza to, że chcąc otrzymać informacje diagnostyczne z walidacji semantycznej
-modeli w \emph{Sirius Web} należy zaimplementować ten rodzaj walidacji samemu
+modeli w \SiriusWeb{} należy zaimplementować ten rodzaj walidacji samemu
 rozszerzając
 serwer aplikacyjny. Informacje z walidacji składniowej modelu są
-strumieniowane do przeglądarki za~pomocą subskrypcji \emph{GraphQL}. Po
+strumieniowane do przeglądarki za~pomocą subskrypcji \GraphQL{}. Po
 wyświetleniu diagramu aplikacja przeglądarkowa rejestruje subskrypcję
-\texttt{validationEvent} w interfejsie \gls{API} serwera przekazując
+\texttt{validationEvent} w interfejsie \emphgls{API} serwera przekazując
 identyfikator kontekstu edycji (\texttt{editingContextId}), o którego zmianach
 chce być powiadamiana. Po zmianach w~strukturze modelu serwer aplikacyjny
 przesyła do przeglądarki wiadomość \texttt{validationEvent} zawierającą listę
@@ -987,10 +991,10 @@ semantycznej należy w metodzie \texttt{getDiagnostics\-Provider} klasy
 nowe elementy do listy wynikowych informacji diagnostycznych.
 
 Z uwagi na skomplikowanie dostępu programistycznego do reguł walidacji
-semantycznej zdefiniowanej w metamodelu \gls{EMF} zdecydowano, że dodatkowy
-mechanizm walidacji semantycznej w \emph{Sirius Web} zostanie zaimplementowany
-za pomocą osobnych klas języka Java, niekorzystających z reguł zdefiniowanych
-w metamodelu \gls{EMF}. Diagram klas systemu walidacji semantycznej widoczny
+semantycznej zdefiniowanej w metamodelu \EMF{} zdecydowano, że dodatkowy
+mechanizm walidacji semantycznej w \SiriusWeb{} zostanie zaimplementowany
+za pomocą osobnych klas języka \Java{}, niekorzystających z reguł zdefiniowanych
+w metamodelu \EMF{}. Diagram klas systemu walidacji semantycznej widoczny
 jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
 
 % Źródło:
@@ -1020,18 +1024,18 @@ jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
-  \caption{Diagram klas związanych z walidacją semantyczną w \emph{Sirius
-    Web}}\label{rys:sirius-web-semantic-validation-class-diagram}
+  \caption{Diagram klas związanych z walidacją semantyczną w
+    \SiriusWeb{}}\label{rys:sirius-web-semantic-validation-class-diagram}
 \end{figure}
 % \end{noindent}
 
 Podstawą architektury do walidacji semantycznej modeli jest interfejs
 \texttt{ISemanticCAL\-Validation\-Rule}. Jest on implementowany przez klasy
 będące
-poszczególnymi regułami walidacji semantycznej modeli języka \gls{CAL}. Każda
+poszczególnymi regułami walidacji semantycznej modeli języka \CAL{}. Każda
 taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
 instancję klasy \texttt{ComputationApplicationRelease}. Jest~to klasa
-wygenerowana na podstawie metamodelu \gls{EMF}
+wygenerowana na podstawie metamodelu \EMF{}
 będąca korzeniem drzewa modelu i~dzięki niej można dotrzeć do dowolnego
 elementu modelu. Metoda \texttt{validate} zwraca listę obiektów klasy
 \texttt{Diagnostic}
@@ -1042,7 +1046,7 @@ mają różne kategorie --- mogą to być błędy (\emph{error}), ostrzeżenia
 (\emph{warning}) lub zwykłe informacje (\emph{info}).
 
 W ramach tej pracy magisterskiej zostały zaimplementowane 3 reguły walidacji
-semantycznej w \emph{Sirius Web}. Pierwsza z nich (\texttt{DataFlowDirection})
+semantycznej w \SiriusWeb{}. Pierwsza z nich (\texttt{DataFlowDirection})
 weryfikuje kierunek przepływu
 danych na diagramie. Zgłasza ona błąd jeżeli obiekt \texttt{DataFlow} na
 diagramie zaczyna się~w~porcie oznaczonym jako wejściowy (\emph{required}) lub
@@ -1063,7 +1067,7 @@ pochodzące z tej reguły są oznaczone jako ostrzeżenie (\emph{warning}).
 Wiadomość
 tekstowa zawiera nazwy modułów obliczeniowych, które wchodzą w skład cyklu.
 Reguła ta wykonuje algorytm przeszukiwania grafu w głąb
-(\gls{DFS})~\cite{wikipedia-dfs}. Po tym następuje próba skrócenia cyklu
+(\emphgls{DFS})~\cite{wikipedia-dfs}. Po tym następuje próba skrócenia cyklu
 poprzez eliminację elementów nieznaczących. Elementem nieznaczącym jest
 wierzchołek grafu $x_n$, dla którego istnieje krawędź między  poprzednim
 $x_{n-1}$ a kolejnym wierzchołkiem cyklu $x_{n+1}$. Wierzchołek $x_n$ można
@@ -1071,7 +1075,7 @@ usunać z cyklu. Operacja usuwania nieznaczących elementów jest próbowana dla
 wszystkich wierzchołków w cyklu do momentu, gdy nie ma elementów nieznaczących.
 Skrócenie cyklu pozwoli użytkownikowi szybciej zlokalizować cykl na diagramie,
 ponieważ będzie on zawierał potencjalnie mniej elementów niż ten znaleziony
-przez algorytm \gls{DFS}. Nie ma gwarancji, że znaleziony cykl po skróceniu
+przez algorytm \emphgls{DFS}. Nie ma gwarancji, że znaleziony cykl po skróceniu
 jest najkrótszym cyklem w grafie. Reguła zaprzestaje przeszukiwanie po
 znalezieniu pierwszego cyklu.
 
@@ -1080,21 +1084,20 @@ wszystkie klasy oznaczone adnotacją \texttt{@Service} implementujące interfejs
 \texttt{ISemanticCALValidationRule} są dostępne w klasie
 \texttt{ValidationDescriptionProvider}. Wewnątrz implementacji metody
 \texttt{getDiagnosticsProvider} jeżeli przetwarzany aktualnie model pochodzi z
-metamodelu języka \gls{CAL} uruchamiane są reguły implementujące interfejs
+metamodelu języka \CAL{} uruchamiane są reguły implementujące interfejs
 \texttt{ISemanticCALValidationRule}, a ich wyniki są łączone z wynikami
 walidacji składniowej. Implementacja metody zwracającej informacje
 diagnostyczne przedstawiona jest na
 listingu~\ref{lst:sirius-web-semantic-validation-merge-diagnostics}. Wynikowa
 lista informacji diagnostycznych przesyłana
 jest do aplikacji przeglądarkowej gdzie jest wyświetlana użytkownikowi. Wyniki
-walidacji semantycznej w \emph{Sirius Web} widoczne są na
+walidacji semantycznej w \SiriusWeb{} widoczne są na
 rysunku~\ref{rys:sirius-web-semantic-validation-results}.
 
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=java,
-    caption={Metoda zwracająca listę informacji diagnostycznych w \emph{Sirius
-      Web}},
+    caption={Metoda zwracająca listę informacji diagnostycznych w \SiriusWeb{}},
     label={lst:sirius-web-semantic-validation-merge-diagnostics}]
 private List<Object> getDiagnosticsProvider(VariableManager variableManager) {
     var optionalEditingContext = variableManager.get(IEditingContext.EDITING_CONTEXT, IEditingContext.class);
@@ -1153,64 +1156,67 @@ diagramu wykonywane jest mniej operacji, co poprawia wydajność edytora.
 \section{Użycie edytora Sirius Web w
   BalticLSC}\label{sec:uzycie-sirius-web-w-balcitlsc}
 
-Do tej pory prezentowano edytor modeli \emph{Sirius Web} jako osobna aplikacja
+Do tej pory prezentowano edytor modeli \SiriusWeb{} jako osobna aplikacja
 przeglądarkowa, niezwiązana z interfejsem użytkownika platformy
-\emph{BalticLSC}. Jedną z możliwości wykorzystania przygotowanego edytora
+\BalticLSC{}. Jedną z możliwości wykorzystania przygotowanego edytora
 modeli jest jego integracja jako alternatywny edytor diagramów aplikacji
-obliczeniowych w aplikacji przeglądarkowej \emph{BalticLSC}.
+obliczeniowych w aplikacji przeglądarkowej \BalticLSC{}.
 W ramach tej pracy magisterskiej przygotowano kod aplikacji przeglądarkowej
-\emph{Sirius Web} tak, aby udostępnić osobno sam edytor modeli (komponent
+\SiriusWeb{} tak, aby udostępnić osobno sam edytor modeli (komponent
 \texttt{Workbench} omówiony w
 sekcji~\ref{sec:wyswietlenie-zawartosci-przybornika-w-sirius-web}) w formacie,
-który może zostać użyty przez aplikację przeglądarkową \emph{BatlicLSC} w celu
+który może zostać użyty przez aplikację przeglądarkową \BalticLSC{} w celu
 zastąpienia aktualnego edytora diagramów. Przygotowano również
-przykładową aplikację w języku JavaScript, która demonstruje wyświetlenie
-edytora diagramów z \emph{Sirius Web} w części swojego interfejsu.
-Integracja \emph{BalticLSC} i~\emph{Sirius Web} pozostaje
+przykładową aplikację w języku \JavaScript{}, która demonstruje wyświetlenie
+edytora diagramów z \SiriusWeb{} w części swojego interfejsu.
+Integracja \BalticLSC{} i~\SiriusWeb{} pozostaje
 poza zakresem pracy magisterskiej.
 
 \subsection{Udostępnienie samodzielnego komponentu edytora diagramów z Sirius
 	Web}\label{sec:udostepnienie-samodzielnego-komponentu-Workbench}
 
-Chcąc wyświetlić edytor diagramów z \emph{Sirius Web} wewnątrz innej aplikacji
-musi być udostępniony interfejs programistyczny \gls{API}, który będzie
+Chcąc wyświetlić edytor diagramów z \SiriusWeb{} wewnątrz innej aplikacji
+musi być udostępniony interfejs programistyczny \emphgls{API}, który będzie
 pozwalał wskazać docelowe miejsce w~aplikacji, w którym ma się
-pojawić edytor. Pozostałe elementy aplikacji \emph{Sirius Web}, takie
+pojawić edytor. Pozostałe elementy aplikacji \SiriusWeb{}, takie
 jak~możliwość zarządzania projektami, wybierania projektu do edycji, a także
 tworzenia i~usuwania modeli powinny być niedostępne, ponieważ dla lepszych
 doświadczeń użytkownika takie operacje powinny być wykonane automatycznie
-podczas edycji konkretnej aplikacji obliczeniowej systemu \emph{BalticLSC}.
+podczas edycji konkretnej aplikacji obliczeniowej systemu \BalticLSC{}.
 
-Interfejs użytkownika aplikacji \emph{Sirius Web} jest napisany w języku
-JavaScript z wykorzystaniem biblioteki \emph{React}~\cite{react-homepage}.
-Aplikacja przeglądarkowa \emph{BalticLSC} jest również napisana w~języku
-JavaScript, natomiast korzysta z biblioteki \emph{Vue.js}~\cite{vue-homepage}.
-Z powodu wykorzystania różnych bibliotek kod \emph{Sirius Web} musi udostępnić
+Interfejs użytkownika aplikacji \SiriusWeb{} jest napisany w języku
+\JavaScript{} z wykorzystaniem biblioteki \React{}~\cite{react-homepage}.
+Aplikacja przeglądarkowa \BalticLSC{} jest również napisana w~języku
+\JavaScript{}, natomiast korzysta z biblioteki \emph{Vue.js}~\cite{vue-homepage}.
+Z powodu wykorzystania różnych bibliotek kod \SiriusWeb{} musi udostępnić
 funkcje zarządzające
-wyświetlaniem edytora w języku JavaScript, a nie polegać na mechanizmach
-biblioteki \emph{React} do wyświetlenia komponentu wewnątrz innej aplikacji.
+wyświetlaniem edytora w języku \JavaScript{}, a nie polegać na mechanizmach
+biblioteki \React{} do wyświetlenia komponentu wewnątrz innej aplikacji.
 
 Struktura elementów na stronie internetowej reprezentowana jest jako drzewo
-\gls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \gls{HTML} i za
-pomocą różnych method interfejsu \gls{API} drzewa \gls{DOM} można otrzymać do
-nich dostęp z poziomu języka JavaScript. Aby wyświetlić komponent biblioteki
-\emph{React} należy znaleźć element drzewa \gls{DOM} gdzie komponent ma zostać
+\emphgls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \emphgls{HTML} i
+za
+pomocą różnych method interfejsu \emphgls{API} drzewa \emphgls{DOM} można
+otrzymać do
+nich dostęp z poziomu języka \JavaScript{}. Aby wyświetlić komponent biblioteki
+\React{} należy znaleźć element drzewa \emphgls{DOM} gdzie komponent ma zostać
 umiejscowiony, a później przekazać go wraz z instancją komponentu do~metody
 \texttt{render} dostępnej w pakiecie \texttt{react-dom} biblioteki
-\emph{React}. Usunięcie tego komponentu ze strony internetowej realizowane jest
+\React{}. Usunięcie tego komponentu ze strony internetowej realizowane jest
 poprzez wywołanie metody \texttt{unmountComponentAtNode} z tego samego pakietu
 \texttt{react-dom}. Metoda ta oczekuje jako~parametru elementu drzewa
-\gls{DOM}, w którym wyświetlony jest komponent.
+\emphgls{DOM}, w którym wyświetlony jest komponent.
 
 Aby umożliwić wyświetlenie edytora diagramów (komponentu \texttt{Workbench})
 bez względu na bibliotekę wykorzystywaną na stronie internetowej przygotowano
-moduł w standardzie \gls{ESM}~\cite{nodejs-esm-documentation}, który udostępnia
+moduł w standardzie \emphgls{ESM}~\cite{nodejs-esm-documentation}, który
+udostępnia
 niezależne od bibliotek funkcje umożliwiające wyświetlenie i usunięcie edytora
-diagramów \emph{Sirius Web} w wybranym miejscu na stronie internetowej. Diagram
+diagramów \SiriusWeb{} w wybranym miejscu na stronie internetowej. Diagram
 klas tego modułu został przedstawiony na
 rysunku~\ref{rys:sirius-web-library-class-diagram}. Udostępnione funkcje modułu
 zostały zgrupowane na diagramie w module \texttt{SiriusWebLibrary} ponieważ
-w~diagramach klas \gls{UML}
+w~diagramach klas \emphgls{UML}
 nie ma możliwości wyrażenia pojedynczych funkcji niezwiązanych z żadną
 klasą\footnote{\url{https://softwareengineering.stackexchange.com/a/301576}}.
 Występujący na diagramie typ \texttt{WorkbenchPropertiesResult} jest typem
@@ -1277,8 +1283,8 @@ moduł w tym formacie.
   \centering
 
   \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-class-diagram.pdf}
-  \caption{Diagram klas modułu wyświetlającego edytor diagramów \emph{Sirius
-    Web}}\label{rys:sirius-web-library-class-diagram}
+  \caption{Diagram klas modułu wyświetlającego edytor diagramów
+    \SiriusWeb{}}\label{rys:sirius-web-library-class-diagram}
 \end{figure}
 % \end{noindent}
 
@@ -1287,21 +1293,21 @@ dotyczących modelu, który ma zostać wyświetlony na diagramie. Są to
 identyfikator kontekstu edycji \texttt{editingContextId} omówiony w
 sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
 reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
-implementacyjnymi aplikacji \emph{Sirius Web}. Zakładając, że~w~każdym
-projekcie aplikacji \emph{Sirius Web} będzie znajdował się wyłącznie jeden
+implementacyjnymi aplikacji \SiriusWeb{}. Zakładając, że~w~każdym
+projekcie aplikacji \SiriusWeb{} będzie znajdował się wyłącznie jeden
 model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
-wysyłając odpowiednie zapytania \emph{GraphQL} do serwera aplikacyjnego znając
+wysyłając odpowiednie zapytania \GraphQL{} do serwera aplikacyjnego znając
 jedynie identyfikator projektu. Aby~uprościć udostępniany
-interfejs programistyczny \gls{API} modułu stworzono również funkcję
+interfejs programistyczny \emphgls{API} modułu stworzono również funkcję
 \texttt{resolveWorkbenchProperties}, która oczekuje identyfikatora projektu, a
 zwraca parametry potrzebne do wyświetlenia komponentu \texttt{Workbench}, które
-uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \emph{Sirius Web}.
+uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \SiriusWeb{}.
 Funkcja ta dodatkowo oczekuje dwóch parametrów:
 
 \begin{itemize}
-	\item tokena uwierzytelniającego \gls{JWT} aktualnego użytkownika wydanego przez platformę \emph{BalticLSC} (parametr \texttt{authToken}),
-	\item adresów URL serwera aplikacyjnego \emph{BalticLSC} oraz \emph{Sirius
-		      Web} (parametr \texttt{apiURLS}).
+	\item tokena uwierzytelniającego \emphgls{JWT} aktualnego użytkownika wydanego przez platformę \BalticLSC{} (parametr \texttt{authToken}),
+	\item adresów URL serwera aplikacyjnego \BalticLSC{} oraz \SiriusWeb{}
+	      (parametr \texttt{apiURLS}).
 \end{itemize}
 
 Są one wymagane zarówno do pobrania parametrów edytora diagramów w funkcji
@@ -1352,15 +1358,15 @@ jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 \subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor
 	diagramów}\label{sec:przykladowa-aplikacja-wykorzystujaca-edytor}
 
-Wykorzystując bibliotekę JavaScript wyświetlającą edytor diagramów opisaną w
+Wykorzystując bibliotekę \JavaScript{} wyświetlającą edytor diagramów opisaną w
 sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} można
 zbudować aplikację przeglądarkową, która ten edytor wyświetli. Taki właśnie
 przykład wykonano w ramach tej pracy magisterskiej. Kod źródłowy tej aplikacji
 znajduje się w katalogu \directory{frontend-library-example}.
 
 Aplikacja jest
-napisana w języku JavaScript. Nie wykorzystuje żadnej znanej biblioteki
-(na~przykład \emph{React} czy \emph{Vue.js}) do~wyświetlenia interfejsu
+napisana w języku \JavaScript{}. Nie wykorzystuje żadnej znanej biblioteki
+(na~przykład \React{} czy \emph{Vue.js}) do~wyświetlenia interfejsu
 użytkownika.
 Aplikacja zawiera jedynie plik \path{index.html} definiujący strukturę strony
 internetowej
@@ -1368,17 +1374,18 @@ oraz \path{app.js} zawierający kod~aplikacji. Interfejs użytkownika po
 uruchomieniu aplikacji widoczny jest na
 rysunku~\ref{rys:example-app-pre-mount}. Widać na nim informacje o
 przeznaczeniu tego przykładu, a także dwa pola tekstowe pozwalające na
-wprowadzenie identyfikatora projektu do edycji oraz token \gls{JWT}
-uwierzytelniający użytkownika w systemie \emph{BalticLSC}. Pierwszą z tych
-informacji można otrzymać z paska adresu pełnej aplikacji \emph{Sirius Web} ---
+wprowadzenie identyfikatora projektu do edycji oraz token \emphgls{JWT}
+uwierzytelniający użytkownika w systemie \BalticLSC{}. Pierwszą z tych
+informacji można otrzymać z paska adresu pełnej aplikacji \SiriusWeb{} ---
 jest to kolejny fragment adresu tuż po fragmencie \texttt{project}. Token
-\gls{JWT} można uzyskać w okna dialogowego pozwalającego go wprowadzić w pełnej
-aplikacji \emph{Sirius Web}. Po uzupełnieniu tych danych można
+\emphgls{JWT} można uzyskać w okna dialogowego pozwalającego go wprowadzić w
+pełnej
+aplikacji \SiriusWeb{}. Po uzupełnieniu tych danych można
 nacisnąć przycisk \emph{Mount application}, który wyświetli edytor diagramów w
 dolnej części strony internetowej. Jest to zaprezentowane na
 rysunku~\ref{rys:example-app-mounted}. Można
 za jego pomocą dowolnie modyfikować i przeglądać model, podobnie jak w pełnej
-wersji aplikacji \emph{Sirius Web}. Naciśnięcie przycisku \emph{Unmount
+wersji aplikacji \SiriusWeb{}. Naciśnięcie przycisku \emph{Unmount
 	application} schowa edytor ze strony i wróci ona do stanu początkowego,
 jak na rysunku~\ref{rys:example-app-pre-mount}.
 
@@ -1407,15 +1414,17 @@ porządku jak przedstawiono na diagramie sekwencji na
 rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}. Do uruchomienia
 aplikacji używana jest biblioteka \emph{Parcel}. Za jej pomocą można
 przygotować również skompilowaną wersję tej~aplikacji, która będzie składała
-się z plików HTML, CSS oraz JavaScript, które będzie można wyświetlić na
+się z plików \emph{HTML}, \emph{CSS} oraz \JavaScript{}, które będzie można
+wyświetlić na
 dowolnym serwerze internetowym. Ten przykład pokazuje, że biblioteka
 do~wyświetlenia edytora diagramów opisana w
 sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} może zostać
-wykorzystana w innej aplikacji JavaScript bez wykorzystywania innych bibliotek.
+wykorzystana w innej aplikacji \JavaScript{} bez wykorzystywania innych
+bibliotek.
 Do wyświetlenia edytora diagramów potrzebuje jedynie informacji o tokenie
 uwierzytelniającym użytkownika oraz identyfikatorze projektu do edycji.
 Można będzie tą bibliotekę wykorzystać także w aplikacji przeglądarkowej
-platformy \emph{BalticLSC}.
+platformy \BalticLSC{}.
 
 \subsection{Pomysł integracji Sirius Web i
 	BalticLSC}\label{sec:pomysl-integracji-sirius-web-i-balticlsc}
@@ -1425,42 +1434,42 @@ sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} może zostać
 wykorzystana w dowolnej aplikacji przeglądarkowej, jak pokazano w
 sekcji~\ref{sec:przykladowa-aplikacja-wykorzystujaca-edytor}. Oznacza to, że z
 pewnymi założeniami można ją również osadzić w interfejsie użytkownika
-platformy \emph{BalticLSC}. Dokonanie tego jest poza zakresem tej pracy
+platformy \BalticLSC{}. Dokonanie tego jest poza zakresem tej pracy
 magisterskiej. Poniżej opisano natomiast jak można tego dokonać.
 
 Szczegóły aplikacji obliczeniowych są przechowywane w bazie danych połączonej z
-serwerem aplikacyjnym \emph{BalticLSC}. Serwer aplikacyjny \emph{Sirius Web}
+serwerem aplikacyjnym \BalticLSC{}. Serwer aplikacyjny \SiriusWeb{}
 oczekuje, że dane edytowanych modeli będą przechowywane w bazie danych w innym
 formacie. Oznacza to, że serwery nie mogą korzystać z tej samej bazy danych
-jako źródła informacji o aplikacjach obliczeniowych. Serwer \emph{Sirius Web}
+jako źródła informacji o aplikacjach obliczeniowych. Serwer \SiriusWeb{}
 na czas edytowania danego diagramu będzie posiadał kopię informacji o aplikacji
 obliczeniowej, która po zakończeniu edytowania będzie synchronizowana z bazą
-danych \emph{BalticLSC}. To ona będzie źródłem informacji o aplikacjach
+danych \BalticLSC{}. To ona będzie źródłem informacji o aplikacjach
 obliczeniowych.
 
-Aby zapobiec potrzebie synchronizacji istniejącego modelu \emph{Sirius Web} w
+Aby zapobiec potrzebie synchronizacji istniejącego modelu \SiriusWeb{} w
 momencie rozpoczynania edycji diagramu aplikacji obliczeniowej, model
-\emph{Sirius Web} może być tworzony na nowo za każdym razem gdy użytkownik
-będzie edytował diagram. Model \emph{Sirius Web} będzie miał znaczenie tylko
+\SiriusWeb{} może być tworzony na nowo za każdym razem gdy użytkownik
+będzie edytował diagram. Model \SiriusWeb{} będzie miał znaczenie tylko
 dopóki
 użytkownik go edytuje lub przegląda. Gdy użytkownik zamyka edytor diagramów,
 po ewentualnym zapisie jego zaktualizowanej zawartości w bazie danych
-\emph{BalticLSC}, model przestaje być używany i może zostać zapomniany.
+\BalticLSC{}, model przestaje być używany i może zostać zapomniany.
 
-Diagram komponentów zintegrowanych systemów \emph{Sirius Web} oraz
-\emph{BalticSLC} został przedstawiony na
+Diagram komponentów zintegrowanych systemów \SiriusWeb{} oraz
+\BalticLSC{} został przedstawiony na
 rysunku~\ref{rys:integration-component-diagram}.
 Diagram sekwencji przedstawiający ogólną zasadę działania połączonego systemu
 jest widoczny na rysunku~\ref{rys:integration-sequence-diagram}.
 Działanie rozpoczyna użytkownik chcący wyświetlić zawartość aplikacji
 obliczeniowej, zmienić ją, lub stworzyć nową. W tym celu wybiera odpowiedni
-przycisk w interfejsie użytkownika \emph{BalticLSC}.
-Po tym przeglądarka wysyła zapytanie do serwera aplikacyjnego \emph{Sirius
-	Web}, aby stworzyć nowy projekt oraz model w nim. Jeżeli jest to
+przycisk w interfejsie użytkownika \BalticLSC{}.
+Po tym przeglądarka wysyła zapytanie do serwera aplikacyjnego \SiriusWeb{}, aby
+stworzyć nowy projekt oraz model w nim. Jeżeli jest to
 istniejąca aplikacja
-obliczeniowa należy odtworzyć jej zawartość w \emph{Sirius Web} poprzez dodanie
+obliczeniowa należy odtworzyć jej zawartość w \SiriusWeb{} poprzez dodanie
 odpowiednich elementów do nowo stworzonego modelu. Nie istnieje aktualnie żaden
-interfejs serwera \emph{Sirius Web} pozwalający na dodanie do modelu wielu
+interfejs serwera \SiriusWeb{} pozwalający na dodanie do modelu wielu
 elementów na raz, więc jest to
 element wymagający rozszerzenia.
 
@@ -1471,8 +1480,8 @@ element wymagający rozszerzenia.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/integration-component-diagram.pdf}
-  \caption{Diagram komponentów połączonych systemów \emph{BalticLSC} i \emph{Sirius
-    Web}}\label{rys:integration-component-diagram}
+  \caption{Diagram komponentów połączonych systemów \BalticLSC{} i
+    \SiriusWeb{}}\label{rys:integration-component-diagram}
 \end{figure}
 % \end{noindent}
 
@@ -1522,16 +1531,16 @@ element wymagający rozszerzenia.
   \centering
 
   \includegraphics[width=0.99\linewidth]{./images/integration-sequence-diagram.pdf}
-  \caption{Diagram sekwencji wykorzystania \emph{Sirius Web} w
-    \emph{BalticLSC}}\label{rys:integration-sequence-diagram}
+  \caption{Diagram sekwencji wykorzystania \SiriusWeb{} w
+    \BalticLSC{}}\label{rys:integration-sequence-diagram}
 \end{figure}
 % \end{noindent}
 
 Po takim przygotowaniu modelu przeglądarka może wyświetlić edytor diagramów
-\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku JavaScript.
-Identyfikator projektu jest znany aplikacji przeglądarkowej \emph{BalticLSC},
+\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku \JavaScript{}.
+Identyfikator projektu jest znany aplikacji przeglądarkowej \BalticLSC{},
 ponieważ został on właśnie przez nią stworzony, a~token uwierzytelniający
-\gls{JWT} jest również w jej posiadaniu.
+\emphgls{JWT} jest również w jej posiadaniu.
 Od tego momentu użytkownik może swobodnie przeglądać oraz modyfikować model,
 włącznie z wykorzystaniem przybornika omówionego w
 sekcji~\ref{sec:integracja-przybornika-balticlsc}. Po każdej zmianie użytkownik
@@ -1541,15 +1550,15 @@ sekcji~\ref{sec:walidacja-semantyczna-modelu}.
 
 Gdy użytkownik będzie chciał zakończyć pracę z diagramem wciśnie on przycisk
 odpowiedzialny za zapisanie diagramu. Wtedy aplikacja przeglądarkowa
-\emph{BalticLSC} powinna przesłać zawartość modelu do swojego serwera
-aplikacyjnego. Zarówno interfejs \emph{Sirius Web} pozwalający na pobranie
+\BalticLSC{} powinna przesłać zawartość modelu do swojego serwera
+aplikacyjnego. Zarówno interfejs \SiriusWeb{} pozwalający na pobranie
 zawartości modelu, jak
-i interfejs \emph{BalticLSC} umożliwiający synchronizację zawartości modelu nie
+i interfejs \BalticLSC{} umożliwiający synchronizację zawartości modelu nie
 są zaimplementowane i wymagają rozszerzenia.
-Po zapisaniu zawartości modelu aplikacja przeglądarkowa \emph{BalticLSC} może
+Po zapisaniu zawartości modelu aplikacja przeglądarkowa \BalticLSC{} może
 ukryć edytor modeli wywołując odpowiednią metodą z udostępnionej biblioteki.
 
-Należy zauważyć, że w tej sytuacji w bazie danych \emph{Sirius Web} będą
+Należy zauważyć, że w tej sytuacji w bazie danych \SiriusWeb{} będą
 pozostawały przestarzałe modele, z których żaden użytkownik nie skorzysta,
 ponieważ za każdym razem tworzony jest nowy projekt. Aby zapobiec
 przechowywaniu niepotrzebnych informacji w bazie danych można od czasu do czasu
@@ -1563,41 +1572,41 @@ niezapisanych zmian w modelu podczas przypadkowego wyłączenia przeglądarki lu
 przejścia na inną stronę internetową. Informacja o poprzednio utworzonym
 projekcie zostałaby zapomniana, a podczas próby edycji aplikacji obliczeniowej
 zostałby stworzony nowy model. Aby zapobiec takim sytuacjom aplikacja
-przeglądarkowa \emph{BalticLSC} mogłaby przechowywać listę identyfikatorów
+przeglądarkowa \BalticLSC{} mogłaby przechowywać listę identyfikatorów
 ostatnio edytowanych projektów i umożliwić użytkownikowi powrót do takiego
 projektu na~wypadek, gdyby zapomniał on zapisać zmian przed wyjściem z edytora.
 
 Kolejnym z problemów, który może wystąpić, jest zapewnienie kontroli dostępu
 do~modeli dla aplikacji obliczeniowych różnych użytkowników systemu
-\emph{BalticLSC}. Na platformie \emph{BalticLSC} użytkownik może przeglądać
+\BalticLSC{}. Na platformie \BalticLSC{} użytkownik może przeglądać
 zawartość i edytować jedynie te aplikacje obliczeniowe, które sam stworzył.
-Byłoby pożądane, aby podobne zachowanie było przestrzegane w~\emph{Sirius Web}.
+Byłoby pożądane, aby podobne zachowanie było przestrzegane w~\SiriusWeb{}.
 W ramach tej pracy magisterskiej zaimplementowano mechanizm kontroli dostępu
-do~projektów i modeli w \emph{Sirius Web} dla zapytań w formacie \gls{REST}
+do~projektów i modeli w \SiriusWeb{} dla zapytań w formacie \emphgls{REST}
 oraz
-\emph{GraphQL}. Zapytania dotyczące projektów i modeli wymagają poprawnego
+\GraphQL{}. Zapytania dotyczące projektów i modeli wymagają poprawnego
 nagłówka \texttt{Authorization}, w którym powinien znajdować się token
-uwierzytelniający \gls{JWT} pochodzący z aplikacji \emph{BalticLSC}.
+uwierzytelniający \emphgls{JWT} pochodzący z aplikacji \BalticLSC{}.
 Na~podstawie pola \texttt{sub} zawierającego nazwę użytkownika serwer
 aplikacyjny
 decyduje o~przyznaniu lub odmowie dostępu do zasobu.
 
-Do pełnej weryfikacji poprawności tokena \gls{JWT} brakuje informacji o
-sekretnej wartości użytej do stworzenia tego tokena przez \emph{BalticLSC}. Na
+Do pełnej weryfikacji poprawności tokena \emphgls{JWT} brakuje informacji o
+sekretnej wartości użytej do stworzenia tego tokena przez \BalticLSC{}. Na
 jej podstawie obliczany jest kryptograficzny skrót tokena, który potem może
 zostać zweryfikowany (również z wykorzystaniem tej sekretnej wartości) w celu
 sprawdzenia prawdziwości tokena. Ujawnienie takiej wartości pozwalałoby na
-utożsamienie się z dowolnym użytkownikiem \emph{BalticLSC}, dlatego w ramach
+utożsamienie się z dowolnym użytkownikiem \BalticLSC{}, dlatego w ramach
 tej pracy magisterskiej pominięto krok weryfikacji tokenów, aby nie trzeba było
-udostępniać sekretnej wartości poza system \emph{BalticLSC}. W przypadku
-integracji systemów należałoby wartość tą~wprowadzić do \emph{Sirius Web} w
-celu pełnej weryfikacji tokenów \gls{JWT}.
+udostępniać sekretnej wartości poza system \BalticLSC{}. W przypadku
+integracji systemów należałoby wartość tą~wprowadzić do \SiriusWeb{} w
+celu pełnej weryfikacji tokenów \emphgls{JWT}.
 
-O ile zapytania \gls{REST} oraz \emph{query} w \emph{GraphQL} są objęte
-kontrolą dostępu, to \emph{subscription} w \emph{GraphQL} już nie. Dodanie
+O ile zapytania \emphgls{REST} oraz \emph{query} w \GraphQL{} są objęte
+kontrolą dostępu, to \emph{subscription} w \GraphQL{} już nie. Dodanie
 weryfikacji tokena tam wymaga specjalnej obsługi podczas inicjalizacji
 połączenia. Kod ten jest w repozytorium \texttt{sirius-components} i nie został
-udostępniony do modyfikacji. Weryfikacja tokenów \gls{JWT} nie jest więc
-możliwa dla subskrypcji \emph{GraphQL}. Problem został zgłoszny w repozytorium
+udostępniony do modyfikacji. Weryfikacja tokenów \emphgls{JWT} nie jest więc
+możliwa dla subskrypcji \GraphQL{}. Problem został zgłoszny w repozytorium
 \texttt{sirius-components}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/846}}.
