@@ -1,20 +1,20 @@
 \chapter{Metamodel dla języka CAL}\label{chapter:cal-metamodel}
 
-Aby otrzymać graficzny edytor modeli wykorzystując \emph{Sirius Web} należy
-najpierw zaprojektować metamodel \gls{EMF} opisujący strukturę modeli oraz ich
+Aby otrzymać graficzny edytor modeli wykorzystując \SiriusWeb{} należy
+najpierw zaprojektować metamodel \EMF{} opisujący strukturę modeli oraz ich
 reprezentację graficzną, która później będzie możliwa do modyfikacji przez
 użytkowników. W tym rozdziale
-zostanie omówiony język \acrfull{CAL} służący do opisu obliczeń w systemie
-\emph{BalticLSC}, a~następnie omówiony zostanie przygotowany metamodel
-\gls{EMF}.
+zostanie omówiony język \emph{\acrfull{CAL}} służący do opisu obliczeń w
+systemie \BalticLSC{}, a~następnie omówiony zostanie przygotowany metamodel
+\EMF{}.
 
 \section{Język opisu obliczeń w BalticLSC}
 
-Obliczenia rozproszone wykonywane przez system \emph{BalticLSC} są zapisywane w
+Obliczenia rozproszone wykonywane przez system \BalticLSC{} są zapisywane w
 formie \emph{aplikacji obliczeniowej}
 (\emph{\selectlanguage{english}computation application})
-korzystajac ze składni języka \acrfull{CAL} przygotowanego dla tego właśnie
-systemu.
+korzystajac ze składni języka \emph{\acrfull{CAL}} przygotowanego dla tego
+właśnie systemu.
 
 Podstawowym obiektem, który wysyła (wyjście)
 lub odbiera (wejście) dane, jest \emph{port}. Jest on reprezentowany za pomocą
@@ -61,7 +61,7 @@ sekwencyjny.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
-	\caption{Aplikacja obliczeniowa w BalticLSC z obliczeniami
+	\caption{Aplikacja obliczeniowa w \BalticLSC{} z obliczeniami
 		sekwencyjnymi}\label{rys:sekwencyjna-aplikacja-obliczeniowa}
 \end{figure}
 
@@ -70,16 +70,16 @@ sekwencyjny.
 	\centering
 
 	\includegraphics[width=0.99\linewidth]{./images/balticlsc-concurrent-application-example.png}
-	\caption{Aplikacja obliczeniowa w BalticLSC z możliwością
+	\caption{Aplikacja obliczeniowa w \BalticLSC{} z możliwością
 		zrównoleglenia obliczeń}\label{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}
 \end{figure}
 % \end{noindent}
 
 \section{Stworzony metamodel EMF dla języka CAL}
 
-Przygotowany metamodel \gls{EMF} dla języka \gls{CAL} widoczny jest na
+Przygotowany metamodel \EMF{} dla języka \CAL{} widoczny jest na
 rysunku~\ref{rys:cal-emf-metamodel}. Bazuje on~na metamodelu
-opracowanym w ramach projektu BalticLSC~\cite{cal-metamodel}, który widoczny
+opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, który widoczny
 jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
 Na potrzeby edytora diagramów nie są potrzebne wszystkie elementy oryginalnego
 metamodelu. Niektóre klasy i właściwości zostały pominięte, ponieważ nie były
@@ -89,8 +89,8 @@ istotne z~perspektywy edycji diagramu.
 	\centering
 
 	\includegraphics[width=0.92\linewidth]{./images/cal-emf-metamodel.pdf}
-	\caption{Metamodel EMF języka CAL przygotowany w ramach tej
-		pracy}\label{rys:cal-emf-metamodel}
+	\caption{Metamodel \EMF{} języka \CAL{} przygotowany w
+		ramach tej pracy}\label{rys:cal-emf-metamodel}
 \end{figure}
 
 \begin{figure}[!hb]
@@ -101,22 +101,22 @@ istotne z~perspektywy edycji diagramu.
 	% images to the bottom of the chapter.
 
 	\includegraphics[width=0.82\linewidth]{./images/cal-metamodel-balticlsc.png}
-	\caption{Metamodel języka CAL używany w projekcie
-		BalticLSC\@}\label{rys:cal-metamodel-balticlsc}
+	\caption{Metamodel języka \CAL{} używany w projekcie
+		\BalticLSC{}}\label{rys:cal-metamodel-balticlsc}
 
 	\medskip
 	{\small Źródło:
 		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
 \end{figure}
 
-Model w EMF ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
+Model w \EMF{} ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
 \texttt{Computation\-Application\-Release}, ktory odpowiada całemu diagramowi
 (aplikacji obliczeniowej). Nie
 ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
-	      rodzajom modułów obliczeniowych dostępnych w systemie BalticLSC i opisują ich właściwości.
+	      rodzajom modułów obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
 
 	      Oprócz informacji o nazwie i wersji modułu zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują porty tego modułu obliczeniowego.
 
@@ -127,7 +127,7 @@ ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 
 	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułow obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
 
-	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu BalticLSC, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
+	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu \BalticLSC{}, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
 
 	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywolywanego modułu.
 
@@ -145,8 +145,8 @@ ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych.
 \end{itemize}
 
-Przykładowy diagram reprezentujący model EMF języka CAL wyświetlony w programie
-\emph{Sirius Desktop} został przedstawiony na
+Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} wyświetlony w
+programie \SiriusDesktop{} został przedstawiony na
 rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 % \begin{noindent}
@@ -154,8 +154,8 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-cal-example-model.png}
-	\caption{Przykładowy diagram reprezentujący model EMF języka CAL w
-		\emph{Sirius Desktop}}\label{rys:sirius-desktop-cal-example-model}
+	\caption{Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} w
+		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
 \end{figure}
 % \end{noindent}
 
@@ -170,9 +170,9 @@ Użytkownik może wywnioskować dodatkowe informacje z diagramu jeżeli jego wyg
 będzie zależał od właściwości elementów modelu. Takie rozwiązanie zastosowano
 dla dwóch elementów metamodelu dzięki wykorzystaniu \emph{Style
 	Customizations}~\cite{sirius-desktop-documentation-style-customizations}
-w \gls{EMF}.
+w \EMF{}.
 % \end{noindent}
-Funkcjonalność ta pozwala na wskazanie za pomocą języka \gls{AQL} w jakich
+Funkcjonalność ta pozwala na wskazanie za pomocą języka \AQL{} w jakich
 sytuacjach styl elementu powinien zostać zmieniony, a następnie wskazać które
 właściwości powinny ulec zmianie oraz ich nowe wartości.
 
@@ -183,7 +183,7 @@ paczek danych (odpowiednio \emph{data multiplicity} i \emph{token
 
 Z uwagi na fakt, że oba parametry mogą mieć jedną z 2 wartości,
 co daje w sumie 4~możliwości, w klasie \texttt{Services} metamodelu stworzono
-metodę w języku Java, która zwraca nazwę odpowiedniej ikony.
+metodę w języku \Java{}, która zwraca nazwę odpowiedniej ikony.
 Dzięki możliwości wykorzystania języka programowania osiągnięto
 zamierzony efekt za pomocą jednego stylu warunkowego, a nie 4 różnych
 styli dla 4 możliwości. Kod metody zwracającej nazwę ikony dla portu
@@ -215,7 +215,7 @@ paczek danych, w tym stylu znaczenie ma ponadto kierunek portu. Porty wejściowe
 mają pogrubiony pasek z lewej strony, a porty wyjściowe z prawej. Dla tych
 portów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
 Dzięki wykorzystaniu metody z listingu~\ref{lst:getDataPinIconPath-method} oraz
-języka \gls{AQL} ta funkcjonalność została zrealizowana za pomocą jednego stylu
+języka \AQL{} ta funkcjonalność została zrealizowana za pomocą jednego stylu
 warunkowego, zamiast 8 styli dla 8 różnych wariantów.
 
 Drugim wykorzystanym rodzajem styli warunkowych jest zmiana koloru obramowania
@@ -230,12 +230,13 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 \subsection{Narzędzia edytora diagramów}\label{sec:cal-metamodel-tools}
 
-W metamodelach \gls{EMF} można zdefiniować narzędzia wspomagające i ułatwiające
+W metamodelach \EMF{} można zdefiniować narzędzia wspomagające i ułatwiające
 edycję modeli, a także pomagające uniknąć
 błędów~\cite{sirius-desktop-documentation-tools}. Również do metamodelu języka
-CAL dodano takie narzędzia, które zostaną omówione w tej sekcji.
+\CAL{} dodano takie narzędzia, które zostaną omówione w tej sekcji.
 
-Pierwszą grupą narzędzi dodanych do metamodelu EMF języka CAL są narzędzia
+Pierwszą grupą narzędzi dodanych do metamodelu \EMF{} języka \CAL{} są
+narzędzia
 automatyzujące pracę użytkownika, aby ten nie musiał manualnie wykonywać
 niektórych czynności, a~jednocześnie aby w modelu nie znajdowały się nieużywane
 elementy.
@@ -263,7 +264,8 @@ rysunku~\ref{rys:sirius-desktop-change-unit-to-call}.
 Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
 metamodelu. Została zmieniona definicja metody zmiany wskazania na moduł do
 wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
-poprzednie porty i tworzone są nowe. To zachowanie opisane jest w języku Java.
+poprzednie porty i tworzone są nowe. To zachowanie opisane jest w języku
+\Java{}.
 
 Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych portów
 i~tworzyć nowych podczas zmiany wywoływanego modułu. Przyśpiesza to~pracę z
@@ -336,8 +338,8 @@ wyjściowego aplikacji, a także dla pustego wywołania modułu obliczeniowego, 
 którego należy później wskazać moduł, który ma wywołać. Bardziej skomplikowanym
 narzędziem jest narzędzie pozwalające na~dodanie do modelu wywołania modułu
 obliczeniowego, które pokazuje okno dialogowe pozwalające wybrać moduł oraz
-wskazać nazwę dodawanego obiektu. Wykorzystuje ono~możliwości \emph{Sirius
-	Desktop} do tworzenia okien dialogowych (zarówno jednorazowych
+wskazać nazwę dodawanego obiektu. Wykorzystuje ono~możliwości \SiriusDesktop{}
+do tworzenia okien dialogowych (zarówno jednorazowych
 jak~i~składających się z wielu
 kroków)~\cite{sirius-desktop-documentation-tools} i
 pozwala na dostarczeniu użytkownikowi
@@ -353,7 +355,7 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-tool.png}
 	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania modułu
-		obliczeniowego w~\emph{Sirius Desktop}}\label{rys:sirius-desktop-create-unit-call-tool}
+		obliczeniowego w~\SiriusDesktop{}}\label{rys:sirius-desktop-create-unit-call-tool}
 \end{figure}
 % \end{noindent}
 
@@ -373,12 +375,12 @@ walidacji strukturalnej metamodelu (połączenie musi mieć poprawne oba końce)
 \subsection{Reguły walidacyjne powiązane z
 	metamodelem}\label{sec:reguly-walidacyjne-metamodel}
 
-\emph{Sirius Desktop} dostarcza mechanizm walidacji edytowanego modelu. Można
+\SiriusDesktop{} dostarcza mechanizm walidacji edytowanego modelu. Można
 go uruchomić poprzez wybranie opcji \menu{Diagram > Validate} z głównego menu
 programu. Wyświetlona zostanie wtedy lista informacji diagnostycznych
 dotyczących modelu.
 
-\emph{Sirius Desktop} domyślnie dostarcza informacji o błędach składniowych
+\SiriusDesktop{} domyślnie dostarcza informacji o błędach składniowych
 modelu. Będą to~ostrzeżenia o braku wymaganych atrybutów lub niepoprawnej
 krotności elementow (jeżeli dana właściwość powinna zawierać przykładowo co
 najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
@@ -391,8 +393,7 @@ rysunku~\ref{rys:sirius-desktop-syntax-validation}.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-syntax-validation.png}
-	\caption{Walidacja składniowa modeli w \emph{Sirius
-    Desktop}}\label{rys:sirius-desktop-syntax-validation}
+	\caption{Walidacja składniowa modeli w \SiriusDesktop{}}\label{rys:sirius-desktop-syntax-validation}
 \end{figure}
 % \end{noindent}
 
@@ -402,7 +403,7 @@ zdefiniować \emph{Semantic Validation
 Pozwalają one na dodanie własnych reguł walidacji semantycznej modeli. To
 reguły powinny opisywać ograniczenia, których nie dostarcza opis strukury
 modelu i~zależą od połączenia kilku elementów ze sobą. Można
-wybrać jakich elementów reguła dotyczy, a~za~pomocą języka \gls{AQL} wskazać
+wybrać jakich elementów reguła dotyczy, a~za~pomocą języka \AQL{} wskazać
 kiedy informacja diagnostyczna powinna być pokazana, a także jaka powinna być
 wiadomość wyświetlona użytkownikowi, oraz z jakim poziomem poważności
 (informacja, ostrzeżenie, błąd). Jeżeli wiadomo jak można naprawić błąd, można
@@ -421,7 +422,7 @@ rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-properties}.
 Widać tam element, dla którego wiadomość zostanie wyświetlona
 (\texttt{DataFlow}).
 Rysunek~\ref{rys:sirius-desktop-example-semantic-validation-rule-audit}
-przedstawia wyrażenie języka \gls{AQL}. Niespełnienie warunku spowoduje
+przedstawia wyrażenie języka \AQL{}. Niespełnienie warunku spowoduje
 pokazanie
 informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekty początkowy i
 końcowy połączenia mają różnych rodziców. Nie jest to spełnione wyłącznie
@@ -504,7 +505,7 @@ W sekcji~\ref{sec:cal-metamodel-tools} opisano modyfikacje kodu źródłowego kl
 metamodelu, które usprawniają pracę użytkownika z modelem. Aby upewnić się, że
 te modyfikacje działają poprawnie, należy je~przetestować. Można to zrobić
 projektując testy
-jednostkowe metamodelu w pakiecie \texttt{.tests}. \emph{Sirius Desktop}
+jednostkowe metamodelu w pakiecie \texttt{.tests}. \SiriusDesktop{}
 automatycznie generuje kod źródłowy posiadający odpowiednią strukturę do
 tworzenia testów. Dla każdego obiektu metamodelu tworzona jest osobna klasa z
 jego testami.
@@ -520,13 +521,13 @@ wszystkich testów w danej grupie.
 Testy można później w łatwy i szybki sposób uruchomić zaznaczając pakiet z
 testami w eksploratorze projektów, a później wybierając z menu głównego
 \menu{Run > Run As > JUnit Test}. Uruchamiane są one wykorzystując popularny
-zestaw narzędzi \emph{JUnit}~\cite{junit-test-tutorial}.
+zestaw narzędzi \JUnit{}~\cite{junit-test-tutorial}.
 
 Posiadanie testów jednostkowych pozwala w szybszy sposób sprawdzić czy model
 nadal zachowuje się zgodnie z oczekiwaniami, co jest szczególnie ważne po
 modyfikacji jego kodu źródłowego lub generowaniu go na nowo po zmianach
 metamodelu. Należy testować kod~zmodyfikowany lub dodany. Nie należy testować
-kodu automatycznie generowanego przez \emph{Sirius Desktop} jeżeli nie został
+kodu automatycznie generowanego przez \SiriusDesktop{} jeżeli nie został
 on zmodyfikowany.
 
 W ramach tej pracy magisterskiej przygotowano 2 testy jednostkowe weryfikujące

@@ -13,24 +13,27 @@ wizualna i przestrzenna, a więc jest naturalniejszą formą dla mózgu człowie
 Przykładem modeli z reprezentacją graficzną, które są zrozumiałe zarówno dla
 człowieka, jak i maszyny, oraz
 przydają się podczas wytwarzania oprogramowania, są modele korzystające
-z~\gls{UML}~\cite{wikipedia-uml}. Przedstawiają
+z~\emphgls{UML}~\cite{wikipedia-uml}. Przedstawiają
 one strukturę klas w programie oraz zależności między klasami. Na ich podstawie
 czytelnik może wysokopoziomowo zapoznać się~ze strukturą programu, a
 odpowiednie narzędzia pozwolą wygenerować kod klas w danym języku
 programowania, który może służyć jako początek do późniejszego rozwoju
-aplikacji. Przykładowy model \gls{UML} został przedstawiony na
+aplikacji. Przykładowy model \emphgls{UML} został przedstawiony na
 rysunku~\ref{rys:przykladowy-model-uml}.
 
 \begin{figure}[!hb]
 	\centering
 	\includegraphics[width=0.95\linewidth]{./images/example-uml-model.png}
-	\caption{Przykładowy model \gls{UML}}\label{rys:przykladowy-model-uml}
+	\caption{Przykładowy model
+		\emphgls{UML}}\label{rys:przykladowy-model-uml}
 \end{figure}
 
-\gls{UML} jest przykładem uniwersalnego języka do opisu modeli klas programu.
+\emphgls{UML} jest przykładem uniwersalnego języka do opisu modeli klas
+programu.
 Nie jest on~związany z żadną konkretną tematyką klas i pozwala na modelowanie
 programów o~różnym zastosowaniu i przeznaczeniu. Istnieją także języki do opisu
-modeli ściślej związanych z~konkretną dziedziną, czyli \gls{DSL}. Takie języki
+modeli ściślej związanych z~konkretną dziedziną, czyli \emphgls{DSL}. Takie
+języki
 są zazwyczaj mniejsze i mniej skomplikowane od języków uniwersalnych, a także
 mają dokładniejszą semantykę (znaczenie elementów modelu). Potrafią więc one
 odwzorować rzeczywistość w~sposób bardziej kompletny i zawrzeć więcej
@@ -39,14 +42,14 @@ szczegółów.
 Strukturę samego modelu opisuje metamodel. Jest to model, który definiuje jakie
 są~możliwe typy elementów modelu, jakie mają atrybuty, jak są połączone ze
 sobą (składnia języka modelowania). Sam metamodel może być opisany na przykład
-w języku UML\@ lub podobnym
+w języku \emphgls{UML} lub podobnym
 bazowanym na nim, który będzie możliwiał wprowadzenie większej liczby
 szczegółów. Taki metamodel często należy uzupełnić o zasady semantyczne ---
 informacje o znaczeniu elementów, które nie mogą być zapisane w strukturze
-metamodelu. Przykładową informacją semantyczną w modelu UML może być informacja
-o krotności asocjacji.
+metamodelu. Przykładową informacją semantyczną w modelu \emphgls{UML} może być
+informacja o krotności asocjacji.
 
-\emph{BalticLSC} jest platformą do obliczeń rozproszonych wykonywaną z
+\BalticLSC{} jest platformą do obliczeń rozproszonych wykonywaną z
 inicjatywy
 \emph{INTERREG Regionu Morza Bałtyckiego Unit Europejskiej}. Platforma ta
 pozwala
@@ -55,32 +58,33 @@ obliczeniowe definiowane są w postaci diagramów przedstawiających przepływ
 danych między modułami obliczeniowymi. Przykład diagramu opisującego aplikację
 obliczeniową został przedstawiony na
 rysunku~\ref{rys:przykladowy-diagram-balticlsc}.  Model obliczeń opisany jest w
-języku \gls{CAL}, który jest opisany za pomocą metamodelu~\cite{cal-metamodel}.
+języku \emphgls{CAL}, który jest opisany za pomocą
+metamodelu~\cite{cal-metamodel}.
 
 \begin{figure}[!hb]
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
 	\caption{Przykładowy diagram przedstawiający aplikację obliczeniową w
-		BalticLSC}\label{rys:przykladowy-diagram-balticlsc}
+		\BalticLSC{}}\label{rys:przykladowy-diagram-balticlsc}
 \end{figure}
 
-Istniejący edytor diagramów w BalticLSC dostępny jest jako część aplikacji
+Istniejący edytor diagramów w \BalticLSC{} dostępny jest jako część aplikacji
 przeglądarkowej udostępnionej przez platformę. Do komunikacji z aplikacją
 serwerową wykorzystuje inną reprezentację aplikacji obliczeniowej --- zapisuje
 ją w postaci pudełek (prostokątów) oraz połączeń między nimi. Nie komunikuje
 się on z aplikacją serwerową przesyłając informacje o strukturze modelu
-zgodnej z metamodelem języka \gls{CAL}. Sprawia to, że po obu stronach (serwera
+zgodnej z metamodelem języka \CAL{}. Sprawia to, że po obu stronach (serwera
 i aplikacji przeglądarkowej) potrzebne są dodatkowe transformacje
 przetwarzające ogólny opis diagramu na model aplikacji obliczeniowej.
 
-Sirius Web~\cite{sirius-web-github} jest narzędziem przygotowywanym przez firmę
-Eclipse do tworzenia edytorów
-diagramów działających w przeglądarce bazujących na metamodelach \gls{EMF}.
-Technologia \gls{EMF} jest wykorzystywana od roku
+\SiriusWeb{}~\cite{sirius-web-github} jest narzędziem przygotowywanym przez
+firmę \emph{Eclipse} do tworzenia edytorów
+diagramów działających w przeglądarce bazujących na metamodelach \EMF{}.
+Technologia \EMF{} jest wykorzystywana od roku
 2007~\cite{eclipse-sirius-wikipedia}, a metamodele
-w~przeszłości mogły być tworzone używając oprogramowania Sirius
-Desktop. Wykorzystując Sirius Web można w prosty sposób otrzymać aplikację
+w~przeszłości mogły być tworzone używając oprogramowania \SiriusDesktop{}.
+Wykorzystując \SiriusWeb{} można w prosty sposób otrzymać aplikację
 przeglądarkową umożliwiającą możliwości przeglądania i edycji modeli zbliżone
 do tych,
 które dotychczas oferowała jedynie aplikacja wymagająca instalacji na
@@ -91,23 +95,24 @@ wybranych modeli dla pewnych użytkowników, a także możliwości współpracy 
 modelem przez różne osoby w~czasie rzeczywistym.
 
 W ustrukturyzowanym modelu zawierającym obiekty dziedzinowe w nietrudny sposób
-można wyrazić reguły determinujące poprawność semantyczną modelu. Sirius
-Desktop pozwala w tym zakresie na definiowanie semantycznych reguł
+można wyrazić reguły determinujące poprawność semantyczną modelu.
+\SiriusDesktop{} pozwala w tym zakresie na definiowanie semantycznych reguł
 walidacyjnych, które są uruchamiane po każdej modyfikacji modelu i pokazują
 błędnie umieszczone elementy. Odpowiednik tej funkcjonalności jest pożądany
-także w edytorach diagramów opartych na Sirius Web.
+także w edytorach diagramów opartych na \SiriusWeb{}.
 
 W ramach tej pracy magisterskiej przygotowany został edytor diagramów dla
-systemu BalticLSC korzystający z \emph{Sirius Web}. Edytor ten bazuje na
-formalnym metamodelu \gls{EMF} opisującym język \gls{CAL} do
+systemu \BalticLSC{} korzystający z \SiriusWeb{}. Edytor ten bazuje na
+formalnym metamodelu \EMF{} opisującym język \CAL{} do
 opisu aplikacji obliczeniowej. Ponadto, dostarczona została metoda sprawdzania
 poprawności przygotowywanych przez użytkownika modeli na podstawie
 zdefiniowanych reguł walidacji.
 
 \section{Motywacja i cel pracy}
 
-Jedną z alternatyw do wykorzystania Sirius Web do budowy edytora diagramów jest
-wykorzystanie gotowych bibliotek JavaScript do wyświetlania i modyfikacji
+Jedną z alternatyw do wykorzystania \SiriusWeb{} do budowy edytora diagramów
+jest
+wykorzystanie gotowych bibliotek \JavaScript{} do wyświetlania i modyfikacji
 diagramów (przykłady: \emph{react-diagrams}~\cite{react-diagrams-github},
 \emph{Cytoscape.js}~\cite{cytoscape-js-homepage},
 \emph{vis-network}~\cite{vis-network-github}). Są one ogólnymi narzędziami
@@ -119,33 +124,37 @@ metamodelu. Z uwagi na swoją ogólność są trudniejsze do dostosowania do
 własnych potrzeb, ponieważ funkcjonalności takie jak zapisywanie modeli w bazie
 danych, współpraca w czasie rzeczywistym, walidacja modelu należy
 zaimplementować samemu. Ponadto, modyfikacja takiego edytora diagramów wymaga
-znajomości języka JavaScript.
+znajomości języka \JavaScript{}.
 
-Sirius Web dostarcza większość z tych
+\SiriusWeb{} dostarcza większość z tych
 funkcjonalności wymagając jedynie wskazania metamodelu, który ma wykorzystywać.
 Korzyści płynące z łatwego do przygotowania przeglądarkowego edytora diagramów
 dla wybranych przez
-nas modeli prezentują technologię Sirius Web jako interesującą i wartą użycia,
+nas modeli prezentują technologię \SiriusWeb{} jako interesującą i wartą
+użycia,
 pomimo jej wczesnej fazy rozwoju i braku dokumentacji.
 
 Celem tej pracy magisterskiej jest zbadanie możliwości udostępnianych przez
-Sirius Web poprzez wykorzystanie go do przygotowania edytora
-diagramów dla modeli języka CAL na platformie BalticLSC\@. Elementem edytora,
+\SiriusWeb{} poprzez wykorzystanie go do przygotowania edytora
+diagramów dla modeli języka \CAL{}~na~platformie \BalticLSC{}. Elementem
+edytora,
 na który należy zwrócić szczególną uwagę, jest możliwosć walidacji modeli,
 czyli weryfikacji ich~poprawności strukturalnej i semantycznej.
 
-Ponadto, praca ta będzie jednym z pierwszych zastosowań Sirius Web wykonanych
+Ponadto, praca ta będzie jednym z pierwszych zastosowań \SiriusWeb{} wykonanych
 przez osoby spoza zespołu budującego tą technologię, co może dostarczyć
 dodatkowych informacji zwrotnych na temat prostoty jego wykorzystania, a także
 napotkanych błędów i~niedociągnięć. Dla osób rozważających budowę edytora
-modeli w oparciu o Sirius Web, praca ta będzie stanowiła źródło informacji o
+modeli w oparciu o \SiriusWeb{}, praca ta będzie stanowiła źródło informacji o
 wrażeniach z wykorzystania tej technologii, co pomoże podjąć bardziej świadomą
 decyzję o używanych technologiach.
-Z uwagi na brak dostępnej dokumentacji Sirius Web, praca ta może służyć również
-jako przykład wykorzystania własnego metamodelu w tym edytorze diagramów.
+Z uwagi na brak dostępnej dokumentacji \SiriusWeb{}, praca ta może służyć
+również jako przykład wykorzystania własnego metamodelu w tym edytorze
+diagramów.
 
-Taki edytor diagramów bazujący na Sirius Web mógłby również zostać wykorzystany
-w~aplikacji przeglądarkowej platformy BalticLSC\@. Jest on oparty o
+Taki edytor diagramów bazujący na \SiriusWeb{} mógłby również zostać
+wykorzystany
+w~aplikacji przeglądarkowej platformy \BalticLSC{}. Jest on oparty o
 ustrukturyzowany opis modelu, co pozwoliłoby na uproszczenie metody komunikacji
 między serwerem aplikacyjnym a~aplikacją przeglądarkową, ponieważ nie byłyby
 wymagane transformacje z aktualnego, ogólnego formatu danych do formatu
@@ -156,14 +165,14 @@ zgodnego z metamodelem.
 W ramach pracy magisterskiej wykonano następujące czynności:
 
 \begin{itemize}
-	\item Stworzenie metamodelu języka \gls{CAL} w \gls{EMF}\@ z wykorzystaniem Sirius Desktop.
-	\item Wykorzystanie tego metamodelu w Sirius Web. Zgłoszenie usterek autorom Sirius Web poprzez GitHub.
-	\item Porównanie możliwości Sirius Web i Sirius Desktop. Zgłoszenie brakujących funkcjonalności autorom Sirius Web poprzez GitHub.
+	\item Stworzenie metamodelu języka \CAL{} w \EMF{}\@ z wykorzystaniem \SiriusDesktop{}.
+	\item Wykorzystanie tego metamodelu w \SiriusWeb{}. Zgłoszenie usterek autorom \SiriusWeb{} poprzez \GitHub{}.
+	\item Porównanie możliwości \SiriusWeb{} i \SiriusDesktop{}. Zgłoszenie brakujących funkcjonalności autorom \SiriusWeb{} poprzez \GitHub{}.
 	\item Dodanie do metamodelu elementów usprawniających pracę z nim (automatyzacja niektórych czynności, dodanie ograniczeń utrudniających zrobienie błędu).
-	\item Modyfikacja przeglądarkowego interfejsu użytkownika Sirius Web poprzez dodanie do niego przybornika z BalticLSC\@. Przybornik umożliwia w łatwy sposób dodanie nowych elementów do modelu.
-	\item Dodanie mechanizmu walidacji semantycznej modelu sprawdzającego poprawność modelu z regułami zdefiniowanymi w języku Java.
-	\item Stworzenie planu integracji rozwiązania z BalticLSC\@.
-	\item Stworzenie przykładowej aplikacji przeglądarkowej zawierającej jedynie edytor diagramów z Sirius Web. Taki przykład pokazuje możliwość wykorzystania Sirius Web jako element innej aplikacji przeglądarkowej.
+	\item Modyfikacja przeglądarkowego interfejsu użytkownika \SiriusWeb{} poprzez dodanie do niego przybornika z \BalticLSC{}. Przybornik umożliwia w łatwy sposób dodanie nowych elementów do modelu.
+	\item Dodanie mechanizmu walidacji semantycznej modelu sprawdzającego poprawność modelu z regułami zdefiniowanymi w języku \Java{}.
+	\item Stworzenie planu integracji rozwiązania z \BalticLSC{}.
+	\item Stworzenie przykładowej aplikacji przeglądarkowej zawierającej jedynie edytor diagramów z \SiriusWeb{}. Taki przykład pokazuje możliwość wykorzystania \SiriusWeb{} jako element innej aplikacji przeglądarkowej.
 \end{itemize}
 
 \vspace{1em}
@@ -171,6 +180,6 @@ W ramach pracy magisterskiej wykonano następujące czynności:
 \noindent Poza zakresem pracy pozostały następujące czynności:
 
 \begin{itemize}
-	\item Integracja stworzonego rozwiązania jako alternatywnego edytora diagramów dla systemu BalticLSC\@.
-	\item Naprawa zgłoszonych usterek w Sirius Web.
+	\item Integracja stworzonego rozwiązania jako alternatywnego edytora diagramów dla systemu \BalticLSC{}.
+	\item Naprawa zgłoszonych usterek w \SiriusWeb{}.
 \end{itemize}
