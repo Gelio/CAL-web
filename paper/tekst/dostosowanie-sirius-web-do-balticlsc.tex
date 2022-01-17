@@ -59,7 +59,7 @@ repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=XML,
-    caption={Konfiguracja repozytorium \emph{Eclipse} w \texttt{pom.xml}.},
+    caption={Konfiguracja repozytorium \emph{Eclipse} w \texttt{pom.xml}},
     label={lst:pom-eclipse-repository}]
 <repositories>
   <repository>
@@ -79,7 +79,7 @@ to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
     floatplacement=hb,
     language=XML,
     caption={Plik \texttt{pom.xml} dla jednego z projektów metamodelu
-      \gls{EMF}.},
+      \gls{EMF}},
     label={lst:pom-packaging}]
 <?xml version="1.0" encoding="UTF-8" ?>
 <project
@@ -112,7 +112,7 @@ Inne wersje nie są wspierane.
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=XML,
-    caption={Konfiguracja rozszerzeń \emph{Maven Tycho} w \texttt{pom.xml}.},
+    caption={Konfiguracja rozszerzeń \emph{Maven Tycho} w \texttt{pom.xml}},
     label={lst:pom-maven-tycho-plugins}]
 <build>
   <plugins>
@@ -200,7 +200,7 @@ listingu~\ref{lst:registering-odesign-path}.
     floatplacement=hb,
     language=Java,
     caption={Rejestracja klas przygotowanego metamodelu EMF w klasie
-    \texttt{SampleEMFConfiguration}.},
+      \texttt{SampleEMFConfiguration}},
     label={lst:registering-emf-classes}]
     @Bean
     public AdapterFactory calAdapterFactory() {
@@ -217,7 +217,7 @@ listingu~\ref{lst:registering-odesign-path}.
     floatplacement=hb,
     language=Java,
     caption={Wskazanie ścieżki do pliku \texttt{*.odesign} w klasie
-    \texttt{SampleSiriusConfiguration}.},
+      \texttt{SampleSiriusConfiguration}},
     label={lst:registering-odesign-path}]
     @Override
     public List<String> getODesignPaths() {
@@ -236,7 +236,7 @@ na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-base-metamodel-model.png}
   \caption{Edycja modelu bazującego na przygotowanym metamodelu EMF w
-  \emph{Sirius Web}.}\label{rys:sirius-web-base-metamodel-model}
+    \emph{Sirius Web}}\label{rys:sirius-web-base-metamodel-model}
 \end{figure}
 % \end{noindent}
 
@@ -258,7 +258,7 @@ rysunku~\ref{rys:sirius-web-new-model-template}.
 \begin{lstlisting}[float,
     floatplacement=!hb,
     language=Java,
-    caption={Dodanie nowego pustego szablonu modelu języka CAL.},
+    caption={Dodanie nowego pustego szablonu modelu języka CAL},
     label={lst:empty-cal-model-template}]
     @Override
     public void addStereotypeDescriptions(IStereotypeDescriptionRegistry registry) {
@@ -282,7 +282,7 @@ rysunku~\ref{rys:sirius-web-new-model-template}.
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-new-model-template.png}
   \caption{Szablon nowego pustego modelu języka
-    \gls{CAL} w \emph{Sirius Web}.}\label{rys:sirius-web-new-model-template}
+    \gls{CAL} w \emph{Sirius Web}}\label{rys:sirius-web-new-model-template}
 \end{figure}
 % \end{noindent}
 
@@ -312,7 +312,7 @@ nazwę klasy grupującej wszystkie testy.
     floatplacement=!hb,
     language=XML,
     caption={Wykorzystanie rozszerzenia \emph{Maven Surefire} w
-    \texttt{pom.xml} projektu z testami metamodelu.},
+      \texttt{pom.xml} projektu z testami metamodelu},
     label={lst:pom-maven-surefire-plugin}]
 <build>
   <testSourceDirectory>${project.basedir}/src</testSourceDirectory>
@@ -370,7 +370,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-development-shelf.png}
   \caption{Biblioteka modułów obliczeniowych platformy
-  \emph{BalticLSC}.}\label{rys:balticlsc-development-shelf}
+    \emph{BalticLSC}}\label{rys:balticlsc-development-shelf}
 \end{figure}
 % \end{noindent}
 
@@ -380,7 +380,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-diagram-toolbox.png}
   \caption{Przybornik dostępny w edytorze diagramów platformy
-  \emph{BalticLSC}.}\label{rys:balticlsc-diagram-toolbox}
+    \emph{BalticLSC}}\label{rys:balticlsc-diagram-toolbox}
 \end{figure}
 % \end{noindent}
 
@@ -390,7 +390,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-after-adding-unit-call.png}
   \caption{Edytor diagramów \emph{BalticLSC} po dodaniu modułu obliczeniowego z
-  przybornika.}\label{rys:balticlsc-after-adding-unit-call}
+    przybornika}\label{rys:balticlsc-after-adding-unit-call}
 \end{figure}
 % \end{noindent}
 
@@ -450,7 +450,7 @@ wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
     floatplacement=hb,
     language=java,
     caption={Zawartość pola z danymi w tokenie \gls{JWT} z serwisu
-      \emph{BalticLSC}.},
+      \emph{BalticLSC}},
     label={lst:balticlsc-jwt-payload}]
 {
   "unique_name": "demo",
@@ -492,7 +492,7 @@ rysunku~\ref{rys:balticlsc-change-jwt-modal}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-change-jwt-modal-with-instructions.png}
   \caption{Okno dialogowe do wprowadzenia tokenu \gls{JWT}
-    użytkownika.}\label{rys:balticlsc-change-jwt-modal}
+    użytkownika}\label{rys:balticlsc-change-jwt-modal}
 \end{figure}
 % \end{noindent}
 
@@ -525,7 +525,7 @@ rysunku~\ref{rys:balticlsc-proxy-sequence-diagram}.
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-proxy-sequence-diagram.pdf}
   \caption{Diagram sekwencji pobierania listy modułów obliczeniowych z
-    wykorzystaniem serwera pośredniczącego.}\label{rys:balticlsc-proxy-sequence-diagram}
+    wykorzystaniem serwera pośredniczącego}\label{rys:balticlsc-proxy-sequence-diagram}
 \end{figure}
 % \end{noindent}
 
@@ -668,7 +668,7 @@ zainstalowana w projekcie \emph{Sirius Web}.
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-web-toolbox.png}
 	\caption{Przybornik dodany w \emph{Sirius
-			Web}.}\label{rys:sirius-web-toolbox}
+			Web}}\label{rys:sirius-web-toolbox}
 \end{figure}
 
 \subsection{Dodanie wywołania modułu obliczeniowego do modelu}
@@ -1021,7 +1021,7 @@ jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
   \caption{Diagram klas związanych z walidacją semantyczną w \emph{Sirius
-    Web}.}\label{rys:sirius-web-semantic-validation-class-diagram}
+    Web}}\label{rys:sirius-web-semantic-validation-class-diagram}
 \end{figure}
 % \end{noindent}
 
@@ -1278,7 +1278,7 @@ moduł w tym formacie.
 
   \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-class-diagram.pdf}
   \caption{Diagram klas modułu wyświetlającego edytor diagramów \emph{Sirius
-    Web}.}\label{rys:sirius-web-library-class-diagram}
+    Web}}\label{rys:sirius-web-library-class-diagram}
 \end{figure}
 % \end{noindent}
 
