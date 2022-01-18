@@ -1,19 +1,26 @@
 # latexmk build artifacts
 *.acn
+*.acr
+*.alg
 *.app
+*.arc
 *.aux
 *.bbl
 *.bcf
 *.blg
 *.fdb_latexmk
 *.fls
+*.glg
 *.glo
+*.gls
 *.ist
 *.lof
 *.log
 *.lot
 *.out
+*.slg
 *.slo
+*.sls
 *.synctex.gz
 *.toc
 *.xdv
