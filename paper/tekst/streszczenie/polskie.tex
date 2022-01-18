@@ -1,2 +1,41 @@
-To jest streszczenie. To jest trochę za krótkie jako że powinno zająć
-całą stronę.
+Z ramach tej pracy magisterskiej został przygotowany graficzny edytor modeli
+opisujących obliczenia rozproszone w systemie \BalticLSC{} bazując na
+eksperymentalnej technologii \SiriusWeb{}. Została ona oceniona i porównana ze
+znanym w tej kategorii rozwiązaniem \SiriusDesktop{}.
+
+Programy komputerowe używają modeli do reprezentacji świata rzeczywistego.
+W~ten~sposób mogą odwzorować rzeczywistość i symulować jej modyfikacje.
+Struktura
+modeli, a~więc~występujące w nich obiekty i ich właściwości, może również być
+opisana
+modelem. Jest~on~na~wyższym poziomie abstrakcji niż model, który opisuje, i
+nosi nazwę \emph{metamodelu}.
+Na jego bazie można wygenerować edytor graficzny umożliwiający przeglądanie
+i edycję modeli opisywanych przez ten metamodel. \emph{\acrlong{EMF}} jest
+technologią pozwalającą na przygotowanie edytora graficznego modeli
+\SiriusDesktop{},
+będącego rozszerzeniem natywnej aplikacji \Eclipse{}. Nowym rozwiązaniem w tej
+kategorii jest \SiriusWeb{} umożliwiający udostępnienie graficznego edytora
+modeli w przeglądarce internetowej.
+
+Przygotowane rozwiązanie pozwala stworzyć model opisujący schemat obliczeń,
+które będą wykonane w systemie \BalticLSC{}. Jest to platforma do obliczeń
+rozproszonych, rozwijana między innymi przez Politechnikę Warszawską,
+umożliwiająca przeprowadzenie obliczeń na~dużą skalę używając potencjalnie
+wielu węzłach obliczeniowych jednocześnie.
+Przepływ danych przez różne dostępne w systemie moduły obliczeniowe jest
+reprezentowany na diagramie.
+
+\SiriusDesktop{} i \SiriusWeb{}, pomimo bazowania na tych samych metamodelach,
+oferują różne możliwości i funkcjonalności. Są również inaczej zbudowane i mają
+inne podejście do~przechowywania informacji o modelach. Niektóre elementy
+edytora \SiriusDesktop{}, na~przykład możliwość przeprowadzenia walidacji
+semantycznej modelu, są niedostępne w~\SiriusWeb{} i zostały zaimplementowane w
+tej pracy magisterskiej. W celu sprawdzenia rozszerzalności edytora dodano do
+niego elementy interfejsu graficznego pozwalające wygodnie wykorzystać
+dostępne moduły obliczeniowe na diagramie. Opisano również jak można
+zintegrować przygotowany edytor z aplikacją przeglądarkową \BalticLSC{}.
+
+Technologia \SiriusWeb{} zawiera również wady. Znalezionych 20 usterek zostało
+zgłoszonych autorom projektu, a wrażenia z wykorzystania tego rozwiązania
+zostały opisane w dalszej części tekstu pracy magisterskiej.
