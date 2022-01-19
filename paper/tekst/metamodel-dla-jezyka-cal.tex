@@ -13,7 +13,7 @@ systemie \BalticLSC{}, a~następnie omówiony zostanie przygotowany metamodel
 Obliczenia rozproszone wykonywane przez system \BalticLSC{} są zapisywane w
 formie \emph{aplikacji obliczeniowej}
 (\emph{\selectlanguage{english}computation application})
-korzystajac ze składni języka \emph{\acrfull{CAL}} przygotowanego dla tego
+korzystając ze składni języka \emph{\acrfull{CAL}} przygotowanego dla tego
 właśnie systemu.
 
 Podstawowym obiektem, który wysyła (wyjście)
@@ -110,9 +110,9 @@ istotne z~perspektywy edycji diagramu.
 \end{figure}
 
 Model w \EMF{} ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
-\texttt{Computation\-Application\-Release}, ktory odpowiada całemu diagramowi
-(aplikacji obliczeniowej). Nie
-ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
+\texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
+(aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
+natomiast 4 typy obiektów:
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
@@ -125,11 +125,11 @@ ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
 	\item \texttt{UnitCall} --- wywołania dostępnych modułów
 	      obliczeniowych. Każdy dostępny moduł obliczeniowy może zostać wywołany dowolną liczbę razy. Każde wywołanie to osobny obiekt \texttt{UnitCall} ze wskazaniem modułu, który ma zostać wywołany, a także z obiektami \texttt{ComputedDataPin}, które reprezentują porty tego modułu.
 
-	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułow obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
+	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułów obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
 
 	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu \BalticLSC{}, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
 
-	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywolywanego modułu.
+	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywoływanego modułu.
 
 	\item \texttt{ApplicationDataPin} --- porty aplikacji obliczeniowej
 	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości portu są dziedziczone z klasy \texttt{DataPin}.
@@ -192,7 +192,7 @@ został przedstawiony w listingu~\ref{lst:getDataPinIconPath-method}.
 \begin{lstlisting}[float,
     floatplacement=ht,
     language=Java,
-    caption={Methoda zwracająca nazwę ikony dla portu},
+    caption={Metoda zwracająca nazwę ikony dla portu},
     label={lst:getDataPinIconPath-method}]
 public String getDataPinIconPath(EObject self) {
   if (!(self instanceof DataPin)) {
@@ -210,7 +210,8 @@ public String getDataPinIconPath(EObject self) {
 Dla portów całej aplikacji obliczeniowej (\texttt{Application\-Data\-Pin} dla
 \texttt{Computation\-Application\-Release}) styl warunkowy był
 rozszerzeniem tego
-dla portów modułów obliczeniowych. Oprócz brania pod uwagę kroności danych oraz
+dla portów modułów obliczeniowych. Oprócz brania pod uwagę krotności danych
+oraz
 paczek danych, w tym stylu znaczenie ma ponadto kierunek portu. Porty wejściowe
 mają pogrubiony pasek z lewej strony, a porty wyjściowe z prawej. Dla tych
 portów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
@@ -279,7 +280,7 @@ metamodelem i~pomaga uniknąć błędów.
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-empty-unit-call.png}
 		\caption{Nowo utworzone wywołanie modułu obliczeniowego}\label{ref:sirius-desktop-empty-unit-call}
     \medskip
-    {\small To wywolanie nie~ma~wskazanego modułu, które ma wywołać, stąd
+    {\small To wywołanie nie~ma~wskazanego modułu, które ma wywołać, stąd
       druga linia etykiety jest pusta.}
     \vspace{50pt}
 	\end{subfigure}
@@ -314,7 +315,7 @@ modelu. Do~tej~grupy można zaliczyć kilka narzędzi dotyczących tworzenia lub
 modyfikacji połączeń między portami. Dane mogą przepływać jedynie od portów
 wyjściowych do portów wejściowych. Ponadto, niemożliwe jest połączenie portów
 na tym samym wywołaniu modułu obliczeniowego. Oba te wymagania mogą być
-egzekwowane w modelu za pomocą narzędzi do tworzenia połączeń (\emph{Edge
+egzekwowane w modelu za pomocą narzędzi do~tworzenia połączeń (\emph{Edge
 	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
 z nich za
 pomocą warunków \emph{Connection Start Precondition} oraz
@@ -362,12 +363,13 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
 poprzez edycję diagramu lub właściwości już istniejącego elementu. Podczas
 bezpośredniej edycji drzewa modelu narzędzia powiązane z metamodelem są
-pomijane, przez co można doprowadzić do sytuacji, w której model nie będzie
+pomijane, przez co można doprowadzić do~sytuacji, w której model nie będzie
 poprawny
 semantycznie. Przykładem operacji pomijającej narzędzia jest usunięcie portu
 aplikacji obliczeniowej (\texttt{ApplicationDataPin}) bezpośrednio z~drzewa
-modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie ono
-automatycznie usunięte (narzędzie, które je usuwa nie zostanie uruchomione), co
+modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie
+ono~automatycznie usunięte (narzędzie, które je usuwa nie zostanie
+uruchomione), co
 prowadzi do istnienia w~modelu połączenia, którego jedynie jeden koniec jest
 poprawnie ustawiony. Takie sytuacje natomiast są wykrywane przez reguły
 walidacji strukturalnej metamodelu (połączenie musi mieć poprawne oba końce).
@@ -382,7 +384,7 @@ dotyczących modelu.
 
 \SiriusDesktop{} domyślnie dostarcza informacji o błędach składniowych
 modelu. Będą to~ostrzeżenia o braku wymaganych atrybutów lub niepoprawnej
-krotności elementow (jeżeli dana właściwość powinna zawierać przykładowo co
+krotności elementów (jeżeli dana właściwość powinna zawierać przykładowo co
 najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
 zaznaczone na diagramie za pomocą ikony czerwonego znaku \texttt{X} obok
 elementu, którego wiadomość dotyczy. Zostało to zilustrowane na
@@ -401,7 +403,7 @@ Dodatkowo w pliku \texttt{*.odesign} pakietu \texttt{.design} metamodelu można
 zdefiniować \emph{Semantic Validation
 	Rules}~\cite{sirius-desktop-documentation-validation-rules}.
 Pozwalają one na dodanie własnych reguł walidacji semantycznej modeli. To
-reguły powinny opisywać ograniczenia, których nie dostarcza opis strukury
+reguły powinny opisywać ograniczenia, których nie dostarcza opis struktury
 modelu i~zależą od połączenia kilku elementów ze sobą. Można
 wybrać jakich elementów reguła dotyczy, a~za~pomocą języka \AQL{} wskazać
 kiedy informacja diagnostyczna powinna być pokazana, a także jaka powinna być
@@ -416,8 +418,8 @@ rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}.
 Zabrania ona~połączeń między portami znajdującymi się na tym samym wywołaniu
 modułu obliczeniowego. Jej struktura wyrażona w drzewie obiektów metamodelu
 jest widoczna na
-rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree}, a jej
-właściwości na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree},
+a~jej~właściwości na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-properties}.
 Widać tam element, dla którego wiadomość zostanie wyświetlona
 (\texttt{DataFlow}).

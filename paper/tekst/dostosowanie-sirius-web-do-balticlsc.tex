@@ -334,7 +334,7 @@ testy metamodelu \EMF{} w \Maven{} można uruchomić komendą
 \lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
 (\texttt{verify}), a
 więc po fazie budowania aplikacji (\texttt{package}). Powoduje to, że
-uruchomienie testów metamodelu za~pomoca \Maven{} trwa dłużej (około
+uruchomienie testów metamodelu za~pomocą \Maven{} trwa dłużej (około
 18 sekund), niż
 wewnątrz \SiriusDesktop{} (mniej niż~1~sekunda), ponieważ projekt
 najpierw musi zostać zbudowany. Dodatkowy narzut czasowy wprowadza także
@@ -404,14 +404,14 @@ obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
 dostępne w modelu muszą być zdefiniowane jako
 elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
 metamodelu \EMF{} nie pozwalają na komunikację z zewnętrznymi serwisami,
-więc pobieranie danych o modułach obliczeniowych znajdujących się w przyborniku
+więc pobieranie danych o~modułach obliczeniowych znajdujących się w przyborniku
 danego użytkownika musi zostać zrealizowane na poziomie \SiriusWeb{}.
 Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
 aplikacja \SiriusWeb{} musi znać jego informacje uwierzytelniające, aby
 móc je~dołączyć wysyłając zapytanie \emphgls{API} do serwera \BalticLSC{}.
 Szczegóły odtworzenia
 mechanizmu przybornika w \SiriusWeb{} oraz jego integracja z
-\BalticLSC{} zostały opisane w kolejnych sekcjach.
+\BalticLSC{} zostały opisane w~kolejnych sekcjach.
 
 \subsection{Pobranie zawartości
 	przybornika}\label{sec:pobranie-zawartosci-przybornika}
@@ -434,7 +434,7 @@ obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
 \BalticLSC{} pojawiają się dwa problemy.
 
 Pierwszym problemem jest sposób uwierzytelniania użytkownika. Zawartość
-przybornika jest powiązana z konkrenym kontem użytkownika w systemie
+przybornika jest powiązana z konkretnym kontem użytkownika w systemie
 \BalticLSC{}. Wysyłając więc zapytanie o przybornik należy dodatkowo
 załączyć w nagłówku \emphgls{HTTP} \texttt{Authorization}
 token uwierzytelniający w formacie \emphgls{JWT}. W tokenie tym znajdują się
@@ -609,8 +609,8 @@ udostępnione do wykorzystania w swoim repozytorium, więc oprócz samego głów
 komponentu należało również skopiować
 implementację komponentów odpowiedzialnych za wyświetlenie rozszerzalnych
 paneli po lewej i prawej stronie (\texttt{LeftSite}, \texttt{RightSite},
-\texttt{Panels}) oraz za wyświetlenie listy informacji diagnostycznych
-(\texttt{ValidationWebSocketContainer}). O ile komponenty wizualne związane z
+\texttt{Panels}) oraz za~wyświetlenie listy informacji diagnostycznych
+(\texttt{ValidationWebSocketContainer}). O~ile~komponenty wizualne związane z
 panelami są niezależne od serwera aplikacyjnego \SiriusWeb{}, to komponent
 pokazujący
 informacje diagnostyczne modelu zawiera w sobie treść subskrypcji WebSocket,
@@ -618,9 +618,9 @@ która zależy od interfejsu \emphgls{API} dostarczonego przez serwer. Zmiany w
 tym
 interfejsie mogą wymagać zmian w kodzie komponentu
 \texttt{ValidationWebSocketContainer}. Jednak z uwagi na fakt, że treść tego
-komponentu jest skopiowana do własnego repozytorium, komponent ten może
+komponentu jest skopiowana do własnego repozytorium, komponent ten~może
 przestać działać po aktualizacji serwera aplikacyjnego \SiriusWeb{}.
-Utrudnia to utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
+Utrudnia to~utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
 się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
 przeglądarkowej.
 
@@ -720,7 +720,7 @@ tuż po tym jak zostały one wprowadzone. Sprawdza się on dobrze w przypadku
 drzewa modelu wyświetlanego ciągle jako część interfejsu użytkownika, ale nie
 jest najlepszym rozwiązaniem w przypadku jednorazowego pobierania informacji o
 modelu. W tym przypadku mechanizm subskrypcji zostanie wykorzystany tak, jakby
-był jednorazowym zapytaniem, ponieważ nasluchiwanie na zmiany zostanie
+był jednorazowym zapytaniem, ponieważ nasłuchiwanie na zmiany zostanie
 zakończone tuż po otrzymaniu odpowiedzi. W porównaniu do zwykłego zapytania
 takie rozwiązanie wprowadza dodatkowy narzut w ruchu sieciowym.
 
@@ -737,7 +737,7 @@ otrzymać identyfikator korzenia modelu należy więc pobrać informacje w dwóc
 krokach: najpierw pobrać informacje o dokumencie, a~później przekazać jego
 identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator korzenia
 modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
-aplikacją przegladarkową a serwerem w celu otrzymania identyfikatora korzenia
+aplikacją przeglądarkową a serwerem w celu otrzymania identyfikatora korzenia
 modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 
 % Kod źródłowy diagramu:
@@ -941,8 +941,8 @@ rysunku~\ref{rys:sirius-desktop-and-web-semantic-validation-comparison}
 porównano zwracane informacje diagnostyczne w \SiriusWeb{} i \SiriusDesktop{}
 dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
 widać błędy walidacji semantycznej pochodzące
-z reguł z metamodelu \EMF{}. Błędów tych brakuje w aplikacji
-przeglądarkowej. Problem ten został zgłoszony w repozytorium
+z~reguł z~metamodelu \EMF{}. Błędów tych brakuje w aplikacji
+przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 \texttt{sirius-web}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
 
@@ -1071,7 +1071,7 @@ Reguła ta wykonuje algorytm przeszukiwania grafu w głąb
 poprzez eliminację elementów nieznaczących. Elementem nieznaczącym jest
 wierzchołek grafu $x_n$, dla którego istnieje krawędź między  poprzednim
 $x_{n-1}$ a kolejnym wierzchołkiem cyklu $x_{n+1}$. Wierzchołek $x_n$ można
-usunać z cyklu. Operacja usuwania nieznaczących elementów jest próbowana dla
+usunąć z cyklu. Operacja usuwania nieznaczących elementów jest próbowana dla
 wszystkich wierzchołków w cyklu do momentu, gdy nie ma elementów nieznaczących.
 Skrócenie cyklu pozwoli użytkownikowi szybciej zlokalizować cykl na diagramie,
 ponieważ będzie on zawierał potencjalnie mniej elementów niż ten znaleziony
@@ -1196,7 +1196,7 @@ biblioteki \React{} do wyświetlenia komponentu wewnątrz innej aplikacji.
 Struktura elementów na stronie internetowej reprezentowana jest jako drzewo
 \emphgls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \emphgls{HTML} i
 za
-pomocą różnych method interfejsu \emphgls{API} drzewa \emphgls{DOM} można
+pomocą różnych metod interfejsu \emphgls{API} drzewa \emphgls{DOM} można
 otrzymać do
 nich dostęp z poziomu języka \JavaScript{}. Aby wyświetlić komponent biblioteki
 \React{} należy znaleźć element drzewa \emphgls{DOM} gdzie komponent ma zostać
@@ -1607,6 +1607,6 @@ kontrolą dostępu, to \emph{subscription} w \GraphQL{} już nie. Dodanie
 weryfikacji tokena tam wymaga specjalnej obsługi podczas inicjalizacji
 połączenia. Kod ten jest w repozytorium \texttt{sirius-components} i nie został
 udostępniony do modyfikacji. Weryfikacja tokenów \emphgls{JWT} nie jest więc
-możliwa dla subskrypcji \GraphQL{}. Problem został zgłoszny w repozytorium
+możliwa dla subskrypcji \GraphQL{}. Problem został zgłoszony w repozytorium
 \texttt{sirius-components}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/846}}.
