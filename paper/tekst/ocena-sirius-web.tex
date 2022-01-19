@@ -216,7 +216,7 @@ portów niż powiązany z nim moduł obliczeniowy). W \SiriusDesktop{}
 usunięcie tego portu z diagramu jest niemożliwe, co widać na
 rysunku~\ref{rys:sirius-desktop-blocked-deleting-pins}.
 \SiriusWeb{} wyświetla odpowiednie ikony i~pozwala je wybrać, co skutkuje
-wyświeleniem błędu w konsoli serwera aplikacyjnego, a~po kilku sekundach
+wyświetleniem błędu w konsoli serwera aplikacyjnego, a~po kilku sekundach
 wyświetleniem niejasnej wiadomości o przekroczeniu czasu przetwarzania żądania,
 przedstawionego na rysunku~\ref{rys:sirius-web-timeout-when-deleting-pins}.
 Takie rozwiązanie jest mylące dla użytkownika i pogarsza wrażenia z
@@ -275,7 +275,7 @@ rysunku~\ref{rys:border-node-difference}.
 Przy okazji warto zauważyć, że \SiriusWeb{} nie obsługuje wyświetlania
 krawędzi węzłów krawędziowych. Te widoczne na
 rysunku~\ref{rys:border-node-sirius-web} pochodzą z ikony i zostały specjalnie
-dodane po odkryciu tej usterki. Została ona zgłoszna w repozytorium
+dodane po odkryciu tej usterki. Została ona zgłoszona w repozytorium
 projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/783}}.
 
@@ -380,7 +380,7 @@ projektu\footnote{
 
 \subsection{Wydajność}
 
-Interfejs użytkownika \SiriusWeb{} zazwyczaj reguje na zmiany natychmiast.
+Interfejs użytkownika \SiriusWeb{} zazwyczaj reaguje na zmiany natychmiast.
 Animacje używane w edytorze diagramów występujące podczas dodawania lub
 usuwania z niego elementów sprawiają, że aplikacja jest przyjemniejsza w użyciu
 i sprawia wrażenie bardziej dopracowanej, a~jednocześnie pomaga zrozumieć co
@@ -426,7 +426,7 @@ Aplikacja działała płynnie podczas korzystania z niej w sytuacji, w której
 serwer aplikacyjny był uruchomiony na komputerze, na którym wykonywano test.
 Opóźnienia wynikające z narzutu na przesyłanie danych przez sieć były
 zauważalne, gdy została sztucznie ograniczona szybkość połączenia internetowego
-za pomocą narzędzi programisty w przeglądace \emph{Google Chrome}.
+za pomocą narzędzi programisty w przeglądarce \emph{Google Chrome}.
 Używanie ustawienia \emph{Fast 3G}, które ogranicza szybkość pobierania danych
 do 1.5~Mb/s i opóźnieniu
 500~ms~\cite{network-throttling-profiles-stackoverflow} sprawiło, że aplikacja
@@ -492,7 +492,7 @@ błędach.
 Usterka została zgłoszona w repozytorium projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/791}
 }. Obejściem problemu było dodanie bloków \texttt{If}~w~metamodelu
-sprawdzającego czy odpowieednia właściwość jest ustawiona (ma wartość inną niż
+sprawdzającego czy odpowiednia właściwość jest ustawiona (ma wartość inną niż
 \texttt{null}) zanim element zostanie usunięty.
 
 Kolejny wydruk na konsolę, który zdarzał się po wywołaniu narzędzia metamodelu
@@ -545,7 +545,7 @@ Niedogodnością pojawiającą się podczas pracy z aplikacją przeglądarkową
 narzędziach programisty w przeglądarce. Zrzut ekranu prezentujący zobfuskowane
 nazwy komponentów pochodzące z biblioteki \texttt{sirius-components} jest
 widoczny na rysunku~\ref{rys:sirius-web-minified-component-names}. Problem
-został zgłoszny w repozytorium
+został zgłoszony w repozytorium
 projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/831}
 }.
@@ -610,7 +610,7 @@ bo wiadomo, że należy je~opracować samemu.
 
 Podsumowując, znając wszystkie kroki potrzebne do wykorzystania własnego
 metamodelu \EMF{} w \SiriusWeb{} można tego dokonać w krótkim czasie.
-Wymagane sa zmiany jedynie kilku miejsc w kodzie aplikacji. Brakuje
+Wymagane są zmiany jedynie kilku miejsc w kodzie aplikacji. Brakuje
 dokumentacji tej technologii, która wskazałaby kolejne kroki tego
 procesu, aby rozpoczęcie pracy było prostsze, szybsze i mniej frustrujące.
 
