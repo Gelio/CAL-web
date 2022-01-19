@@ -52,8 +52,8 @@ tej samej czynności walidacji.
 
 Informacje diagnostyczne wyświetlane domyślnie w \SiriusWeb{} to jedynie
 błędy z walidacji składniowej modelu. Nie są uruchamiane reguły walidacji
-semantycznej (\emph{Semantic Validation Rule}) zdefiniowane w metamodelu, co
-zostało omówione w sekcji~\ref{sec:reguly-walidacyjne-metamodel}. Informacja
+semantycznej (\emph{Semantic Validation Rule}) zdefiniowane w metamodelu, które
+zostały omówione w sekcji~\ref{sec:reguly-walidacyjne-metamodel}. Informacja
 o~tym~problemie została zgłoszona w repozytorium projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
 Aby móc wykonywać walidację semantyczną modeli należy to rozwiązanie
@@ -218,8 +218,8 @@ rysunku~\ref{rys:sirius-desktop-blocked-deleting-pins}.
 \SiriusWeb{} wyświetla odpowiednie ikony i~pozwala je wybrać, co skutkuje
 wyświetleniem błędu w konsoli serwera aplikacyjnego, a~po kilku sekundach
 wyświetleniem niejasnej wiadomości o przekroczeniu czasu przetwarzania żądania,
-przedstawionego na rysunku~\ref{rys:sirius-web-timeout-when-deleting-pins}.
-Takie rozwiązanie jest mylące dla użytkownika i pogarsza wrażenia z
+przedstawionej na rysunku~\ref{rys:sirius-web-timeout-when-deleting-pins}.
+Takie rozwiązanie jest mylące dla użytkownika i~pogarsza wrażenia z
 wykorzystania edytora.
 
 % \begin{noindent}
@@ -565,7 +565,7 @@ projektu\footnote{
 \SiriusWeb{} jest technologią eksperymentalną i nie posiada ona jeszcze
 swojej dokumentacji technicznej. Oznacza to, że zrozumienie jak ona działa i co
 należy zmienić, aby osiągnąć zamierzone rezultaty wymaga analizy kodu
-źródłowego, inżynierii wstecznej, a~także metody prób i~błędów podczas
+źródłowego, a~także metody prób i~błędów podczas
 dokonywania zmian w
 kodzie. Dostępne jest jedynie repozytorium \texttt{sirius-web} służące jako
 przykład wykorzystania biblioteki z repozytorium \texttt{sirius-components}
@@ -648,8 +648,8 @@ W obu przypadkach zmiany okazały się proste do wykonania, jednak z uwagi na
 brak dokumentacji technicznej \SiriusWeb{} należało spędzić dodatkowy czas
 na znalezienie odpowiedniego miejsca w kodzie do modyfikacji. Często wymagało
 to zajrzenia do kodu źródłowego z repozytorium \texttt{sirius-components}, w
-którym znajduje się większość kodu biblioteki edytora, i zastosowaniu tam
-inżynierii wstecznej. W ten sposób ustalano jakie interfejsy należy
+którym znajduje się większość kodu biblioteki edytora. W ten sposób ustalano
+jakie interfejsy należy
 zaimplementować, aby dostarczyć nowych funkcjonalności w serwerze aplikacyjnym
 lub~edytorze. Udostępnienie dokumentacji technicznej \SiriusWeb{} dla osób
 rozwijających edytor i umieszczenie przykładów takich rozszerzeń znacznie
@@ -662,7 +662,9 @@ poziom skomplikowania w zależności od miejsca umieszczenia
 dodawanych lub zmienianych elementów interfejsu.
 Nowe podstrony aplikacji wyświetlające całkiem nowy układ interfejsu są proste
 do zaimplementowania, podobnie jak modyfikacja elementów niezwiązanych
-bezpośrednio z modelami. Wynika to~z~faktu, że istniejące elementy interfejsu
+bezpośrednio z modelami. Trudniejszą czynnością jest zmiana wyglądu interfejsu
+dotyczącego bezpośrednio edycji modelu lub~wyświetlającego jego zawartość.
+Wynika to~z~faktu, że istniejące elementy interfejsu
 aplikacji \SiriusWeb{} to komponenty biblioteki \React{} pochodzące z
 repozytorium \texttt{sirius-components}, które nie umożliwiają zmiany wyglądu
 lub~dodawania nowych elementów w swoim wnętrzu.
@@ -697,10 +699,10 @@ aplikacji. Wszystkich tych negatywnych efektów można byłoby uniknąć, gdyby 
 Dzięki lepszym narzędziom wspomagającym inspekcję kodu biblioteki
 \texttt{sirius-components} znalezienie odpowiedniego miejsca do modyfikacji
 kodu aplikacji przeglądarkowej jest prostsze niż było to w przypadku serwera
-aplikacyjnego \SiriusWeb{}. Nadal wymagało to jednak inżynierii wstecznej
-i czytania kodu źródłowego komponentów. Dodanie dokumentacji technicznej
-opisującej dostępne do wykorzystania komponenty oraz ich parametry umożliwiłoby
-szybsze zapoznanie się z biblioteką i wykorzystanie jej. Największym problemem
+aplikacyjnego \SiriusWeb{}. Nadal wymagało to jednak czytania kodu źródłowego
+komponentów. Dodanie dokumentacji technicznej
+opisującej dostępne do~wykorzystania komponenty oraz ich parametry umożliwiłoby
+szybsze zapoznanie się~z~biblioteką i wykorzystanie jej. Największym problemem
 do rozwiązania w~przypadku komponentów z biblioteki \texttt{sirius-components}
 jest udostępnienie możliwości modyfikowania interfejsu użytkownika
 bez konieczności kopiowania dużych fragmentów kodu.
@@ -708,7 +710,7 @@ bez konieczności kopiowania dużych fragmentów kodu.
 \section{Aktualizacja wersji edytora}
 
 Projekt \SiriusWeb{} jest aktywnie rozwijany. Od 15 grudnia 2021 r.\ do 15
-stycznia 2022~r.\ zostało wprowadzone do niego 45 zmian\footnote{
+stycznia 2022~r.\ zostało wprowadzonych do niego 45 zmian\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/pulse/monthly}
 }, w których zmieniono sumarycznie ponad 9~tysięcy linii kodu.
 Nowe wersje zawierające poprawki usterek lub nowe funkcjonalności są~wydawane
@@ -725,7 +727,8 @@ linii poleceń. Wprowadzanie zmian w repozytorium \texttt{sirius-web} pokazuje
 jak one powinny być wykonane, co jest znacznym ułatwieniem w porównaniu
 do~wyłącznego czytania listy zmian nowego wydania biblioteki.
 
-Każda modyfikacja kodu \SiriusWeb{} powoduje, że jest to potencjalne
+Każda modyfikacja skopiowanego kodu \SiriusWeb{} powoduje, że jest to
+potencjalne
 miejsce na wystąpienie konfliktów podczas aplikowania zmian za pomocą narzędzia
 \emph{git}, które zostały wprowadzone w~nowszej wersji edytora.
 Dzieje się tak, ponieważ kod w naszej wersji edytora zaczyna się wtedy różnić
@@ -734,8 +737,8 @@ wywnioskować jak ma rozwiązać te niekompatybilności.
 Im większe zmiany, tym większa szansa na konflikt i tym jest on trudniejszy w
 rozwiązaniu.
 W niektórych przypadkach zmiany w~\texttt{sirius-web} nie~wynikają ze złamania
-kompatybilności wstecznej, a z nowych funkcjonalności edytora. Często
-wymagają one wtedy większego wysiłku we wdrożeniu do naszej kopii edytora.
+kompatybilności wstecznej, a~z~nowych funkcjonalności edytora. Często
+wymagają one wtedy większego wysiłku we~wdrożeniu do~naszej kopii edytora.
 W takich chwilach można się zastanowić czy nie łatwiej byłoby zignorować tą
 zmianę wprowadzoną w~\SiriusWeb{}, ponieważ rozwiązywanie konfliktów w
 kodzie jest zbyt czasochłonne.

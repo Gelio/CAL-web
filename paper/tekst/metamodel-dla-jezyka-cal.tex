@@ -111,8 +111,8 @@ istotne z~perspektywy edycji diagramu.
 
 Model w \EMF{} ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
 \texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
-(aplikacji obliczeniowej). Nie
-ma on~własnych właściwości. Zawiera on w sobie natomiast 4 typy obiektów:
+(aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
+natomiast 4 typy obiektów:
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
@@ -315,7 +315,7 @@ modelu. Do~tej~grupy można zaliczyć kilka narzędzi dotyczących tworzenia lub
 modyfikacji połączeń między portami. Dane mogą przepływać jedynie od portów
 wyjściowych do portów wejściowych. Ponadto, niemożliwe jest połączenie portów
 na tym samym wywołaniu modułu obliczeniowego. Oba te wymagania mogą być
-egzekwowane w modelu za pomocą narzędzi do tworzenia połączeń (\emph{Edge
+egzekwowane w modelu za pomocą narzędzi do~tworzenia połączeń (\emph{Edge
 	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
 z nich za
 pomocą warunków \emph{Connection Start Precondition} oraz
@@ -363,12 +363,13 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
 poprzez edycję diagramu lub właściwości już istniejącego elementu. Podczas
 bezpośredniej edycji drzewa modelu narzędzia powiązane z metamodelem są
-pomijane, przez co można doprowadzić do sytuacji, w której model nie będzie
+pomijane, przez co można doprowadzić do~sytuacji, w której model nie będzie
 poprawny
 semantycznie. Przykładem operacji pomijającej narzędzia jest usunięcie portu
 aplikacji obliczeniowej (\texttt{ApplicationDataPin}) bezpośrednio z~drzewa
-modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie ono
-automatycznie usunięte (narzędzie, które je usuwa nie zostanie uruchomione), co
+modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie
+ono~automatycznie usunięte (narzędzie, które je usuwa nie zostanie
+uruchomione), co
 prowadzi do istnienia w~modelu połączenia, którego jedynie jeden koniec jest
 poprawnie ustawiony. Takie sytuacje natomiast są wykrywane przez reguły
 walidacji strukturalnej metamodelu (połączenie musi mieć poprawne oba końce).
@@ -417,8 +418,8 @@ rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}.
 Zabrania ona~połączeń między portami znajdującymi się na tym samym wywołaniu
 modułu obliczeniowego. Jej struktura wyrażona w drzewie obiektów metamodelu
 jest widoczna na
-rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree}, a jej
-właściwości na
+rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree},
+a~jej~właściwości na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-properties}.
 Widać tam element, dla którego wiadomość zostanie wyświetlona
 (\texttt{DataFlow}).

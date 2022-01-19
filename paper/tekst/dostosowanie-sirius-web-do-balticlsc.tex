@@ -404,14 +404,14 @@ obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
 dostępne w modelu muszą być zdefiniowane jako
 elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
 metamodelu \EMF{} nie pozwalają na komunikację z zewnętrznymi serwisami,
-więc pobieranie danych o modułach obliczeniowych znajdujących się w przyborniku
+więc pobieranie danych o~modułach obliczeniowych znajdujących się w przyborniku
 danego użytkownika musi zostać zrealizowane na poziomie \SiriusWeb{}.
 Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
 aplikacja \SiriusWeb{} musi znać jego informacje uwierzytelniające, aby
 móc je~dołączyć wysyłając zapytanie \emphgls{API} do serwera \BalticLSC{}.
 Szczegóły odtworzenia
 mechanizmu przybornika w \SiriusWeb{} oraz jego integracja z
-\BalticLSC{} zostały opisane w kolejnych sekcjach.
+\BalticLSC{} zostały opisane w~kolejnych sekcjach.
 
 \subsection{Pobranie zawartości
 	przybornika}\label{sec:pobranie-zawartosci-przybornika}
@@ -609,8 +609,8 @@ udostępnione do wykorzystania w swoim repozytorium, więc oprócz samego głów
 komponentu należało również skopiować
 implementację komponentów odpowiedzialnych za wyświetlenie rozszerzalnych
 paneli po lewej i prawej stronie (\texttt{LeftSite}, \texttt{RightSite},
-\texttt{Panels}) oraz za wyświetlenie listy informacji diagnostycznych
-(\texttt{ValidationWebSocketContainer}). O ile komponenty wizualne związane z
+\texttt{Panels}) oraz za~wyświetlenie listy informacji diagnostycznych
+(\texttt{ValidationWebSocketContainer}). O~ile~komponenty wizualne związane z
 panelami są niezależne od serwera aplikacyjnego \SiriusWeb{}, to komponent
 pokazujący
 informacje diagnostyczne modelu zawiera w sobie treść subskrypcji WebSocket,
@@ -618,9 +618,9 @@ która zależy od interfejsu \emphgls{API} dostarczonego przez serwer. Zmiany w
 tym
 interfejsie mogą wymagać zmian w kodzie komponentu
 \texttt{ValidationWebSocketContainer}. Jednak z uwagi na fakt, że treść tego
-komponentu jest skopiowana do własnego repozytorium, komponent ten może
+komponentu jest skopiowana do własnego repozytorium, komponent ten~może
 przestać działać po aktualizacji serwera aplikacyjnego \SiriusWeb{}.
-Utrudnia to utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
+Utrudnia to~utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
 się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
 przeglądarkowej.
 
@@ -941,8 +941,8 @@ rysunku~\ref{rys:sirius-desktop-and-web-semantic-validation-comparison}
 porównano zwracane informacje diagnostyczne w \SiriusWeb{} i \SiriusDesktop{}
 dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
 widać błędy walidacji semantycznej pochodzące
-z reguł z metamodelu \EMF{}. Błędów tych brakuje w aplikacji
-przeglądarkowej. Problem ten został zgłoszony w repozytorium
+z~reguł z~metamodelu \EMF{}. Błędów tych brakuje w aplikacji
+przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 \texttt{sirius-web}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
 
