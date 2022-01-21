@@ -377,6 +377,8 @@
 % Listingi programów
 % ---------------------------------------------
 \RequirePackage{listings}
+% Source: https://stackoverflow.com/a/9480618/4874344
+\renewcommand*{\lstlistlistingname}{Spis listingów}
 \lstdefinestyle{EEStyle}{
 	backgroundcolor=\color{white},
 	commentstyle=\color{EEBlueDark},

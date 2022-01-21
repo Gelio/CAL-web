@@ -10,17 +10,24 @@
 \input{terms.tex}
 
 \begin{document}
-\frontpages
+\frontpages{}
 
 \input{tekst/main.tex}
 
-\bibliografia
+\bibliografia{}
 
-\acronymslist
-\listoffigures
-\listoftables
-% TODO: dodać listę listingów, spróbować połączyć z listą tabel
-% \lstlistoflistings
+\acronymslist{}
+\listoffigures{}
+
+{
+	\listoftables
+	% NOTE: ignore \cleardoublepage between chapters
+	% Source: https://tex.stackexchange.com/a/69218/261160
+	\let\cleardoublepage\empty
+
+	\addcontentsline{toc}{chapter}{\lstlistlistingname{}}
+	\lstlistoflistings{}
+}
 % NOTE: there are no appendices in this thesis
 % \easyappendices
 \end{document}
