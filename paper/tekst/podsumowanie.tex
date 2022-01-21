@@ -139,15 +139,20 @@ i wysiłek potrzebny na jego wykorzystanie czy wdrożenie nowych funkcjonalnośc
 Niektóre proste z pozoru dodatki mogą okazać się nietrywialne w wykonaniu z
 uwagi na sposób działania rozwiązania.
 
-% TODO: dodać wniosek na temat walidacji modeli (Sirius Web wspiera tylko
-% walidację składniową, nie wspiera semantycznej, trzeba było dodać ją samemu, co
-% okazało się proste, ponieważ wymagana była jedynie stworzenie nowych klas i
-% modyfikacja jednej z istniejących klas kodu Java
+\SiriusWeb{} domyślnie nie wyświetla informacji diagnostycznych pochodzących z
+reguł walidacji semantycznej (\emph{Semantic Validation Rule}) umieszczonych w
+metamodelu formatu \Ecore{}. W interfejsie użytkownika pokazywane są jedynie
+wyniki walidaji składniowej. Pełna walidacja modeli wymaga dodania własnego
+mechanizmu walidacji semantycznej, na~przykład poprzez stworzenie klas w języku
+\Java{} reprezentujących reguły walidacyjne, a~później uruchamianie ich~podczas
+walidacji w \SiriusWeb{}. Dodanie obsługi reguł walidacji semantycznej
+z~metamodelu w formacie \Ecore{} ułatwiłoby przygotowywanie kompletnego
+i~bardziej przydatnego graficznego edytora modeli.
 
-Kolejnym ryzykiem, które należy brać pod uwagę szczególnie wykorzystując nowe
+Ryzyko, które należy brać pod uwagę szczególnie wykorzystując nowe
 technologie jest możliwość znalezienia usterek, które będą wymagały czasu na
 ich naprawienie. Większość z problemów zgłoszonych w projekcie \SiriusWeb{}
-nie zostało naprawionych pomimo, że od ich zgłoszenia minęły w niektórych
+nie zostało naprawionych pomimo, że~od~ich~zgłoszenia minęły w niektórych
 przypadkach nawet 3 miesiące. Planując projekt warto uwzględnić na jego samym
 początku czas na sprawdzenie możliwości wykorzystywanych narzędzi. W przypadku
 niepewności należy przygotować przykład ich zastosowania, który pomógłby w
