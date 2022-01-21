@@ -25,7 +25,16 @@ Definiuje składnię języka projektowania. Przedrostek \emph{meta} oznacza, że
 poziom abstrakcji tego metamodelu jest wyższy niż poziom abstrakcji modelu,
 który opisuje~\cite{from-requirements-to-java-in-a-snap}.
 
-% TODO: (opcjonalnie) opisać hierarchię modeli M0, M1, M2, M3 i wspomnieć o MOF
+W rodzinie metamodeli przestrzenią o najmniejszym poziomie abstrakcji jest
+świat rzeczywisty (przestrzeń \emph{M0}). W programach komputerowych będzie on
+reprezentowany przez model, który znajduje się w przestrzeni o wyższym poziomie
+abstrakcji, \emph{M1}. Idąc dalej, modele będą oparte na metamodelach dla danej
+dziedziny, które znajdują się w przestrzeni \emph{M2}. One z kolei są oparte na
+meta--metamodelach % chktex 8
+z przestrzeni \emph{M3}, które mają najwyższy poziom
+abstrakcji w tej rodzinie. \emphgls{MOF}~\cite{mof-omg-specification} jest
+przykładem meta--metamodelu. % chktex 8
+Jest zdefiniowany za pomocą samego siebie.
 
 Wiele powszechnie znanych języków projektowania diagramów ma swoje metamodele
 definiujące ich strukturę:
@@ -40,6 +49,9 @@ definiujące ich strukturę:
 	\item Istnieje artykuł proponujący metamodel dla \emphgls{ERM}~\cite{entity-relationship-metamodel}. Dla~przypomnienia, \emphgls{ERM} pozwala przedstawić na diagramie encje bazy danych i~powiązania między nimi.
 \end{itemize}
 
+W metamodelu zdefiniowana jest składnia abstrakcyjna modelu, czyli struktura
+jego elementów, oraz składnia konkretna, czyli jak one mają być reprezentowane,
+na przykład na~diagramie.
 Aby model był funkcjonalny oprócz jego struktury (składni języka projektowania)
 należy zdefiniować i przestrzegać jego semantyki. To ona decyduje o tym jak
 należy interpretować model, a także jakie sytuacje, pomimo bycia poprawnymi
