@@ -654,6 +654,8 @@
 % Oświadczenia o autorstwie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\authorship}{
+	% TODO: wstawić podpisane nowe oświadczenie o autorstwie pracy zgodne z
+	% najnowszym zarządzeniem rektora
 	\ifnum\strcmp{\locallang}{PL} = 0
 		\begin{tikzpicture}[remember picture, overlay]
 			\node [anchor=north west, inner sep=0pt] at (current page.north west)

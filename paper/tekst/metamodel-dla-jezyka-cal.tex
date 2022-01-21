@@ -17,6 +17,7 @@ korzystając ze składni języka \emph{\acrfull{CAL}} przygotowanego dla tego
 właśnie systemu.
 
 Podstawowym obiektem, który wysyła (wyjście)
+% TODO: zmienić port -> pin w całej pracy
 lub odbiera (wejście) dane, jest \emph{port}. Jest on reprezentowany za pomocą
 ikony kwadratu ze strzałką skierowaną w prawą stronę. Aplikacja obliczeniowa
 składa
@@ -63,6 +64,7 @@ sekwencyjny.
 	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
 	\caption{Aplikacja obliczeniowa w \BalticLSC{} z obliczeniami
 		sekwencyjnymi}\label{rys:sekwencyjna-aplikacja-obliczeniowa}
+	% TODO: dodać źródło (BalticLSC oraz konkretna nazwa aplikacji obliczeniowej)
 \end{figure}
 
 % \begin{noindent}
@@ -72,18 +74,32 @@ sekwencyjny.
 	\includegraphics[width=0.99\linewidth]{./images/balticlsc-concurrent-application-example.png}
 	\caption{Aplikacja obliczeniowa w \BalticLSC{} z możliwością
 		zrównoleglenia obliczeń}\label{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}
+  % TODO: dodać źródło
 \end{figure}
 % \end{noindent}
 
 \section{Stworzony metamodel EMF dla języka CAL}
 
+% TODO: zmienić metamodel EMF dla języka CAL -> metamodel w formacie ECore
+% przygotowany dla języka CAL. Wprowadzić zmiany w całej pracy magisterskiej
+
 Przygotowany metamodel \EMF{} dla języka \CAL{} widoczny jest na
-rysunku~\ref{rys:cal-emf-metamodel}. Bazuje on~na metamodelu
+rysunku~\ref{rys:cal-emf-metamodel}.
+% TODO: wyjaśnić dlaczego na rysunku z metamodelem CAL w ECore są ikony dla
+% niektórych klas
+Bazuje on~na metamodelu
 opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, który widoczny
 jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
 Na potrzeby edytora diagramów nie są potrzebne wszystkie elementy oryginalnego
 metamodelu. Niektóre klasy i właściwości zostały pominięte, ponieważ nie były
 istotne z~perspektywy edycji diagramu.
+
+% TODO: napisać że niektóre klasy są nowe lub mają inne znaczenie i zostanie to
+% wyjaśnione w dalszej części tekstu
+
+% TODO: napisać, że te diagramy przedstawiają jedynie składnię abstrakcyjną
+% metamodelu, czyli jego strukturę. Składnia konkretna zostanie omówiona wraz z
+% elementami modelu, a widoczna jest na obrazku rys 13.
 
 \begin{figure}[!hb]
 	\centering
@@ -109,18 +125,21 @@ istotne z~perspektywy edycji diagramu.
 		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
 \end{figure}
 
-Model w \EMF{} ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
+Model w \EMF{} ma strukturę grafową. Głównym jego elementem jest obiekt typu
 \texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
 (aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
 natomiast 4 typy obiektów:
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
-	      rodzajom modułów obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
+	      rodzajom modułów i aplikacji obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
 
 	      Oprócz informacji o nazwie i wersji modułu zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują porty tego modułu obliczeniowego.
 
 	      Obiekty te nie są wyświetlane na diagramie (nie występują w wizualnej reprezentacji modelu). Można je zobaczyć jedynie w drzewie obiektów modelu.
+
+	      % TODO: Wyjaśnić dlaczego tutaj ComputationUnitRelease zawiera
+	      % jednocześnie moduły i aplikacje obliczeniowe, a w CAL jest inaczej.
 
 	\item \texttt{UnitCall} --- wywołania dostępnych modułów
 	      obliczeniowych. Każdy dostępny moduł obliczeniowy może zostać wywołany dowolną liczbę razy. Każde wywołanie to osobny obiekt \texttt{UnitCall} ze wskazaniem modułu, który ma zostać wywołany, a także z obiektami \texttt{ComputedDataPin}, które reprezentują porty tego modułu.
@@ -129,20 +148,27 @@ natomiast 4 typy obiektów:
 
 	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu \BalticLSC{}, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
 
-	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywoływanego modułu.
+	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywoływanego modułu. % TODO: odnieść się do obrazka pokazującego przykładowy diagram
 
 	\item \texttt{ApplicationDataPin} --- porty aplikacji obliczeniowej
 	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości portu są dziedziczone z klasy \texttt{DataPin}.
 
+	      % TODO: opisać dlaczego taki obiekt został wprowadzony i nie użyto
+	      % DeclaredDataPin bezpośrednio
+
 	      Z uwagi na fakt, że te porty będą łączone z innymi portami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
 
 	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem.
+
+	      % TODO: odnieść się do obrazka pokazującego przykładowy diagram
 
 	\item \texttt{DataFlow} --- połączenia między portami
 	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach węzłów
 	      obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub portami aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
 
 	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych.
+
+	      % TODO: odnieść się do obrazka pokazującego przykładowy diagram
 \end{itemize}
 
 Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} wyświetlony w
@@ -154,7 +180,7 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-cal-example-model.png}
-	\caption{Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} w
+	\caption{Przykładowy diagram reprezentujący model języka \CAL{} w
 		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
 \end{figure}
 % \end{noindent}
@@ -389,6 +415,11 @@ najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
 zaznaczone na diagramie za pomocą ikony czerwonego znaku \texttt{X} obok
 elementu, którego wiadomość dotyczy. Zostało to zilustrowane na
 rysunku~\ref{rys:sirius-desktop-syntax-validation}.
+% TODO: napisać, że tylko ostatni wiersz pochodzi z walidacji składniowej, a
+% reszta wierszy jest zasłonięta, ponieważ są one nieistotne z perspektywy
+% walidacji składniowej (błędy edytora)
+% TODO: opisać, że widoczny na liście błąd odpowiada ikonie X na diagramie
+% oznaczającej błąd
 
 % \begin{noindent}
 \begin{figure}[!hb]
@@ -436,6 +467,8 @@ Należało wykluczyć sytuacje, w
 których połączenie jest między dwoma portami aplikacji obliczeniowej, ponieważ
 takie połączenia są dozwolone.
 
+% TODO: spróbować przenieść wcześniej, podobnie z innymi obrazkami, może się da
+% bliżej tekstu
 % \begin{noindent}
 \begin{figure}
 	\centering

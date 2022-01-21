@@ -9,6 +9,10 @@ Zostaną również omówione modyfikacje edytora \SiriusWeb{}, które
 zostały wykonane, aby poprawić jego integrację z systemem \BalticLSC{} oraz
 umożliwić realizację walidacji semantycznej modelu.
 
+% TODO: napisać, że nie ma dokumentacji, bazuję na własnym doświadczeniu i
+% opisuję co mi się udało osiągnąć na podstawie analizy kodu źródłowego i syntezy
+% kilku różnych poradników
+
 \section{Użycie metamodelu języka CAL w Sirius Web}
 
 Chcąc wykorzystać metamodel \EMF{} w \SiriusWeb{} należy wskazać gdzie
@@ -107,6 +111,8 @@ listingu~\ref{lst:pom-maven-tycho-plugins}. Ważne jest, aby wskazać konkretną
 wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to Java
 11. Jest to jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
 Inne wersje nie są wspierane.
+
+% TODO: spróbować żeby listingi nie były "na kupie", tylko poprzedzielane tekstem
 
 \begin{lstlisting}[float,
     floatplacement=hb,
@@ -842,6 +848,7 @@ przykładowej mutacji odpowiedzialnej za dodanie modułu \emph{Bounding Labels}
 posiadającego dwa porty znajduje się na
 listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
+% TODO: spróbować czy da się start i koniec jako kropki, a nie słowa
 % Źródło:
 % https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggVERcbiAgICBTdGFydCAtLT4gU2VhcmNoVW5pdFJlbGVhc2UoUG9zenVrYWogbW9kdcWCdSB3IG1vZGVsdSlcbiAgICBTZWFyY2hVbml0UmVsZWFzZSAtLT4gSWZVbml0UmVsZWFzZUV4aXN0cyhNb2R1xYIganXFvCB3eXdvxYJhbnkgdyBtb2RlbHU_KVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSB6YWRla2xhcm93YW5lIHBpbnkgbW9kdcWCdT8pXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLT58bmllfCBDcmVhdGVEZWNsYXJlZERhdGFQaW4oVXR3w7NyeiBvYmlla3QgRGVjbGFyZWREYXRhUGluIGkgcG93acSFxbwgeiBDb21wdXRhdGlvblVuaXRSZWxlYXNlKVxuICAgIENyZWF0ZURlY2xhcmVkRGF0YVBpbiAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZFxuICAgIElmQWxsRGVjbGFyZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IENyZWF0ZVVuaXRDYWxsXG4gICAgXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58dGFrfCBDcmVhdGVVbml0Q2FsbChVdHfDs3J6IG9iaWVrdCBVbml0Q2FsbCBpIGRvZGFqIGdvIGRvIG1vZGVsdSlcbiAgICBDcmVhdGVVbml0Q2FsbCAtLT4gSWZBbGxDb21wdXRlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSBwaW55IG1vZHXFgnU_KVxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0-fG5pZXwgQ3JlYXRlQ29tcHV0ZWREYXRhUGluKFV0d8Ozcnogb2JpZWt0IENvbXB1dGVkRGF0YVBpbiBpIHBvd2nEhcW8IHogVW5pdENhbGwpXG4gICAgQ3JlYXRlQ29tcHV0ZWREYXRhUGluIC0tPiBDb25uZWN0UGlucyhQb3dpxIXFvCBDb21wdXRlZERhdGFQaW4geiBvZHBvd2llZG5pbSBEZWNsYXJlZERhdGFQaW4pXG4gICAgQ29ubmVjdFBpbnMgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWRcblxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IFJldHVyblVuaXRDYWxsKFp3csOzxIcgaW5mb3JtYWNqZSBvIHN0d29yem9ueW0gVW5pdENhbGwpXG4gICAgUmV0dXJuVW5pdENhbGwgLS0-IEVuZChLb25pZWMpIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0
 % Konwertowane do PDF poprzez drukowanie do PDF w Google Chrome.
@@ -1485,6 +1492,7 @@ element wymagający rozszerzenia.
 \end{figure}
 % \end{noindent}
 
+% TODO: wygenerować na nowo
 % Źródło:
 % https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IFVzZXIgYXMgVcW8eXRrb3duaWtcbiAgcGFydGljaXBhbnQgQmFsdGljTFNDVUkgYXMgQXBsaWthY2phIHByemVnbMSFZGFya293YTxiciAvPkJhbHRpY0xTQ1xuICBwYXJ0aWNpcGFudCBCYWx0aWNMU0NCYWNrZW5kIGFzIEFwbGlrYWNqYSBzZXJ3ZXJvd2E8YnIgLz5CYWx0aWNMU0NcbiAgcGFydGljaXBhbnQgQ0FMV2ViQmFja2VuZCBhcyBBcGxpa2FjamEgc2Vyd2Vyb3dhPGJyLz5TaXJpdXMgV2ViXG4gIHBhcnRpY2lwYW50IENBTFdlYlVJIGFzIEJpYmxpb3Rla2EgeiBlZHl0b3JlbTxiciAvPmRpYWdyYW3Ds3dcblxuICBVc2VyIC0-PisgQmFsdGljTFNDVUk6IFJvenBvY3puaWogZWR5Y2rEmSBkaWFncmFtdVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFV0d8OzcnogcHJvamVrdFxuICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBQcm9qZWt0IHV0d29yem9ueVxuXG4gIGFsdCBFZHljamEgaXN0bmllasSFY2VqIGFwbGlrYWNqaSBvYmxpY3plbmlvd2VqXG4gICAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJCYWNrZW5kOiBEb2RhaiB6YXdhcnRvxZvEhyBhcGxpa2Fjamkgb2JsaWN6ZW5pb3dlaiBkbyBtb2RlbHVcbiAgICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBEb2Rhbm9cbiAgZW5kXG5cbiAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJVSTogV3nFm3dpZXRsIGVkeXRvciBkaWFncmFtw7N3XG4gIENBTFdlYlVJIC0-Pi0gQmFsdGljTFNDVUk6IFd5xZt3aWV0bG9ubyBlZHl0b3IgZGlhZ3JhbcOzd1xuICBCYWx0aWNMU0NVSSAtPj4tIFVzZXI6IFd5xZt3aWV0bG9ubyBlZHl0b3IgZGlhZ3JhbcOzd1xuXG4gIGxvb3BcbiAgICBVc2VyIC0-PisgQ0FMV2ViVUk6IFptb2R5ZmlrdWogZGlhZ3JhbVxuICAgIENBTFdlYlVJIC0tPj4tIFVzZXI6IFptb2R5Zmlrb3dhbm8gZGlhZ3JhbVxuICAgIENBTFdlYlVJIC0pIFVzZXI6IEluZm9ybWFjamUgZGlhZ25vc3R5Y3puZSAod2FsaWRhY2phIG1vZGVsdSlcbiAgZW5kXG5cbiAgVXNlciAtPj4rIEJhbHRpY0xTQ1VJOiBaYXBpc3ogZGlhZ3JhbVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFBvYmllcnogemF3YXJ0b8WbxIcgbW9kZWx1XG4gIENBTFdlYkJhY2tlbmQgLS0-Pi0gQmFsdGljTFNDVUk6IFphd2FydG_Fm8SHwqBtb2RlbHVcblxuICBCYWx0aWNMU0NVSSAtPj4rIEJhbHRpY0xTQ0JhY2tlbmQ6IFphcGlzeiB6YXdhcnRvxZvEhyBtb2RlbHVcbiAgQmFsdGljTFNDQmFja2VuZCAtLT4-LSBCYWx0aWNMU0NVSTogWmFwaXNhbm9cblxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYlVJOiBVa3J5aiBlZHl0b3IgZGlhZ3JhbcOzd1xuICBDQUxXZWJVSSAtLT4-LSBCYWx0aWNMU0NVSTogVWtyeXRvIGVkeXRvciBkaWFncmFtw7N3XG5cbiAgQmFsdGljTFNDVUkgLS0-Pi0gVXNlcjogRGlhZ3JhbSB6YXBpc2FueSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
 % SVG -> PDF za pomocą Chrome "Print to PDF", a potem pdfcrop
@@ -1505,13 +1513,12 @@ element wymagający rozszerzenia.
 %   end
 %
 %   BalticLSCUI ->>+ CALWebUI: Wyświetl edytor diagramów
-%   CALWebUI ->>- BalticLSCUI: Wyświetlono edytor diagramów
-%   BalticLSCUI ->>- User: Wyświetlono edytor diagramów
+%   CALWebUI -->>- BalticLSCUI: Wyświetlono edytor diagramów
+%   BalticLSCUI -->>- User: Wyświetlono edytor diagramów
 %
 %   loop
 %     User ->>+ CALWebUI: Zmodyfikuj diagram
-%     CALWebUI -->>- User: Zmodyfikowano diagram
-%     CALWebUI -) User: Informacje diagnostyczne (walidacja modelu)
+%     CALWebUI -->>- User: Zmodyfikowana treść diagramu wraz z informacjami diagnostycznymi z walidacji modelu
 %   end
 %
 %   User ->>+ BalticLSCUI: Zapisz diagram
