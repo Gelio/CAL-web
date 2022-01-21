@@ -538,13 +538,16 @@ natomiast rozwiązanie mniej wydajne i bardziej komplikujące kod aplikacji.
 
 Niedogodnością pojawiającą się podczas pracy z aplikacją przeglądarkową
 \SiriusWeb{} jest fakt, że nazwy komponentów w dostarczonym kodzie
-% TODO: zmienić słowo "zobfuskowane" na coś brzmiącego bardziej po polsku.
-% Zmienić także w reszcie pracy mgr (wszystkie wystąpienia)
-\JavaScript{} są zobfuskowane. Utrudnia to analizę struktury aplikacji w
-narzędziach programisty w przeglądarce. Zrzut ekranu prezentujący zobfuskowane
-nazwy komponentów pochodzące z biblioteki \texttt{sirius-components} jest
+\JavaScript{} są zmienione tak, aby~były jak najkrótsze. Przykładowe nazwy
+komponentów to \texttt{Kc}, \texttt{Pc}, \texttt{Zd}. Taka optymalizacja
+ma~sens w przypadku przygotowania aplikacji do wyświetlenia bezpośrednio w
+przeglądarce, ale przeszkadza gdy zostaje wykonana w bibliotece komponentów, z
+której korzystają inni programiści. Utrudnia to analizę
+struktury aplikacji w
+narzędziach programisty w~przeglądarce. Zrzut ekranu prezentujący zmienione
+nazwy komponentów pochodzące z~biblioteki \texttt{sirius-components} jest
 widoczny na rysunku~\ref{rys:sirius-web-minified-component-names}. Problem
-został zgłoszony w repozytorium
+został zgłoszony w~repozytorium
 projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/831}
 }.
@@ -554,7 +557,7 @@ projektu\footnote{
   \centering
 
   \includegraphics[width=0.7\linewidth]{./images/sirius-web-minified-component-names.png}
-  \caption{Zobfuskowane nazwy komponentów z biblioteki
+  \caption{Nie niosące informacji nazwy komponentów z biblioteki
     \texttt{sirius-components}}\label{rys:sirius-web-minified-component-names}
 \end{figure}
 % \end{noindent}
