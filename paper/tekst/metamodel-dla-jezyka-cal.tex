@@ -287,6 +287,14 @@ mają
 automatycznie ustawione odwołania na właściwe deklaracje portów.
 Wykorzystanie tego narzędzia zostało przedstawione na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call}.
+Rysunek~\ref{rys:sirius-desktop-empty-unit-call} demonstruje wygląd nowo
+utworzonego wywołania modułu obliczeniowego bez wskazania który moduł on
+wywołuje. Po wskazaniu modułu do wywołania, piny są tworzone automatycznie, co
+widać na rysunku~\ref{rys:sirius-desktop-change-unit-to-call-before}. Po
+ponownej zmianie modułu obliczeniowego do wywołania, poprzednie piny są
+usuwane, a na ich miejsce zostają utworzone nowe, na bazie definicji wybranego
+modułu obliczeniowego, co widać na
+rysunku~\ref{rys:sirius-desktop-change-unit-to-call-after}.
 
 Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
 metamodelu. Została zmieniona definicja metody zmiany wskazania na moduł do
@@ -304,31 +312,19 @@ metamodelem i~pomaga uniknąć błędów.
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-empty-unit-call.png}
-		\caption{Nowo utworzone wywołanie modułu obliczeniowego}\label{ref:sirius-desktop-empty-unit-call}
-    \medskip
-    {\small To wywołanie nie~ma~wskazanego modułu, które ma wywołać, stąd
-      druga linia etykiety jest pusta.}
-    \vspace{50pt}
+		\caption{Nowo utworzone wywołanie modułu obliczeniowego}\label{rys:sirius-desktop-empty-unit-call}
 	\end{subfigure}
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-before.png}
-		\caption{Wywołanie modułu obliczeniowego po wskazaniu modułu do wywołania}\label{
-      rys:sirius-desktop-change-unit-to-call-before}
-    \medskip
-    {\small Porty zostały automatycznie utworzone zgodnie z~deklaracją modułu
-      \emph{Bounding Labels}.}
-    \medskip
+		\caption{Wywołanie modułu obliczeniowego po wskazaniu modułu do
+      wywołania}\label{rys:sirius-desktop-change-unit-to-call-before}
 	\end{subfigure}
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-after.png}
-		\caption{Wywołanie modułu obliczeniowego po ponownym wskazaniu modułu do wywołania}\label{
-      rys:sirius-desktop-change-unit-to-call-after}
-    \medskip
-    {\small Poprzednie porty zostały usunięte, a na ich miejsce zostały
-      utworzone nowe, bazując na zdeklarowanych portach modułu \emph{Object
-      Identification}.}
+		\caption{Wywołanie modułu obliczeniowego po ponownym wskazaniu modułu do
+        wywołania}\label{rys:sirius-desktop-change-unit-to-call-after}
 	\end{subfigure}
 
 	\caption{Demonstracja działania narzędzia zarządzającego portami wywołań
@@ -505,8 +501,6 @@ takie połączenia są dozwolone.
 	\caption{Przykładowa reguła walidacji semantycznej w \emph{Sirius
     Desktop}}\label{rys:sirius-desktop-example-semantic-validation-rule}
   \medskip
-  {\small Reguła zabrania występowania połączeń między portami na tym samym
-    wywołaniu modułu obliczeniowego.}
 \end{figure}
 % \end{noindent}
 

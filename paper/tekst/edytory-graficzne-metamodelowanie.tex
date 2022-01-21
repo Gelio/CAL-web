@@ -71,10 +71,6 @@ właściciel, jak i samochody są zawarte w obiekcie właściciela.
 	\includegraphics[width=0.95\linewidth]{./images/invalid-uml-example.pdf}
 	\caption{Przykład modelu \emphgls{UML} nieprawidłowego
 		semantycznie}\label{rys:nieprawidlowy-model-uml}
-	\medskip
-	% TODO: przenieść ten (i wszystkie inne komentarze obrazków) do tekstu pracy
-	{\small Relacje kompozycji wskazują, że obie klasy są częścią drugiej z
-		klas, co jest nielogiczne.}
 \end{figure}
 
 Dopiero znając znaczenie relacji kompozycji można zauważyć ten błąd semantyczny
@@ -89,9 +85,6 @@ poprawny zarówno składniowo, jak i semantycznie.
 	\includegraphics[width=0.95\linewidth]{./images/valid-uml-example.pdf}
 	\caption{Przykład prawidłowego modelu
 		\emphgls{UML}}\label{rys:prawidlowy-model-uml}
-	\medskip
-	{\small Samochód jest częścią klasy \emph{Person}, a więc relacja
-		całość--część jest zrozumiała.}
 \end{figure}
 
 \section{Edytory graficzne na podstawie metamodeli}
@@ -147,12 +140,14 @@ Innym narzędziem umożliwiającym przygotowanie edytora graficznego na podstawi
 metamodelu jest \SiriusDesktop{}~\cite{sirius-desktop-homepage} rozwijany
 przez firmę \Eclipse{}. Jest to rozszerzenie do~zintegrowanego środowiska
 programistycznego (\emphgls{IDE}) \Eclipse{}. Pozwala ono na zaprojektowanie
-metamodelu dla wybranej dziedziny używając języka \emph{\acrfull{EMF}}. Ma on
-strukturę drzewiastą i jest
-zapisany w pliku \emphgls{XML} w formacie \Ecore{} (rozszerzenie
-\texttt{*.ecore}). Przykładowy metamodel zdefiniowany w \SiriusDesktop{}
-widoczny jest na rysunku~\ref{rys:sirius-desktop-example-metamodel}. Na jego
-podstawie można wygenerować 5 pakietów opisanych w kolejnych akapitach.
+metamodelu dla wybranej dziedziny używając technologii \emph{\acrfull{EMF}}.
+Jest on zapisany w pliku \emphgls{XML} w formacie \Ecore{} (rozszerzenie
+\texttt{*.ecore}). Interfejs użytkownika programu \SiriusDesktop{}
+widoczny jest na rysunku~\ref{rys:sirius-desktop-example-metamodel}. Po lewej
+dostępne jest drzewo metaklas, na środku widać diagram struktury struktury
+metamodelu, a po prawej stronie znajduje się przybornik z~narzędziami do
+tworzenia elementów metamodelu. W \SiriusDesktop{}
+można wygenerować 5 pakietów opisanych w kolejnych akapitach.
 
 \begin{figure}[!ht]
 	\centering
@@ -160,10 +155,6 @@ podstawie można wygenerować 5 pakietów opisanych w kolejnych akapitach.
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-metamodel.png}
 	\caption{Projektowanie metamodelu w \emph{Sirius
 			Desktop}}\label{rys:sirius-desktop-example-metamodel}
-	\medskip
-	{\small Po lewej dostępne jest drzewo metaklas, na środku diagram
-		metaklas, a po prawej przybornik z~narzędziami do tworzenia
-		elementów metamodelu.}
 \end{figure}
 
 Pierwszym pakietem jest pakiet bazowy zawierający klasy umożliwiające
