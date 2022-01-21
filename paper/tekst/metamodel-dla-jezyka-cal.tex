@@ -421,11 +421,13 @@ najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
 zaznaczone na diagramie za pomocą ikony czerwonego znaku \texttt{X} obok
 elementu, którego wiadomość dotyczy. Zostało to zilustrowane na
 rysunku~\ref{rys:sirius-desktop-syntax-validation}.
-% TODO: napisać, że tylko ostatni wiersz pochodzi z walidacji składniowej, a
-% reszta wierszy jest zasłonięta, ponieważ są one nieistotne z perspektywy
-% walidacji składniowej (błędy edytora)
-% TODO: opisać, że widoczny na liście błąd odpowiada ikonie X na diagramie
-% oznaczającej błąd
+Ostatni wiersz na liście problemów jest związany z walidacją składniową i
+wskazuje on, że~obiekt odpowiadający wywołaniu modułu obliczeniowego nie ma
+ustawionego atrybutu \texttt{unit}, czyli brakuje wskazania modułu do
+wywołania. Ta sama wiadomość jest widoczna na diagramie po przeniesieniu
+kursora na znak \texttt{X}.
+Reszta problemów na liście wynika z błędów edytora, a~nie~modelu, więc została
+rozmyta dla zwrócenia uwagi na informacje pochodzace z walidacji składniowej.
 
 % \begin{noindent}
 \begin{figure}[!hb]
