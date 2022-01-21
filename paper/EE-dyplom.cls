@@ -374,6 +374,12 @@
 \graphicspath{{gfx/}{images/}}
 
 % ---------------------------------------------
+% Float
+% https://www.overleaf.com/learn/latex/Errors/LaTeX_Error%3A_Unknown_float_option_%60H%27
+% ---------------------------------------------
+\RequirePackage{float}
+
+% ---------------------------------------------
 % Listingi programów
 % ---------------------------------------------
 \RequirePackage{listings}
