@@ -62,7 +62,7 @@
 \makeglossaries
 \loadglsentries{glossary}
 \ifnum\strcmp{\locallang}{PL} = 0
-	\newcommand{\acronymstitle}{Wykaz skrótów i symboli}
+	\newcommand{\acronymstitle}{Wykaz symboli i skrótów}
 \else
 	\newcommand{\acronymstitle}{List of Abbreviations and Symbols}
 \fi
