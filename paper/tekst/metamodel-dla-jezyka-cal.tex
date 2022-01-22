@@ -66,7 +66,7 @@ przez różne węzły obliczeniowe. Ich wyniki trafią później do jednostki
 sekwencyjny.
 
 % \begin{noindent}
-\begin{figure}[!ht]
+\begin{figure}[!hb]
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
@@ -103,8 +103,9 @@ rysunku~\ref{rys:cal-emf-metamodel}. Jego składnia konkretna
 jest omówiona w dalszej części pracy i będzie przedstawiona na
 rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 Przygotowany metamodel bazuje na metamodelu
-opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, który widoczny
-jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
+opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, którego
+składnia abstrakcyjnna jest widoczna
+na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
 Na potrzeby edytora diagramów nie są potrzebne wszystkie elementy oryginalnego
 metamodelu. Niektóre klasy i~właściwości zostały pominięte, ponieważ nie były
 istotne z~perspektywy edycji diagramu.
@@ -115,7 +116,7 @@ jest inne (wyłącznie edycja diagramów aplikacji obliczeniowych) w porównaniu
 metamodelem z systemu \BalticLSC{} (wykonywanie obliczeń zgodnie z modelem).
 Różnice zostaną opisane w~dalszej części pracy.
 
-\begin{figure}[!hb]
+\begin{figure}[!ht]
 	\centering
 
 	\includegraphics[width=0.92\linewidth]{./images/cal-emf-metamodel.pdf}
@@ -123,27 +124,23 @@ Różnice zostaną opisane w~dalszej części pracy.
 		ramach tej pracy}\label{rys:cal-emf-metamodel}
 \end{figure}
 
-\begin{figure}[!ht]
-	\centering
-
-	% NOTE: this image is pretty tall, so it must be kept much smaller than the
-	% line width so it does not take up the whole page, moving all incoming
-	% images to the bottom of the chapter.
-
-	\includegraphics[width=0.82\linewidth]{./images/cal-metamodel-balticlsc.png}
-	\caption{Metamodel języka \CAL{} używany w projekcie
-		\BalticLSC{}}\label{rys:cal-metamodel-balticlsc}
-
-	\medskip
-	{\small Źródło:
-		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
-\end{figure}
-
 Model bazujący na metamodelu w formacie \Ecore{} ma strukturę grafową. Głównym
 jego elementem jest obiekt typu
 \texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
 (aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
 natomiast 4 typy obiektów:
+
+% NOTE: placing this figure before the list makes it break the list, which is
+% expected
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.99\linewidth]{./images/sirius-desktop-cal-example-model.png}
+	\caption{Składnia konkretna przygotowanego metamodelu języka \CAL{} w
+		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
+\end{figure}
+% \end{noindent}
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
@@ -182,20 +179,30 @@ Składnia konkretna przygotowanego metamodelu języka \CAL{} wyświetlona w
 programie \SiriusDesktop{} dla przykładowego modelu została przedstawiona na
 rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
-% \begin{noindent}
-\begin{figure}[!ht]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-cal-example-model.png}
-	\caption{Składnia konkretna przygotowanego metamodelu języka \CAL{} w
-		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
-\end{figure}
-% \end{noindent}
-
 Oprócz podstawowej struktury metamodelu oraz jego reprezentacji w formie
 diagramu zostały do niego dodane dodatkowe funkcjonalności dostępne w ramach
 technologii \EMF{}. Zostały one opisane
 w kolejnych sekcjach.
+
+Składnia abstrakcyjna metamodelu języka \CAL{} używanego w systemie
+\BalticLSC{}, na~którym wzorowano metamodel przygotowany w ramach tej pracy
+magisterskiej, widoczna jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
+
+\begin{figure}[!ht]
+	\centering
+
+	% NOTE: this image is pretty tall, so it must be kept much smaller than the
+	% line width so it does not take up the whole page, moving all incoming
+	% images to the bottom of the chapter.
+
+	\includegraphics[width=0.82\linewidth]{./images/cal-metamodel-balticlsc.png}
+	\caption{Składnia abstrakcyjna metamodelu języka \CAL{} używanego w
+		projekcie \BalticLSC{}}\label{rys:cal-metamodel-balticlsc}
+
+	\medskip
+	{\small Źródło:
+		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
+\end{figure}
 
 \subsection{Warunkowa zmiana stylu elementów}
 
@@ -248,7 +255,7 @@ dla pinów wywoływanych jednostek obliczeniowych. Oprócz brania pod uwagę
 krotności danych
 oraz
 paczek danych, w~tym~stylu znaczenie ma ponadto kierunek pinu. Piny wejściowe
-mają pogrubiony pasek z lewej strony, a~piny wyjściowe z prawej. Dla tych
+mają pogrubiony pasek z~lewej strony, a~piny wyjściowe z prawej. Dla tych
 pinów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
 Dzięki wykorzystaniu metody z listingu~\ref{lst:getDataPinIconPath-method} oraz
 języka \AQL{} ta~funkcjonalność została zrealizowana za pomocą jednego stylu
@@ -263,7 +270,8 @@ pomarańczowego. Ta funkcjonalność została zaimplementowana za pomocą jedneg
 stylu warunkowego.
 
 Wyniki działania obu rodzajów styli warunkowych widoczne są na
-rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+rysunku~\ref{rys:sirius-desktop-cal-example-model} pokazującym
+składnię konkretną metamodelu.
 
 \subsection{Narzędzia edytora diagramów}\label{sec:cal-metamodel-tools}
 
@@ -309,19 +317,8 @@ usuwane, a na ich miejsce zostają utworzone nowe, na bazie definicji wybranej
 jednostki obliczeniowej, co widać na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call-after}.
 
-Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
-metamodelu. Została zmieniona definicja metody zmiany wskazania na jednostkę do
-wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
-poprzednie piny i tworzone są nowe. To zachowanie opisane jest w języku
-\Java{}.
-
-Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych pinów
-i~tworzyć nowych podczas zmiany wywoływanej jednostki obliczeniowej.
-Przyśpiesza to~pracę z
-metamodelem i~pomaga uniknąć błędów.
-
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.3\textwidth}
 		\centering
@@ -345,6 +342,17 @@ metamodelem i~pomaga uniknąć błędów.
     jednostek obliczeniowych}\label{rys:sirius-desktop-change-unit-to-call}
 \end{figure}
 % \end{noindent}
+
+Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
+metamodelu. Została zmieniona definicja metody zmiany wskazania na jednostkę do
+wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
+poprzednie piny i tworzone są nowe. To zachowanie opisane jest w języku
+\Java{}.
+
+Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych pinów
+i~tworzyć nowych podczas zmiany wywoływanej jednostki obliczeniowej.
+Przyśpiesza to~pracę z
+metamodelem i~pomaga uniknąć błędów.
 
 Inną grupą narzędzi są narzędzia pomagające w przestrzeganiu poprawności
 modelu. Do~tej~grupy można zaliczyć kilka narzędzi dotyczących tworzenia lub
@@ -480,10 +488,8 @@ Należało wykluczyć sytuacje, w
 których połączenie jest między dwoma pinami aplikacji obliczeniowej, ponieważ
 takie połączenia są~dozwolone.
 
-% TODO: spróbować przenieść wcześniej, podobnie z innymi obrazkami, może się da
-% bliżej tekstu
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{.8\textwidth}
 		\centering
@@ -595,19 +601,19 @@ ponieważ z~7~wygenerowanych plików z testami (po jednym dla każdego obiektu
 metamodelu), tylko jeden ma zdefiniowane w sobie testy, a reszta jest pusta.
 Niepowodzenie informuje o braku testów zdefiniowanych w tych plikach.
 
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.90\linewidth]{./images/sirius-desktop-metamodel-tests.png}
+	\caption{Wynik uruchomienia testów automatycznych
+  metamodelu}\label{rys:sirius-desktop-metamodel-tests}
+\end{figure}
+% \end{noindent}
+
 W przypadku tego metamodelu są przygotowane
 jedynie dwa testy, więc nie było potrzeby dzielić je na grupy
 (\emph{\selectlanguage{english}test suites}) --- jest tylko
 jedna grupa nadrzędna \emph{\selectlanguage{english}CAL All Tests}, która
 zawiera w sobie grupę
 \emph{\selectlanguage{english}CAL Tests}, która zawiera poszczególne testy.
-
-% \begin{noindent}
-\begin{figure}[!hb]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-metamodel-tests.png}
-	\caption{Wynik uruchomienia testów automatycznych
-  metamodelu}\label{rys:sirius-desktop-metamodel-tests}
-\end{figure}
-% \end{noindent}

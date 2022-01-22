@@ -83,7 +83,7 @@ użytkownik musi poświęcić więcej uwagi i~wysiłku w celu zlokalizowania
 niepoprawnych elementów.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[t]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
@@ -129,7 +129,7 @@ Usterka została zgłoszona w repozytorium projektu\footnote{
 }.
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[t]
   \centering
 
   \includegraphics[width=0.5\linewidth]{./images/sirius-desktop-reconnect-edge.png}
@@ -154,7 +154,7 @@ została zgłoszona w repozytorium projektu\footnote{
 }.
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[t]
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-dialog.png}
@@ -179,12 +179,21 @@ użytkownik nie musi wiedzieć które narzędzia mają sens dla wybranego elemen
 niż w \SiriusDesktop{} pod względem intuicyjności interfejsu.
 
 % \begin{noindent}
-\begin{figure}[!ht]
+\begin{figure}[t]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-model-editor.png}
+  \includegraphics[width=0.90\linewidth]{./images/sirius-desktop-model-editor.png}
   \caption{Interfejs \SiriusDesktop{} z narzędziami po prawej
     stronie}\label{rys:sirius-desktop-model-editor-tools-right}
+\end{figure}
+% \end{noindent}
+
+% \begin{noindent}
+\begin{figure}[b]
+  \centering
+
+  \includegraphics[width=0.70\linewidth]{./images/sirius-web-duplicate-tools.png}
+  \caption{Zduplikowane narzędzia w \SiriusWeb{}}\label{rys:sirius-web-duplicate-tools}
 \end{figure}
 % \end{noindent}
 
@@ -198,12 +207,25 @@ będzie on wiedział który przycisk należy wybrać, aby zrealizować oczekiwan
 oraz jakie są różnice między tymi przyciskami. W rzeczywistości oba przyciski w
 obu przypadkach mają taki sam skutek, więc duplikacja jest niepotrzebna.
 
+% NOTE: placing figures before the text that references them ends up putting
+% them in the correct place in the PDF (right below the text)
 % \begin{noindent}
-\begin{figure}[!ht]
+\begin{figure}[!b]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-duplicate-tools.png}
-  \caption{Zduplikowane narzędzia w \SiriusWeb{}}\label{rys:sirius-web-duplicate-tools}
+  \includegraphics[width=0.85\linewidth]{./images/sirius-desktop-blocked-deleting-pins.png}
+  \caption{Zablokowana możliwość usunięcia pinu wywołania jednostki
+    obliczeniowej w \SiriusDesktop{}}\label{rys:sirius-desktop-blocked-deleting-pins}
+\end{figure}
+% \end{noindent}
+
+% \begin{noindent}
+\begin{figure}[!b]
+  \centering
+
+  \includegraphics[width=0.85\linewidth]{./images/sirius-web-timeout-when-deleting-pins.png}
+  \caption{Błąd podczas próby usunięcia pinu wywołania jednostki obliczeniowej w
+    \SiriusWeb{}}\label{rys:sirius-web-timeout-when-deleting-pins}
 \end{figure}
 % \end{noindent}
 
@@ -223,26 +245,6 @@ wyświetleniem niejasnej wiadomości o przekroczeniu czasu przetwarzania żądan
 przedstawionej na rysunku~\ref{rys:sirius-web-timeout-when-deleting-pins}.
 Takie rozwiązanie jest mylące dla użytkownika i~pogarsza wrażenia z
 wykorzystania edytora.
-
-% \begin{noindent}
-\begin{figure}[!ht]
-  \centering
-
-  \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-blocked-deleting-pins.png}
-  \caption{Zablokowana możliwość usunięcia pinu wywołania jednostki
-    obliczeniowej w \SiriusDesktop{}}\label{rys:sirius-desktop-blocked-deleting-pins}
-\end{figure}
-% \end{noindent}
-
-% \begin{noindent}
-\begin{figure}[!ht]
-  \centering
-
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-timeout-when-deleting-pins.png}
-  \caption{Błąd podczas próby usunięcia pinu wywołania jednostki obliczeniowej w
-    \SiriusWeb{}}\label{rys:sirius-web-timeout-when-deleting-pins}
-\end{figure}
-% \end{noindent}
 
 \subsection{Właściwości tylko do odczytu}
 
@@ -282,7 +284,7 @@ projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/783}}.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[b]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
@@ -314,7 +316,7 @@ repozytorium projektu\footnote{
 tekst był czytelny.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
@@ -369,7 +371,7 @@ projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/785}}.
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[h]
   \centering
 
   \includegraphics[width=0.6\linewidth]{./images/change-node-size.png}
@@ -435,7 +437,7 @@ Szczegółowe czasy oczekiwania na wyświetlenie elementów interfejsu z włącz
 sztucznym opóźnieniem zostały zaprezentowane w
 tabeli~\ref{tab:sirius-web-ui-delay-throttled}.
 
-\begin{table}[!t]
+\begin{table}[h]
 	\centering
 	\begin{tabular}{p{5cm}c}
 		\toprule

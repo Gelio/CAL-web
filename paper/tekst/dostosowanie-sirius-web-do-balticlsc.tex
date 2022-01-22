@@ -62,8 +62,7 @@ projekty \Eclipse{}, podczas gdy \Maven{} wykorzystuje repozytoria w
 swoim własnym formacie. Fragment pliku \texttt{pom.xml} konfigurujący to
 repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 
-\begin{lstlisting}[float,
-    floatplacement=ht,
+\begin{lstlisting}[float=h,
     language=XML,
     caption={Konfiguracja repozytorium \Eclipse{} w \texttt{pom.xml}},
     label={lst:pom-eclipse-repository}]
@@ -83,7 +82,7 @@ zdefiniować, że~są~to~projekty \Eclipse{}, poprzez dodanie elementu
 to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
 
 \begin{lstlisting}[float,
-    floatplacement=hb,
+    floatplacement=!hb,
     language=XML,
     caption={Plik \texttt{pom.xml} dla jednego z projektów metamodelu
       w formacie \Ecore{}},
@@ -97,7 +96,6 @@ to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
   <modelVersion>4.0.0</modelVersion>
   <artifactId>eu.balticlsc.model.CAL</artifactId>
   <packaging>eclipse-plugin</packaging>
-
   <parent>
     <groupId>eu.balticlsc.model</groupId>
     <artifactId>model</artifactId>
@@ -116,14 +114,11 @@ wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to
 Java~11. Jest~to~jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
 Inne wersje nie są wspierane.
 
-% TODO: spróbować żeby listingi nie były "na kupie", tylko poprzedzielane tekstem
-
 \begin{lstlisting}[float,
-    floatplacement=hb,
+    floatplacement=!hb,
     language=XML,
     caption={Konfiguracja rozszerzeń \emph{Maven Tycho} w \texttt{pom.xml}},
     label={lst:pom-maven-tycho-plugins}]
-<build>
   <plugins>
     <plugin>
       <groupId>org.eclipse.tycho</groupId>
@@ -131,35 +126,21 @@ Inne wersje nie są wspierane.
       <version>2.5.0</version>
       <extensions>true</extensions>
     </plugin>
-
     <plugin>
       <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-packaging-plugin</artifactId>
-         <version>2.5.0</version>
-         <executions>
-          <execution>
-            <phase>package</phase>
-            <id>package-feature</id>
-              <configuration>
-                <finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
-              </configuration>
-        </execution>
-      </executions>
+      <artifactId>tycho-packaging-plugin</artifactId>
+      <version>2.5.0</version>
     </plugin>
-
     <plugin>
       <groupId>org.eclipse.tycho</groupId>
       <artifactId>target-platform-configuration</artifactId>
       <version>2.5.0</version>
-
       <configuration>
         <executionEnvironment>JavaSE-11</executionEnvironment>
-
         <!-- ... konfiguracja platformy -->
       </configuration>
     </plugin>
   </plugins>
-</build>
 \end{lstlisting}
 
 Tak przygotowany projekt \Maven{} będzie wykrywał zależności zdefiniowane w
@@ -171,8 +152,7 @@ komendę \lstinline{mvn clean verify}. Model można teraz dodać do pliku
 głównego pakietu modelu, pakietu \texttt{.edit} oraz pakietu \texttt{.design}.
 Odwołania te widoczne są na listingu~\ref{lst:pom-metamodel-dependencies}.
 
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     language=XML,
     caption={Odwołania do pakietów metamodelu w \texttt{pom.xml} aplikacji
     serwerowej \SiriusWeb{}},
@@ -205,8 +185,7 @@ listingu~\ref{lst:registering-emf-classes}. Później w klasie
 Odpowiedni fragment znajduje się na
 listingu~\ref{lst:registering-odesign-path}.
 
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     language=Java,
     caption={Rejestracja klas przygotowanego metamodelu w klasie
       \texttt{Sample\-EMF\-Configuration}},
@@ -318,8 +297,7 @@ listingu~\ref{lst:pom-maven-surefire-plugin}. Należy w nim wskazać gdzie
 znajduje się kod źródłowy testów oraz ścieżkę do pakietu z testami, a także
 nazwę klasy grupującej wszystkie testy.
 
-\begin{lstlisting}[float,
-    floatplacement=!hb,
+\begin{lstlisting}[float=h,
     language=XML,
     caption={Wykorzystanie rozszerzenia \emph{Maven Surefire} w
       \texttt{pom.xml} projektu z testami metamodelu},
@@ -376,7 +354,7 @@ na~rysunku~\ref{rys:balticlsc-diagram-toolbox} jest widoczny na
 rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!t]
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-development-shelf.png}
@@ -386,7 +364,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 % \end{noindent}
 
 % \begin{noindent}
-\begin{figure}[!ht]
+\begin{figure}[!b]
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-diagram-toolbox.png}
@@ -463,8 +441,7 @@ Służy on potwierdzeniu, że token został przygotowany przez serwis
 \BalticLSC{} w drodze poprawnego logowania do serwisu, a nie został
 wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
 
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     language=java,
     caption={Zawartość pola z danymi w tokenie \emphgls{JWT} z serwisu
       \BalticLSC{}},
@@ -868,6 +845,41 @@ przykładowej mutacji odpowiedzialnej za dodanie jednostki \emph{Bounding
 posiadającej dwa piny znajduje się
 na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
+\begin{lstlisting}[float=hb,
+    % NOTE: graphql is not supported, c adds basic highlighting for strings
+    language=c,
+    caption={Mutacja \GraphQL{} dodająca wywołanie jednostki obliczeniowej do
+      modelu},
+    label={lst:sirius-web-createUnitCall-mutation}]
+mutation {
+  createUnitCall(input: {
+    	id: "cfcce8ef-47e3-4f5e-9ecc-847deba46219",
+    	rootObjectId:"9e778a79-c5bb-484d-9867-86d4caddec18",
+      editingContextId: "a7fdb460-e342-42a6-924e-d31cbb53db69",
+      unitRelease: {
+        id: "110f65c2-3fc6-411c-9ded-8c8cf96db52d",
+        name: "Bounding Labels",
+        version: "0.11",
+        pins: [
+          {
+            id: "c915d7a5-dec5-4b60-9fdb-00eed6591cc4",
+            name: "Input",
+            binding: REQUIRED,
+            tokenMultiplicity: SINGLE,
+            dataMultiplicity: SINGLE
+          },
+          { /* definicja drugiego pinu, podobna do tej powyżej */ }
+        ]
+      }
+  }) {
+    ... on CreateUnitCallSuccessPayload {
+      id
+      createdUnitCall { id }
+    }
+  }
+}
+\end{lstlisting}
+
 % Źródło:
 % https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgU3RhcnQoKHh4eCkpXG4gICAgc3R5bGUgU3RhcnQgZmlsbDojMDAwXG4gICAgU3RhcnQgLS0-IFNlYXJjaFVuaXRSZWxlYXNlKFBvc3p1a2FqIG1vZHXFgnUgdyBtb2RlbHUpXG4gICAgU2VhcmNoVW5pdFJlbGVhc2UgLS0-IElmVW5pdFJlbGVhc2VFeGlzdHN7TW9kdcWCIGp1xbw8YnIvPnd5d2_FgmFueTxici8-dyBtb2RlbHU_fVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZHtVdHdvcnpvbm88YnIvPndzenlzdGtpZTxici8-emFkZWtsYXJvd2FuZTxici8-cGlueSBtb2R1xYJ1P31cbiAgICBJZkFsbERlY2xhcmVkRGF0YVBpbnNDcmVhdGVkIC0tPnxuaWV8IENyZWF0ZURlY2xhcmVkRGF0YVBpbihVdHfDs3J6IG9iaWVrdCBEZWNsYXJlZERhdGFQaW4gaSBwb3dpxIXFvCB6IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UpXG4gICAgQ3JlYXRlRGVjbGFyZWREYXRhUGluIC0tPiBJZkFsbERlY2xhcmVkRGF0YVBpbnNDcmVhdGVkXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLS0-fHRha3wgQ3JlYXRlVW5pdENhbGxcblxuICAgIElmVW5pdFJlbGVhc2VFeGlzdHMgLS0-fHRha3wgQ3JlYXRlVW5pdENhbGwoVXR3w7NyeiBvYmlla3QgVW5pdENhbGwgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlVW5pdENhbGwgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWR7VXR3b3J6b25vPGJyIC8-d3N6eXN0a2llPGJyIC8-cGlueSBtb2R1xYJ1P31cbiAgICBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkIC0tPnxuaWV8IENyZWF0ZUNvbXB1dGVkRGF0YVBpbihVdHfDs3J6IG9iaWVrdCBDb21wdXRlZERhdGFQaW4gaSBwb3dpxIXFvCB6IFVuaXRDYWxsKVxuICAgIENyZWF0ZUNvbXB1dGVkRGF0YVBpbiAtLT4gQ29ubmVjdFBpbnMoUG93acSFxbwgQ29tcHV0ZWREYXRhUGluIHogb2Rwb3dpZWRuaW0gRGVjbGFyZWREYXRhUGluKVxuICAgIENvbm5lY3RQaW5zIC0tPiBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkXG5cbiAgICBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkIC0tLT58dGFrfCBSZXR1cm5Vbml0Q2FsbChad3LDs8SHIGluZm9ybWFjamUgbyBzdHdvcnpvbnltIFVuaXRDYWxsKVxuICAgIFJldHVyblVuaXRDYWxsIC0tPiBFbmRcbiAgICBFbmQoKFwiIzExMDQ0O1wiKSkiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
 % Konwertowane do PDF poprzez drukowanie do PDF w Google Chrome.
@@ -899,58 +911,12 @@ na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 \begin{figure}[!ht]
   \centering
 
-  \includegraphics[width=0.70\linewidth]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
+  % NOTE: makes the image take up the whole page
+  \includegraphics[height=0.93\textheight]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
   \caption{Diagram aktywności dla dodania nowego wywołania jednostki
     obliczeniowej}\label{rys:sirius-web-create-unit-call-mutation-handler}
 \end{figure}
 % \end{noindent}
-
-\begin{lstlisting}[float,
-    floatplacement=hb,
-    % NOTE: graphql is not supported, c adds basic highlighting for strings
-    language=c,
-    caption={Mutacja \GraphQL{} dodająca wywołanie jednostki obliczeniowej do
-      modelu},
-    label={lst:sirius-web-createUnitCall-mutation}]
-mutation {
-  createUnitCall(input: {
-    	id: "cfcce8ef-47e3-4f5e-9ecc-847deba46219",
-    	rootObjectId:"9e778a79-c5bb-484d-9867-86d4caddec18",
-      editingContextId: "a7fdb460-e342-42a6-924e-d31cbb53db69",
-      unitRelease: {
-        id: "110f65c2-3fc6-411c-9ded-8c8cf96db52d",
-        name: "Bounding Labels",
-        version: "0.11",
-        pins: [
-          {
-            id: "c915d7a5-dec5-4b60-9fdb-00eed6591cc4",
-            name: "Input",
-            binding: REQUIRED,
-            tokenMultiplicity: SINGLE,
-            dataMultiplicity: SINGLE
-          },
-          {
-            id: "76c05ac4-4b34-4053-97e5-8d65748d1485",
-            name: "Output",
-            binding: PROVIDED,
-            tokenMultiplicity: SINGLE,
-            dataMultiplicity: SINGLE
-          }
-        ]
-      }
-  }) {
-    __typename
-    ... on CreateUnitCallSuccessPayload {
-      id
-      createdUnitCall {
-        id
-        kind
-        label
-      }
-    }
-  }
-}
-\end{lstlisting}
 
 \section{Walidacja semantyczna modelu}\label{sec:walidacja-semantyczna-modelu}
 
@@ -976,7 +942,7 @@ przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
@@ -1311,7 +1277,7 @@ moduł w tym formacie.
 %     }
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!h]
   \centering
 
   \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-class-diagram.pdf}
@@ -1319,33 +1285,6 @@ moduł w tym formacie.
     \SiriusWeb{}}\label{rys:sirius-web-library-class-diagram}
 \end{figure}
 % \end{noindent}
-
-Wyświetlenie komponentu \texttt{Workbench} wymaga przekazania mu parametrów
-dotyczących modelu, który ma zostać wyświetlony na diagramie. Są to
-identyfikator kontekstu edycji \texttt{editingContextId} omówiony w
-sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
-reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
-implementacyjnymi aplikacji \SiriusWeb{}. Zakładając, że~w~każdym
-projekcie aplikacji \SiriusWeb{} będzie znajdował się wyłącznie jeden
-model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
-wysyłając odpowiednie zapytania \GraphQL{} do serwera aplikacyjnego znając
-jedynie identyfikator projektu. Aby~uprościć udostępniany
-interfejs programistyczny \emphgls{API} modułu stworzono również funkcję
-\texttt{resolveWorkbenchProperties}, która oczekuje identyfikatora projektu, a
-zwraca parametry potrzebne do wyświetlenia komponentu \texttt{Workbench}, które
-uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \SiriusWeb{}.
-Funkcja ta dodatkowo oczekuje dwóch parametrów:
-
-\begin{itemize}
-	\item tokena uwierzytelniającego \emphgls{JWT} aktualnego użytkownika wydanego przez platformę \BalticLSC{} (parametr \texttt{authToken}),
-	\item adresów URL serwera aplikacyjnego \BalticLSC{} oraz \SiriusWeb{}
-	      (parametr \texttt{apiURLS}).
-\end{itemize}
-
-Są one wymagane zarówno do pobrania parametrów edytora diagramów w funkcji
-\texttt{resolveWorkbenchProperties}, jak i do późniejszego działania samego
-edytora. Diagram sekwencji przedstawiający wykorzystanie udostępnionego modułu
-jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 
 % Źródło:
 % https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgTGliQ29uc3VtZXIgYXMgS29kIHd5a29yenlzdHVqxIVjeSBiaWJsaW90ZWvEmSBTaXJpdXMgV2ViXG4gICAgcGFydGljaXBhbnQgTGlicmFyeSBhcyBCaWJsaW90ZWthIHd5xZt3aWV0bGFqxIVjYSBlZHl0b3JcbiAgICBwYXJ0aWNpcGFudCBTaXJpdXNXZWJCYWNrZW5kIGFzIFNlcndlciBhcGxpa2FjeWpueSBTaXJpdXMgV2ViXG4gICAgcGFydGljaXBhbnQgUmVhY3QgYXMgQmlibGlvdGVrYSBSZWFjdFxuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogcmVzb2x2ZVdvcmtiZW5jaFByb3BlcnRpZXNcbiAgICBub3RlIG92ZXIgTGliQ29uc3VtZXIsTGlicmFyeTogWmF3aWVyYSBJRCBwcm9qZWt0dSwgdG9rZW4gSldULDxiciAvPmFkcmVzIHNlcndlcmEgU2lyaXVzIFdlYlxuICAgIExpYnJhcnkgLT4-KyBTaXJpdXNXZWJCYWNrZW5kIDogZ2V0UHJvamVjdFF1ZXJ5XG4gICAgbm90ZSBvdmVyIExpYnJhcnksU2lyaXVzV2ViQmFja2VuZCA6IFphcHl0YW5pZSBzaWVjaW93ZSBHcmFwaFFMXG5cbiAgICBTaXJpdXNXZWJCYWNrZW5kIC0tPj4tIExpYnJhcnk6IGVkaXRpbmdDb250ZXh0SWQsIFJlcHJlc2VudGF0aW9uXG5cbiAgICBMaWJyYXJ5IC0tPj4tIExpYkNvbnN1bWVyIDogV29ya2JlbmNoUHJvcGVydGllc1xuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogcmVuZGVyQXBwXG4gICAgTGlicmFyeSAtPj4rIFJlYWN0IDogcmVuZGVyICh3ecWbd2lldGwga29tcG9uZW50IFdvcmtiZW5jaClcbiAgICBSZWFjdCAtLT4-LSBMaWJyYXJ5IDogV3nFm3dpZXRsb25vIGtvbXBvbmVudCBXb3JrYmVuY2hcbiAgICBMaWJyYXJ5IC0tPj4tIExpYkNvbnN1bWVyIDogV3nFm3dpZXRsb25vIGtvbXBvbmVudCBXb3JrYmVuY2hcblxuICAgIG5vdGUgcmlnaHQgb2YgTGliQ29uc3VtZXIgOiBVxbx5dGtvd25payBtb8W8ZSB0ZXJheiBlZHl0b3dhxIcgZGlhZ3JhbVxuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogdW5tb3VudEFwcFxuICAgIExpYnJhcnkgLT4-KyBSZWFjdCA6IHVubW91bnRDb21wb25lbnRBdE5vZGVcbiAgICBSZWFjdCAtLT4-LSBMaWJyYXJ5IDogVXN1bmnEmXRvIGtvbXBvbmVudCB6ZSBzdHJvbnkgaW50ZXJuZXRvd2VqXG4gICAgTGlicmFyeSAtLT4-LSBMaWJDb25zdW1lciA6IFVzdW5pxJl0byBrb21wb25lbnQgemUgc3Ryb255IGludGVybmV0b3dlaiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
@@ -1378,14 +1317,45 @@ jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 %     Library -->>- LibConsumer : Usunięto komponent<br />ze strony internetowej
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!t]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-library-usage-sequence-diagram.pdf}
+  \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-usage-sequence-diagram.pdf}
   \caption{Diagram sekwencji wykorzystania biblioteki wyświetlającej edytor
     diagramów}\label{rys:sirius-web-library-usage-sequence-diagram}
 \end{figure}
 % \end{noindent}
+
+Diagram sekwencji przedstawiający wykorzystanie udostępnionego modułu
+jest widoczny na~rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
+Wyświetlenie komponentu \texttt{Workbench} (wywołanie funkcji
+\texttt{renderApp}) wymaga przekazania mu parametrów
+dotyczących modelu, który ma zostać wyświetlony na diagramie. Są to
+identyfikator kontekstu edycji \texttt{editingContextId} omówiony w
+sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
+reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
+implementacyjnymi aplikacji \SiriusWeb{}. Zakładając, że~w~każdym
+projekcie aplikacji \SiriusWeb{} będzie znajdował się wyłącznie jeden
+model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
+wysyłając odpowiednie zapytania \GraphQL{} do serwera aplikacyjnego znając
+jedynie identyfikator projektu. Aby~uprościć udostępniany
+interfejs programistyczny \emphgls{API} modułu stworzono również funkcję
+\texttt{resolveWorkbenchProperties}, która oczekuje identyfikatora projektu, a
+zwraca parametry potrzebne do wyświetlenia komponentu \texttt{Workbench}, które
+uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \SiriusWeb{}.
+Funkcja ta dodatkowo oczekuje dwóch parametrów:
+
+\begin{itemize}
+	\item tokena uwierzytelniającego \emphgls{JWT} aktualnego użytkownika wydanego przez platformę \BalticLSC{} (parametr \texttt{authToken}),
+	\item adresów URL serwera aplikacyjnego \BalticLSC{} oraz \SiriusWeb{}
+	      (parametr \texttt{apiURLS}).
+\end{itemize}
+
+Są one wymagane zarówno do pobrania parametrów edytora diagramów w funkcji
+\texttt{resolveWorkbenchProperties}, jak i do późniejszego działania samego
+edytora. Po otrzymaniu tych szczegółów można wyświetlić edytor. Po zakończeniu
+edycji modelu należy wywołać funkcję \texttt{unmountApp} aby zwolnić zasoby
+przeglądarki i ukryć edytor modeli.
 
 \subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor
 	diagramów}\label{sec:przykladowa-aplikacja-wykorzystujaca-edytor}
@@ -1395,6 +1365,16 @@ sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} można
 zbudować aplikację przeglądarkową, która ten edytor wyświetli. Taki właśnie
 przykład wykonano w ramach tej pracy magisterskiej. Kod źródłowy tej aplikacji
 znajduje się w katalogu \directory{frontend-library-example}.
+
+% \begin{noindent}
+\begin{figure}[!b]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/example-app-pre-mount.png}
+  \caption{Przykładowa aplikacja przeglądarkowa przed wyświetleniem
+    edytora diagramów}\label{rys:example-app-pre-mount}
+\end{figure}
+% \end{noindent}
 
 Aplikacja jest
 napisana w języku \JavaScript{}. Nie wykorzystuje żadnej znanej biblioteki
@@ -1421,15 +1401,6 @@ wersji aplikacji \SiriusWeb{}. Naciśnięcie przycisku \emph{Unmount
 	application} schowa edytor ze strony i wróci ona do stanu początkowego,
 jak na rysunku~\ref{rys:example-app-pre-mount}.
 
-% \begin{noindent}
-\begin{figure}[!ht]
-  \centering
-
-  \includegraphics[width=0.95\linewidth]{./images/example-app-pre-mount.png}
-  \caption{Przykładowa aplikacja przeglądarkowa przed wyświetleniem
-    edytora diagramów}\label{rys:example-app-pre-mount}
-\end{figure}
-% \end{noindent}
 
 % \begin{noindent}
 \begin{figure}[!ht]
