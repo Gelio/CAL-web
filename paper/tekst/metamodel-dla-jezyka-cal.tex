@@ -90,22 +90,23 @@ sekwencyjny.
 
 \section{Zaprojektowany metamodel dla języka CAL}
 
-Przygotowany w formacie \Ecore{} metamodel dla języka \CAL{} widoczny jest na
-rysunku~\ref{rys:cal-emf-metamodel}. Jego składnia abstrakcyjna i konkretna
-jest omówiona w dalszej części pracy.
-Bazuje on~na metamodelu
+Składnia abstrakcyjna przygotowanego w formacie \Ecore{} metamodelu dla języka
+\CAL{} widoczna jest na
+rysunku~\ref{rys:cal-emf-metamodel}. Jego składnia konkretna
+jest omówiona w dalszej części pracy i będzie przedstawiona na
+rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+Przygotowany metamodel bazuje na metamodelu
 opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, który widoczny
 jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
 Na potrzeby edytora diagramów nie są potrzebne wszystkie elementy oryginalnego
-metamodelu. Niektóre klasy i właściwości zostały pominięte, ponieważ nie były
+metamodelu. Niektóre klasy i~właściwości zostały pominięte, ponieważ nie były
 istotne z~perspektywy edycji diagramu.
-
-% TODO: napisać że niektóre klasy są nowe lub mają inne znaczenie i zostanie to
-% wyjaśnione w dalszej części tekstu
-
-% TODO: napisać, że te diagramy przedstawiają jedynie składnię abstrakcyjną
-% metamodelu, czyli jego strukturę. Składnia konkretna zostanie omówiona wraz z
-% elementami modelu, a widoczna jest na obrazku rys 13.
+W przygotowanym metamodelu niektóre klasy są nowe, lub pomimo podobnej nazwy
+mają inne znaczenie od tych w metamodelu języka \CAL{} z systemu \BalticLSC{}.
+Taki zabieg został wykonany aby uprościć metamodel, ponieważ jego przeznaczenie
+jest inne (wyłącznie edycja diagramów aplikacji obliczeniowych) w porównaniu z
+metamodelem z systemu \BalticLSC{} (wykonywanie obliczeń zgodnie z modelem).
+Różnice zostaną opisane w~dalszej części pracy.
 
 \begin{figure}[!hb]
 	\centering
@@ -141,41 +142,33 @@ natomiast 4 typy obiektów:
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
 	      rodzajom modułów i~aplikacji obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
 
-	      Oprócz informacji o nazwie i wersji modułu zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują piny tego modułu obliczeniowego.
+	      Oprócz informacji o nazwie i wersji jednostki obliczeniowej zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują piny tej jednostki obliczeniowej.
+
+	      W przygotowanym metamodelu dla języka \CAL{} obiekty typu \texttt{ComputationUnitRelease} reprezentują zarówno moduły obliczeniowe, jak i aplikacje obliczeniowe, które w~oryginalnym metamodelu z systemu \BalticLSC{} są dwoma osobnymi rodzajami obiektów. Z perspektywy edytora diagramów nie ma znaczenia czy wywoływana jednostka obliczeniowa jest modułem obliczeniowym, czy aplikacją obliczeniową składającą się~z~wywołań innych jednostek obliczeniowych. Uproszczenia tego dokonano aby uniknąć umieszczania w modelu zbyt szczegółowych i niepotrzebnych informacji.
 
 	      Obiekty te nie są wyświetlane na diagramie (nie występują w wizualnej reprezentacji modelu). Można je zobaczyć jedynie w drzewie obiektów modelu.
 
-	      % TODO: Wyjaśnić dlaczego tutaj ComputationUnitRelease zawiera
-	      % jednocześnie moduły i aplikacje obliczeniowe, a w CAL jest inaczej.
+	\item \texttt{UnitCall} --- wywołania dostępnych jednostek
+	      obliczeniowych. Każda dostępna jednostka obliczeniowa może zostać wywołana dowolną liczbę razy. Każde wywołanie to~osobny obiekt \texttt{UnitCall} ze wskazaniem jednostki, która ma zostać wywołana, a~także z~obiektami \texttt{ComputedDataPin}, które reprezentują piny tej jednostki.
 
-	\item \texttt{UnitCall} --- wywołania dostępnych modułów
-	      obliczeniowych. Każdy dostępny moduł obliczeniowy może zostać wywołany dowolną liczbę razy. Każde wywołanie to osobny obiekt \texttt{UnitCall} ze wskazaniem modułu, który ma zostać wywołany, a także z obiektami \texttt{ComputedDataPin}, które reprezentują piny tego modułu.
+	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych jednostek obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań jednostki.
 
-	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułów obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
+	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie jednostki za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie jednostki, które są~zapisane w metamodelu. Edytor modeli domyślnie nie ma możliwości pobrania informacji o~dostępnych jednostkach obliczeniowych z systemu \BalticLSC{}, więc to~użytkownik musi samemu dodać dostępne jednostki do metamodelu.
 
-	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu \BalticLSC{}, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
-
-	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi pinami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywoływanego modułu. % TODO: odnieść się do obrazka pokazującego przykładowy diagram
+	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi pinami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania jednostki, oraz nazwę i wersję wydania wywoływanej jednostki. Składnię konkretną widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}. Piny~wywołania jednostek obliczeniowych (\texttt{ComputedDataPin}) są również na nim widoczne jako prostokąty z ikoną strzałki w prawo.
 
 	\item \texttt{ApplicationDataPin} --- piny aplikacji obliczeniowej
-	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości pinu są dziedziczone z klasy \texttt{DataPin}.
+	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości pinu są dziedziczone z klasy \texttt{DataPin}. Z uwagi na fakt, że te piny będą łączone z innymi pinami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
 
-	      % TODO: opisać dlaczego taki obiekt został wprowadzony i nie użyto
-	      % DeclaredDataPin bezpośrednio
+	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
-	      Z uwagi na fakt, że te piny będą łączone z innymi pinami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
-
-	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem.
-
-	      % TODO: odnieść się do obrazka pokazującego przykładowy diagram
+	      W metamodelu języka \CAL{} z systemu \BalticLSC{} te obiekty są reprezentowane za~pomocą klasy \texttt{DeclaredDataPin}, która w metamodelu tworzonym na potrzeby edytora jest inną klasą. Powodem tego był fakt, że z perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej piny są logicznie innym bytem niż piny wywoływanych przez nią jednostek obliczeniowych. Mają też inną składnię konkretną (\texttt{DeclaredDataPin} nie~są~wyświetlane na diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej są).
 
 	\item \texttt{DataFlow} --- połączenia między pinami
-	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach węzłów
-	      obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub pinami aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
+	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach
+	      jednostek obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub pinami aktualnie opisywanej aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
 
-	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych.
-
-	      % TODO: odnieść się do obrazka pokazującego przykładowy diagram
+	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 \end{itemize}
 
 Składnia konkretna przygotowanego metamodelu języka \CAL{} wyświetlona w
