@@ -434,7 +434,7 @@ protokołu \emphgls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
 odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych modułach
 obliczeniowych. Zawiera ona wszystkie detale potrzebne do utworzenia obiektu
 modułu obliczeniowego (\texttt{ComputationUnitRelease}) oraz jego wywołania
-(\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych portach
+(\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych pinach
 tego modułu.
 
 Należałoby więc z aplikacji przeglądarkowej \SiriusWeb{} wysłać takie
@@ -800,10 +800,10 @@ tych identyfikatorach wymaga wysłania zapytania do serwera.
 
 Tworząc nowe wywołanie modułu obliczeniowego należy stworzyć wiele obiektów
 w~modelu: obiekt \texttt{UnitCall} oraz po jednym obiekcie
-\texttt{ComputedDataPin} na każdy port modułu obliczeniowego. Jeżeli ten moduł
+\texttt{ComputedDataPin} na każdy pin modułu obliczeniowego. Jeżeli ten moduł
 wykorzystywany jest po raz pierwszy w modelu, należy najpierw stworzyć obiekt
 \texttt{ComputationApplicationRelease} oraz po jednym obiekcie
-\texttt{DeclaredDataPin} na każdy port modułu obliczeniowego. Ponadto,
+\texttt{DeclaredDataPin} na każdy pin modułu obliczeniowego. Ponadto,
 te modyfikacje powinny odbyć się w obrębie jednej transakcji. Z uwagi na
 dużą liczbę obiektów do stworzenia w trybie transakcyjnym, a~także dodatkowe
 zapytania sieciowe w celu sprawdzenia czy moduł był~już~użyty w modelu,
@@ -854,39 +854,41 @@ po zakończeniu mutacji. Diagram aktywności przedstawiający dodanie wywołania
 modułu obliczeniowego jest przedstawiony
 na~rysunku~\ref{rys:sirius-web-create-unit-call-mutation-handler}. Treść
 przykładowej mutacji odpowiedzialnej za dodanie modułu \emph{Bounding Labels}
-posiadającego dwa porty znajduje się
+posiadającego dwa piny znajduje się
 na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
-% TODO: spróbować czy da się start i koniec jako kropki, a nie słowa
 % Źródło:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggVERcbiAgICBTdGFydCAtLT4gU2VhcmNoVW5pdFJlbGVhc2UoUG9zenVrYWogbW9kdcWCdSB3IG1vZGVsdSlcbiAgICBTZWFyY2hVbml0UmVsZWFzZSAtLT4gSWZVbml0UmVsZWFzZUV4aXN0cyhNb2R1xYIganXFvCB3eXdvxYJhbnkgdyBtb2RlbHU_KVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSB6YWRla2xhcm93YW5lIHBpbnkgbW9kdcWCdT8pXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLT58bmllfCBDcmVhdGVEZWNsYXJlZERhdGFQaW4oVXR3w7NyeiBvYmlla3QgRGVjbGFyZWREYXRhUGluIGkgcG93acSFxbwgeiBDb21wdXRhdGlvblVuaXRSZWxlYXNlKVxuICAgIENyZWF0ZURlY2xhcmVkRGF0YVBpbiAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZFxuICAgIElmQWxsRGVjbGFyZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IENyZWF0ZVVuaXRDYWxsXG4gICAgXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58dGFrfCBDcmVhdGVVbml0Q2FsbChVdHfDs3J6IG9iaWVrdCBVbml0Q2FsbCBpIGRvZGFqIGdvIGRvIG1vZGVsdSlcbiAgICBDcmVhdGVVbml0Q2FsbCAtLT4gSWZBbGxDb21wdXRlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSBwaW55IG1vZHXFgnU_KVxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0-fG5pZXwgQ3JlYXRlQ29tcHV0ZWREYXRhUGluKFV0d8Ozcnogb2JpZWt0IENvbXB1dGVkRGF0YVBpbiBpIHBvd2nEhcW8IHogVW5pdENhbGwpXG4gICAgQ3JlYXRlQ29tcHV0ZWREYXRhUGluIC0tPiBDb25uZWN0UGlucyhQb3dpxIXFvCBDb21wdXRlZERhdGFQaW4geiBvZHBvd2llZG5pbSBEZWNsYXJlZERhdGFQaW4pXG4gICAgQ29ubmVjdFBpbnMgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWRcblxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IFJldHVyblVuaXRDYWxsKFp3csOzxIcgaW5mb3JtYWNqZSBvIHN0d29yem9ueW0gVW5pdENhbGwpXG4gICAgUmV0dXJuVW5pdENhbGwgLS0-IEVuZChLb25pZWMpIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgU3RhcnQoKHh4eCkpXG4gICAgc3R5bGUgU3RhcnQgZmlsbDojMDAwXG4gICAgU3RhcnQgLS0-IFNlYXJjaFVuaXRSZWxlYXNlKFBvc3p1a2FqIG1vZHXFgnUgdyBtb2RlbHUpXG4gICAgU2VhcmNoVW5pdFJlbGVhc2UgLS0-IElmVW5pdFJlbGVhc2VFeGlzdHN7TW9kdcWCIGp1xbw8YnIvPnd5d2_FgmFueTxici8-dyBtb2RlbHU_fVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZHtVdHdvcnpvbm88YnIvPndzenlzdGtpZTxici8-emFkZWtsYXJvd2FuZTxici8-cGlueSBtb2R1xYJ1P31cbiAgICBJZkFsbERlY2xhcmVkRGF0YVBpbnNDcmVhdGVkIC0tPnxuaWV8IENyZWF0ZURlY2xhcmVkRGF0YVBpbihVdHfDs3J6IG9iaWVrdCBEZWNsYXJlZERhdGFQaW4gaSBwb3dpxIXFvCB6IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UpXG4gICAgQ3JlYXRlRGVjbGFyZWREYXRhUGluIC0tPiBJZkFsbERlY2xhcmVkRGF0YVBpbnNDcmVhdGVkXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLS0-fHRha3wgQ3JlYXRlVW5pdENhbGxcblxuICAgIElmVW5pdFJlbGVhc2VFeGlzdHMgLS0-fHRha3wgQ3JlYXRlVW5pdENhbGwoVXR3w7NyeiBvYmlla3QgVW5pdENhbGwgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlVW5pdENhbGwgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWR7VXR3b3J6b25vPGJyIC8-d3N6eXN0a2llPGJyIC8-cGlueSBtb2R1xYJ1P31cbiAgICBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkIC0tPnxuaWV8IENyZWF0ZUNvbXB1dGVkRGF0YVBpbihVdHfDs3J6IG9iaWVrdCBDb21wdXRlZERhdGFQaW4gaSBwb3dpxIXFvCB6IFVuaXRDYWxsKVxuICAgIENyZWF0ZUNvbXB1dGVkRGF0YVBpbiAtLT4gQ29ubmVjdFBpbnMoUG93acSFxbwgQ29tcHV0ZWREYXRhUGluIHogb2Rwb3dpZWRuaW0gRGVjbGFyZWREYXRhUGluKVxuICAgIENvbm5lY3RQaW5zIC0tPiBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkXG5cbiAgICBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkIC0tLT58dGFrfCBSZXR1cm5Vbml0Q2FsbChad3LDs8SHIGluZm9ybWFjamUgbyBzdHdvcnpvbnltIFVuaXRDYWxsKVxuICAgIFJldHVyblVuaXRDYWxsIC0tPiBFbmRcbiAgICBFbmQoKFwiIzExMDQ0O1wiKSkiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
 % Konwertowane do PDF poprzez drukowanie do PDF w Google Chrome.
 % Wykorzystanie https://cloudconvert.com/ usuwało tekst z diagramu.
 %
-% graph TD
+% flowchart TD
+%     Start((xxx))
+%     style Start fill:#000
 %     Start --> SearchUnitRelease(Poszukaj modułu w modelu)
-%     SearchUnitRelease --> IfUnitReleaseExists(Moduł już wywołany w modelu?)
+%     SearchUnitRelease --> IfUnitReleaseExists{Moduł już<br/>wywołany<br/>w modelu?}
 %
 %     IfUnitReleaseExists -->|nie| CreateComputationUnitRelease(Utwórz obiekt ComputationUnitRelease i dodaj go do modelu)
-%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated(Czy utworzono wszystkie zadeklarowane porty modułu?)
+%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated{Utworzono<br/>wszystkie<br/>zadeklarowane<br/>piny modułu?}
 %     IfAllDeclaredDataPinsCreated -->|nie| CreateDeclaredDataPin(Utwórz obiekt DeclaredDataPin i powiąż z ComputationUnitRelease)
 %     CreateDeclaredDataPin --> IfAllDeclaredDataPinsCreated
 %     IfAllDeclaredDataPinsCreated --->|tak| CreateUnitCall
 %
 %     IfUnitReleaseExists -->|tak| CreateUnitCall(Utwórz obiekt UnitCall i dodaj go do modelu)
-%     CreateUnitCall --> IfAllComputedDataPinsCreated(Czy utworzono wszystkie porty modułu?)
+%     CreateUnitCall --> IfAllComputedDataPinsCreated{Utworzono<br />wszystkie<br />piny modułu?}
 %     IfAllComputedDataPinsCreated -->|nie| CreateComputedDataPin(Utwórz obiekt ComputedDataPin i powiąż z UnitCall)
 %     CreateComputedDataPin --> ConnectPins(Powiąż ComputedDataPin z odpowiednim DeclaredDataPin)
 %     ConnectPins --> IfAllComputedDataPinsCreated
 %
 %     IfAllComputedDataPinsCreated --->|tak| ReturnUnitCall(Zwróć informacje o stworzonym UnitCall)
-%     ReturnUnitCall --> End(Koniec)
+%     ReturnUnitCall --> End
+%     End(("#11044;"))
 
 % \begin{noindent}
 \begin{figure}[!ht]
   \centering
 
-  \includegraphics[width=0.90\linewidth]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
+  \includegraphics[width=0.70\linewidth]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
   \caption{Diagram aktywności dla dodania nowego wywołania modułu
     obliczeniowego}\label{rys:sirius-web-create-unit-call-mutation-handler}
 \end{figure}
@@ -1071,9 +1073,9 @@ kończy się w porcie oznaczonym jako~wyjściowy (\emph{provided}).
 
 Druga reguła (\texttt{NoDataFlowLoops}) zgłasza jako błędy sytuacje, w których
 w modelu występuje
-połączenie między portami na tym samym wywołaniu modułu obliczeniowego.
+połączenie między pinami na tym samym wywołaniu modułu obliczeniowego.
 Taki moduł nigdy nie rozpocząłby pracy, ponieważ do rozpoczęcia działania
-wymaga danych dostarczonych na wszystkich swoich portach, a więc także danych
+wymaga danych dostarczonych na wszystkich swoich pinach, a więc także danych
 dostarczonych od samego siebie, które będą dostępne dopiero po rozpoczęciu
 pracy (błędne koło).
 

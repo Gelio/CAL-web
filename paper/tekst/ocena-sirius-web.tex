@@ -169,8 +169,8 @@ rysunku~\ref{rys:sirius-desktop-model-editor-tools-right}. Zawiera on w każdym
 momencie wszystkie dostępne narzędzia.
 Użytkownik musi nauczyć się które narzędzia są dostępne dla których obiektów
 modelu i kiedy mogą zostać wykorzystane. Przykładowo, po wybraniu narzędzia
-\emph{Data Flow} służącego do tworzenia połączeń między portami użytkownik może
-wskazać jedynie jeden z~portów. Brakuje wskazówek co należy dalej zrobić.
+\emph{Data Flow} służącego do tworzenia połączeń między pinami użytkownik może
+wskazać jedynie jeden z~pinów. Brakuje wskazówek co należy dalej zrobić.
 \SiriusWeb{} inaczej reprezentuje narzędzia. Są one umieszczone w
 przyborniku pokazywanym po kliknięciu myszą na element diagramu. Wyświetlone są
 jedynie narzędzia związane z wybranym elementem, co upraszcza wybór, ponieważ
@@ -191,7 +191,7 @@ niż w \SiriusDesktop{} pod względem intuicyjności interfejsu.
 W \SiriusWeb{} występują 2 problemy związane z przybornikiem narzędzi. Po
 pierwsze, niektóre narzędzia są wyświetlane podwójnie. Można to zobaczyć na
 rysunku~\ref{rys:sirius-web-duplicate-tools}. Pokazane są dwie ikony ze
-strzałką służące tworzeniu połączenia wychodzącego z portu \emph{output}, a
+strzałką służące tworzeniu połączenia wychodzącego z pinu \emph{output}, a
 także dwie ikony związane z usunięciem elementu (\emph{DeleteComputedDataPin}
 oraz ikona kosza). Taka duplikacja może zaskoczyć użytkownika i sprawić, że nie
 będzie on wiedział który przycisk należy wybrać, aby zrealizować oczekiwany cel
@@ -208,14 +208,14 @@ obu przypadkach mają taki sam skutek, więc duplikacja jest niepotrzebna.
 % \end{noindent}
 
 Kontynuując temat przybornika w \SiriusWeb{}, z
-rysunku~\ref{rys:sirius-web-duplicate-tools} wynika, że dla portu wywołania
+rysunku~\ref{rys:sirius-web-duplicate-tools} wynika, że dla pinu wywołania
 modułu obliczeniowego dostępne są dwa narzędzia usuwające go. W
 metamodelu rzeczywiście jest takie narzędzie, ale jest ono tam wyłącznie po to,
 aby zabronić usuwania tych elementów z~diagramu, ponieważ są one zarządzane
 automatycznie i ich usunięcie natychmiast sprawiłoby, że diagram stałby
 się niepoprawny semantycznie (wywołanie modułu obliczeniowego miałoby mniej
-portów niż powiązany z nim moduł obliczeniowy). W \SiriusDesktop{}
-usunięcie tego portu z diagramu jest niemożliwe, co widać na
+pinów niż powiązany z nim moduł obliczeniowy). W \SiriusDesktop{}
+usunięcie tego pinu z diagramu jest niemożliwe, co widać na
 rysunku~\ref{rys:sirius-desktop-blocked-deleting-pins}.
 \SiriusWeb{} wyświetla odpowiednie ikony i~pozwala je wybrać, co skutkuje
 wyświetleniem błędu w konsoli serwera aplikacyjnego, a~po kilku sekundach
@@ -229,7 +229,7 @@ wykorzystania edytora.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-blocked-deleting-pins.png}
-  \caption{Zablokowana możliwość usunięcia portu wywołania modułu
+  \caption{Zablokowana możliwość usunięcia pinu wywołania modułu
     obliczeniowego w \SiriusDesktop{}}\label{rys:sirius-desktop-blocked-deleting-pins}
 \end{figure}
 % \end{noindent}
@@ -239,7 +239,7 @@ wykorzystania edytora.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-timeout-when-deleting-pins.png}
-  \caption{Błąd podczas próby usunięcia portu wywołania modułu obliczeniowego w
+  \caption{Błąd podczas próby usunięcia pinu wywołania modułu obliczeniowego w
     \SiriusWeb{}}\label{rys:sirius-web-timeout-when-deleting-pins}
 \end{figure}
 % \end{noindent}
@@ -266,7 +266,7 @@ właściwości \emph{tylko do odczytu}.
 
 \subsection{Wyświetlanie elementów diagramu}
 
-Niektóre elementy na diagramie wyświetlane są w inny sposób. Porty, które w
+Niektóre elementy na diagramie wyświetlane są w inny sposób. Piny, które w
 metamodelu zostały oznaczone jako węzły krawędziowe (\emph{Border Node}), w
 \SiriusDesktop{} rzeczywiście są~wyświetlane na krawędzi swojego rodzica
 (węzła wywołania modułu obliczeniowego), natomiast w \SiriusWeb{} są
@@ -352,15 +352,15 @@ projektu\footnote{
 }.
 
 Warunkowe zmiany stylu elementów modelu (\emph{Style Customizations}) działają
-poprawnie. Dzięki nim ikony portów w \SiriusWeb{} zmieniają się na
+poprawnie. Dzięki nim ikony pinów w \SiriusWeb{} zmieniają się na
 podstawie swoich parametrów (krotności danych i tokenów). Drugi ze styli
-warunkowych w metamodelu dotyczący zmiany koloru krawędzi portu ze względu na
+warunkowych w metamodelu dotyczący zmiany koloru krawędzi pinu ze względu na
 jego typ (wejściowy lub wyjściowy) nie może zostać zweryfikowany, ponieważ
 krawędzie te w ogóle nie są wyświetlane.
 
 \SiriusWeb{} nie wprowadza niektórych ograniczeń, które są przestrzegane w
 \SiriusDesktop{}. Jednym z nich jest zablokowanie możliwości zmiany
-rozmiaru węzłów. W metamodelu zabroniono zmiany rozmiaru portów i takiego
+rozmiaru węzłów. W metamodelu zabroniono zmiany rozmiaru pinów i takiego
 zachowania można się spodziewać w aplikacji natywnej, natomiast w \SiriusWeb{}
 zmiana ich rozmiaru jest możliwa bez ograniczeń, co zostało
 przedstawione na
