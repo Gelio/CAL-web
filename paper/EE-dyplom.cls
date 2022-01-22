@@ -62,7 +62,7 @@
 \makeglossaries
 \loadglsentries{glossary}
 \ifnum\strcmp{\locallang}{PL} = 0
-	\newcommand{\acronymstitle}{Wykaz skrótów i symboli}
+	\newcommand{\acronymstitle}{Wykaz symboli i skrótów}
 \else
 	\newcommand{\acronymstitle}{List of Abbreviations and Symbols}
 \fi
@@ -566,33 +566,40 @@
 \renewcommand{\maketitle}{
 	\linespread{1.15}
 
-	% TODO: upewnić się, że czcionki są poprawne (opisane załącznikiem 1. do
-	% zarządzenia 57/2016, czyli:
-	% * Florin SansPl Light
-	% * Helvetica Light (Switzerland Light)
-	% * Helvetica (Switzerland)
-
 	\thispagestyle{empty}
 	\begin{center}
-		\includegraphics[width=\textwidth]{PWHead.png}
-		\vskip 3em
-		\@instytut
-		\vskip 3em
-		\includegraphics[width=\linewidth]{\frontpageheader}
-		\vskip 1em
-		\kieruneklocal \@kierunek
-		\vskip .5em
-		\specjalnosclocal \@specjalnosc
-		\vskip 3em
-		\large \titlelocal
-		\vskip 3em
-		\LARGE \@author \\
-		\normalsize
-		\albumlocal \@album
-		\vskip 2em
-		\promotorlocal\\\@promotor
-		\vfill
-		\citylocal \@date
+		{
+			% Zgodnie z zarządzeniem 57/2016, Arial na stronie tytułowej w
+			% zastępstwie Helvetica
+			\fontfamily{phv}\selectfont
+			\includegraphics[width=\textwidth]{PWHead.png}
+			\vskip 3em
+			\@instytut
+			\vskip 3em
+			\includegraphics[width=\linewidth]{\frontpageheader}
+			\vskip 1em
+			\kieruneklocal \@kierunek
+			\vskip .5em
+			\specjalnosclocal \@specjalnosc
+			\vskip 3em
+
+			% Sztuczne zmniejszenie dostępnej szerokości strony dla tytułu
+			% Dzięki temu do kolejnej linii przechodzi "Sirius Web", a nie samo "Web"
+			% Źródło https://tex.stackexchange.com/a/330166/261160
+			\begin{minipage}{15cm}
+				\centering
+				\large \titlelocal
+			\end{minipage}
+
+			\vskip 3em
+			\LARGE \@author \\
+			\normalsize
+			\albumlocal \@album
+			\vskip 2em
+			\promotorlocal\\\@promotor
+			\vfill
+			\citylocal \@date
+		}
 	\end{center}
 }
 
