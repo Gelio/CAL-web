@@ -994,32 +994,28 @@ w formacie \Ecore{}. Diagram klas systemu walidacji semantycznej widoczny
 jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
 
 % Źródło:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgZGlyZWN0aW9uIFJMXG4gICAgY2xhc3MgSVNlbWFudGljQ0FMVmFsaWRhdGlvblJ1bGUge1xuICAgICAgICA8PGludGVyZmFjZT4-XG4gICAgICAgIHZhbGlkYXRlKENvbXB1dGF0aW9uQXBwbGljYXRpb25SZWxlYXNlIG1vZGVsKSBMaXN0fkRpYWdub3N0aWN-XG4gICAgfVxuXG4gICAgY2xhc3MgRGF0YUZsb3dEaXJlY3Rpb25cbiAgICBEYXRhRmxvd0RpcmVjdGlvbiAuLnw-IElTZW1hbnRpY0NBTFZhbGlkYXRpb25SdWxlXG4gICAgY2xhc3MgTm9EYXRhRmxvd0N5Y2xlc1xuICAgIE5vRGF0YUZsb3dDeWNsZXMgLi58PiBJU2VtYW50aWNDQUxWYWxpZGF0aW9uUnVsZVxuICAgIGNsYXNzIE5vRGF0YUZsb3dMb29wc1xuICAgIE5vRGF0YUZsb3dMb29wcyAuLnw-IElTZW1hbnRpY0NBTFZhbGlkYXRpb25SdWxlXG5cbiAgICBjbGFzcyBWYWxpZGF0aW9uRGVzY3JpcHRpb25Qcm92aWRlclxuICAgIFZhbGlkYXRpb25EZXNjcmlwdGlvblByb3ZpZGVyIFwiMFwiIC0tPiBcIipcIiBJU2VtYW50aWNDQUxWYWxpZGF0aW9uUnVsZSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% http://www.plantuml.com/plantuml/uml/dSx1IWD1383X-pn5w4aBBPvbMLfs4OH5HC5xc8qIo4o6IQOYuhjBRTNR8jw6oV-HxConUaiIE3lLPum4ju-KC3l7OJyzeV2CpfeVcX1qtK_Mz_0U00wdW2u6JQNvLxelHJYU50cX4IITIIwlOMBpRcHyoMhEiGyV8KH1CnZHyKRqTUHAyKY1Kn5AbDqMJZhhE_tsmriKid_YIRNyrPxnx-z85YkNu_E-we5dgc5n2flD6bPNs-rwjRHeHtbkIJu1
 % Przekształcono do PDF za pomocą drukowania SVG do PDF w Google Chrome.
 % Potem użyto pdfcrop do przycięcia PDF.
 %
-% classDiagram
-%     direction RL
-%     class ISemanticCALValidationRule {
-%         <<interface>>
-%         validate(ComputationApplicationRelease model) List~Diagnostic~
-%     }
+% @startuml
+% interface ISemanticCALValidationRule <<interface>> {
+%   validate(ComputationApplicationRelease model): List<Diagnostic>
+% }
 %
-%     class DataFlowDirection
-%     DataFlowDirection ..|> ISemanticCALValidationRule
-%     class NoDataFlowCycles
-%     NoDataFlowCycles ..|> ISemanticCALValidationRule
-%     class NoDataFlowLoops
-%     NoDataFlowLoops ..|> ISemanticCALValidationRule
+% class DataFlowDirection implements ISemanticCALValidationRule
+% class NoDataFlowCycles implements ISemanticCALValidationRule
+% class NoDataFlowLoops implements ISemanticCALValidationRule
 %
-%     class ValidationDescriptionProvider
-%     ValidationDescriptionProvider --> "0..*" ISemanticCALValidationRule
+% class ValidationDescriptionProvider
+% ValidationDescriptionProvider --* "0..*" ISemanticCALValidationRule
+% @enduml
 
 % \begin{noindent}
 \begin{figure}[!hb]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
+  \includegraphics[width=0.9\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
   \caption{Diagram klas związanych z walidacją semantyczną w
     \SiriusWeb{}}\label{rys:sirius-web-semantic-validation-class-diagram}
 \end{figure}
