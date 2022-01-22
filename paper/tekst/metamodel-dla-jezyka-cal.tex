@@ -20,13 +20,20 @@ właśnie systemu.
 Podstawowym obiektem, który wysyła (wyjście)
 lub odbiera (wejście) dane, jest \emph{pin}. Jest on~reprezentowany za pomocą
 ikony kwadratu ze strzałką skierowaną w prawą stronę. Aplikacja obliczeniowa
-składa
-się z modułów obliczeniowych posiadających swoje piny, pinów samej aplikacji
-obliczeniowej, oraz połączeń między tymi pinami. Grot połączenia wskazuje
-kierunek przepływu danych.
+składa się z wywołań jednostek obliczeniowych posiadających swoje piny, pinów
+samej aplikacji obliczeniowej, oraz połączeń między tymi pinami. Grot
+połączenia wskazuje kierunek przepływu danych.
 Piny aplikacji obliczeniowej są zaznaczone na
 diagramie ikoną pinu (strzałką skierowaną w prawo) z pogrubioną
 jedną z krawędzi ikony --- lewą dla wejścia, prawą dla~wyjścia.
+
+Jednostki obliczeniowe, które moga być wywoływane przez aplikacje obliczeniową,
+mogą być modułami obliczeniowymi napisanymi w wybranym języku programowania,
+lub innymi aplikacjami obliczeniowymi, które z kolei mogą w swoim wnętrzu
+wywoływać inne jednostki obliczeniowe. W ten sposób otrzymujemy możliwość
+wykorzystania podzielenia skomplikowanej aplikacji obliczeniowej na mniejsze
+części i wykorzystania ich, co pomaga w obniżeniu poziomu detali na jednym
+diagramie i sprawia, że jest on łatwiejszy w zrozumieniu i modyfikacji.
 
 Piny modułów oraz aplikacji obliczeniowych mają różne ikony, które
 są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na ikonę:
@@ -35,7 +42,7 @@ są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na i
 	\item krotność danych, które obsługuje pin (\emph{data
 		      multiplicity}):  dla pojedynczego pliku będzie to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
 	\item liczba pakietów przyjmowanych lub wysyłanych danych (\emph{token
-		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy moduł obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
+		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy jednostka obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
 \end{itemize}
 
 Moduł obliczeniowy rozpoczyna obliczenia dopiero gdy na każdym jego wejściu
@@ -47,15 +54,15 @@ i~\ref{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}.
 Pierwsza z nich (rysunek~\ref{rys:sekwencyjna-aplikacja-obliczeniowa}) jest
 aplikacją, w której obliczenia mogą zostać wykonane
 wyłącznie sekwencyjnie, ponieważ dane przepływają sekwencyjnie od wejścia
-kolejno przez moduły nazwane \texttt{VideoToFrames}, \texttt{Face Detector},
+kolejno przez jednostki nazwane \texttt{VideoToFrames}, \texttt{Face Detector},
 \texttt{Blur Module}, \texttt{Blur module}, aż w końcu trafiają do wyjścia.
 Inna jest struktura aplikacji na
 rysunku~\ref{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}. Tam
-przepływ danych rozdziela się~po~module obliczeniowym \texttt{Pdf page
-	splitter} i obliczenie modułów \texttt{OCT Tesseract Tess 0.1} oraz
+przepływ danych rozdziela się~po~jednostce obliczeniowej \texttt{Pdf page
+	splitter} i obliczenie jednostek \texttt{OCT Tesseract Tess 0.1} oraz
 \texttt{OCR Tesseract LSTM 0.1} może zostać wykonane równolegle, być może
-przez różne węzły obliczeniowe. Ich wyniki trafią później do modułu \texttt{Pdf
-	data joiner 0.1} i przejdą dalej przez pozostałe moduły w sposób
+przez różne węzły obliczeniowe. Ich wyniki trafią później do jednostki
+\texttt{Pdf data joiner 0.1} i~przejdą dalej przez pozostałe jednostki w sposób
 sekwencyjny.
 
 % \begin{noindent}
@@ -237,7 +244,8 @@ public String getDataPinIconPath(EObject self) {
 Dla pinów całej aplikacji obliczeniowej (\texttt{Application\-Data\-Pin} dla
 \texttt{Computation\-Application\-Release}) styl warunkowy był
 rozszerzeniem tego
-dla pinów modułów obliczeniowych. Oprócz brania pod uwagę krotności danych
+dla pinów wywoływanych jednostek obliczeniowych. Oprócz brania pod uwagę
+krotności danych
 oraz
 paczek danych, w~tym~stylu znaczenie ma ponadto kierunek pinu. Piny wejściowe
 mają pogrubiony pasek z lewej strony, a~piny wyjściowe z prawej. Dla tych
@@ -247,7 +255,8 @@ języka \AQL{} ta~funkcjonalność została zrealizowana za pomocą jednego styl
 warunkowego, zamiast 8~styli dla 8 różnych wariantów.
 
 Drugim wykorzystanym rodzajem styli warunkowych jest zmiana koloru obramowania
-pinów na krawędziach modułów obliczeniowych (\texttt{ComputedDataPin}) w
+pinów na krawędziach wywoływanych jednostek obliczeniowych
+(\texttt{ComputedDataPin}) w
 zależności od~kierunku przepływu danych. Piny wejściowe (\emph{required}) mają
 ramkę koloru fioletowego, a~piny wyjściowe (\emph{provided}) mają ramkę koloru
 pomarańczowego. Ta funkcjonalność została zaimplementowana za pomocą jednego
@@ -273,39 +282,42 @@ elementy.
 Jednym z takich narzędzi jest automatyczne usuwanie połączeń między pinami
 w~momencie, gdy ten pin zostaje usunięty. W przypadku pinów aplikacji
 obliczeniowej (\texttt{Application\-Data\-Pin}) narzędzie to zastępuje zwykłą
-operację usunięcia. Dla pinów wywołania modułu obliczeniowego
-(\texttt{ComputedDataPin}), narzędzie to uruchamiane jest podczas usuwania tego
-modułu obliczeniowego. Dzięki temu narzędziu w modelu nie pozostają połączenia
+operację usunięcia. Dla pinów wywołania jednostki obliczeniowej
+(\texttt{ComputedDataPin}), narzędzie to uruchamiane jest podczas usuwania
+tej~jednostki obliczeniowej. Dzięki temu narzędziu w modelu nie pozostają
+połączenia
 zakończone jedynie z jednej strony.
 
 Drugim z narzędzi automatyzujących pracę jest automatyczne zarządzanie
-pinami wywołania modułu obliczeniowego (\texttt{ComputedDataPin}) w~momencie
-wskazania lub zmiany który moduł obliczeniowy ma zostać wywołany. Zmiana
+pinami wywołania jednostki obliczeniowej (\texttt{ComputedDataPin}) w~momencie
+wskazania lub zmiany która jednostka obliczeniowa ma zostać wywołana. Zmiana
 atrybutu \texttt{unit} obiektu \texttt{UnitCall} usuwa aktualnie powiązane z
-nim piny (o ile jakieś istniały) i tworzy nowe na podstawie definicji modułu
-obliczeniowego (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
-a~także jego zdeklarowanych pinów (\texttt{DeclaredDataPin}). Stworzone piny
+nim piny (o ile jakieś istniały) i tworzy nowe na podstawie definicji jednostki
+obliczeniowej (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
+a~także jej zdeklarowanych pinów (\texttt{DeclaredDataPin}). Stworzone piny
 mają
 automatycznie ustawione odwołania na właściwe deklaracje pinów.
 Wykorzystanie tego narzędzia zostało przedstawione na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call}.
 Rysunek~\ref{rys:sirius-desktop-empty-unit-call} demonstruje wygląd nowo
-utworzonego wywołania modułu obliczeniowego bez wskazania który moduł on
-wywołuje. Po wskazaniu modułu do wywołania, piny są tworzone automatycznie, co
+utworzonego wywołania jednostki obliczeniowej bez wskazania którą jednostkę ono
+wywołuje. Po wskazaniu jednostki do~wywołania, piny są tworzone automatycznie,
+co
 widać na rysunku~\ref{rys:sirius-desktop-change-unit-to-call-before}. Po
-ponownej zmianie modułu obliczeniowego do wywołania, poprzednie piny są
-usuwane, a na ich miejsce zostają utworzone nowe, na bazie definicji wybranego
-modułu obliczeniowego, co widać na
+ponownej zmianie jednostki obliczeniowej do wywołania, poprzednie piny są
+usuwane, a na ich miejsce zostają utworzone nowe, na bazie definicji wybranej
+jednostki obliczeniowej, co widać na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call-after}.
 
 Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
-metamodelu. Została zmieniona definicja metody zmiany wskazania na moduł do
+metamodelu. Została zmieniona definicja metody zmiany wskazania na jednostkę do
 wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
 poprzednie piny i tworzone są nowe. To zachowanie opisane jest w języku
 \Java{}.
 
 Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych pinów
-i~tworzyć nowych podczas zmiany wywoływanego modułu. Przyśpiesza to~pracę z
+i~tworzyć nowych podczas zmiany wywoływanej jednostki obliczeniowej.
+Przyśpiesza to~pracę z
 metamodelem i~pomaga uniknąć błędów.
 
 % \begin{noindent}
@@ -314,23 +326,23 @@ metamodelem i~pomaga uniknąć błędów.
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-empty-unit-call.png}
-		\caption{Nowo utworzone wywołanie modułu obliczeniowego}\label{rys:sirius-desktop-empty-unit-call}
+		\caption{Nowo utworzone wywołanie jednostki obliczeniowej}\label{rys:sirius-desktop-empty-unit-call}
 	\end{subfigure}
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-before.png}
-		\caption{Wywołanie modułu obliczeniowego po wskazaniu modułu do
+		\caption{Wywołanie jednostki obliczeniowej po wskazaniu jednostki do
       wywołania}\label{rys:sirius-desktop-change-unit-to-call-before}
 	\end{subfigure}
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-after.png}
-		\caption{Wywołanie modułu obliczeniowego po ponownym wskazaniu modułu do
+		\caption{Wywołanie jednostki obliczeniowej po ponownym wskazaniu jednostki do
         wywołania}\label{rys:sirius-desktop-change-unit-to-call-after}
 	\end{subfigure}
 
 	\caption{Demonstracja działania narzędzia zarządzającego pinami wywołań
-    modułów obliczeniowych}\label{rys:sirius-desktop-change-unit-to-call}
+    jednostek obliczeniowych}\label{rys:sirius-desktop-change-unit-to-call}
 \end{figure}
 % \end{noindent}
 
@@ -338,7 +350,7 @@ Inną grupą narzędzi są narzędzia pomagające w przestrzeganiu poprawności
 modelu. Do~tej~grupy można zaliczyć kilka narzędzi dotyczących tworzenia lub
 modyfikacji połączeń między pinami. Dane mogą przepływać jedynie od pinów
 wyjściowych do pinów wejściowych. Ponadto, niemożliwe jest połączenie pinów
-na tym samym wywołaniu modułu obliczeniowego. Oba te wymagania mogą być
+na tym samym wywołaniu jednostki obliczeniowej. Oba te wymagania mogą być
 egzekwowane w modelu za pomocą narzędzi do~tworzenia połączeń (\emph{Edge
 	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
 z nich za~pomocą warunków \emph{Connection Start Precondition} oraz
@@ -349,19 +361,21 @@ połączenia. Drugie z nich za pomocą warunku \emph{Precondition} ustala kiedy
 zmiana jednego z końców połączenia jest możliwa.
 
 Drugim z narzędzi w grupie pomagających w przestrzeganiu poprawności jest
-narzędzie uniemożliwiające usuwanie pinów wywołań modułów obliczeniowych
+narzędzie uniemożliwiające usuwanie pinów wywołań jednostek obliczeniowych
 (\texttt{ComputedDataPin}). Są one tworzone i usuwane automatycznie podczas
-wskazania modułu do wywołania i~niepoprawnym byłoby gdyby użytkownik mógł
+wskazania jednostki do wywołania i~niepoprawnym byłoby gdyby użytkownik mógł
 tworzyć lub usuwać je samemu, ponieważ faktyczna liczba pinów mogłaby się
 wtedy nie
-zgadzać z liczbą zadeklarowanych pinów w~tym~module obliczeniowym.
+zgadzać z liczbą zadeklarowanych pinów w~tej~jednostce obliczeniowej.
 
 Innym typem narzędzi są narzędzia ułatwiające tworzenie elementów modelu.
 Są~3~proste narzędzia umieszczających element w modelu: dla pinu wejściowego i
-wyjściowego aplikacji, a także dla pustego wywołania modułu obliczeniowego, dla
-którego należy później wskazać moduł, który ma wywołać. Bardziej skomplikowanym
-narzędziem jest narzędzie pozwalające na~dodanie do modelu wywołania modułu
-obliczeniowego, które pokazuje okno dialogowe pozwalające wybrać moduł oraz
+wyjściowego aplikacji, a także dla pustego wywołania jednostki obliczeniowej,
+dla
+którego należy później wskazać jednostkę, którą ma wywołać. Bardziej
+skomplikowanym
+narzędziem jest narzędzie pozwalające na~dodanie do modelu wywołania jednostki
+obliczeniowej, które pokazuje okno dialogowe pozwalające wybrać jednostkę oraz
 wskazać nazwę dodawanego obiektu. Wykorzystuje ono~możliwości \SiriusDesktop{}
 do tworzenia okien dialogowych (zarówno jednorazowych
 jak~i~składających się z wielu
@@ -378,8 +392,8 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-tool.png}
-	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania modułu
-		obliczeniowego w~\SiriusDesktop{}}\label{rys:sirius-desktop-create-unit-call-tool}
+	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania jednostki
+		obliczeniowej w~\SiriusDesktop{}}\label{rys:sirius-desktop-create-unit-call-tool}
 \end{figure}
 % \end{noindent}
 
@@ -413,8 +427,8 @@ zaznaczone na diagramie za pomocą ikony czerwonego znaku \texttt{X} obok
 elementu, którego wiadomość dotyczy. Zostało to zilustrowane na
 rysunku~\ref{rys:sirius-desktop-syntax-validation}.
 Ostatni wiersz na liście problemów jest związany z walidacją składniową i
-wskazuje on, że~obiekt odpowiadający wywołaniu modułu obliczeniowego nie ma
-ustawionego atrybutu \texttt{unit}, czyli brakuje wskazania modułu do
+wskazuje on, że~obiekt odpowiadający wywołaniu jednostki obliczeniowej nie ma
+ustawionego atrybutu \texttt{unit}, czyli brakuje wskazania jednostki do
 wywołania. Ta sama wiadomość jest widoczna na diagramie po przeniesieniu
 kursora na znak \texttt{X}.
 Reszta problemów na liście wynika z błędów edytora, a~nie~modelu, więc została
@@ -446,7 +460,7 @@ opcje automatycznego naprawiania błędów diagnostycznych.
 Przykładową regułę walidacji semantycznej przedstawiono na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}.
 Zabrania ona~połączeń między pinami znajdującymi się na tym samym wywołaniu
-modułu obliczeniowego. Jej struktura wyrażona w drzewie obiektów metamodelu
+jednostki obliczeniowej. Jej struktura wyrażona w drzewie obiektów metamodelu
 jest widoczna na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree},
 a~jej~właściwości na
@@ -458,7 +472,7 @@ przedstawia wyrażenie języka \AQL{}. Niespełnienie warunku spowoduje
 pokazanie
 informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekty początkowy i
 końcowy połączenia mają różnych rodziców. Nie jest to spełnione wyłącznie
-jeżeli oba~piny należą do tego samego wywołania modułu obliczeniowego.
+jeżeli oba~piny należą do tego samego wywołania jednostki obliczeniowej.
 Błąd wynikający z tej reguły został
 przedstawiony na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-failure}.
@@ -568,9 +582,9 @@ następujące zachowania dodane w kodzie źródłowym klas metamodelu:
 \begin{itemize}
 	\item Czy połączenia między pinami usuwanych wywołań węzłów obliczeniowych są również usuwane?
 
-	\item Czy piny są automatycznie usuwane i tworzone podczas zmiany wskazania modułu, który ma zostać wywołany w danym obiekcie \texttt{UnitCall}?
+	\item Czy piny są automatycznie usuwane i tworzone podczas zmiany wskazania jednostki obliczeniowej, która ma zostać wywołana w danym obiekcie \texttt{UnitCall}?
 
-	      Weryfikowane jest czy utworzone piny mają poprawnie ustawione odwołania na~zdeklarowane piny danego modułu obliczeniowego.
+	      Weryfikowane jest czy utworzone piny mają poprawnie ustawione odwołania na~zdeklarowane piny danej jednostki obliczeniowej.
 \end{itemize}
 
 Są to jedyne dwie modyfikacje kodu źródłowego metamodelu, których dokonano.

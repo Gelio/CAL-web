@@ -357,17 +357,18 @@ co~przydaje się~w~środowisku serwerowym.
 
 Edytor diagramów dostępny w aplikacji przeglądarkowej platformy
 \BalticLSC{}
-umożliwia dodawanie wywołań modułów obliczeniowych do diagramu za pomocą
+umożliwia dodawanie wywołań jednostek obliczeniowych do diagramu za pomocą
 przybornika (ang.~\emph{\selectlanguage{english}toolbox}). Użytkownik
-przeglądający bibliotekę dostępnych modułów
+przeglądający bibliotekę dostępnych jednostek
 obliczeniowych może dodać wybrane z nich do przybornika. Zrzut ekranu
-biblioteki modułów z kilkoma modułami dodanymi do~przybornika jest widoczny na
+biblioteki jednostek z kilkoma jednostkami dodanymi do~przybornika jest
+widoczny na
 rysunku~\ref{rys:balticlsc-development-shelf}. W trakcie edycji
-diagramu ikony dodanych do~przybornika modułów są widoczne z lewej strony
+diagramu ikony dodanych do~przybornika jednostek są widoczne z lewej strony
 diagramu (rysunek~\ref{rys:balticlsc-diagram-toolbox}). Kliknięcie przycisku
-jednego z modułów zaznacza go, po
-czym kliknięcie na diagram dodaje moduł w określonym miejscu. Stan
-po dodaniu wywołania modułu obliczeniowego wybranego
+jednej z jednostek zaznacza go, po
+czym kliknięcie na diagram dodaje jednostkę w określonym miejscu. Stan
+po dodaniu wywołania jednostki obliczeniowej wybranej
 na~rysunku~\ref{rys:balticlsc-diagram-toolbox} jest widoczny na
 rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
@@ -376,7 +377,7 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-development-shelf.png}
-  \caption{Biblioteka modułów obliczeniowych platformy
+  \caption{Biblioteka jednostek obliczeniowych platformy
     \BalticLSC{}}\label{rys:balticlsc-development-shelf}
 \end{figure}
 % \end{noindent}
@@ -396,24 +397,26 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-after-adding-unit-call.png}
-  \caption{Edytor diagramów \BalticLSC{} po dodaniu modułu obliczeniowego z
+  \caption{Edytor diagramów \BalticLSC{} po dodaniu jednostki obliczeniowej z
     przybornika}\label{rys:balticlsc-after-adding-unit-call}
 \end{figure}
 % \end{noindent}
 
-Rozwiązanie przybornika pozwala użytkownikowi podzielić proces pracy z modułami
-obliczeniowymi na 2 etapy: wybór interesujących modułów z listy potencjalnie
-tysięcy dostępnych modułów obliczeniowych, a później użycie
-wybranego podzbioru modułów na~diagramach.
+Rozwiązanie przybornika pozwala użytkownikowi podzielić proces pracy z
+jednostkami obliczeniowymi na 2 etapy: wybór interesujących jednostek z listy
+potencjalnie
+tysięcy dostępnych jednostek obliczeniowych, a później użycie
+wybranego podzbioru jednostek na~diagramach.
 
 W edytorze diagramów z \SiriusWeb{} domyślnie nie ma przybornika ani
-integracji z~zewnętrznymi serwisami w celu pobrania listy modułów
-obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
+integracji z~zewnętrznymi serwisami w celu pobrania listy jednostek
+obliczeniowych. Definicje wszystkich jednostek obliczeniowych, które mają być
 dostępne w modelu muszą być zdefiniowane jako
 elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
 metamodelach w formacie \Ecore{} nie pozwalają na komunikację z zewnętrznymi
 serwisami,
-więc pobieranie danych o~modułach obliczeniowych znajdujących się w przyborniku
+więc pobieranie danych o~jednostkach obliczeniowych znajdujących się w
+przyborniku
 danego użytkownika musi zostać zrealizowane na poziomie \SiriusWeb{}.
 Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
 aplikacja \SiriusWeb{} musi znać jego informacje uwierzytelniające, aby
@@ -431,14 +434,15 @@ tego
 serwisu. Ten interfejs można również wykorzystać w \SiriusWeb{} aby pobrać
 zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
 protokołu \emphgls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
-odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych modułach
+odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych
+jednostkach
 obliczeniowych. Zawiera ona wszystkie detale potrzebne do utworzenia obiektu
-modułu obliczeniowego (\texttt{ComputationUnitRelease}) oraz jego wywołania
+jednostki obliczeniowej (\texttt{ComputationUnitRelease}) oraz jej wywołania
 (\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych pinach
-tego modułu.
+tej jednostki.
 
 Należałoby więc z aplikacji przeglądarkowej \SiriusWeb{} wysłać takie
-zapytanie do serwera \BalticLSC{}, a następnie wyświetlić otrzymane moduły
+zapytanie do serwera \BalticLSC{}, a następnie wyświetlić otrzymane jednostki
 obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
 \BalticLSC{} pojawiają się dwa problemy.
 
@@ -537,24 +541,24 @@ rysunku~\ref{rys:balticlsc-proxy-sequence-diagram}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-proxy-sequence-diagram.pdf}
-  \caption{Diagram sekwencji pobierania listy modułów obliczeniowych z
+  \caption{Diagram sekwencji pobierania listy jednostek obliczeniowych z
     wykorzystaniem serwera pośredniczącego}\label{rys:balticlsc-proxy-sequence-diagram}
 \end{figure}
 % \end{noindent}
 
 % Kod źródłowy diagramu (Mermaid)
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IHByb3h5IGFzIFNlcndlciBTaXJpdXMgV2ViXG5wYXJ0aWNpcGFudCBiYWx0aWNsc2MgYXMgU2Vyd2VyIEJhbHRpY0xTQ1xuXG5icm93c2VyIC0-PisgcHJveHk6IFBvYmllcnogbGlzdMSZIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxucHJveHkgLT4-KyBiYWx0aWNsc2M6IFBvYmllcnogbGlzdMSZIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxuXG5iYWx0aWNsc2MgLS0-Pi0gcHJveHk6IExpc3RhIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxucHJveHkgLS0-Pi0gYnJvd3NlcjogTGlzdGEgbW9kdcWCw7N3IG9ibGljemVuaW93eWNoXG4iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IHByb3h5IGFzIFNlcndlciBTaXJpdXMgV2ViXG5wYXJ0aWNpcGFudCBiYWx0aWNsc2MgYXMgU2Vyd2VyIEJhbHRpY0xTQ1xuXG5icm93c2VyIC0-PisgcHJveHk6IFBvYmllcnogbGlzdMSZIGplZG5vc3RlayBvYmxpY3plbmlvd3ljaFxucHJveHkgLT4-KyBiYWx0aWNsc2M6IFBvYmllcnogbGlzdMSZIGplZG5vc3RlayBvYmxpY3plbmlvd3ljaFxuXG5iYWx0aWNsc2MgLS0-Pi0gcHJveHk6IExpc3RhIGplZG5vc3RlayBvYmxpY3plbmlvd3ljaFxucHJveHkgLS0-Pi0gYnJvd3NlcjogTGlzdGEgamVkbm9zdGVrIG9ibGljemVuaW93eWNoXG4iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
 %
 % sequenceDiagram
 % participant browser as Przeglądarka
 % participant proxy as Serwer Sirius Web
 % participant balticlsc as Serwer BalticLSC
 %
-% browser ->>+ proxy: Pobierz listę modułów obliczeniowych
-% proxy ->>+ balticlsc: Pobierz listę modułów obliczeniowych
+% browser ->>+ proxy: Pobierz listę jednostek obliczeniowych
+% proxy ->>+ balticlsc: Pobierz listę jednostek obliczeniowych
 %
-% balticlsc -->>- proxy: Lista modułów obliczeniowych
-% proxy -->>- browser: Lista modułów obliczeniowych
+% balticlsc -->>- proxy: Lista jednostek obliczeniowych
+% proxy -->>- browser: Lista jednostek obliczeniowych
 
 Serwerem pośredniczącym może być na przykład serwer aplikacyjny \SiriusWeb{}.
 Dodano do niego odpowiedni mechanizm tak, aby wszystkie zapytania
@@ -575,7 +579,7 @@ wykorzystany i przeglądarka pozwoli na wykonanie połączenia.
 
 W sekcji~\ref{sec:pobranie-zawartosci-przybornika} opisany został mechanizm, za
 pomocą którego aplikacja przeglądarkowa \SiriusWeb{} ma dostęp do listy
-modułów obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
+jednostek obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
 przybornika należy wyświetlić na ekranie w obrębie edytora diagramów, aby
 użytkownik mógł z niego skorzystać. Realizacja tej funkcjonalności wymaga
 modyfikacji interfejsu użytkownika \SiriusWeb{}.
@@ -666,9 +670,9 @@ wyświetlonego diagramu.
 
 Skopiowane komponenty można dowolnie edytować i rozszerzać. W tym przypadku
 zmodyfikowano skopiowany komponent \texttt{Workbench} i dodano w nim
-przyciski odpowiedzialne za dodanie wywołania modułu obliczeniowego do
-diagramu. Każdy przycisk zawiera ikonę modułu, podobnie jak w interfejsie
-\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę modułu oraz jego
+przyciski odpowiedzialne za dodanie wywołania jednostki obliczeniowej do
+diagramu. Każdy przycisk zawiera ikonę jednostki, podobnie jak w interfejsie
+\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę jednostki oraz jej
 wersję, co zostało zaprezentowane na rysunku~\ref{rys:sirius-web-toolbox}.
 Ponadto dodany został przycisk
 pozwalający na odświeżenie przybornika poprzez ponowne pobranie jego
@@ -685,12 +689,12 @@ zainstalowana w projekcie \SiriusWeb{}.
 		\SiriusWeb{}}\label{rys:sirius-web-toolbox}
 \end{figure}
 
-\subsection{Dodanie wywołania modułu obliczeniowego do modelu}
+\subsection{Dodanie wywołania jednostki obliczeniowej do modelu}
 
-W momencie kliknięcia przycisku z ikoną modułu obliczeniowego do modelu
-powinno być~dodane wywołanie tego modułu (obiekt \texttt{UnitCall}). Jeżeli
-jest to pierwszy raz~gdy~wywołanie tego modułu zostaje dodane do diagramu,
-należy przed tym dodać definicję modułu (obiekt
+W momencie kliknięcia przycisku z ikoną jednostki obliczeniowej do modelu
+powinno być~dodane wywołanie tej jednostki (obiekt \texttt{UnitCall}). Jeżeli
+jest to pierwszy raz~gdy~wywołanie tej jednostki zostaje dodane do diagramu,
+należy przed tym dodać definicję jednostki (obiekt
 \texttt{ComputationUnitRelease}) do modelu. Modyfikacja modelu poprzez
 aplikację przeglądarkową odbywa się poprzez wysłanie mutacji (\emph{mutation})
 w języku \GraphQL{} do serwera aplikacyjnego \SiriusWeb{}, wskazując
@@ -705,7 +709,7 @@ szczegółach mutacji przekazać dwa identyfikatory:
 
 \begin{itemize}
 	\item Identyfikator kontekstu edycji danego modelu (\texttt{editingContextId}). Jest to obiekt związany ze szczegółami implementacyjnymi serwera aplikacyjnego \BalticLSC{}. Każdy projekt ma swój kontekst edycji, który można otrzymać wykonując zapytanie \GraphQL{} podając w szczegółach identyfikator projektu.
-	\item Identyfikator obiektu nadrzędnego, w którym ma zostać umieszczony nowy obiekt. Model ma strukturę drzewiastą, więc w przypadku tworzenia nowego modułu obliczeniowego lub jego wywołania rodzicem będzie obiekt \texttt{ComputationApplicationRelease}, czyli główny obiekt modelu.
+	\item Identyfikator obiektu nadrzędnego, w którym ma zostać umieszczony nowy obiekt. Model ma strukturę drzewiastą, więc w przypadku tworzenia nowej jednostki obliczeniowej lub~jej~wywołania rodzicem będzie obiekt \texttt{ComputationApplicationRelease}, czyli główny obiekt modelu.
 \end{itemize}
 
 Pierwszy z identyfikatorów jest dostępny w komponencie \texttt{Workbench},
@@ -743,7 +747,8 @@ Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący doku
 \texttt{Document}, który
 w sobie zawiera główny obiekt modelu znany z metamodelu
 (\texttt{ComputationApplicationRelease}). Aby
-otrzymać identyfikator głównego obiektu modelu należy więc pobrać informacje w dwóch
+otrzymać identyfikator głównego obiektu modelu należy więc pobrać informacje w
+dwóch
 krokach: najpierw pobrać informacje o dokumencie, a~później przekazać jego
 identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator głównego
 obiektu modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
@@ -780,7 +785,7 @@ modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 \end{figure}
 % \end{noindent}
 
-\subsubsection{Mutacja dodająca wywołanie modułu obliczeniowego}
+\subsubsection{Mutacja dodająca wywołanie jednostki obliczeniowej}
 
 W domyślnym interfejsie użytkownika \SiriusWeb{} obiekty można dodawać na
 dwa sposoby: wywołując narzędzia powiązane z metamodelem (opisane w
@@ -798,15 +803,16 @@ występującego w
 metamodelu w sposób niemożliwy do odgadnięcia, więc otrzymanie informacji o
 tych identyfikatorach wymaga wysłania zapytania do serwera.
 
-Tworząc nowe wywołanie modułu obliczeniowego należy stworzyć wiele obiektów
+Tworząc nowe wywołanie jednostki obliczeniowej należy stworzyć wiele obiektów
 w~modelu: obiekt \texttt{UnitCall} oraz po jednym obiekcie
-\texttt{ComputedDataPin} na każdy pin modułu obliczeniowego. Jeżeli ten moduł
-wykorzystywany jest po raz pierwszy w modelu, należy najpierw stworzyć obiekt
+\texttt{ComputedDataPin} na każdy pin jednostki obliczeniowej. Jeżeli ta
+jednostka
+wykorzystywana jest po raz pierwszy w modelu, należy najpierw stworzyć obiekt
 \texttt{ComputationApplicationRelease} oraz po jednym obiekcie
-\texttt{DeclaredDataPin} na każdy pin modułu obliczeniowego. Ponadto,
+\texttt{DeclaredDataPin} na każdy pin jednostki obliczeniowej. Ponadto,
 te modyfikacje powinny odbyć się w obrębie jednej transakcji. Z uwagi na
-dużą liczbę obiektów do stworzenia w trybie transakcyjnym, a~także dodatkowe
-zapytania sieciowe w celu sprawdzenia czy moduł był~już~użyty w modelu,
+dużą liczbę obiektów do stworzenia w~trybie transakcyjnym, a~także dodatkowe
+zapytania sieciowe w celu sprawdzenia czy jednostka była~już~użyta w modelu,
 zdecydowano, że zostanie dodana do serwera aplikacyjnego nowa mutacja
 \texttt{createUnitCall}, która będzie odpowiedzialna za te operacje.
 
@@ -832,7 +838,11 @@ kroków:
 
 	\item Implementacja klasy \texttt{CreateUnitCallEventHandler} odpowiedzialnej za odpowiednie zmodyfikowanie modelu.
 
-	      To w tej klasie znajduje się logika sprawdzająca czy moduł jest już wykorzystywany w~modelu i dodawanie jego definicji jeżeli nie jest użyty lub użycie już dodanej definicji jeżeli istnieje, a później tworzenie wywołania tego modułu z odpowiednimi wskazaniami na definicję modułu.
+	      To w tej klasie znajduje się logika sprawdzająca czy jednostka jest już
+        wykorzystywana w~modelu i dodawanie jej definicji jeżeli nie jest
+        użyta lub użycie już dodanej definicji jeżeli istnieje, a później
+        tworzenie wywołania tej jednostki z odpowiednimi wskazaniami na
+        definicję jednostki.
 
 \end{itemize}
 
@@ -851,10 +861,10 @@ na raz, ponieważ są wykonywane w~obrębie jednej synchronicznej metody. Skutku
 to atomowością tej~operacji. Przeglądarka nie~dostanie dostanie informacji o
 połowicznie zmodyfikowanym modelu --- aktualizacja zostanie przesłana dopiero
 po zakończeniu mutacji. Diagram aktywności przedstawiający dodanie wywołania
-modułu obliczeniowego jest przedstawiony
+jednostki obliczeniowej jest przedstawiony
 na~rysunku~\ref{rys:sirius-web-create-unit-call-mutation-handler}. Treść
-przykładowej mutacji odpowiedzialnej za dodanie modułu \emph{Bounding Labels}
-posiadającego dwa piny znajduje się
+przykładowej mutacji odpowiedzialnej za dodanie jednostki \emph{Bounding Labels}
+posiadającej dwa piny znajduje się
 na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
 % Źródło:
@@ -865,17 +875,17 @@ na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 % flowchart TD
 %     Start((xxx))
 %     style Start fill:#000
-%     Start --> SearchUnitRelease(Poszukaj modułu w modelu)
-%     SearchUnitRelease --> IfUnitReleaseExists{Moduł już<br/>wywołany<br/>w modelu?}
+%     Start --> SearchUnitRelease(Poszukaj jednostki w modelu)
+%     SearchUnitRelease --> IfUnitReleaseExists{Jednostka już<br/>wywołana<br/>w modelu?}
 %
 %     IfUnitReleaseExists -->|nie| CreateComputationUnitRelease(Utwórz obiekt ComputationUnitRelease i dodaj go do modelu)
-%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated{Utworzono<br/>wszystkie<br/>zadeklarowane<br/>piny modułu?}
+%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated{Utworzono<br/>wszystkie<br/>zadeklarowane<br/>piny jednostki?}
 %     IfAllDeclaredDataPinsCreated -->|nie| CreateDeclaredDataPin(Utwórz obiekt DeclaredDataPin i powiąż z ComputationUnitRelease)
 %     CreateDeclaredDataPin --> IfAllDeclaredDataPinsCreated
 %     IfAllDeclaredDataPinsCreated --->|tak| CreateUnitCall
 %
 %     IfUnitReleaseExists -->|tak| CreateUnitCall(Utwórz obiekt UnitCall i dodaj go do modelu)
-%     CreateUnitCall --> IfAllComputedDataPinsCreated{Utworzono<br />wszystkie<br />piny modułu?}
+%     CreateUnitCall --> IfAllComputedDataPinsCreated{Utworzono<br />wszystkie<br />piny jednostki?}
 %     IfAllComputedDataPinsCreated -->|nie| CreateComputedDataPin(Utwórz obiekt ComputedDataPin i powiąż z UnitCall)
 %     CreateComputedDataPin --> ConnectPins(Powiąż ComputedDataPin z odpowiednim DeclaredDataPin)
 %     ConnectPins --> IfAllComputedDataPinsCreated
@@ -889,8 +899,8 @@ na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
   \centering
 
   \includegraphics[width=0.70\linewidth]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
-  \caption{Diagram aktywności dla dodania nowego wywołania modułu
-    obliczeniowego}\label{rys:sirius-web-create-unit-call-mutation-handler}
+  \caption{Diagram aktywności dla dodania nowego wywołania jednostki
+    obliczeniowej}\label{rys:sirius-web-create-unit-call-mutation-handler}
 \end{figure}
 % \end{noindent}
 
@@ -898,7 +908,7 @@ na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
     floatplacement=hb,
     % NOTE: graphql is not supported, c adds basic highlighting for strings
     language=c,
-    caption={Mutacja \GraphQL{} dodająca wywołanie modułu obliczeniowego do
+    caption={Mutacja \GraphQL{} dodająca wywołanie jednostki obliczeniowej do
       modelu},
     label={lst:sirius-web-createUnitCall-mutation}]
 mutation {
@@ -1073,10 +1083,10 @@ kończy się w porcie oznaczonym jako~wyjściowy (\emph{provided}).
 
 Druga reguła (\texttt{NoDataFlowLoops}) zgłasza jako błędy sytuacje, w których
 w modelu występuje
-połączenie między pinami na tym samym wywołaniu modułu obliczeniowego.
-Taki moduł nigdy nie rozpocząłby pracy, ponieważ do rozpoczęcia działania
+połączenie między pinami na tym samym wywołaniu jednostki obliczeniowej.
+Taka jednostka nigdy nie rozpoczęłaby pracy, ponieważ do rozpoczęcia działania
 wymaga danych dostarczonych na wszystkich swoich pinach, a więc także danych
-dostarczonych od samego siebie, które będą dostępne dopiero po rozpoczęciu
+dostarczonych od samej siebie, które będą dostępne dopiero po rozpoczęciu
 pracy (błędne koło).
 
 Trzecia reguła (\texttt{NoDataFlowCycles}) jest uogólnieniem reguły drugiej.
@@ -1084,7 +1094,7 @@ Wykrywa ona~sytuacje, w których w grafie połączeń \texttt{DataFlow} znajduje
 się cykl. Może, ale nie musi to~być~błąd, dlatego informacje diagnostyczne
 pochodzące z tej reguły są oznaczone jako ostrzeżenie (\emph{warning}).
 Wiadomość
-tekstowa zawiera nazwy modułów obliczeniowych, które wchodzą w skład cyklu.
+tekstowa zawiera nazwy jednostek obliczeniowych, które wchodzą w skład cyklu.
 Reguła ta wykonuje algorytm przeszukiwania grafu w głąb
 (\emphgls{DFS})~\cite{wikipedia-dfs}. Po tym następuje próba skrócenia cyklu
 poprzez eliminację elementów nieznaczących. Elementem nieznaczącym jest

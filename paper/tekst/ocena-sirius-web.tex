@@ -142,8 +142,8 @@ okna dialogowe pozwalające na wytworzenie bardziej
 skomplikowanych
 schematów edycji modelu czy~zautomatyzowanie niektórych czynności. Wyświetlenie
 własnego okna dialogowego pozwalałoby na uproszczenie tworzenia nowego
-wywołania modułu obliczeniowego w modelu, ponieważ użytkownik mógłby w oknie
-dialogowym wskazać moduł obliczeniowy do wywołania. Takie narzędzie
+wywołania jednostki obliczeniowej w modelu, ponieważ użytkownik mógłby w oknie
+dialogowym wskazać jednostkę obliczeniową do wywołania. Takie narzędzie
 przygotowano w \SiriusDesktop{}, co widać na
 rysunku~\ref{rys:sirius-desktop-create-unit-call-dialog}. W \SiriusWeb{} przy
 próbie wywołania tego narzędzia pojawia się błąd w konsoli
@@ -209,12 +209,12 @@ obu przypadkach mają taki sam skutek, więc duplikacja jest niepotrzebna.
 
 Kontynuując temat przybornika w \SiriusWeb{}, z
 rysunku~\ref{rys:sirius-web-duplicate-tools} wynika, że dla pinu wywołania
-modułu obliczeniowego dostępne są dwa narzędzia usuwające go. W
+jednostki obliczeniowej dostępne są dwa narzędzia usuwające ją. W
 metamodelu rzeczywiście jest takie narzędzie, ale jest ono tam wyłącznie po to,
 aby zabronić usuwania tych elementów z~diagramu, ponieważ są one zarządzane
 automatycznie i ich usunięcie natychmiast sprawiłoby, że diagram stałby
-się niepoprawny semantycznie (wywołanie modułu obliczeniowego miałoby mniej
-pinów niż powiązany z nim moduł obliczeniowy). W \SiriusDesktop{}
+się niepoprawny semantycznie (wywołanie jednostki obliczeniowej miałoby mniej
+pinów niż powiązana z nim jednostka obliczeniowa). W \SiriusDesktop{}
 usunięcie tego pinu z diagramu jest niemożliwe, co widać na
 rysunku~\ref{rys:sirius-desktop-blocked-deleting-pins}.
 \SiriusWeb{} wyświetla odpowiednie ikony i~pozwala je wybrać, co skutkuje
@@ -229,8 +229,8 @@ wykorzystania edytora.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-desktop-blocked-deleting-pins.png}
-  \caption{Zablokowana możliwość usunięcia pinu wywołania modułu
-    obliczeniowego w \SiriusDesktop{}}\label{rys:sirius-desktop-blocked-deleting-pins}
+  \caption{Zablokowana możliwość usunięcia pinu wywołania jednostki
+    obliczeniowej w \SiriusDesktop{}}\label{rys:sirius-desktop-blocked-deleting-pins}
 \end{figure}
 % \end{noindent}
 
@@ -239,7 +239,7 @@ wykorzystania edytora.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-timeout-when-deleting-pins.png}
-  \caption{Błąd podczas próby usunięcia pinu wywołania modułu obliczeniowego w
+  \caption{Błąd podczas próby usunięcia pinu wywołania jednostki obliczeniowej w
     \SiriusWeb{}}\label{rys:sirius-web-timeout-when-deleting-pins}
 \end{figure}
 % \end{noindent}
@@ -269,7 +269,7 @@ właściwości \emph{tylko do odczytu}.
 Niektóre elementy na diagramie wyświetlane są w inny sposób. Piny, które w
 metamodelu zostały oznaczone jako węzły krawędziowe (\emph{Border Node}), w
 \SiriusDesktop{} rzeczywiście są~wyświetlane na krawędzi swojego rodzica
-(węzła wywołania modułu obliczeniowego), natomiast w \SiriusWeb{} są
+(węzła wywołania jednostki obliczeniowej), natomiast w \SiriusWeb{} są
 wyświetlane w jego środku. Usterka jest znana i została zgłoszona\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/956}
 }. Różnice w wyświetlaniu węzłów krawędziowych zostały zaprezentowane na
@@ -333,10 +333,10 @@ tekst był czytelny.
 % \end{noindent}
 
 Pozostając w temacie etykiet obiektów, są z nimi 2 problemy. Po pierwsze,
-znaki nowej linii w etykietach są zamieniane na zwykłe odstępy. Widać to na
+znaki nowej linii w~etykietach są zamieniane na zwykłe odstępy. Widać to na
 rysunku~\ref{rys:sirius-multiline-labels}, gdzie w \SiriusDesktop{} nazwa
-wywoływanego modułu
-obliczeniowego znajduje się w nowej linii, natomiast w \SiriusWeb{} cała
+wywoływanej jednostki
+obliczeniowej znajduje się w nowej linii, natomiast w \SiriusWeb{} cała
 etykieta to jedna linia. Zaburza to estetykę diagramu. Usterka została
 zgłoszona w~repozytorium projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/781}
@@ -400,7 +400,7 @@ modelu przechowywane są w bazie danych, a metamodel języka zdefiniowany w
 formacie \Ecore{} jest
 interpretowany przez serwer. Do przeglądarki komunikowane są jedynie informacje
 o~modelu, a nie metamodel. Dla przykładu, wywołanie narzędzia tworzącego nowe
-wywołanie modułu obliczeniowego wymaga przesłania zapytania typu
+wywołanie jednostki obliczeniowej wymaga przesłania zapytania typu
 \emph{mutation} do serwera aplikacyjnego, otrzymania odpowiedzi potwierdzającej
 tą zmianę, po czym asynchronicznie serwer wysyła jeszcze 3 wiadomości
 za pomocą połączenia \GraphQL{} \emph{subscription}:
@@ -521,7 +521,7 @@ Innym problemem pojawiającym się z nieokreśloną częstością jest wyjątek
 \texttt{NonNullable\-FieldWasNullException} występujący podczas
 dodawania wielu
 elementów na~raz~do~modelu. Taka sytuacja dzieje się, gdy do diagramu zostaje
-dodane nowe wywołanie modułu obliczeniowego. Może wtedy być stworzonych wiele
+dodane nowe wywołanie jednostki obliczeniowej. Może wtedy być stworzonych wiele
 obiektów podczas obsługi jednego zapytania \GraphQL{}. Wystąpienie tego
 wyjątku uniemożliwia dalszą pracę z modelem, ponieważ w interfejsie użytkownika
 nie zostaje wyświetlony żaden element diagramu. Nie pomaga odświeżenie strony
@@ -638,8 +638,8 @@ dodania nowych klas i modyfikacji niewielkiego fragmentu kodu, aby były one
 używane, chociaż nie~jest to wymagane w każdym przypadku. Dzieje się tak dzięki
 funkcjonalności wstrzykiwania zależności (\emph{Dependency Injection})
 technologii \emph{Java Spring}. Tak właśnie było w przypadku dodawania nowych
-mutacji \GraphQL{}, aby dodać możliwość tworzenia modułu obliczeniowego
-wraz z jego wywołaniem w obrębie jednej transakcji. Trzeba było wtedy
+mutacji \GraphQL{}, aby dodać możliwość tworzenia jednostek obliczeniowych
+wraz z ich wywołaniem w obrębie jednej transakcji. Trzeba było wtedy
 dodać kilka klas odpowiedzialnych za serializację i deserializację danych, oraz
 klasy odpowiedzialne za~przetwarzanie zapytania, a później \SiriusWeb{}
 automatycznie wykrył je i dodał możliwość wysyłania tego rodzaju mutacji.
