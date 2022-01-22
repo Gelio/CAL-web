@@ -582,7 +582,15 @@
 			\vskip .5em
 			\specjalnosclocal \@specjalnosc
 			\vskip 3em
-			\large \titlelocal
+
+			% Sztuczne zmniejszenie dostępnej szerokości strony dla tytułu
+			% Dzięki temu do kolejnej linii przechodzi "Sirius Web", a nie samo "Web"
+			% Źródło https://tex.stackexchange.com/a/330166/261160
+			\begin{minipage}{15cm}
+				\centering
+				\large \titlelocal
+			\end{minipage}
+
 			\vskip 3em
 			\LARGE \@author \\
 			\normalsize
