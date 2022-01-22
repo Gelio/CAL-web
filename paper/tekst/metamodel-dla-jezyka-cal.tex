@@ -1,12 +1,13 @@
 \chapter{Metamodel dla języka CAL}\label{chapter:cal-metamodel}
 
 Aby otrzymać graficzny edytor modeli wykorzystując \SiriusWeb{} należy
-najpierw zaprojektować metamodel \EMF{} opisujący strukturę modeli oraz ich
-reprezentację graficzną, która później będzie możliwa do modyfikacji przez
-użytkowników. W tym rozdziale
+najpierw zaprojektować metamodel danego języka w formacie \Ecore{}. Będzie on
+opisywał strukturę modeli (składnię abstrakcyjną) oraz ich
+reprezentację graficzną (składnię konkretną), która później będzie możliwa do
+modyfikacji przez użytkowników. W tym rozdziale
 zostanie omówiony język \emph{\acrfull{CAL}} służący do opisu obliczeń w
-systemie \BalticLSC{}, a~następnie omówiony zostanie przygotowany metamodel
-\EMF{}.
+systemie \BalticLSC{}, a~następnie omówiony zostanie przygotowany w formacie
+\Ecore{} metamodel.
 
 \section{Język opisu obliczeń w BalticLSC}
 
@@ -88,13 +89,11 @@ sekwencyjny.
 \end{figure}
 % \end{noindent}
 
-\section{Stworzony metamodel EMF dla języka CAL}
+\section{Zaprojektowany metamodel dla języka CAL}
 
-% TODO: zmienić metamodel EMF dla języka CAL -> metamodel w formacie ECore
-% przygotowany dla języka CAL. Wprowadzić zmiany w całej pracy magisterskiej
-
-Przygotowany metamodel \EMF{} dla języka \CAL{} widoczny jest na
-rysunku~\ref{rys:cal-emf-metamodel}.
+Przygotowany w formacie \Ecore{} metamodel dla języka \CAL{} widoczny jest na
+rysunku~\ref{rys:cal-emf-metamodel}. Jego składnia abstrakcyjna i konkretna
+jest omówiona w dalszej części pracy.
 % TODO: wyjaśnić dlaczego na rysunku z metamodelem CAL w ECore są ikony dla
 % niektórych klas
 Bazuje on~na metamodelu
@@ -115,7 +114,7 @@ istotne z~perspektywy edycji diagramu.
 	\centering
 
 	\includegraphics[width=0.92\linewidth]{./images/cal-emf-metamodel.pdf}
-	\caption{Metamodel \EMF{} języka \CAL{} przygotowany w
+	\caption{Metamodel w formacie \Ecore{} dla języka \CAL{} przygotowany w
 		ramach tej pracy}\label{rys:cal-emf-metamodel}
 \end{figure}
 
@@ -135,14 +134,15 @@ istotne z~perspektywy edycji diagramu.
 		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
 \end{figure}
 
-Model w \EMF{} ma strukturę grafową. Głównym jego elementem jest obiekt typu
+Model bazujący na metamodelu w formacie \Ecore{} ma strukturę grafową. Głównym
+jego elementem jest obiekt typu
 \texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
 (aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
 natomiast 4 typy obiektów:
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
-	      rodzajom modułów i aplikacji obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
+	      rodzajom modułów i~aplikacji obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
 
 	      Oprócz informacji o nazwie i wersji modułu zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują porty tego modułu obliczeniowego.
 
@@ -181,8 +181,8 @@ natomiast 4 typy obiektów:
 	      % TODO: odnieść się do obrazka pokazującego przykładowy diagram
 \end{itemize}
 
-Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} wyświetlony w
-programie \SiriusDesktop{} został przedstawiony na
+Składnia konkretna przygotowanego metamodelu języka \CAL{} wyświetlona w
+programie \SiriusDesktop{} dla przykładowego modelu została przedstawiona na
 rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 % \begin{noindent}
@@ -190,13 +190,14 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-cal-example-model.png}
-	\caption{Przykładowy diagram reprezentujący model języka \CAL{} w
+	\caption{Składnia konkretna przygotowanego metamodelu języka \CAL{} w
 		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
 \end{figure}
 % \end{noindent}
 
 Oprócz podstawowej struktury metamodelu oraz jego reprezentacji w formie
-diagramu zostały do niego dodane dodatkowe funkcjonalności. Zostały one opisane
+diagramu zostały do niego dodane dodatkowe funkcjonalności dostepne w ramach
+technologii \EMF{}. Zostały one opisane
 w kolejnych sekcjach.
 
 \subsection{Warunkowa zmiana stylu elementów}
@@ -206,7 +207,7 @@ Użytkownik może wywnioskować dodatkowe informacje z diagramu jeżeli jego wyg
 będzie zależał od właściwości elementów modelu. Takie rozwiązanie zastosowano
 dla dwóch elementów metamodelu dzięki wykorzystaniu \emph{Style
 	Customizations}~\cite{sirius-desktop-documentation-style-customizations}
-w \EMF{}.
+z technologii \EMF{}.
 % \end{noindent}
 Funkcjonalność ta pozwala na wskazanie za pomocą języka \AQL{} w jakich
 sytuacjach styl elementu powinien zostać zmieniony, a następnie wskazać które
@@ -267,12 +268,13 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 \subsection{Narzędzia edytora diagramów}\label{sec:cal-metamodel-tools}
 
-W metamodelach \EMF{} można zdefiniować narzędzia wspomagające i ułatwiające
-edycję modeli, a także pomagające uniknąć
-błędów~\cite{sirius-desktop-documentation-tools}. Również do metamodelu języka
+Dla metamodeli w formacie \Ecore{} można zdefiniować narzędzia wspomagające i
+ułatwiające edycję modeli, a także pomagające uniknąć
+błędów semantycznych~\cite{sirius-desktop-documentation-tools}. Również do
+metamodelu języka
 \CAL{} dodano takie narzędzia, które zostaną omówione w tej sekcji.
 
-Pierwszą grupą narzędzi dodanych do metamodelu \EMF{} języka \CAL{} są
+Pierwszą grupą narzędzi dodanych do przygotowanego metamodelu języka \CAL{} są
 narzędzia
 automatyzujące pracę użytkownika, aby ten nie musiał manualnie wykonywać
 niektórych czynności, a~jednocześnie aby w modelu nie znajdowały się nieużywane

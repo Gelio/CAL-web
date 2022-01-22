@@ -141,8 +141,10 @@ metamodelu jest \SiriusDesktop{}~\cite{sirius-desktop-homepage} rozwijany
 przez firmę \Eclipse{}. Jest to rozszerzenie do~zintegrowanego środowiska
 programistycznego (\emphgls{IDE}) \Eclipse{}. Pozwala ono na zaprojektowanie
 metamodelu dla wybranej dziedziny używając technologii \emph{\acrfull{EMF}}.
-Jest on zapisany w pliku \emphgls{XML} w formacie \Ecore{} (rozszerzenie
-\texttt{*.ecore}). Interfejs użytkownika programu \SiriusDesktop{}
+Jest on wyrażony za pomocą
+meta--metamodelu  % chktex 8
+\Ecore{} (rozszerzenie \texttt{*.ecore}) i jest
+zapisany w pliku \emphgls{XML}. Interfejs użytkownika programu \SiriusDesktop{}
 widoczny jest na rysunku~\ref{rys:sirius-desktop-example-metamodel}. Po lewej
 dostępne jest drzewo metaklas, na środku widać diagram struktury struktury
 metamodelu, a po prawej stronie znajduje się przybornik z~narzędziami do
@@ -246,13 +248,12 @@ rysunku~\ref{rys:sirius-web-ui}.
 	\item aplikacji przeglądarkowej napisanej z wykorzystaniem biblioteki \React{}~\cite{react-homepage} umożliwiającej wyświetlenie i modyfikację modeli w formie drzewa obiektów lub diagramu.
 \end{itemize}
 
-Metamodele, na których bazuje \SiriusWeb{} są w tym samym formacie \EMF{} co
+Metamodele, na których bazuje \SiriusWeb{} są w tym samym formacie \Ecore{} co
 metamodele w \SiriusDesktop{}. Można zatem w łatwy sposób stworzyć
 graficzny edytor modeli zarówno w~formie aplikacji natywnej, jak i
-przeglądarkowej. Posiadając istniejący metamodel \emphgls{EMF}
-z~\SiriusDesktop{} można go w krótkim czasie przenieść do \SiriusWeb{}. Jest
-to
-możliwe, ponieważ serwer aplikacyjny korzysta z tych samych bibliotek i
+przeglądarkowej. Posiadając istniejący metamodel języka użyty
+w~\SiriusDesktop{} można go w krótkim czasie przenieść do \SiriusWeb{}. Jest
+to~możliwe, ponieważ serwer aplikacyjny korzysta z tych samych bibliotek i
 pakietów do obsługi metamodelu, które są wykorzystywane w edytorze
 \SiriusDesktop{}.
 

@@ -2,11 +2,12 @@
 
 W tej pracy magisterskiej wykorzystano eksperymentalne i ciągle
 rozwijane rozwiązanie \SiriusWeb{}.
-Mimo wykorzystywania tych samych metamodeli \EMF{} co dojrzała technologia
-\SiriusDesktop{} występują pewne różnice. Zmiana platformy aplikacji z
-natywnej na przeglądarkową również ma swoje zalety. W tym rozdziale technologia
+Mimo wykorzystywania tych samych metamodeli języka \CAL{} w formacie \Ecore{}
+co~dojrzała technologia
+\SiriusDesktop{} występują pewne różnice. Zmiana platformy aplikacji z~natywnej
+na przeglądarkową również ma swoje zalety. W tym rozdziale technologia
 \SiriusWeb{} zostanie oceniona, a także porównana z jej poprzednikiem,
-\SiriusDesktop{}, zarówno z perspektywy użytkownika edytora modeli, jak i
+\SiriusDesktop{}, zarówno z~perspektywy użytkownika edytora modeli, jak i
 programisty tworzącego lub modyfikującego ten edytor.
 
 \section{Interfejs użytkownika}
@@ -99,9 +100,10 @@ niepoprawnych elementów.
 \end{figure}
 % \end{noindent}
 
-\subsection{Narzędzia metamodelu EMF}
+\subsection{Narzędzia metamodelu formatu Ecore}
 
-Innymi elementami zdefiniowanymi w metamodelu \EMF{}, które nie są w pełni
+Innymi elementami zdefiniowanymi w metamodelu w formacie \Ecore{}, które nie są
+w pełni
 wspierane w \SiriusWeb{}, są narzędzia edycji modelu. Podstawowe narzędzie
 tworzenia nowego węzła w modelu działa poprawnie.
 Pewne braki występują w większości pozostałych typów narzędzi. Narzędzie do
@@ -393,8 +395,9 @@ problem.
 Udostępnienie aplikacji do edycji diagramów w przeglądarce powoduje, że na
 jej wydajność wpływa szybkość łącza Internet użytkownika. Architektura
 rozwiązania \SiriusWeb{} powoduje, że aplikacja często musi komunikować
-się z serwerem aplikacyjnym. Dzieje się tak z uwagi na fakt, że informacje o
-modelu przechowywane są w bazie danych, a metamodel \EMF{} jest
+się z serwerem aplikacyjnym. Dzieje się~tak~z~uwagi na~fakt, że informacje o
+modelu przechowywane są w bazie danych, a metamodel języka zdefiniowany w
+formacie \Ecore{} jest
 interpretowany przez serwer. Do przeglądarki komunikowane są jedynie informacje
 o~modelu, a nie metamodel. Dla przykładu, wywołanie narzędzia tworzącego nowe
 wywołanie modułu obliczeniowego wymaga przesłania zapytania typu
@@ -574,10 +577,11 @@ przykład wykorzystania biblioteki z repozytorium \texttt{sirius-components}
 do zbudowania edytora diagramów.
 Pomocnym okazała się możliwość zadawania pytań autorom projektu poprzez
 tworzenie zgłoszeń na platformie \GitHub{}. Właśnie w ten sposób zadano
-pytanie z prośbą o wyjaśnienie jak można użyć własnego metamodelu \EMF{} w
+pytanie z prośbą o wyjaśnienie jak można użyć własnego metamodelu w formacie
+\Ecore{} w
 \SiriusWeb{}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-web/issues/36}
-}. W odpowiedzi otrzymano krótkie wyjaśnienie oraz listę miejsc w kodzie
+}. W~odpowiedzi otrzymano krótkie wyjaśnienie oraz listę miejsc w kodzie
 wymagających edycji.
 
 Instrukcja ta była pomocna, ale dla osób nie mających wcześniej styczności z
@@ -595,26 +599,27 @@ metamodelu i wykorzystania go w \SiriusWeb{}. Taka instrukcja obniżyłaby
 barierę wejścia i sprawiłaby, że rozpoczęcie pracy z tą technologią byłoby dużo
 szybsze i przyjemniejsze.
 
-Zaskoczeniem było też odkrywanie kolejnych funkcjonalności metamodelu
-\EMF{}, które nie były obsługiwane przez \SiriusWeb{}, lub były
-obsługiwane wyłącznie częściowo. Zespół rozwijający tą technologię wykorzystuje
+Zaskoczeniem było też odkrywanie kolejnych funkcjonalności formatu
+\Ecore{}, które nie były obsługiwane przez \SiriusWeb{}, lub były
+obsługiwane wyłącznie częściowo. Zespół rozwijający tą~technologię wykorzystuje
 % TODO: użyają ciągle tego samego metamodelu w formacie ECore, który nie
 % wykorzystuje wszystkich możliwości formatu ECore, przez co nie widzą oni
 % brakujących funkcjonalności obsługi tego formatu w Sirius Web
-ciągle ten sam metamodel podczas swojej pracy, który nie korzysta ze
-wszystkich możliwości \EMF{}. Konsekwencją tego jest brak ekspozycji autorów
+ciągle ten sam metamodel podczas swojej pracy, który nie~korzysta ze~wszystkich
+możliwości formatu \Ecore{}. Konsekwencją tego jest brak ekspozycji autorów
 \SiriusWeb{} na różne problemy wynikające z braku kompatybilności i
-konieczność powiadamiania ich o usterkach za pomocą \emph{GitHub Issues}.
+konieczność powiadamiania ich~o~usterkach za pomocą \emph{GitHub Issues}.
 Pomocne w tym przypadku byłoby udostępnienie przez autorów projektu listy
-funkcjonalności metamodeli \EMF{}, które są wspierane, a także wypisanie
+funkcjonalności formatu \Ecore{}, które są wspierane, a także wypisanie
 tych, które są nieobsługiwane. W ten sposób przygotowując własny edytor
 na~bazie
 \SiriusWeb{} można byłoby od razu zorientować się z których narzędzi można
-swobodnie korzystać, a na które nie warto zużywać czasu w metamodelu \EMF{}
-bo wiadomo, że należy je~opracować samemu.
+swobodnie korzystać, a~na~które nie~warto zużywać czasu w~metamodelu formatu
+\Ecore{} bo wiadomo, że należy je~opracować samemu.
 
 Podsumowując, znając wszystkie kroki potrzebne do wykorzystania własnego
-metamodelu \EMF{} w \SiriusWeb{} można tego dokonać w krótkim czasie.
+metamodelu w formacie \Ecore{} w \SiriusWeb{} można tego dokonać w krótkim
+czasie.
 Wymagane są zmiany jedynie kilku miejsc w kodzie aplikacji. Brakuje
 dokumentacji tej technologii, która wskazałaby kolejne kroki tego
 procesu, aby rozpoczęcie pracy było prostsze, szybsze i mniej frustrujące.

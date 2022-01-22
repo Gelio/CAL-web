@@ -1,12 +1,12 @@
 \chapter{Dostosowanie Sirius Web dla systemu BalticLSC}
 
-Z metamodelu \EMF{} języka \CAL{} systemu \BalticLSC{}
-opisanego w rozdziale~\ref{chapter:cal-metamodel} do tej pory korzystano w
-\SiriusDesktop{}, w którym to został on przygotowany. W tym rozdziale
+Z przygotowanego metamodelu języka \CAL{} systemu \BalticLSC{}
+opisanego w rozdziale~\ref{chapter:cal-metamodel} do~tej~pory korzystano w
+\SiriusDesktop{}, w którym to został on przygotowany. W~tym~rozdziale
 zostaną opisane kroki potrzebne do użycia go w \SiriusWeb{}, aby otrzymać
 aplikację przeglądarkową umożliwiającą edycję modeli języka \CAL{}.
 Zostaną również omówione modyfikacje edytora \SiriusWeb{}, które
-zostały wykonane, aby poprawić jego integrację z systemem \BalticLSC{} oraz
+zostały wykonane, aby poprawić jego integrację z~systemem \BalticLSC{} oraz
 umożliwić realizację walidacji semantycznej modelu.
 
 % TODO: napisać, że nie ma dokumentacji, bazuję na własnym doświadczeniu i
@@ -15,8 +15,9 @@ umożliwić realizację walidacji semantycznej modelu.
 
 \section{Użycie metamodelu języka CAL w Sirius Web}
 
-Chcąc wykorzystać metamodel \EMF{} w \SiriusWeb{} należy wskazać gdzie
-on się znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
+Chcąc wykorzystać metamodel w formacie \Ecore{} w \SiriusWeb{} należy wskazać
+gdzie
+on~się~znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
 dołączone do pliku \JAR{} serwera, a później odczytane przez moduły
 \SiriusWeb{} podczas uruchamiania aplikacji.
 
@@ -28,24 +29,23 @@ bazującej na \SiriusWeb{}. Jest ona skonfigurowana do~wykorzystywania
 metamodelu \emph{Sample Flow}~\cite{flow-network-github}
 przygotowanego przez firmę \emph{Obeo Network}. Znajduje się on w innym
 repozytorium (\texttt{Flow-Designer}~\cite{flow-network-github}) i jest
-zwykłym metamodelem \EMF{}.
+zwykłym metamodelem w formacie \Ecore{}.
 Należy więc wzorować się na tym przykładowym repozytorium w celu stworzenia
 własnego edytora modeli.
 W ramach tej pracy magisterskiej stworzono kopię repozytorium
 \texttt{sirius-web} i skonfigurowano je, aby wykorzystywało metamodel
-języka \CAL{} opisany w rozdziale~\ref{chapter:cal-metamodel}.
+języka \CAL{} opisany w~rozdziale~\ref{chapter:cal-metamodel}.
 
 \SiriusWeb{} do zarządzania projektem i wyrażania zależności między
 pakietami wykorzystuje narzędzie \emph{Apache Maven}~\cite{maven-homepage}.
-Aby wykorzystać klasy metamodelu \EMF{} w \SiriusWeb{}
+Aby wykorzystać klasy metamodelu w formacie \Ecore{} w \SiriusWeb{}
 należy do katalogów wygenerowanych przez \SiriusDesktop{} dodać pliki
 \POM{} (\texttt{pom.xml}), które zawierają informacje o nazwie projektu i
 jego
-zależnościach. Wygenerowane projekty metamodelu \EMF{} to projekty
-\Eclipse{}.
-Oznacza to, że zależności projektów,
-na~które składa się całość metamodelu są zapisane w plikach
-\texttt{MANIFEST.MF}, a pozostałe informacje o~projekcie znajdują się w
+zależnościach. Wygenerowane na podstawie metamodelu w formacie \Ecore{}
+projekty są w formacie projektów \Eclipse{}.
+Oznacza to, że ich zależności są zapisane w plikach
+\texttt{MANIFEST.MF}, a pozostałe informacje o~projektach znajdują się w
 plikach \texttt{build.properties}, \texttt{plugin.properties} oraz
 \texttt{plugin.xml}. Te pliki nie są wykrywane domyślnie przez \Maven{},
 więc
@@ -73,7 +73,8 @@ repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 </repositories>
 \end{lstlisting}
 
-Kolejno w plikach \texttt{pom.xml} projektów metamodelu \EMF{} należy
+Kolejno w plikach \texttt{pom.xml} projektów metamodelu w formacie \Ecore{}
+należy
 zdefiniować, że~są~to~projekty \Eclipse{}, poprzez dodanie elementu
 \texttt{packaging} z wartością \texttt{eclipse-plugin}. Zostało
 to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
@@ -82,7 +83,7 @@ to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
     floatplacement=hb,
     language=XML,
     caption={Plik \texttt{pom.xml} dla jednego z projektów metamodelu
-      \EMF{}},
+      w formacie \Ecore{}},
     label={lst:pom-packaging}]
 <?xml version="1.0" encoding="UTF-8" ?>
 <project
@@ -204,7 +205,7 @@ listingu~\ref{lst:registering-odesign-path}.
 \begin{lstlisting}[float,
     floatplacement=hb,
     language=Java,
-    caption={Rejestracja klas przygotowanego metamodelu \EMF{} w klasie
+    caption={Rejestracja klas przygotowanego metamodelu w klasie
       \texttt{Sample\-EMF\-Configuration}},
     label={lst:registering-emf-classes}]
     @Bean
@@ -231,7 +232,8 @@ listingu~\ref{lst:registering-odesign-path}.
 \end{lstlisting}
 
 Po tych modyfikacjach w aplikacji \SiriusWeb{} można tworzyć i edytować
-modele nowo stworzonego metamodelu \EMF{}. Zrzut ekranu z aplikacji
+modele nowo stworzonego w formacie \Ecore{} metamodelu. Zrzut ekranu z
+aplikacji
 przeglądarkowej widoczny jest
 na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
 
@@ -240,7 +242,7 @@ na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-base-metamodel-model.png}
-  \caption{Edycja modelu bazującego na przygotowanym metamodelu \EMF{} w
+  \caption{Edycja modelu bazującego na przygotowanym metamodelu języka \CAL{} w
     \SiriusWeb{}}\label{rys:sirius-web-base-metamodel-model}
 \end{figure}
 % \end{noindent}
@@ -294,15 +296,15 @@ rysunku~\ref{rys:sirius-web-new-model-template}.
 \subsection{Uruchamianie testów metamodelu za pomocą Maven}
 
 W sekcji~\ref{sec:testy-metamodelu} opisano testy zmodyfikowanego zachowania
-metamodelu EMF\@. Były one~uruchamianie w \SiriusDesktop{}. Z uwagi na
-fakt, że
+metamodelu języka \CAL{} opisanego w formacie \Ecore{}. Były one~uruchamianie w
+\SiriusDesktop{}. Z uwagi na fakt, że
 wygenerowany projekt z testami jest projektem typu \Eclipse{}, \emph{Apache
 	Maven} nie ma możliwości wykonania tych testów podczas standardowego
-polecenia
-wykonania testów \lstinline{mvn test}.
+polecenia wykonania testów \lstinline{mvn test}.
 
 Z pomocą przychodzi tutaj zestaw narzędzi \emph{Maven Tycho} wykorzystany do
-połączenia metamodelu \EMF{} z \SiriusWeb{}. Zawiera on rozszerzenie
+połączenia metamodelu w formacie \Ecore{} z \SiriusWeb{}. Zawiera on
+rozszerzenie
 \texttt{tycho-surefire-plugin}~\cite{maven-surefire-plugin-homepage}, które w
 trakcie fazy wykonywania testów
 integracyjnych w \Maven{} wykonuje również testy metamodelu zdefiniowane w
@@ -336,7 +338,7 @@ nazwę klasy grupującej wszystkie testy.
 \end{lstlisting}
 
 Po tak zmodyfikowanej konfiguracji
-testy metamodelu \EMF{} w \Maven{} można uruchomić komendą
+testy metamodelu w formacie \Ecore{} można w~\Maven{} uruchomić komendą
 \lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
 (\texttt{verify}), a
 więc po fazie budowania aplikacji (\texttt{package}). Powoduje to, że
@@ -348,7 +350,7 @@ komunikacja
 \Maven{} z repozytorium \Eclipse{}, z którego pobierane są pakiety.
 Niemniej jednak możliwość uruchomienia testów metamodelu w \Maven{} pozwala
 na~uruchomienie ich z linii wiersza poleceń bez uruchamiania \SiriusDesktop{},
-co przydaje się~w~środowisku serwerowym.
+co~przydaje się~w~środowisku serwerowym.
 
 \section{Integracja przybornika BalticLSC w Sirius
   Web}\label{sec:integracja-przybornika-balticlsc}
@@ -409,7 +411,8 @@ integracji z~zewnętrznymi serwisami w celu pobrania listy modułów
 obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
 dostępne w modelu muszą być zdefiniowane jako
 elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
-metamodelu \EMF{} nie pozwalają na komunikację z zewnętrznymi serwisami,
+metamodelach w formacie \Ecore{} nie pozwalają na komunikację z zewnętrznymi
+serwisami,
 więc pobieranie danych o~modułach obliczeniowych znajdujących się w przyborniku
 danego użytkownika musi zostać zrealizowane na poziomie \SiriusWeb{}.
 Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
@@ -447,7 +450,8 @@ token uwierzytelniający w formacie \emphgls{JWT}. W tokenie tym znajdują się
 informacje o nazwie użytkownika, do którego należy token (pole \texttt{sub}
 oraz \texttt{unique\_name}). Zawartość pola z
 danymi tokena widoczna jest na listingu~\ref{lst:balticlsc-jwt-payload}.
-Ponadto, każdy token \emphgls{JWT} posiada podpis weryfikujący jego prawdziwość.
+Ponadto, każdy token \emphgls{JWT} posiada podpis weryfikujący jego
+prawdziwość.
 Służy on potwierdzeniu, że token został przygotowany przez serwis
 \BalticLSC{} w drodze poprawnego logowania do serwisu, a nie został
 wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
@@ -833,20 +837,22 @@ Wszystkie dodane klasy zostaną automatycznie wzięte pod uwagę przez serwer
 aplikacyjny \SiriusWeb{} podczas obsługi zapytań \emphgls{API} dzięki
 mechanizmowi wstrzykiwania zależności (\emph{Dependency Injection}) platformy
 \emph{Java Spring}.
-W kodzie obsługi mutacji można wykorzystywać klasy metamodelu \EMF{}.
+W kodzie obsługi mutacji można wykorzystywać klasy języka \Java{} odpowiadające
+metaklasom wygenerowane na podstawie metamodelu języka \CAL{} w formacie
+\Ecore{}.
 Sprawia to, że implementacja jest prostsza i szybsza w porównaniu do
 wykonywania tych samych operacji komunikując się przez warstwę zapytań
 \GraphQL{}.
 Dodatkowo wszystkie zmiany wprowadzane przez kod obsługi mutacji są widoczne
-na raz, ponieważ są wykonywane w obrębie jednej synchronicznej metody. Skutkuje
-to atomowością tej~operacji. Przeglądarka nie dostanie dostanie informacji o
+na raz, ponieważ są wykonywane w~obrębie jednej synchronicznej metody. Skutkuje
+to atomowością tej~operacji. Przeglądarka nie~dostanie dostanie informacji o
 połowicznie zmodyfikowanym modelu --- aktualizacja zostanie przesłana dopiero
 po zakończeniu mutacji. Diagram aktywności przedstawiający dodanie wywołania
 modułu obliczeniowego jest przedstawiony
 na~rysunku~\ref{rys:sirius-web-create-unit-call-mutation-handler}. Treść
 przykładowej mutacji odpowiedzialnej za dodanie modułu \emph{Bounding Labels}
-posiadającego dwa porty znajduje się na
-listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
+posiadającego dwa porty znajduje się
+na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
 % TODO: spróbować czy da się start i koniec jako kropki, a nie słowa
 % Źródło:
@@ -935,7 +941,7 @@ mutation {
 \SiriusDesktop{} posiada funkcjonalność walidacji modelu pod względem
 składniowym (na podstawie atrybutów metamodelu) oraz semantycznym (na podstawie
 reguł \emph{\selectlanguage{english}Semantic Validation Rule} zdefiniowanych w
-pliku \texttt{*.odesign} metamodelu \EMF{}), co zostało opisane w
+pliku \texttt{*.odesign} metamodelu w formacie \Ecore{}), co zostało opisane w
 sekcji~\ref{sec:reguly-walidacyjne-metamodel}.
 
 \SiriusWeb{} w swoim interfejsie użytkownika posiada miejsce, w którym
@@ -948,7 +954,7 @@ rysunku~\ref{rys:sirius-desktop-and-web-semantic-validation-comparison}
 porównano zwracane informacje diagnostyczne w \SiriusWeb{} i \SiriusDesktop{}
 dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
 widać błędy walidacji semantycznej pochodzące
-z~reguł z~metamodelu \EMF{}. Błędów tych brakuje w aplikacji
+z~reguł z~metamodelu w formacie \Ecore{}. Błędów tych brakuje w aplikacji
 przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 \texttt{sirius-web}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
@@ -967,7 +973,7 @@ przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 		\caption{Brak błędów walidacji semantycznej w \SiriusWeb{}}
 	\end{subfigure}
 
-	\caption{Obsługa reguł walidacji semantycznej \EMF{} w \SiriusWeb{}
+	\caption{Obsługa reguł walidacji semantycznej z formatu \Ecore{} w \SiriusWeb{}
     i \SiriusDesktop{}}\label{rys:sirius-desktop-and-web-semantic-validation-comparison}
 \end{figure}
 % \end{noindent}
@@ -998,10 +1004,11 @@ semantycznej należy w metodzie \texttt{getDiagnostics\-Provider} klasy
 nowe elementy do listy wynikowych informacji diagnostycznych.
 
 Z uwagi na skomplikowanie dostępu programistycznego do reguł walidacji
-semantycznej zdefiniowanej w metamodelu \EMF{} zdecydowano, że dodatkowy
+semantycznej zdefiniowanych w formacie \Ecore{} zdecydowano, że dodatkowy
 mechanizm walidacji semantycznej w \SiriusWeb{} zostanie zaimplementowany
-za pomocą osobnych klas języka \Java{}, niekorzystających z reguł zdefiniowanych
-w metamodelu \EMF{}. Diagram klas systemu walidacji semantycznej widoczny
+za pomocą osobnych klas języka \Java{}, niekorzystających z reguł
+zdefiniowanych
+w formacie \Ecore{}. Diagram klas systemu walidacji semantycznej widoczny
 jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
 
 % Źródło:
@@ -1042,8 +1049,8 @@ będące
 poszczególnymi regułami walidacji semantycznej modeli języka \CAL{}. Każda
 taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
 instancję klasy \texttt{ComputationApplicationRelease}. Jest~to klasa
-wygenerowana na podstawie metamodelu \EMF{}
-będąca korzeniem drzewa modelu i~dzięki niej można dotrzeć do dowolnego
+wygenerowana na podstawie metamodelu języka \CAL{} w formacie \Ecore{}
+będąca głównym obiektem modelu i~dzięki niej można dotrzeć do dowolnego
 elementu modelu. Metoda \texttt{validate} zwraca listę obiektów klasy
 \texttt{Diagnostic}
 zawierających informacje diagnostyczne o modelu. Jedna reguła walidacji
@@ -1194,14 +1201,16 @@ podczas edycji konkretnej aplikacji obliczeniowej systemu \BalticLSC{}.
 Interfejs użytkownika aplikacji \SiriusWeb{} jest napisany w języku
 \JavaScript{} z wykorzystaniem biblioteki \React{}~\cite{react-homepage}.
 Aplikacja przeglądarkowa \BalticLSC{} jest również napisana w~języku
-\JavaScript{}, natomiast korzysta z biblioteki \emph{Vue.js}~\cite{vue-homepage}.
+\JavaScript{}, natomiast korzysta z biblioteki
+\emph{Vue.js}~\cite{vue-homepage}.
 Z powodu wykorzystania różnych bibliotek kod \SiriusWeb{} musi udostępnić
 funkcje zarządzające
 wyświetlaniem edytora w języku \JavaScript{}, a nie polegać na mechanizmach
 biblioteki \React{} do wyświetlenia komponentu wewnątrz innej aplikacji.
 
 Struktura elementów na stronie internetowej reprezentowana jest jako drzewo
-\emphgls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \emphgls{HTML} i
+\emphgls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \emphgls{HTML}
+i
 za
 pomocą różnych metod interfejsu \emphgls{API} drzewa \emphgls{DOM} można
 otrzymać do
@@ -1544,7 +1553,8 @@ element wymagający rozszerzenia.
 % \end{noindent}
 
 Po takim przygotowaniu modelu przeglądarka może wyświetlić edytor diagramów
-\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku \JavaScript{}.
+\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku
+\JavaScript{}.
 Identyfikator projektu jest znany aplikacji przeglądarkowej \BalticLSC{},
 ponieważ został on właśnie przez nią stworzony, a~token uwierzytelniający
 \emphgls{JWT} jest również w jej posiadaniu.
