@@ -40,9 +40,13 @@ są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na i
 
 \begin{itemize}
 	\item krotność danych, które obsługuje pin (\emph{data
-		      multiplicity}):  dla pojedynczego pliku będzie to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
+		      multiplicity}):  dla pojedynczego pliku będzie
+	      to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
 	\item liczba pakietów przyjmowanych lub wysyłanych danych (\emph{token
-		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy jednostka obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
+		      multiplicity}, czy oczekuje pojedynczego zestawu danych
+	      wejściowych, czy jednostka obsłuży kolejne zestawy danych
+	      wysyłane po chwili
+	      bez ponownego uruchomienia).
 \end{itemize}
 
 Moduł obliczeniowy rozpoczyna obliczenia dopiero gdy na każdym jego wejściu
@@ -144,35 +148,108 @@ natomiast 4 typy obiektów:
 
 \begin{itemize}
 	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
-	      rodzajom modułów i~aplikacji obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
+	      rodzajom modułów i~aplikacji obliczeniowych dostępnych w systemie
+	      \BalticLSC{} i opisują ich właściwości.
 
-	      Oprócz informacji o nazwie i wersji jednostki obliczeniowej zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują piny tej jednostki obliczeniowej.
+	      Oprócz informacji o nazwie i wersji jednostki obliczeniowej
+	      zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z
+	      \texttt{DataPin}, które opisują piny tej jednostki obliczeniowej.
 
-	      W przygotowanym metamodelu dla języka \CAL{} obiekty typu \texttt{Computation\-Unit\-Release} reprezentują zarówno moduły obliczeniowe, jak i aplikacje obliczeniowe, które w~oryginalnym metamodelu z systemu \BalticLSC{} są dwoma osobnymi rodzajami obiektów. Z perspektywy edytora diagramów nie ma znaczenia czy wywoływana jednostka obliczeniowa jest modułem obliczeniowym, czy aplikacją obliczeniową składającą się~z~wywołań innych jednostek obliczeniowych. Uproszczenia tego dokonano aby uniknąć umieszczania w modelu zbyt szczegółowych i niepotrzebnych informacji.
+	      W przygotowanym metamodelu dla języka \CAL{} obiekty typu
+	      \texttt{Computation\-Unit\-Release} reprezentują zarówno moduły
+	      obliczeniowe,
+	      jak i aplikacje obliczeniowe, które w~oryginalnym metamodelu z
+	      systemu
+	      \BalticLSC{} są dwoma osobnymi rodzajami obiektów. Z perspektywy
+	      edytora
+	      diagramów nie ma znaczenia czy wywoływana jednostka obliczeniowa
+	      jest modułem
+	      obliczeniowym, czy aplikacją obliczeniową składającą
+	      się~z~wywołań innych
+	      jednostek obliczeniowych. Uproszczenia tego dokonano aby uniknąć
+	      umieszczania w
+	      modelu zbyt szczegółowych i niepotrzebnych informacji.
 
-	      Obiekty te nie są wyświetlane na diagramie (nie występują w wizualnej reprezentacji modelu). Można je zobaczyć jedynie w drzewie obiektów modelu.
+	      Obiekty te nie są wyświetlane na diagramie (nie występują w
+	      wizualnej reprezentacji modelu). Można je zobaczyć jedynie w
+	      drzewie obiektów
+	      modelu.
 
 	\item \texttt{UnitCall} --- wywołania dostępnych jednostek
-	      obliczeniowych. Każda dostępna jednostka obliczeniowa może zostać wywołana dowolną liczbę razy. Każde wywołanie to~osobny obiekt \texttt{UnitCall} ze wskazaniem jednostki, która ma zostać wywołana, a~także z~obiektami \texttt{ComputedDataPin}, które reprezentują piny tej jednostki.
+	      obliczeniowych. Każda dostępna jednostka obliczeniowa może zostać
+	      wywołana dowolną liczbę razy. Każde wywołanie to~osobny obiekt
+	      \texttt{UnitCall} ze wskazaniem jednostki, która ma zostać
+	      wywołana, a~także
+	      z~obiektami \texttt{ComputedDataPin}, które reprezentują piny tej
+	      jednostki.
 
-	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych jednostek obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań jednostki.
+	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących
+	      dostępnych jednostek obliczeniowych wyłącznie raz w modelu, a
+	      później
+	      wskazywanie tych elementów w~każdym z wywołań jednostki.
 
-	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie jednostki za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie jednostki, które są~zapisane w metamodelu. Edytor modeli domyślnie nie ma możliwości pobrania informacji o~dostępnych jednostkach obliczeniowych z systemu \BalticLSC{}, więc to~użytkownik musi samemu dodać dostępne jednostki do metamodelu.
+	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć
+	      wywołanie jednostki za~pomocą obiektu \texttt{UnitCall}, należy
+	      najpierw
+	      stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać
+	      odpowiednie
+	      \texttt{Declared\-Data\-Pin}. Można wywołać jedynie jednostki,
+	      które
+	      są~zapisane w metamodelu. Edytor modeli domyślnie nie ma
+	      możliwości pobrania
+	      informacji o~dostępnych jednostkach obliczeniowych z systemu
+	      \BalticLSC{}, więc
+	      to~użytkownik musi samemu dodać dostępne jednostki do metamodelu.
 
-	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi pinami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania jednostki, oraz nazwę i wersję wydania wywoływanej jednostki. Składnię konkretną widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}. Piny~wywołania jednostek obliczeniowych (\texttt{ComputedDataPin}) są również na nim widoczne jako prostokąty z ikoną strzałki w prawo.
+	      Na diagramie obiekty te są reprezentowane jako prostokąty ze
+	      swoimi pinami umieszczonymi na krawędziach. Wewnątrz prostokąta
+	      znajduje się
+	      etykieta zawierająca nazwę umożliwiającą wyróżnienie tego
+	      konkretnego wywołania
+	      jednostki, oraz nazwę i wersję wydania wywoływanej jednostki.
+	      Składnię
+	      konkretną widać na
+	      rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+	      Piny~wywołania jednostek obliczeniowych
+	      (\texttt{ComputedDataPin}) są również
+	      na nim widoczne jako prostokąty z ikoną strzałki w prawo.
 
 	\item \texttt{ApplicationDataPin} --- piny aplikacji obliczeniowej
-	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości pinu są dziedziczone z klasy \texttt{DataPin}. Z uwagi na fakt, że te piny będą łączone z innymi pinami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
+	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu.
+	      Właściwości pinu są dziedziczone z klasy \texttt{DataPin}. Z
+	      uwagi na fakt, że
+	      te piny będą łączone z innymi pinami, klasa ta dziedziczy z klasy
+	      \texttt{ConnectableDataPin}.
 
-	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną
+	      strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem, co
+	      widać na
+	      rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
-	      W metamodelu języka \CAL{} z systemu \BalticLSC{} te obiekty są reprezentowane za~pomocą klasy \texttt{DeclaredDataPin}, która w metamodelu tworzonym na potrzeby edytora jest inną klasą. Powodem tego był fakt, że z perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej piny są logicznie innym bytem niż piny wywoływanych przez nią jednostek obliczeniowych. Mają też inną składnię konkretną (\texttt{DeclaredDataPin} nie~są~wyświetlane na diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej są).
+	      W metamodelu języka \CAL{} z systemu \BalticLSC{} te obiekty są
+	      reprezentowane za~pomocą klasy \texttt{DeclaredDataPin}, która w
+	      metamodelu
+	      tworzonym na potrzeby edytora jest inną klasą. Powodem tego był
+	      fakt, że z
+	      perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej
+	      piny są logicznie
+	      innym bytem niż piny wywoływanych przez nią jednostek
+	      obliczeniowych. Mają też
+	      inną składnię konkretną (\texttt{DeclaredDataPin}
+	      nie~są~wyświetlane na
+	      diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej
+	      są).
 
 	\item \texttt{DataFlow} --- połączenia między pinami
 	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach
-	      jednostek obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub pinami aktualnie opisywanej aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
+	      jednostek obliczeniowych (\texttt{ComputedDataPin} na
+	      \texttt{UnitCall}) lub pinami aktualnie opisywanej aplikacji
+	      obliczeniowej
+	      (\texttt{ApplicationDataPin}).
 
-	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem
+	      wskazującym kierunek przepływu danych, co widać na
+	      rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 \end{itemize}
 
 Składnia konkretna przygotowanego metamodelu języka \CAL{} wyświetlona w
@@ -586,11 +663,16 @@ W ramach tej pracy magisterskiej przygotowano 2 testy jednostkowe weryfikujące
 następujące zachowania dodane w kodzie źródłowym klas metamodelu:
 
 \begin{itemize}
-	\item Czy połączenia między pinami usuwanych wywołań węzłów obliczeniowych są również usuwane?
+	\item Czy połączenia między pinami usuwanych wywołań węzłów
+	      obliczeniowych są również usuwane?
 
-	\item Czy piny są automatycznie usuwane i tworzone podczas zmiany wskazania jednostki obliczeniowej, która ma zostać wywołana w danym obiekcie \texttt{UnitCall}?
+	\item Czy piny są automatycznie usuwane i tworzone podczas zmiany
+	      wskazania jednostki obliczeniowej, która ma zostać wywołana w
+	      danym obiekcie
+	      \texttt{UnitCall}?
 
-	      Weryfikowane jest czy utworzone piny mają poprawnie ustawione odwołania na~zdeklarowane piny danej jednostki obliczeniowej.
+	      Weryfikowane jest czy utworzone piny mają poprawnie ustawione
+	      odwołania na~zdeklarowane piny danej jednostki obliczeniowej.
 \end{itemize}
 
 Są to jedyne dwie modyfikacje kodu źródłowego metamodelu, których dokonano.
