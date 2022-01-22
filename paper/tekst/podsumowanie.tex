@@ -1,6 +1,6 @@
 \chapter{Podsumowanie}
 
-W tym rozdziale zostaną opisane wyniki pracy magisterskiej oraz wnioski
+W tym rozdziale zostaną opisane wyniki pracy magisterskiej oraz wnioski
 wyciągnięte podczas jej realizacji, a także możliwości dalszy rozwój
 przygotowanego rozwiązania.
 
@@ -9,10 +9,11 @@ przygotowanego rozwiązania.
 W ramach tej pracy magisterskiej technologia \SiriusWeb{} została
 wykorzystana do stworzenia edytora diagramów opisujących aplikacje obliczeniowe
 systemu \BalticLSC{}. Wykorzystuje on~przygotowany specjalnie w tym celu
-metamodel \EMF{} języka \CAL{}. Do edytora zostały dodane narzędzia i
+metamodel języka \CAL{} w formacie \Ecore{}. Do~edytora zostały dodane
+narzędzia i
 funkcjonalności pomagające w efektywniejszym i szybszym tworzeniu modeli.
 Ocenione zostały także możliwości edytora i porównane z możliwościami
-konkurencyjnej poprzedniej wersji edytora bazującego na metamodelach \EMF{},
+konkurencyjnej poprzedniej wersji edytora bazującego na technologii \EMF{},
 czyli \SiriusDesktop{}.
 
 Edytor użyty jest domyślnie jako część interfejsu przykładowej aplikacji
@@ -29,12 +30,12 @@ poprzez przygotowanie aplikacji przeglądarkowej wyświetlającej
 edytor diagramów jako część swojego interfejsu.
 
 Edytor domyślnie pozwala na wyświetlenie modeli w formie diagramów, zgodnie z
-definicją jego reprezentacji z metamodelu \EMF{}, oraz na podstawowe
-możliwości
+definicją jego reprezentacji z metamodelu w formacie \Ecore{}, oraz na
+podstawowe możliwości
 edycji tych modeli. Zachowana jest funkcjonalność interpretacji języka
 \emphgls{AQL} do wyrażenia bardziej zaawansowanej logiki czy wyrażeń
 opisujących
-właściwości metamodelu. Jednak nie wszystkie możliwości metamodeli \EMF{}
+właściwości metamodelu. Jednak nie wszystkie możliwości formatu \Ecore{}
 wspierane przez \SiriusDesktop{} są obsługiwane przez \SiriusWeb{}.
 Niektóre elementy są również inaczej wyświetlane co sprawia, że metamodel
 należy szczególnie dostosować pod \SiriusWeb{}.
@@ -50,7 +51,8 @@ samemu lub zaakceptować istnienie problemu.
 
 Funkcjonalnościami dodanymi do edytora w ramach pracy magisterskiej są
 mechanizm walidacji semantycznej modeli języka \CAL{} oraz implementacja
-przybornika wyświetlającego listę dostępnych modułów aplikacyjnych z platformy
+przybornika wyświetlającego listę dostępnych jednostek obliczeniowych z
+platformy
 \BalticLSC{}. Modyfikacja kodu serwera aplikacyjnego zazwyczaj była
 łatwiejsza od modyfikacji kodu aplikacji przeglądarkowej, ponieważ dzięki
 mechanizmowi wstrzykiwania zależności z platformy \emph{Java Spring}
@@ -58,7 +60,7 @@ często wystarczyło jedynie dodać nowe klasy i ewentualnie zmienić kilka lini
 już istniejących.
 
 Zmiana kodu interfejsu użytkownika aplikacji przeglądarkowej była pracochłonna
-i wiązała się ze skopiowaniem kodu źródłowego tych komponentów, które mają być
+i wiązała się ze skopiowaniem kodu źródłowego tych komponentów, które mają być
 modyfikowane. \SiriusWeb{} nie udostępnia prostych metod na dodanie
 własnych elementów interfejsu do istniejących komponentów, więc kopiowanie i
 edycja ich kodu źródłowego jest jedynym rozwiązaniem. Dodaje to natomiast pracy
@@ -120,7 +122,7 @@ wersji tego
 oprogramowania. Niektóre z nich wymagały jedynie pobrania nowych plików
 źródłowych, a inne z nich wprowadzały zmiany łamiące kompatybilność wsteczną i
 wymagające niekiedy znacznych zmian w kodzie źródłowym. Zmiany te były najpierw
-wprowadzane przez zespół pracujący nad tą technologią w~repozytorium
+wprowadzane przez zespół pracujący nad tą technologią w~repozytorium
 \texttt{sirius-web}. Można było te zmiany wykorzystać podczas aktualizacji
 własnej kopii edytora. Było to natomiast tym trudniejsze, im bardziej edytor
 został przez nas zmodyfikowany, ponieważ wtedy kod bardziej się różnił i
@@ -139,10 +141,20 @@ i wysiłek potrzebny na jego wykorzystanie czy wdrożenie nowych funkcjonalnośc
 Niektóre proste z pozoru dodatki mogą okazać się nietrywialne w wykonaniu z
 uwagi na sposób działania rozwiązania.
 
-Kolejnym ryzykiem, które należy brać pod uwagę szczególnie wykorzystując nowe
+\SiriusWeb{} domyślnie nie wyświetla informacji diagnostycznych pochodzących z
+reguł walidacji semantycznej (\emph{Semantic Validation Rule}) umieszczonych w
+metamodelu formatu \Ecore{}. W interfejsie użytkownika pokazywane są jedynie
+wyniki walidacji składniowej. Pełna walidacja modeli wymaga dodania własnego
+mechanizmu walidacji semantycznej, na~przykład poprzez stworzenie klas w języku
+\Java{} reprezentujących reguły walidacyjne, a~później uruchamianie ich~podczas
+walidacji w \SiriusWeb{}. Dodanie obsługi reguł walidacji semantycznej
+z~metamodelu w formacie \Ecore{} ułatwiłoby przygotowywanie kompletnego
+i~bardziej przydatnego graficznego edytora modeli.
+
+Ryzyko, które należy brać pod uwagę szczególnie wykorzystując nowe
 technologie jest możliwość znalezienia usterek, które będą wymagały czasu na
 ich naprawienie. Większość z problemów zgłoszonych w projekcie \SiriusWeb{}
-nie zostało naprawionych pomimo, że od ich zgłoszenia minęły w niektórych
+nie zostało naprawionych pomimo, że~od~ich~zgłoszenia minęły w niektórych
 przypadkach nawet 3 miesiące. Planując projekt warto uwzględnić na jego samym
 początku czas na sprawdzenie możliwości wykorzystywanych narzędzi. W przypadku
 niepewności należy przygotować przykład ich zastosowania, który pomógłby w
@@ -166,11 +178,11 @@ szybciej wykonano postępy.
 Mając do czynienia z dwoma podobnymi technologiami korzystającymi z tego samego
 źródła trzeba mieć na uwadze możliwe niekompatybilności. Aby je zweryfikować
 należy wykorzystać je~zaczynając od najprostszych funkcjonalności zanim
-przejdzie się do tych
+przejdzie się do tych
 bardziej skomplikowanych. Pozwoli to zaoszczędzić czas spędzony na
 dostosowywaniu jednego z~rozwiązań podczas gdy drugie nie będzie w stanie
 obsłużyć tych samych funkcjonalności. Tak było w przypadku wsparcia różnych
-składników metamodeli \EMF{} przez \SiriusDesktop{} i \SiriusWeb{}. Najpierw
+składników formatu \Ecore{} przez \SiriusDesktop{} i \SiriusWeb{}. Najpierw
 zainwestowano czas w przygotowywanie kompletnego
 metamodelu z
 wykorzystaniem \SiriusDesktop{}, po czym okazało się, że część
@@ -203,7 +215,8 @@ Jedną z możliwości jest integracja przygotowanego edytora modeli z systemem
 użyć \SiriusWeb{} jako alternatywnego. Taki krok umożliwiłby użytkownikom
 \BalticLSC{} korzystanie z narzędzia, które pozbawione jest niektórych
 usterek znanych z aktualnego rozwiązania, jak na przykład brak wsparcia
-wyświetlania na diagramie modułów, które zostały usunięte z przybornika.
+wyświetlania na diagramie jednostek obliczeniowych, które zostały usunięte z
+przybornika.
 Inną zaletą \SiriusWeb{} nad aktualnym edytorem jest możliwość współpracy
 użytkowników nad diagramem w czasie rzeczywistym. Taka integracja wymaga zmian
 w serwerach aplikacyjnych zarówno \SiriusWeb{}, jak i \BalticLSC{}.
@@ -214,7 +227,7 @@ sekcji~\ref{sec:pomysl-integracji-sirius-web-i-balticlsc}.
 Inną metodą rozwoju wyników pracy magisterskiej jest ustalenie i
 zaprojektowanie większej liczby reguł walidacji semantycznej. W~ten~sposób
 jeżeli edytor diagramów będzie wykorzystany w systemie \BalticLSC{}, jego
-użytkownicy otrzymają więcej szczegółowych informacji diagnostycznych o błędach
+użytkownicy otrzymają więcej szczegółowych informacji diagnostycznych o błędach
 lub~ostrzeżeniach w~modelu. Pomoże im to łatwiej zauważyć niepoprawne
 ustawienia elementów lub~pomyłki, które zrobili.
 

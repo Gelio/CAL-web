@@ -12,7 +12,7 @@ wizualna i przestrzenna, a więc jest naturalniejszą formą dla mózgu człowie
 
 Przykładem modeli z reprezentacją graficzną, które są zrozumiałe zarówno dla
 człowieka, jak i maszyny, oraz
-przydają się podczas wytwarzania oprogramowania, są modele korzystające
+przydają się podczas wytwarzania oprogramowania, są modele korzystające
 z~\emphgls{UML}~\cite{wikipedia-uml}. Przedstawiają
 one strukturę klas w programie oraz zależności między klasami. Na ich podstawie
 czytelnik może wysokopoziomowo zapoznać się~ze strukturą programu, a
@@ -23,7 +23,7 @@ rysunku~\ref{rys:przykladowy-model-uml}.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.95\linewidth]{./images/example-uml-model.png}
+	\includegraphics[width=0.9\linewidth]{./images/example-uml-model.png}
 	\caption{Przykładowy model
 		\emphgls{UML}}\label{rys:przykladowy-model-uml}
 \end{figure}
@@ -46,25 +46,28 @@ w języku \emphgls{UML} lub podobnym
 bazowanym na nim, który będzie umożliwiał wprowadzenie większej liczby
 szczegółów. Taki metamodel często należy uzupełnić o zasady semantyczne ---
 informacje o znaczeniu elementów, które nie mogą być zapisane w strukturze
-metamodelu. Przykładową informacją semantyczną w modelu \emphgls{UML} może być
-informacja o krotności asocjacji.
+metamodelu.
+Przykładową informacją semantyczną w metamodelu języka \emphgls{UML} może być
+znaczenie relacji kompozycji i wynikających z niej dozwolonych i niedozwolonych
+ustawień elementów.
 
 \BalticLSC{} jest platformą do obliczeń rozproszonych wykonywaną z
 inicjatywy
 \emph{INTERREG Regionu Morza Bałtyckiego Unit Europejskiej}. Platforma ta
 pozwala
-wykonać obliczenia wykorzystując dostępne moduły obliczeniowe. Aplikacje
+wykonać obliczenia wykorzystując dostępne jednostki obliczeniowe. Aplikacje
 obliczeniowe definiowane są w postaci diagramów przedstawiających przepływ
-danych między modułami obliczeniowymi. Przykład diagramu opisującego aplikację
+danych między jednostkami obliczeniowymi. Przykład diagramu opisującego
+aplikację
 obliczeniową został przedstawiony na
 rysunku~\ref{rys:przykladowy-diagram-balticlsc}.  Model obliczeń opisany jest w
 języku \emphgls{CAL}, który jest opisany za pomocą
 metamodelu~\cite{cal-metamodel}.
 
-\begin{figure}[!ht]
+\begin{figure}[!hb]
 	\centering
 
-	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
+	\includegraphics[width=0.77\linewidth]{./images/balticlsc-example-diagram.png}
 	\caption{Przykładowy diagram przedstawiający aplikację obliczeniową w
 		\BalticLSC{}}\label{rys:przykladowy-diagram-balticlsc}
 \end{figure}
@@ -80,8 +83,9 @@ przetwarzające ogólny opis diagramu na model aplikacji obliczeniowej.
 
 \SiriusWeb{}~\cite{sirius-web-github} jest narzędziem przygotowywanym przez
 firmę \emph{Eclipse} do tworzenia edytorów
-diagramów działających w przeglądarce bazujących na metamodelach \EMF{}.
-Technologia \EMF{} jest wykorzystywana od roku
+diagramów działających w przeglądarce bazujących na metamodelach w formacie
+\Ecore{} w ramach technologii \EMF{}.
+Jest ona wykorzystywana od roku
 2007~\cite{eclipse-sirius-wikipedia}, a metamodele
 w~przeszłości mogły być tworzone używając oprogramowania \SiriusDesktop{}.
 Wykorzystując \SiriusWeb{} można w prosty sposób otrzymać aplikację
@@ -103,7 +107,7 @@ także w edytorach diagramów opartych na \SiriusWeb{}.
 
 W ramach tej pracy magisterskiej przygotowany został edytor diagramów dla
 systemu \BalticLSC{} korzystający z \SiriusWeb{}. Edytor ten bazuje na
-formalnym metamodelu \EMF{} opisującym język \CAL{} do
+formalnym metamodelu w formacie \Ecore{} opisującym język \CAL{} do
 opisu aplikacji obliczeniowej. Ponadto, dostarczona została metoda sprawdzania
 poprawności przygotowywanych przez użytkownika modeli na podstawie
 zdefiniowanych reguł walidacji.
@@ -165,7 +169,7 @@ zgodnego z metamodelem.
 W ramach pracy magisterskiej wykonano następujące czynności:
 
 \begin{itemize}
-	\item Stworzenie metamodelu języka \CAL{} w \EMF{}\@ z wykorzystaniem \SiriusDesktop{}.
+	\item Stworzenie metamodelu języka \CAL{} w formacie \Ecore{} z wykorzystaniem \SiriusDesktop{}.
 	\item Wykorzystanie tego metamodelu w \SiriusWeb{}. Zgłoszenie usterek autorom \SiriusWeb{} poprzez \GitHub{}.
 	\item Porównanie możliwości \SiriusWeb{} i \SiriusDesktop{}. Zgłoszenie brakujących funkcjonalności autorom \SiriusWeb{} poprzez \GitHub{}.
 	\item Dodanie do metamodelu elementów usprawniających pracę z nim (automatyzacja niektórych czynności, dodanie ograniczeń utrudniających zrobienie błędu).

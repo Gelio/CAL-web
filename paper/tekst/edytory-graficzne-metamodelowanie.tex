@@ -25,6 +25,18 @@ Definiuje składnię języka projektowania. Przedrostek \emph{meta} oznacza, że
 poziom abstrakcji tego metamodelu jest wyższy niż poziom abstrakcji modelu,
 który opisuje~\cite{from-requirements-to-java-in-a-snap}.
 
+W rodzinie metamodeli~\cite{introduction-to-metamodels} przestrzenią o
+najmniejszym poziomie abstrakcji jest
+świat rzeczywisty (przestrzeń \emph{M0}). W programach komputerowych będzie on
+reprezentowany przez model, który znajduje się w przestrzeni o wyższym poziomie
+abstrakcji, \emph{M1}. Idąc dalej, modele będą oparte na metamodelach dla danej
+dziedziny, które znajdują się w przestrzeni \emph{M2}. One~z~kolei są oparte na
+meta--metamodelach % chktex 8
+z przestrzeni \emph{M3}, które mają najwyższy poziom
+abstrakcji w tej rodzinie. \emphgls{MOF}~\cite{mof-omg-specification} jest
+przykładem meta--metamodelu. % chktex 8
+Jest~zdefiniowany za pomocą samego siebie.
+
 Wiele powszechnie znanych języków projektowania diagramów ma swoje metamodele
 definiujące ich strukturę:
 
@@ -33,11 +45,14 @@ definiujące ich strukturę:
 	      i metamodel opisany w języku \emphgls{MOF}.
 
 	\item \emphgls{BPMN} (język do opisu procesów biznesowych) ma swój
-	      metamodel~\cite{bpmn2-metamodel} również opisany w języku \emphgls{MOF}.
+	      metamodel~\cite{bpmn-omg-specification} również opisany w języku \emphgls{MOF}.
 
 	\item Istnieje artykuł proponujący metamodel dla \emphgls{ERM}~\cite{entity-relationship-metamodel}. Dla~przypomnienia, \emphgls{ERM} pozwala przedstawić na diagramie encje bazy danych i~powiązania między nimi.
 \end{itemize}
 
+W metamodelu zdefiniowana jest składnia abstrakcyjna modelu, czyli struktura
+jego elementów, oraz składnia konkretna, czyli jak one mają być reprezentowane,
+na przykład na~diagramie.
 Aby model był funkcjonalny oprócz jego struktury (składni języka projektowania)
 należy zdefiniować i przestrzegać jego semantyki. To ona decyduje o tym jak
 należy interpretować model, a także jakie sytuacje, pomimo bycia poprawnymi
@@ -57,9 +72,6 @@ właściciel, jak i samochody są zawarte w obiekcie właściciela.
 	\includegraphics[width=0.95\linewidth]{./images/invalid-uml-example.pdf}
 	\caption{Przykład modelu \emphgls{UML} nieprawidłowego
 		semantycznie}\label{rys:nieprawidlowy-model-uml}
-	\medskip
-	{\small Relacje kompozycji wskazują, że obie klasy są częścią drugiej z
-		klas, co jest nielogiczne.}
 \end{figure}
 
 Dopiero znając znaczenie relacji kompozycji można zauważyć ten błąd semantyczny
@@ -74,9 +86,6 @@ poprawny zarówno składniowo, jak i semantycznie.
 	\includegraphics[width=0.95\linewidth]{./images/valid-uml-example.pdf}
 	\caption{Przykład prawidłowego modelu
 		\emphgls{UML}}\label{rys:prawidlowy-model-uml}
-	\medskip
-	{\small Samochód jest częścią klasy \emph{Person}, a więc relacja
-		całość--część jest zrozumiała.}
 \end{figure}
 
 \section{Edytory graficzne na podstawie metamodeli}
@@ -103,6 +112,14 @@ także zdefiniować wygląd elementów. Wymaga to mniejszej ilości czasu i
 umiejętności w porównaniu z budową edytora diagramów korzystając z
 edytorów diagramów ogólnego zastosowania.
 
+\begin{figure}[!b]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/visual-studio-dsl-example.png}
+	\caption{Edytowanie modelu w \emph{Visual Studio DSL
+			Tools}}\label{rys:visual-studio-dsl-example}
+\end{figure}
+
 Przykładem zestawu narzędzi dostarczającego możliwości metamodelowania i
 późniejszego generowania edytora graficznego dla modelu jest \emph{Visual
 	Studio DSL Tools}~\cite{visual-studio-dsl-introduction} utworzone przez
@@ -120,24 +137,20 @@ również możliwość tworzenia plików na podstawie szablonów przygotowanych 
 metamodelu. W ten sposób można wygenerować na przykład tabelę w~języku
 \emphgls{HTML} zawierającą wszystkie elementy konkretnego typu w modelu.
 
-\begin{figure}[!ht]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/visual-studio-dsl-example.png}
-	\caption{Edytowanie modelu w \emph{Visual Studio DSL
-			Tools}}\label{rys:visual-studio-dsl-example}
-\end{figure}
-
 Innym narzędziem umożliwiającym przygotowanie edytora graficznego na podstawie
 metamodelu jest \SiriusDesktop{}~\cite{sirius-desktop-homepage} rozwijany
 przez firmę \Eclipse{}. Jest to rozszerzenie do~zintegrowanego środowiska
 programistycznego (\emphgls{IDE}) \Eclipse{}. Pozwala ono na zaprojektowanie
-metamodelu dla wybranej dziedziny używając języka \emph{\acrfull{EMF}}. Ma on
-strukturę drzewiastą i jest
-zapisany w pliku \emphgls{XML} w formacie \emph{ECore} (rozszerzenie
-\texttt{*.ecore}). Przykładowy metamodel zdefiniowany w \SiriusDesktop{}
-widoczny jest na rysunku~\ref{rys:sirius-desktop-example-metamodel}. Na jego
-podstawie można wygenerować 5 pakietów opisanych w kolejnych akapitach.
+metamodelu dla wybranej dziedziny używając technologii \emph{\acrfull{EMF}}.
+Jest on wyrażony za pomocą
+meta--metamodelu  % chktex 8
+\Ecore{} (rozszerzenie \texttt{*.ecore}) i jest
+zapisany w pliku \emphgls{XML}. Interfejs użytkownika programu \SiriusDesktop{}
+widoczny jest na rysunku~\ref{rys:sirius-desktop-example-metamodel}. Po lewej
+dostępne jest drzewo metaklas, na środku widać diagram struktury struktury
+metamodelu, a po prawej stronie znajduje się przybornik z~narzędziami do
+tworzenia elementów metamodelu. W \SiriusDesktop{}
+można wygenerować 5 pakietów opisanych w kolejnych akapitach.
 
 \begin{figure}[!ht]
 	\centering
@@ -145,10 +158,6 @@ podstawie można wygenerować 5 pakietów opisanych w kolejnych akapitach.
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-metamodel.png}
 	\caption{Projektowanie metamodelu w \emph{Sirius
 			Desktop}}\label{rys:sirius-desktop-example-metamodel}
-	\medskip
-	{\small Po lewej dostępne jest drzewo metaklas, na środku diagram
-		metaklas, a po prawej przybornik z~narzędziami do tworzenia
-		elementów metamodelu.}
 \end{figure}
 
 Pierwszym pakietem jest pakiet bazowy zawierający klasy umożliwiające
@@ -181,7 +190,8 @@ naprawienie.
 
 Operacje wymagające wykonania dynamicznej logiki mogą być wprowadzone na 2
 sposoby: poprzez napisanie kodu w języku \Java{} i udostępnienie go jako usługa
-dostępna w~metamodelu, lub poprzez napisanie wyrażenia w języku \emphgls{AQL}.
+dostępna w~metamodelu, lub poprzez napisanie wyrażenia w języku
+\emphgls{AQL}~\cite{dokumentacja-aql}.
 Pozwala on~na~wybranie elementów z modelu (także podzbioru elementów
 spełniających pewne kryteria), ich~atrybutów, oraz wykonanie operacji
 logicznych na nich, na przykład ich~porównanie.
@@ -230,8 +240,10 @@ rysunku~\ref{rys:sirius-web-ui}.
 	{\small Źródło: \url{https://github.com/eclipse-sirius/sirius-web}}
 \end{figure}
 
-\SiriusWeb{} składa się z 3 komponentów:
-
+% NOTE: manually move the first sentence to the next page to prevent a hanging
+% sentence at the end of the page
+\clearpage
+\noindent \SiriusWeb{} składa się z 3 komponentów:
 \begin{itemize}
 	\item serwera aplikacyjnego stworzonego w technologii \emph{Java
 		      Spring}~\cite{java-spring-homepage} dostarczającego interfejsu sieciowego \emphgls{API} w formacie \GraphQL{} pozwalającego na wyświetlenie oraz modyfikację modelu,
@@ -239,13 +251,12 @@ rysunku~\ref{rys:sirius-web-ui}.
 	\item aplikacji przeglądarkowej napisanej z wykorzystaniem biblioteki \React{}~\cite{react-homepage} umożliwiającej wyświetlenie i modyfikację modeli w formie drzewa obiektów lub diagramu.
 \end{itemize}
 
-Metamodele, na których bazuje \SiriusWeb{} są w tym samym formacie \EMF{} co
+Metamodele, na których bazuje \SiriusWeb{} są w tym samym formacie \Ecore{} co
 metamodele w \SiriusDesktop{}. Można zatem w łatwy sposób stworzyć
 graficzny edytor modeli zarówno w~formie aplikacji natywnej, jak i
-przeglądarkowej. Posiadając istniejący metamodel \emphgls{EMF}
-z~\SiriusDesktop{} można go w krótkim czasie przenieść do \SiriusWeb{}. Jest
-to
-możliwe, ponieważ serwer aplikacyjny korzysta z tych samych bibliotek i
+przeglądarkowej. Posiadając istniejący metamodel języka użyty
+w~\SiriusDesktop{} można go w krótkim czasie przenieść do \SiriusWeb{}. Jest
+to~możliwe, ponieważ serwer aplikacyjny korzysta z tych samych bibliotek i
 pakietów do obsługi metamodelu, które są wykorzystywane w edytorze
 \SiriusDesktop{}.
 
@@ -257,14 +268,14 @@ przesyłanie informacji o zmianach w czasie rzeczywistym dzięki użyciu
 \emph{GraphQL Subscriptions}~\cite{graphql-subscriptions} (dwukierunkowych
 połączeń do przesyłania ustrukturyzowanych danych między przeglądarką a
 serwerem opartych na protokole \WebSocket{}~\cite{wikipedia-websocket}).
-Oznacza to, że użytkownicy mogą w czasie rzeczywistym wspólnie edytować modele
+Oznacza to, że użytkownicy mogą w czasie rzeczywistym wspólnie edytować modele
 i~natychmiast widzieć zmiany wprowadzone przez innych użytkowników.
 Poprzez zgrupowanie modeli w~projekty wewnątrz aplikacji \SiriusWeb{}
 możliwa jest również kontrola dostępu do nich --- administrator może określić
 zasady dostępu użytkowników do poszczególnych projektów.
 
 Udostępnienie edytora modeli jako aplikacja przeglądarkowa sprawia też, że jest
-on~bardziej dostępny dla użytkowników. Mogą oni przeglądać i edytować modele
+on~bardziej dostępny dla użytkowników. Mogą oni przeglądać i edytować modele
 bez instalacji aplikacji natywnych w ich systemie --- wystarczy przeglądarka
 internetowa, która jest zainstalowana na większości komputerów konsumenckich.
 Można też w łatwiejszy sposób podzielić się~przygotowanym przez nas modelem,

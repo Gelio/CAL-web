@@ -1,12 +1,13 @@
 \chapter{Metamodel dla języka CAL}\label{chapter:cal-metamodel}
 
 Aby otrzymać graficzny edytor modeli wykorzystując \SiriusWeb{} należy
-najpierw zaprojektować metamodel \EMF{} opisujący strukturę modeli oraz ich
-reprezentację graficzną, która później będzie możliwa do modyfikacji przez
-użytkowników. W tym rozdziale
+najpierw zaprojektować metamodel danego języka w formacie \Ecore{}. Będzie on
+opisywał strukturę modeli (składnię abstrakcyjną) oraz ich
+reprezentację graficzną (składnię konkretną), która później będzie możliwa do
+modyfikacji przez użytkowników. W tym rozdziale
 zostanie omówiony język \emph{\acrfull{CAL}} służący do opisu obliczeń w
-systemie \BalticLSC{}, a~następnie omówiony zostanie przygotowany metamodel
-\EMF{}.
+systemie \BalticLSC{}, a~następnie omówiony zostanie przygotowany w formacie
+\Ecore{} metamodel.
 
 \section{Język opisu obliczeń w BalticLSC}
 
@@ -17,28 +18,35 @@ korzystając ze składni języka \emph{\acrfull{CAL}} przygotowanego dla tego
 właśnie systemu.
 
 Podstawowym obiektem, który wysyła (wyjście)
-lub odbiera (wejście) dane, jest \emph{port}. Jest on reprezentowany za pomocą
+lub odbiera (wejście) dane, jest \emph{pin}. Jest on~reprezentowany za pomocą
 ikony kwadratu ze strzałką skierowaną w prawą stronę. Aplikacja obliczeniowa
-składa
-się z modułów obliczeniowych posiadających swoje porty, portów samej aplikacji
-obliczeniowej, oraz połączeń między tymi portami. Grot połączenia wskazuje
-kierunek przepływu danych.
-Porty aplikacji obliczeniowej są zaznaczone na
-diagramie ikoną portu (strzałką skierowaną w prawo) z pogrubioną
-jedną z krawędzi ikony --- lewą dla wejścia, prawą dla wyjścia.
+składa się z wywołań jednostek obliczeniowych posiadających swoje piny, pinów
+samej aplikacji obliczeniowej, oraz połączeń między tymi pinami. Grot
+połączenia wskazuje kierunek przepływu danych.
+Piny aplikacji obliczeniowej są zaznaczone na
+diagramie ikoną pinu (strzałką skierowaną w prawo) z pogrubioną
+jedną z krawędzi ikony --- lewą dla wejścia, prawą dla~wyjścia.
 
-Porty modułów oraz aplikacji obliczeniowych mają różne ikony, które
+Jednostki obliczeniowe, które mogą być wywoływane przez aplikacje obliczeniową,
+mogą być modułami obliczeniowymi napisanymi w wybranym języku programowania,
+lub innymi aplikacjami obliczeniowymi, które z kolei mogą w swoim wnętrzu
+wywoływać inne jednostki obliczeniowe. W ten sposób otrzymujemy możliwość
+wykorzystania podzielenia skomplikowanej aplikacji obliczeniowej na mniejsze
+części i wykorzystania ich, co pomaga w obniżeniu poziomu detali na jednym
+diagramie i sprawia, że jest on łatwiejszy w zrozumieniu i modyfikacji.
+
+Piny modułów oraz aplikacji obliczeniowych mają różne ikony, które
 są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na ikonę:
 
 \begin{itemize}
-	\item krotność danych, które obsługuje port (\emph{data
+	\item krotność danych, które obsługuje pin (\emph{data
 		      multiplicity}):  dla pojedynczego pliku będzie to~pojedyncza strzałka, a dla katalogu --- wiele strzałek,
 	\item liczba pakietów przyjmowanych lub wysyłanych danych (\emph{token
-		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy moduł obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
+		      multiplicity}, czy oczekuje pojedynczego zestawu danych wejściowych, czy jednostka obsłuży kolejne zestawy danych wysyłane po chwili bez ponownego uruchomienia).
 \end{itemize}
 
 Moduł obliczeniowy rozpoczyna obliczenia dopiero gdy na każdym jego wejściu
-znajdują się dane.
+znajdują się~dane.
 
 Przykładowe aplikacje obliczeniowe zostały przedstawione na
 rysunkach~\ref{rys:sekwencyjna-aplikacja-obliczeniowa}
@@ -46,24 +54,32 @@ i~\ref{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}.
 Pierwsza z nich (rysunek~\ref{rys:sekwencyjna-aplikacja-obliczeniowa}) jest
 aplikacją, w której obliczenia mogą zostać wykonane
 wyłącznie sekwencyjnie, ponieważ dane przepływają sekwencyjnie od wejścia
-kolejno przez moduły nazwane \texttt{VideoToFrames}, \texttt{Face Detector},
+kolejno przez jednostki nazwane \texttt{VideoToFrames}, \texttt{Face Detector},
 \texttt{Blur Module}, \texttt{Blur module}, aż w końcu trafiają do wyjścia.
 Inna jest struktura aplikacji na
 rysunku~\ref{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}. Tam
-przepływ danych rozdziela się~po~module obliczeniowym \texttt{Pdf page
-	splitter} i obliczenie modułów \texttt{OCT Tesseract Tess 0.1} oraz
+przepływ danych rozdziela się~po~jednostce obliczeniowej \texttt{Pdf page
+	splitter} i obliczenie jednostek \texttt{OCT Tesseract Tess 0.1} oraz
 \texttt{OCR Tesseract LSTM 0.1} może zostać wykonane równolegle, być może
-przez różne węzły obliczeniowe. Ich wyniki trafią później do modułu \texttt{Pdf
-	data joiner 0.1} i przejdą dalej przez pozostałe moduły w sposób
+przez różne węzły obliczeniowe. Ich wyniki trafią później do jednostki
+\texttt{Pdf data joiner 0.1} i~przejdą dalej przez pozostałe jednostki w sposób
 sekwencyjny.
 
-\begin{figure}[!ht]
+% \begin{noindent}
+\begin{figure}[!hb]
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/balticlsc-example-diagram.png}
 	\caption{Aplikacja obliczeniowa w \BalticLSC{} z obliczeniami
 		sekwencyjnymi}\label{rys:sekwencyjna-aplikacja-obliczeniowa}
+	\medskip
+	{\small Źródło: aplikacja obliczeniowa \emph{Pdf to readable pdf converter} z
+		systemu \emph{BalticLSC},\\
+    % NOTE: to nie może być \footnote, Latex wyrzuca wtedy błąd
+		\url{https://balticlsc.iem.pw.edu.pl/#/computation-application/5532b8b8-a39c-4725-8880-80ec5b2207a4}
+  }
 \end{figure}
+% \end{noindent}
 
 % \begin{noindent}
 \begin{figure}[!ht]
@@ -72,26 +88,105 @@ sekwencyjny.
 	\includegraphics[width=0.99\linewidth]{./images/balticlsc-concurrent-application-example.png}
 	\caption{Aplikacja obliczeniowa w \BalticLSC{} z możliwością
 		zrównoleglenia obliczeń}\label{rys:mozliwa-do-zrownoleglenia-aplikacja-obliczeniowa}
+  \medskip
+  {\small Źródło: aplikacja obliczeniowa \emph{Movie test}
+    z systemu \emph{BalticLSC},\\
+    \url{https://balticlsc.iem.pw.edu.pl/#/computation-application/27571955-6e2b-4735-85ea-44f5438ca7f6}}
 \end{figure}
 % \end{noindent}
 
-\section{Stworzony metamodel EMF dla języka CAL}
+\section{Zaprojektowany metamodel dla języka CAL}
 
-Przygotowany metamodel \EMF{} dla języka \CAL{} widoczny jest na
-rysunku~\ref{rys:cal-emf-metamodel}. Bazuje on~na metamodelu
-opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, który widoczny
-jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
+Składnia abstrakcyjna przygotowanego w formacie \Ecore{} metamodelu dla języka
+\CAL{} widoczna jest na
+rysunku~\ref{rys:cal-emf-metamodel}. Jego składnia konkretna
+jest omówiona w dalszej części pracy i będzie przedstawiona na
+rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+Przygotowany metamodel bazuje na metamodelu
+opracowanym w ramach projektu \BalticLSC{}~\cite{cal-metamodel}, którego
+składnia abstrakcyjnna jest widoczna
+na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
 Na potrzeby edytora diagramów nie są potrzebne wszystkie elementy oryginalnego
-metamodelu. Niektóre klasy i właściwości zostały pominięte, ponieważ nie były
+metamodelu. Niektóre klasy i~właściwości zostały pominięte, ponieważ nie były
 istotne z~perspektywy edycji diagramu.
+W przygotowanym metamodelu niektóre klasy są nowe, lub pomimo podobnej nazwy
+mają inne znaczenie od tych w metamodelu języka \CAL{} z systemu \BalticLSC{}.
+Taki zabieg został wykonany aby uprościć metamodel, ponieważ jego przeznaczenie
+jest inne (wyłącznie edycja diagramów aplikacji obliczeniowych) w porównaniu z
+metamodelem z systemu \BalticLSC{} (wykonywanie obliczeń zgodnie z modelem).
+Różnice zostaną opisane w~dalszej części pracy.
 
-\begin{figure}[!hb]
+\begin{figure}[!ht]
 	\centering
 
 	\includegraphics[width=0.92\linewidth]{./images/cal-emf-metamodel.pdf}
-	\caption{Metamodel \EMF{} języka \CAL{} przygotowany w
+	\caption{Metamodel w formacie \Ecore{} dla języka \CAL{} przygotowany w
 		ramach tej pracy}\label{rys:cal-emf-metamodel}
 \end{figure}
+
+Model bazujący na metamodelu w formacie \Ecore{} ma strukturę grafową. Głównym
+jego elementem jest obiekt typu
+\texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
+(aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
+natomiast 4 typy obiektów:
+
+% NOTE: placing this figure before the list makes it break the list, which is
+% expected
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.99\linewidth]{./images/sirius-desktop-cal-example-model.png}
+	\caption{Składnia konkretna przygotowanego metamodelu języka \CAL{} w
+		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
+\end{figure}
+% \end{noindent}
+
+\begin{itemize}
+	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
+	      rodzajom modułów i~aplikacji obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
+
+	      Oprócz informacji o nazwie i wersji jednostki obliczeniowej zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują piny tej jednostki obliczeniowej.
+
+	      W przygotowanym metamodelu dla języka \CAL{} obiekty typu \texttt{Computation\-Unit\-Release} reprezentują zarówno moduły obliczeniowe, jak i aplikacje obliczeniowe, które w~oryginalnym metamodelu z systemu \BalticLSC{} są dwoma osobnymi rodzajami obiektów. Z perspektywy edytora diagramów nie ma znaczenia czy wywoływana jednostka obliczeniowa jest modułem obliczeniowym, czy aplikacją obliczeniową składającą się~z~wywołań innych jednostek obliczeniowych. Uproszczenia tego dokonano aby uniknąć umieszczania w modelu zbyt szczegółowych i niepotrzebnych informacji.
+
+	      Obiekty te nie są wyświetlane na diagramie (nie występują w wizualnej reprezentacji modelu). Można je zobaczyć jedynie w drzewie obiektów modelu.
+
+	\item \texttt{UnitCall} --- wywołania dostępnych jednostek
+	      obliczeniowych. Każda dostępna jednostka obliczeniowa może zostać wywołana dowolną liczbę razy. Każde wywołanie to~osobny obiekt \texttt{UnitCall} ze wskazaniem jednostki, która ma zostać wywołana, a~także z~obiektami \texttt{ComputedDataPin}, które reprezentują piny tej jednostki.
+
+	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych jednostek obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań jednostki.
+
+	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie jednostki za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie jednostki, które są~zapisane w metamodelu. Edytor modeli domyślnie nie ma możliwości pobrania informacji o~dostępnych jednostkach obliczeniowych z systemu \BalticLSC{}, więc to~użytkownik musi samemu dodać dostępne jednostki do metamodelu.
+
+	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi pinami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania jednostki, oraz nazwę i wersję wydania wywoływanej jednostki. Składnię konkretną widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}. Piny~wywołania jednostek obliczeniowych (\texttt{ComputedDataPin}) są również na nim widoczne jako prostokąty z ikoną strzałki w prawo.
+
+	\item \texttt{ApplicationDataPin} --- piny aplikacji obliczeniowej
+	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości pinu są dziedziczone z klasy \texttt{DataPin}. Z uwagi na fakt, że te piny będą łączone z innymi pinami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
+
+	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+
+	      W metamodelu języka \CAL{} z systemu \BalticLSC{} te obiekty są reprezentowane za~pomocą klasy \texttt{DeclaredDataPin}, która w metamodelu tworzonym na potrzeby edytora jest inną klasą. Powodem tego był fakt, że z perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej piny są logicznie innym bytem niż piny wywoływanych przez nią jednostek obliczeniowych. Mają też inną składnię konkretną (\texttt{DeclaredDataPin} nie~są~wyświetlane na diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej są).
+
+	\item \texttt{DataFlow} --- połączenia między pinami
+	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach
+	      jednostek obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub pinami aktualnie opisywanej aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
+
+	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+\end{itemize}
+
+Składnia konkretna przygotowanego metamodelu języka \CAL{} wyświetlona w
+programie \SiriusDesktop{} dla przykładowego modelu została przedstawiona na
+rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+
+Oprócz podstawowej struktury metamodelu oraz jego reprezentacji w formie
+diagramu zostały do niego dodane dodatkowe funkcjonalności dostępne w ramach
+technologii \EMF{}. Zostały one opisane
+w kolejnych sekcjach.
+
+Składnia abstrakcyjna metamodelu języka \CAL{} używanego w systemie
+\BalticLSC{}, na~którym wzorowano metamodel przygotowany w ramach tej pracy
+magisterskiej, widoczna jest na~rysunku~\ref{rys:cal-metamodel-balticlsc}.
 
 \begin{figure}[!ht]
 	\centering
@@ -101,67 +196,13 @@ istotne z~perspektywy edycji diagramu.
 	% images to the bottom of the chapter.
 
 	\includegraphics[width=0.82\linewidth]{./images/cal-metamodel-balticlsc.png}
-	\caption{Metamodel języka \CAL{} używany w projekcie
-		\BalticLSC{}}\label{rys:cal-metamodel-balticlsc}
+	\caption{Składnia abstrakcyjna metamodelu języka \CAL{} używanego w
+		projekcie \BalticLSC{}}\label{rys:cal-metamodel-balticlsc}
 
 	\medskip
 	{\small Źródło:
 		\url{https://www.balticlsc.eu/model/index.htm?goto=4:2:404}}
 \end{figure}
-
-Model w \EMF{} ma strukturę drzewiastą. Korzeniem drzewa jest obiekt typu
-\texttt{Computation\-Application\-Release}, który odpowiada całemu diagramowi
-(aplikacji obliczeniowej). Nie~ma~on~własnych właściwości. Zawiera on w sobie
-natomiast 4 typy obiektów:
-
-\begin{itemize}
-	\item \texttt{ComputationUnitRelease} --- są to obiekty odpowiadające
-	      rodzajom modułów obliczeniowych dostępnych w systemie \BalticLSC{} i opisują ich właściwości.
-
-	      Oprócz informacji o nazwie i wersji modułu zawierają w sobie obiekty \texttt{DeclaredDataPin} dziedziczące z \texttt{DataPin}, które opisują porty tego modułu obliczeniowego.
-
-	      Obiekty te nie są wyświetlane na diagramie (nie występują w wizualnej reprezentacji modelu). Można je zobaczyć jedynie w drzewie obiektów modelu.
-
-	\item \texttt{UnitCall} --- wywołania dostępnych modułów
-	      obliczeniowych. Każdy dostępny moduł obliczeniowy może zostać wywołany dowolną liczbę razy. Każde wywołanie to osobny obiekt \texttt{UnitCall} ze wskazaniem modułu, który ma zostać wywołany, a także z obiektami \texttt{ComputedDataPin}, które reprezentują porty tego modułu.
-
-	      Taka reprezentacja pozwala na zapisanie szczegółów dotyczących dostępnych modułów obliczeniowych wyłącznie raz w modelu, a później wskazywanie tych elementów w~każdym z wywołań modułu.
-
-	      Rozwiązanie to ma jednak pewne ograniczenie --- aby oznaczyć wywołanie modułu za~pomocą obiektu \texttt{UnitCall}, należy najpierw stworzyć obiekt \texttt{Computation\-Unit\-Release} i~dodać odpowiednie \texttt{Declared\-Data\-Pin}. Można wywołać jedynie moduły, które są~zapisane w metamodelu. Sam metamodel nie ma możliwości pobrania informacji o~dostępnych modułach obliczeniowych z systemu \BalticLSC{}, więc w podstawowej wersji metamodelu to użytkownik musi samemu dodać dostępne moduły w metamodelu.
-
-	      Na diagramie obiekty te są reprezentowane jako prostokąty ze swoimi portami umieszczonymi na krawędziach. Wewnątrz prostokąta znajduje się etykieta zawierająca nazwę umożliwiającą wyróżnienie tego konkretnego wywołania modułu, oraz nazwę i wersję wydania wywoływanego modułu.
-
-	\item \texttt{ApplicationDataPin} --- porty aplikacji obliczeniowej
-	      opisywanej przez ten model. Są~to~wejścia i wyjścia z diagramu. Właściwości portu są dziedziczone z klasy \texttt{DataPin}.
-
-	      Z uwagi na fakt, że te porty będą łączone z innymi portami, klasa ta dziedziczy z klasy \texttt{ConnectableDataPin}.
-
-	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem.
-
-	\item \texttt{DataFlow} --- połączenia między portami
-	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach węzłów
-	      obliczeniowych (\texttt{ComputedDataPin} na \texttt{UnitCall}) lub portami aplikacji obliczeniowej (\texttt{ApplicationDataPin}).
-
-	      Na diagramie obiekty te reprezentowane są jako krawędzie z grotem wskazującym kierunek przepływu danych.
-\end{itemize}
-
-Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} wyświetlony w
-programie \SiriusDesktop{} został przedstawiony na
-rysunku~\ref{rys:sirius-desktop-cal-example-model}.
-
-% \begin{noindent}
-\begin{figure}[!ht]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-cal-example-model.png}
-	\caption{Przykładowy diagram reprezentujący model \EMF{} języka \CAL{} w
-		\SiriusDesktop{}}\label{rys:sirius-desktop-cal-example-model}
-\end{figure}
-% \end{noindent}
-
-Oprócz podstawowej struktury metamodelu oraz jego reprezentacji w formie
-diagramu zostały do niego dodane dodatkowe funkcjonalności. Zostały one opisane
-w kolejnych sekcjach.
 
 \subsection{Warunkowa zmiana stylu elementów}
 
@@ -170,29 +211,29 @@ Użytkownik może wywnioskować dodatkowe informacje z diagramu jeżeli jego wyg
 będzie zależał od właściwości elementów modelu. Takie rozwiązanie zastosowano
 dla dwóch elementów metamodelu dzięki wykorzystaniu \emph{Style
 	Customizations}~\cite{sirius-desktop-documentation-style-customizations}
-w \EMF{}.
+z technologii \EMF{}.
 % \end{noindent}
 Funkcjonalność ta pozwala na wskazanie za pomocą języka \AQL{} w jakich
 sytuacjach styl elementu powinien zostać zmieniony, a następnie wskazać które
 właściwości powinny ulec zmianie oraz ich nowe wartości.
 
-Pierwszy styl warunkowy został użyty dla portów w metamodelu. Porty
+Pierwszy styl warunkowy został użyty dla pinów w metamodelu. Piny
 (\texttt{DataPin}) zmieniają ikonę na podstawie swoich krotności danych oraz
 paczek danych (odpowiednio \emph{data multiplicity} i \emph{token
 	multiplicity}).
 
-Z uwagi na fakt, że oba parametry mogą mieć jedną z 2 wartości,
+Z uwagi na fakt, że oba parametry mogą mieć jedną z 2 wartości,
 co daje w sumie 4~możliwości, w klasie \texttt{Services} metamodelu stworzono
 metodę w języku \Java{}, która zwraca nazwę odpowiedniej ikony.
 Dzięki możliwości wykorzystania języka programowania osiągnięto
 zamierzony efekt za pomocą jednego stylu warunkowego, a nie 4 różnych
-styli dla 4 możliwości. Kod metody zwracającej nazwę ikony dla portu
+styli dla 4 możliwości. Kod metody zwracającej nazwę ikony dla pinu
 został przedstawiony w listingu~\ref{lst:getDataPinIconPath-method}.
 
 \begin{lstlisting}[float,
     floatplacement=ht,
     language=Java,
-    caption={Metoda zwracająca nazwę ikony dla portu},
+    caption={Metoda zwracająca nazwę ikony dla pinu},
     label={lst:getDataPinIconPath-method}]
 public String getDataPinIconPath(EObject self) {
   if (!(self instanceof DataPin)) {
@@ -207,118 +248,120 @@ public String getDataPinIconPath(EObject self) {
 }
 \end{lstlisting}
 
-Dla portów całej aplikacji obliczeniowej (\texttt{Application\-Data\-Pin} dla
+Dla pinów całej aplikacji obliczeniowej (\texttt{Application\-Data\-Pin} dla
 \texttt{Computation\-Application\-Release}) styl warunkowy był
 rozszerzeniem tego
-dla portów modułów obliczeniowych. Oprócz brania pod uwagę krotności danych
+dla pinów wywoływanych jednostek obliczeniowych. Oprócz brania pod uwagę
+krotności danych
 oraz
-paczek danych, w tym stylu znaczenie ma ponadto kierunek portu. Porty wejściowe
-mają pogrubiony pasek z lewej strony, a porty wyjściowe z prawej. Dla tych
-portów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
+paczek danych, w~tym~stylu znaczenie ma ponadto kierunek pinu. Piny wejściowe
+mają pogrubiony pasek z~lewej strony, a~piny wyjściowe z prawej. Dla tych
+pinów występują 3 cechy od których zależy ikona, co oznacza 8 możliwości.
 Dzięki wykorzystaniu metody z listingu~\ref{lst:getDataPinIconPath-method} oraz
-języka \AQL{} ta funkcjonalność została zrealizowana za pomocą jednego stylu
-warunkowego, zamiast 8 styli dla 8 różnych wariantów.
+języka \AQL{} ta~funkcjonalność została zrealizowana za pomocą jednego stylu
+warunkowego, zamiast 8~styli dla 8 różnych wariantów.
 
 Drugim wykorzystanym rodzajem styli warunkowych jest zmiana koloru obramowania
-portów na krawędziach modułów obliczeniowych (\texttt{ComputedDataPin}) w
-zależności od~kierunku przepływu danych. Porty wejściowe (\emph{required}) mają
-ramkę koloru fioletowego, a~porty wyjściowe (\emph{provided}) mają ramkę koloru
+pinów na krawędziach wywoływanych jednostek obliczeniowych
+(\texttt{ComputedDataPin}) w
+zależności od~kierunku przepływu danych. Piny wejściowe (\emph{required}) mają
+ramkę koloru fioletowego, a~piny wyjściowe (\emph{provided}) mają ramkę koloru
 pomarańczowego. Ta funkcjonalność została zaimplementowana za pomocą jednego
 stylu warunkowego.
 
 Wyniki działania obu rodzajów styli warunkowych widoczne są na
-rysunku~\ref{rys:sirius-desktop-cal-example-model}.
+rysunku~\ref{rys:sirius-desktop-cal-example-model} pokazującym
+składnię konkretną metamodelu.
 
 \subsection{Narzędzia edytora diagramów}\label{sec:cal-metamodel-tools}
 
-W metamodelach \EMF{} można zdefiniować narzędzia wspomagające i ułatwiające
-edycję modeli, a także pomagające uniknąć
-błędów~\cite{sirius-desktop-documentation-tools}. Również do metamodelu języka
+Dla metamodeli w formacie \Ecore{} można zdefiniować narzędzia wspomagające i
+ułatwiające edycję modeli, a także pomagające uniknąć
+błędów semantycznych~\cite{sirius-desktop-documentation-tools}. Również do
+metamodelu języka
 \CAL{} dodano takie narzędzia, które zostaną omówione w tej sekcji.
 
-Pierwszą grupą narzędzi dodanych do metamodelu \EMF{} języka \CAL{} są
+Pierwszą grupą narzędzi dodanych do przygotowanego metamodelu języka \CAL{} są
 narzędzia
 automatyzujące pracę użytkownika, aby ten nie musiał manualnie wykonywać
 niektórych czynności, a~jednocześnie aby w modelu nie znajdowały się nieużywane
 elementy.
 
-Jednym z takich narzędzi jest automatyczne usuwanie połączeń między portami
-w~momencie, gdy ten port zostaje usunięty. W przypadku portów aplikacji
+Jednym z takich narzędzi jest automatyczne usuwanie połączeń między pinami
+w~momencie, gdy ten pin zostaje usunięty. W przypadku pinów aplikacji
 obliczeniowej (\texttt{Application\-Data\-Pin}) narzędzie to zastępuje zwykłą
-operację usunięcia. Dla portów wywołania modułu obliczeniowego
-(\texttt{ComputedDataPin}), narzędzie to uruchamiane jest podczas usuwania tego
-modułu obliczeniowego. Dzięki temu narzędziu w modelu nie pozostają połączenia
+operację usunięcia. Dla pinów wywołania jednostki obliczeniowej
+(\texttt{ComputedDataPin}), narzędzie to uruchamiane jest podczas usuwania
+tej~jednostki obliczeniowej. Dzięki temu narzędziu w modelu nie pozostają
+połączenia
 zakończone jedynie z jednej strony.
 
 Drugim z narzędzi automatyzujących pracę jest automatyczne zarządzanie
-portami wywołania modułu obliczeniowego (\texttt{ComputedDataPin}) w~momencie
-wskazania lub zmiany który moduł obliczeniowy ma zostać wywołany. Zmiana
+pinami wywołania jednostki obliczeniowej (\texttt{ComputedDataPin}) w~momencie
+wskazania lub zmiany która jednostka obliczeniowa ma zostać wywołana. Zmiana
 atrybutu \texttt{unit} obiektu \texttt{UnitCall} usuwa aktualnie powiązane z
-nim porty (o ile jakieś istniały) i tworzy nowe na podstawie definicji modułu
-obliczeniowego (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
-a~także jego zdeklarowanych portów (\texttt{DeclaredDataPin}). Stworzone porty
+nim piny (o ile jakieś istniały) i tworzy nowe na podstawie definicji jednostki
+obliczeniowej (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
+a~także jej~zdeklarowanych pinów (\texttt{DeclaredDataPin}). Stworzone piny
 mają
-automatycznie ustawione odwołania na właściwe deklaracje portów.
+automatycznie ustawione odwołania na właściwe deklaracje pinów.
 Wykorzystanie tego narzędzia zostało przedstawione na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call}.
-
-Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
-metamodelu. Została zmieniona definicja metody zmiany wskazania na moduł do
-wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
-poprzednie porty i tworzone są nowe. To zachowanie opisane jest w języku
-\Java{}.
-
-Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych portów
-i~tworzyć nowych podczas zmiany wywoływanego modułu. Przyśpiesza to~pracę z
-metamodelem i~pomaga uniknąć błędów.
+Rysunek~\ref{rys:sirius-desktop-empty-unit-call} demonstruje wygląd nowo
+utworzonego wywołania jednostki obliczeniowej bez wskazania którą jednostkę ono
+wywołuje. Po wskazaniu jednostki do~wywołania, piny są tworzone automatycznie,
+co
+widać na rysunku~\ref{rys:sirius-desktop-change-unit-to-call-before}. Po
+ponownej zmianie jednostki obliczeniowej do wywołania, poprzednie piny są
+usuwane, a na ich miejsce zostają utworzone nowe, na bazie definicji wybranej
+jednostki obliczeniowej, co widać na
+rysunku~\ref{rys:sirius-desktop-change-unit-to-call-after}.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-empty-unit-call.png}
-		\caption{Nowo utworzone wywołanie modułu obliczeniowego}\label{ref:sirius-desktop-empty-unit-call}
-    \medskip
-    {\small To wywołanie nie~ma~wskazanego modułu, które ma wywołać, stąd
-      druga linia etykiety jest pusta.}
-    \vspace{50pt}
+		\caption{Nowo utworzone wywołanie jednostki obliczeniowej}\label{rys:sirius-desktop-empty-unit-call}
 	\end{subfigure}
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-before.png}
-		\caption{Wywołanie modułu obliczeniowego po wskazaniu modułu do wywołania}\label{
-      rys:sirius-desktop-change-unit-to-call-before}
-    \medskip
-    {\small Porty zostały automatycznie utworzone zgodnie z~deklaracją modułu
-      \emph{Bounding Labels}.}
-    \medskip
+		\caption{Wywołanie jednostki obliczeniowej po wskazaniu jednostki do
+      wywołania}\label{rys:sirius-desktop-change-unit-to-call-before}
 	\end{subfigure}
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=.99\linewidth]{./images/sirius-desktop-change-unit-to-call-after.png}
-		\caption{Wywołanie modułu obliczeniowego po ponownym wskazaniu modułu do wywołania}\label{
-      rys:sirius-desktop-change-unit-to-call-after}
-    \medskip
-    {\small Poprzednie porty zostały usunięte, a na ich miejsce zostały
-      utworzone nowe, bazując na zdeklarowanych portach modułu \emph{Object
-      Identification}.}
+		\caption{Wywołanie jednostki obliczeniowej po ponownym wskazaniu jednostki do
+        wywołania}\label{rys:sirius-desktop-change-unit-to-call-after}
 	\end{subfigure}
 
-	\caption{Demonstracja działania narzędzia zarządzającego portami wywołań
-    modułów obliczeniowych}\label{rys:sirius-desktop-change-unit-to-call}
+	\caption{Demonstracja działania narzędzia zarządzającego pinami wywołań
+    jednostek obliczeniowych}\label{rys:sirius-desktop-change-unit-to-call}
 \end{figure}
 % \end{noindent}
 
+Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
+metamodelu. Została zmieniona definicja metody zmiany wskazania na jednostkę do
+wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
+poprzednie piny i tworzone są nowe. To zachowanie opisane jest w języku
+\Java{}.
+
+Dzięki temu narzędziu użytkownik nie musi samemu usuwać starych pinów
+i~tworzyć nowych podczas zmiany wywoływanej jednostki obliczeniowej.
+Przyśpiesza to~pracę z
+metamodelem i~pomaga uniknąć błędów.
+
 Inną grupą narzędzi są narzędzia pomagające w przestrzeganiu poprawności
 modelu. Do~tej~grupy można zaliczyć kilka narzędzi dotyczących tworzenia lub
-modyfikacji połączeń między portami. Dane mogą przepływać jedynie od portów
-wyjściowych do portów wejściowych. Ponadto, niemożliwe jest połączenie portów
-na tym samym wywołaniu modułu obliczeniowego. Oba te wymagania mogą być
+modyfikacji połączeń między pinami. Dane mogą przepływać jedynie od pinów
+wyjściowych do pinów wejściowych. Ponadto, niemożliwe jest połączenie pinów
+na tym samym wywołaniu jednostki obliczeniowej. Oba te wymagania mogą być
 egzekwowane w modelu za pomocą narzędzi do~tworzenia połączeń (\emph{Edge
 	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
-z nich za
-pomocą warunków \emph{Connection Start Precondition} oraz
+z nich za~pomocą warunków \emph{Connection Start Precondition} oraz
 \emph{Connection Complete Precondition}, ustalających czy połączenie może
 zostać
 rozpoczęte lub zakończone w~danym elemencie, pozwala zabronić stworzenia
@@ -326,19 +369,21 @@ połączenia. Drugie z nich za pomocą warunku \emph{Precondition} ustala kiedy
 zmiana jednego z końców połączenia jest możliwa.
 
 Drugim z narzędzi w grupie pomagających w przestrzeganiu poprawności jest
-narzędzie uniemożliwiające usuwanie portów wywołań modułów obliczeniowych
+narzędzie uniemożliwiające usuwanie pinów wywołań jednostek obliczeniowych
 (\texttt{ComputedDataPin}). Są one tworzone i usuwane automatycznie podczas
-wskazania modułu do wywołania i~niepoprawnym byłoby gdyby użytkownik mógł
-tworzyć lub usuwać je samemu, ponieważ faktyczna liczba portów mogłaby się
+wskazania jednostki do wywołania i~niepoprawnym byłoby gdyby użytkownik mógł
+tworzyć lub usuwać je samemu, ponieważ faktyczna liczba pinów mogłaby się
 wtedy nie
-zgadzać z liczbą zadeklarowanych portów w~tym~module obliczeniowym.
+zgadzać z liczbą zadeklarowanych pinów w~tej~jednostce obliczeniowej.
 
 Innym typem narzędzi są narzędzia ułatwiające tworzenie elementów modelu.
-Są~3~proste narzędzia umieszczających element w modelu: dla portu wejściowego i
-wyjściowego aplikacji, a także dla pustego wywołania modułu obliczeniowego, dla
-którego należy później wskazać moduł, który ma wywołać. Bardziej skomplikowanym
-narzędziem jest narzędzie pozwalające na~dodanie do modelu wywołania modułu
-obliczeniowego, które pokazuje okno dialogowe pozwalające wybrać moduł oraz
+Są~3~proste narzędzia umieszczających element w modelu: dla pinu wejściowego i
+wyjściowego aplikacji, a także dla pustego wywołania jednostki obliczeniowej,
+dla
+którego należy później wskazać jednostkę, którą ma wywołać. Bardziej
+skomplikowanym
+narzędziem jest narzędzie pozwalające na~dodanie do modelu wywołania jednostki
+obliczeniowej, które pokazuje okno dialogowe pozwalające wybrać jednostkę oraz
 wskazać nazwę dodawanego obiektu. Wykorzystuje ono~możliwości \SiriusDesktop{}
 do tworzenia okien dialogowych (zarówno jednorazowych
 jak~i~składających się z wielu
@@ -346,7 +391,7 @@ kroków)~\cite{sirius-desktop-documentation-tools} i
 pozwala na dostarczeniu użytkownikowi
 bardziej interaktywnych i przyjemniejszych wrażeń z pracy z modelem. Okno
 dialogowe
-pokazujące się po wybraniu
+pokazujące się po wybraniu
 tego narzędzia jest przedstawione na
 rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 
@@ -355,17 +400,17 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 	\centering
 
 	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-create-unit-call-tool.png}
-	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania modułu
-		obliczeniowego w~\SiriusDesktop{}}\label{rys:sirius-desktop-create-unit-call-tool}
+	\caption{Narzędzie do interaktywnego tworzenia nowego wywołania jednostki
+		obliczeniowej w~\SiriusDesktop{}}\label{rys:sirius-desktop-create-unit-call-tool}
 \end{figure}
 % \end{noindent}
 
-Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
+Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
 poprzez edycję diagramu lub właściwości już istniejącego elementu. Podczas
 bezpośredniej edycji drzewa modelu narzędzia powiązane z metamodelem są
 pomijane, przez co można doprowadzić do~sytuacji, w której model nie będzie
 poprawny
-semantycznie. Przykładem operacji pomijającej narzędzia jest usunięcie portu
+semantycznie. Przykładem operacji pomijającej narzędzia jest usunięcie pinu
 aplikacji obliczeniowej (\texttt{ApplicationDataPin}) bezpośrednio z~drzewa
 modelu. Jeżeli miała ona połączenie (\texttt{DataFlow}), nie zostanie
 ono~automatycznie usunięte (narzędzie, które je usuwa nie zostanie
@@ -389,6 +434,13 @@ najmniej 3 elementy, a nie więcej niż~5~elementów). Błędy te będą także
 zaznaczone na diagramie za pomocą ikony czerwonego znaku \texttt{X} obok
 elementu, którego wiadomość dotyczy. Zostało to zilustrowane na
 rysunku~\ref{rys:sirius-desktop-syntax-validation}.
+Ostatni wiersz na liście problemów jest związany z walidacją składniową i
+wskazuje on, że~obiekt odpowiadający wywołaniu jednostki obliczeniowej nie ma
+ustawionego atrybutu \texttt{unit}, czyli brakuje wskazania jednostki do
+wywołania. Ta sama wiadomość jest widoczna na diagramie po przeniesieniu
+kursora na znak \texttt{X}.
+Reszta problemów na liście wynika z błędów edytora, a~nie~modelu, więc została
+rozmyta dla zwrócenia uwagi na informacje pochodzące z walidacji składniowej.
 
 % \begin{noindent}
 \begin{figure}[!hb]
@@ -415,8 +467,8 @@ opcje automatycznego naprawiania błędów diagnostycznych.
 
 Przykładową regułę walidacji semantycznej przedstawiono na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}.
-Zabrania ona~połączeń między portami znajdującymi się na tym samym wywołaniu
-modułu obliczeniowego. Jej struktura wyrażona w drzewie obiektów metamodelu
+Zabrania ona~połączeń między pinami znajdującymi się na tym samym wywołaniu
+jednostki obliczeniowej. Jej struktura wyrażona w drzewie obiektów metamodelu
 jest widoczna na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-tree},
 a~jej~właściwości na
@@ -428,16 +480,16 @@ przedstawia wyrażenie języka \AQL{}. Niespełnienie warunku spowoduje
 pokazanie
 informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekty początkowy i
 końcowy połączenia mają różnych rodziców. Nie jest to spełnione wyłącznie
-jeżeli oba~porty należą do tego samego wywołania modułu obliczeniowego.
+jeżeli oba~piny należą do tego samego wywołania jednostki obliczeniowej.
 Błąd wynikający z tej reguły został
 przedstawiony na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-failure}.
 Należało wykluczyć sytuacje, w
-których połączenie jest między dwoma portami aplikacji obliczeniowej, ponieważ
-takie połączenia są dozwolone.
+których połączenie jest między dwoma pinami aplikacji obliczeniowej, ponieważ
+takie połączenia są~dozwolone.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{.8\textwidth}
 		\centering
@@ -472,26 +524,24 @@ takie połączenia są dozwolone.
 	\caption{Przykładowa reguła walidacji semantycznej w \emph{Sirius
     Desktop}}\label{rys:sirius-desktop-example-semantic-validation-rule}
   \medskip
-  {\small Reguła zabrania występowania połączeń między portami na tym samym
-    wywołaniu modułu obliczeniowego.}
 \end{figure}
 % \end{noindent}
 
 Oprócz reguły walidacji semantycznej zaprezentowanej na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}
 zaprojektowano 5~innych reguł informujących użytkownika o błędach w metamodelu.
-Pierwsze dwie z~nich pomagają ustalić oczekiwany kierunek połączeń portów. Dla
-portów oznaczonych jako wymagane (\texttt{required}) połączenie powinno być
-wchodzące, a dla portów oznaczonych jako dostarczone (\texttt{provided}) ---
+Pierwsze dwie z~nich pomagają ustalić oczekiwany kierunek połączeń pinów. Dla
+pinów oznaczonych jako wymagane (\texttt{required}) połączenie powinno być
+wchodzące, a dla pinów oznaczonych jako dostarczone (\texttt{provided}) ---
 wychodzące. Jest to informacja niewynikająca ze struktury metamodelu, więc
 została dostarczona jako reguła walidacji semantycznej. Oprócz 2 reguł
 wymagających połączenia danego typu są też 2 reguły, które zabraniają
-połączenia w~przeciwną stronę niż oczekiwana. Oznacza to, że jeżeli port nie
+połączenia w~przeciwną stronę niż~oczekiwana. Oznacza to, że jeżeli pin nie
 będzie miał żadnego połączenia, będzie pokazana informacja o braku, a jeżeli
-dodatkowo port będzie miał połączenie w~przeciwną stronę (przykładowo, port
+dodatkowo pin będzie miał połączenie w~przeciwną stronę (przykładowo, pin
 wymagany będzie miał połączenie wychodzące), to będą 2~wiadomości: jedna o
-braku połączenia w oczekiwanym kierunku, a druga o~nieoczkiewanym połączeniu w
-przeciwnym kierunku.
+braku połączenia w oczekiwanym kierunku, a druga o~nieoczkiewanym połączeniu
+w~przeciwnym kierunku.
 
 Ostatnią dodaną regułą jest sprawdzenie czy oba końce połączenia (obiektu
 \texttt{DataFlow}) są~zdefiniowane. Jeżeli krawędź nie jest połączona z dwoma
@@ -536,11 +586,11 @@ W ramach tej pracy magisterskiej przygotowano 2 testy jednostkowe weryfikujące
 następujące zachowania dodane w kodzie źródłowym klas metamodelu:
 
 \begin{itemize}
-	\item Czy połączenia między portami usuwanych wywołań węzłów obliczeniowych są również usuwane?
+	\item Czy połączenia między pinami usuwanych wywołań węzłów obliczeniowych są również usuwane?
 
-	\item Czy porty są automatycznie usuwane i tworzone podczas zmiany wskazania modułu, który ma zostać wywołany w danym obiekcie \texttt{UnitCall}?
+	\item Czy piny są automatycznie usuwane i tworzone podczas zmiany wskazania jednostki obliczeniowej, która ma zostać wywołana w danym obiekcie \texttt{UnitCall}?
 
-	      Weryfikowane jest czy utworzone porty mają poprawnie ustawione odwołania na~zdeklarowane porty danego modułu obliczeniowego.
+	      Weryfikowane jest czy utworzone piny mają poprawnie ustawione odwołania na~zdeklarowane piny danej jednostki obliczeniowej.
 \end{itemize}
 
 Są to jedyne dwie modyfikacje kodu źródłowego metamodelu, których dokonano.
@@ -551,19 +601,19 @@ ponieważ z~7~wygenerowanych plików z testami (po jednym dla każdego obiektu
 metamodelu), tylko jeden ma zdefiniowane w sobie testy, a reszta jest pusta.
 Niepowodzenie informuje o braku testów zdefiniowanych w tych plikach.
 
+% \begin{noindent}
+\begin{figure}[!hb]
+	\centering
+
+	\includegraphics[width=0.90\linewidth]{./images/sirius-desktop-metamodel-tests.png}
+	\caption{Wynik uruchomienia testów automatycznych
+  metamodelu}\label{rys:sirius-desktop-metamodel-tests}
+\end{figure}
+% \end{noindent}
+
 W przypadku tego metamodelu są przygotowane
 jedynie dwa testy, więc nie było potrzeby dzielić je na grupy
 (\emph{\selectlanguage{english}test suites}) --- jest tylko
 jedna grupa nadrzędna \emph{\selectlanguage{english}CAL All Tests}, która
 zawiera w sobie grupę
 \emph{\selectlanguage{english}CAL Tests}, która zawiera poszczególne testy.
-
-% \begin{noindent}
-\begin{figure}[!hb]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-metamodel-tests.png}
-	\caption{Wynik uruchomienia testów automatycznych
-  metamodelu}\label{rys:sirius-desktop-metamodel-tests}
-\end{figure}
-% \end{noindent}

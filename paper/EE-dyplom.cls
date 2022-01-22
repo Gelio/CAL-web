@@ -374,9 +374,17 @@
 \graphicspath{{gfx/}{images/}}
 
 % ---------------------------------------------
+% Float
+% https://www.overleaf.com/learn/latex/Errors/LaTeX_Error%3A_Unknown_float_option_%60H%27
+% ---------------------------------------------
+\RequirePackage{float}
+
+% ---------------------------------------------
 % Listingi programów
 % ---------------------------------------------
 \RequirePackage{listings}
+% Source: https://stackoverflow.com/a/9480618/4874344
+\renewcommand*{\lstlistlistingname}{Spis listingów}
 \lstdefinestyle{EEStyle}{
 	backgroundcolor=\color{white},
 	commentstyle=\color{EEBlueDark},
@@ -654,6 +662,8 @@
 % Oświadczenia o autorstwie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\authorship}{
+	% TODO: wstawić podpisane nowe oświadczenie o autorstwie pracy zgodne z
+	% najnowszym zarządzeniem rektora
 	\ifnum\strcmp{\locallang}{PL} = 0
 		\begin{tikzpicture}[remember picture, overlay]
 			\node [anchor=north west, inner sep=0pt] at (current page.north west)

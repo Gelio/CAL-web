@@ -1,18 +1,26 @@
 \chapter{Dostosowanie Sirius Web dla systemu BalticLSC}
 
-Z metamodelu \EMF{} języka \CAL{} systemu \BalticLSC{}
-opisanego w rozdziale~\ref{chapter:cal-metamodel} do tej pory korzystano w
-\SiriusDesktop{}, w którym to został on przygotowany. W tym rozdziale
-zostaną opisane kroki potrzebne do użycia go w \SiriusWeb{}, aby otrzymać
+Z przygotowanego metamodelu języka \CAL{} systemu \BalticLSC{}
+opisanego w rozdziale~\ref{chapter:cal-metamodel} do~tej~pory korzystano w
+\SiriusDesktop{}, w którym to został on przygotowany. W~tym~rozdziale
+zostaną opisane kroki potrzebne do użycia go w \SiriusWeb{}, aby otrzymać
 aplikację przeglądarkową umożliwiającą edycję modeli języka \CAL{}.
 Zostaną również omówione modyfikacje edytora \SiriusWeb{}, które
-zostały wykonane, aby poprawić jego integrację z systemem \BalticLSC{} oraz
+zostały wykonane, aby poprawić jego integrację z~systemem \BalticLSC{} oraz
 umożliwić realizację walidacji semantycznej modelu.
+
+Obie te rzeczy zostały
+wykonane bez dokumentacji technicznej rozwiązania \SiriusWeb{}, bazując na
+wielu różnych źródłach wiedzy opisujących części procesu konieczne do
+wykonania, oraz na podstawie analizy kodu źródłowego.
+Jest to jedno z pierwszych w takim stopniu zmodyfikowanych wykorzystań
+technologii \SiriusWeb{} do przygotowania edytora modeli.
 
 \section{Użycie metamodelu języka CAL w Sirius Web}
 
-Chcąc wykorzystać metamodel \EMF{} w \SiriusWeb{} należy wskazać gdzie
-on się znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
+Chcąc wykorzystać metamodel w formacie \Ecore{} w \SiriusWeb{} należy wskazać
+gdzie
+on~się~znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
 dołączone do pliku \JAR{} serwera, a później odczytane przez moduły
 \SiriusWeb{} podczas uruchamiania aplikacji.
 
@@ -22,26 +30,25 @@ wykorzystanie z~własnym metamodelem. W serwisie \GitHub{} istnieje repozytorium
 przeglądarkowej
 bazującej na \SiriusWeb{}. Jest ona skonfigurowana do~wykorzystywania
 metamodelu \emph{Sample Flow}~\cite{flow-network-github}
-przygotowanego przez firmę \emph{Obeo Network}. Znajduje się on w innym
+przygotowanego przez firmę \emph{Obeo Network}. Znajduje się on w innym
 repozytorium (\texttt{Flow-Designer}~\cite{flow-network-github}) i jest
-zwykłym metamodelem \EMF{}.
-Należy więc wzorować się na tym przykładowym repozytorium w celu stworzenia
+zwykłym metamodelem w formacie \Ecore{}.
+Należy więc wzorować się na tym przykładowym repozytorium w celu stworzenia
 własnego edytora modeli.
 W ramach tej pracy magisterskiej stworzono kopię repozytorium
 \texttt{sirius-web} i skonfigurowano je, aby wykorzystywało metamodel
-języka \CAL{} opisany w rozdziale~\ref{chapter:cal-metamodel}.
+języka \CAL{} opisany w~rozdziale~\ref{chapter:cal-metamodel}.
 
 \SiriusWeb{} do zarządzania projektem i wyrażania zależności między
 pakietami wykorzystuje narzędzie \emph{Apache Maven}~\cite{maven-homepage}.
-Aby wykorzystać klasy metamodelu \EMF{} w \SiriusWeb{}
+Aby wykorzystać klasy metamodelu w formacie \Ecore{} w \SiriusWeb{}
 należy do katalogów wygenerowanych przez \SiriusDesktop{} dodać pliki
 \POM{} (\texttt{pom.xml}), które zawierają informacje o nazwie projektu i
 jego
-zależnościach. Wygenerowane projekty metamodelu \EMF{} to projekty
-\Eclipse{}.
-Oznacza to, że zależności projektów,
-na~które składa się całość metamodelu są zapisane w plikach
-\texttt{MANIFEST.MF}, a pozostałe informacje o~projekcie znajdują się w
+zależnościach. Wygenerowane na podstawie metamodelu w formacie \Ecore{}
+projekty są w formacie projektów \Eclipse{}.
+Oznacza to, że ich zależności są zapisane w plikach
+\texttt{MANIFEST.MF}, a pozostałe informacje o~projektach znajdują się w
 plikach \texttt{build.properties}, \texttt{plugin.properties} oraz
 \texttt{plugin.xml}. Te pliki nie są wykrywane domyślnie przez \Maven{},
 więc
@@ -53,10 +60,9 @@ Po pierwsze należy do listy repozytoriów pakietów dodać repozytorium
 \Eclipse{} w formacie \texttt{p2}. Jest to format wykorzystywany przez
 projekty \Eclipse{}, podczas gdy \Maven{} wykorzystuje repozytoria w
 swoim własnym formacie. Fragment pliku \texttt{pom.xml} konfigurujący to
-repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
+repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 
-\begin{lstlisting}[float,
-    floatplacement=ht,
+\begin{lstlisting}[float=h,
     language=XML,
     caption={Konfiguracja repozytorium \Eclipse{} w \texttt{pom.xml}},
     label={lst:pom-eclipse-repository}]
@@ -69,16 +75,17 @@ repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 </repositories>
 \end{lstlisting}
 
-Kolejno w plikach \texttt{pom.xml} projektów metamodelu \EMF{} należy
+Kolejno w plikach \texttt{pom.xml} projektów metamodelu w formacie \Ecore{}
+należy
 zdefiniować, że~są~to~projekty \Eclipse{}, poprzez dodanie elementu
 \texttt{packaging} z wartością \texttt{eclipse-plugin}. Zostało
 to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
 
 \begin{lstlisting}[float,
-    floatplacement=hb,
+    floatplacement=!hb,
     language=XML,
     caption={Plik \texttt{pom.xml} dla jednego z projektów metamodelu
-      \EMF{}},
+      w formacie \Ecore{}},
     label={lst:pom-packaging}]
 <?xml version="1.0" encoding="UTF-8" ?>
 <project
@@ -89,7 +96,6 @@ to~zademonstrowane na listingu~\ref{lst:pom-packaging} w linii 9.
   <modelVersion>4.0.0</modelVersion>
   <artifactId>eu.balticlsc.model.CAL</artifactId>
   <packaging>eclipse-plugin</packaging>
-
   <parent>
     <groupId>eu.balticlsc.model</groupId>
     <artifactId>model</artifactId>
@@ -102,18 +108,17 @@ Następnie w sekcji \texttt{build} pliku \texttt{pom.xml} należy dodać pluginy
 \emph{Maven Tycho}~\cite{maven-tycho-homepage}. Jest~to~zestaw rozszerzeń do
 \emph{Apache Maven}
 pozwalający na wykorzystanie projektów \Eclipse{}. Fragment
-wymaganej konfiguracji znajduje się na
+wymaganej konfiguracji znajduje się na
 listingu~\ref{lst:pom-maven-tycho-plugins}. Ważne jest, aby wskazać konkretną
-wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to Java
-11. Jest to jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
+wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to
+Java~11. Jest~to~jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
 Inne wersje nie są wspierane.
 
 \begin{lstlisting}[float,
-    floatplacement=hb,
+    floatplacement=!hb,
     language=XML,
     caption={Konfiguracja rozszerzeń \emph{Maven Tycho} w \texttt{pom.xml}},
     label={lst:pom-maven-tycho-plugins}]
-<build>
   <plugins>
     <plugin>
       <groupId>org.eclipse.tycho</groupId>
@@ -121,35 +126,21 @@ Inne wersje nie są wspierane.
       <version>2.5.0</version>
       <extensions>true</extensions>
     </plugin>
-
     <plugin>
       <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-packaging-plugin</artifactId>
-         <version>2.5.0</version>
-         <executions>
-          <execution>
-            <phase>package</phase>
-            <id>package-feature</id>
-              <configuration>
-                <finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
-              </configuration>
-        </execution>
-      </executions>
+      <artifactId>tycho-packaging-plugin</artifactId>
+      <version>2.5.0</version>
     </plugin>
-
     <plugin>
       <groupId>org.eclipse.tycho</groupId>
       <artifactId>target-platform-configuration</artifactId>
       <version>2.5.0</version>
-
       <configuration>
         <executionEnvironment>JavaSE-11</executionEnvironment>
-
         <!-- ... konfiguracja platformy -->
       </configuration>
     </plugin>
   </plugins>
-</build>
 \end{lstlisting}
 
 Tak przygotowany projekt \Maven{} będzie wykrywał zależności zdefiniowane w
@@ -161,8 +152,7 @@ komendę \lstinline{mvn clean verify}. Model można teraz dodać do pliku
 głównego pakietu modelu, pakietu \texttt{.edit} oraz pakietu \texttt{.design}.
 Odwołania te widoczne są na listingu~\ref{lst:pom-metamodel-dependencies}.
 
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     language=XML,
     caption={Odwołania do pakietów metamodelu w \texttt{pom.xml} aplikacji
     serwerowej \SiriusWeb{}},
@@ -188,18 +178,17 @@ Taka konfiguracja zależności między projektami pozwala na wykorzystanie klas
 metamodelu w kodzie źródłowym \SiriusWeb{}. Należy teraz w klasie
 \texttt{SampleEMFConfiguration} zarejestrować klasy
 odpowiedzialne za metamodel: \texttt{EPackage} oraz \texttt{AdapterFactory}.
-Fragment kodu realizujący to jest znajduje się na
+Fragment kodu realizujący to jest znajduje się na
 listingu~\ref{lst:registering-emf-classes}. Później w klasie
 \texttt{SampleSiriusConfiguration} należy wskazać ścieżkę do pliku
 \texttt{*.odesign} metamodelu znajdującego się w pakiecie \texttt{.design}.
-Odpowiedni fragment znajduje się na
+Odpowiedni fragment znajduje się na
 listingu~\ref{lst:registering-odesign-path}.
 
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     language=Java,
-    caption={Rejestracja klas przygotowanego metamodelu \EMF{} w klasie
-      \texttt{SampleEMFConfiguration}},
+    caption={Rejestracja klas przygotowanego metamodelu w klasie
+      \texttt{Sample\-EMF\-Configuration}},
     label={lst:registering-emf-classes}]
     @Bean
     public AdapterFactory calAdapterFactory() {
@@ -225,7 +214,8 @@ listingu~\ref{lst:registering-odesign-path}.
 \end{lstlisting}
 
 Po tych modyfikacjach w aplikacji \SiriusWeb{} można tworzyć i edytować
-modele nowo stworzonego metamodelu \EMF{}. Zrzut ekranu z aplikacji
+modele nowo stworzonego w formacie \Ecore{} metamodelu. Zrzut ekranu z
+aplikacji
 przeglądarkowej widoczny jest
 na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
 
@@ -234,14 +224,14 @@ na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/sirius-web-base-metamodel-model.png}
-  \caption{Edycja modelu bazującego na przygotowanym metamodelu \EMF{} w
+  \caption{Edycja modelu bazującego na przygotowanym metamodelu języka \CAL{} w
     \SiriusWeb{}}\label{rys:sirius-web-base-metamodel-model}
 \end{figure}
 % \end{noindent}
 
 W \SiriusWeb{} można zdefiniować szablony modeli, które użytkownik może
 wykorzystać chcąc stworzyć nowy model w projekcie. Umożliwia to prostszy
-sposób na stworzenie chociażby pustego modelu, ponieważ przycisk tworzenia
+sposób na stworzenie chociażby pustego modelu, ponieważ przycisk tworzenia
 modelu
 na podstawie szablonu jest bardziej wyeksponowany w interfejsie użytkownika niż
 przyciski tworzenia modelu z drzewa elementów projektu po lewej stronie.
@@ -288,15 +278,15 @@ rysunku~\ref{rys:sirius-web-new-model-template}.
 \subsection{Uruchamianie testów metamodelu za pomocą Maven}
 
 W sekcji~\ref{sec:testy-metamodelu} opisano testy zmodyfikowanego zachowania
-metamodelu EMF\@. Były one~uruchamianie w \SiriusDesktop{}. Z uwagi na
-fakt, że
+metamodelu języka \CAL{} opisanego w formacie \Ecore{}. Były one~uruchamianie w
+\SiriusDesktop{}. Z uwagi na fakt, że
 wygenerowany projekt z testami jest projektem typu \Eclipse{}, \emph{Apache
 	Maven} nie ma możliwości wykonania tych testów podczas standardowego
-polecenia
-wykonania testów \lstinline{mvn test}.
+polecenia wykonania testów \lstinline{mvn test}.
 
 Z pomocą przychodzi tutaj zestaw narzędzi \emph{Maven Tycho} wykorzystany do
-połączenia metamodelu \EMF{} z \SiriusWeb{}. Zawiera on rozszerzenie
+połączenia metamodelu w formacie \Ecore{} z \SiriusWeb{}. Zawiera on
+rozszerzenie
 \texttt{tycho-surefire-plugin}~\cite{maven-surefire-plugin-homepage}, które w
 trakcie fazy wykonywania testów
 integracyjnych w \Maven{} wykonuje również testy metamodelu zdefiniowane w
@@ -304,11 +294,10 @@ integracyjnych w \Maven{} wykonuje również testy metamodelu zdefiniowane w
 Wykorzystanie go w pliku \texttt{pom.xml} projektu z testami (folder
 \texttt{.tests}) przedstawione jest na
 listingu~\ref{lst:pom-maven-surefire-plugin}. Należy w nim wskazać gdzie
-znajduje się kod źródłowy testów oraz ścieżkę do pakietu z testami, a także
+znajduje się kod źródłowy testów oraz ścieżkę do pakietu z testami, a także
 nazwę klasy grupującej wszystkie testy.
 
-\begin{lstlisting}[float,
-    floatplacement=!hb,
+\begin{lstlisting}[float=h,
     language=XML,
     caption={Wykorzystanie rozszerzenia \emph{Maven Surefire} w
       \texttt{pom.xml} projektu z testami metamodelu},
@@ -330,11 +319,11 @@ nazwę klasy grupującej wszystkie testy.
 \end{lstlisting}
 
 Po tak zmodyfikowanej konfiguracji
-testy metamodelu \EMF{} w \Maven{} można uruchomić komendą
-\lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
+testy metamodelu w formacie \Ecore{} można w~\Maven{} uruchomić komendą
+\lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
 (\texttt{verify}), a
 więc po fazie budowania aplikacji (\texttt{package}). Powoduje to, że
-uruchomienie testów metamodelu za~pomocą \Maven{} trwa dłużej (około
+uruchomienie testów metamodelu za~pomocą \Maven{} trwa dłużej (około
 18 sekund), niż
 wewnątrz \SiriusDesktop{} (mniej niż~1~sekunda), ponieważ projekt
 najpierw musi zostać zbudowany. Dodatkowy narzut czasowy wprowadza także
@@ -342,39 +331,40 @@ komunikacja
 \Maven{} z repozytorium \Eclipse{}, z którego pobierane są pakiety.
 Niemniej jednak możliwość uruchomienia testów metamodelu w \Maven{} pozwala
 na~uruchomienie ich z linii wiersza poleceń bez uruchamiania \SiriusDesktop{},
-co przydaje się~w~środowisku serwerowym.
+co~przydaje się~w~środowisku serwerowym.
 
 \section{Integracja przybornika BalticLSC w Sirius
   Web}\label{sec:integracja-przybornika-balticlsc}
 
 Edytor diagramów dostępny w aplikacji przeglądarkowej platformy
 \BalticLSC{}
-umożliwia dodawanie wywołań modułów obliczeniowych do diagramu za pomocą
+umożliwia dodawanie wywołań jednostek obliczeniowych do diagramu za pomocą
 przybornika (ang.~\emph{\selectlanguage{english}toolbox}). Użytkownik
-przeglądający bibliotekę dostępnych modułów
+przeglądający bibliotekę dostępnych jednostek
 obliczeniowych może dodać wybrane z nich do przybornika. Zrzut ekranu
-biblioteki modułów z kilkoma modułami dodanymi do~przybornika jest widoczny na
+biblioteki jednostek z kilkoma jednostkami dodanymi do~przybornika jest
+widoczny na
 rysunku~\ref{rys:balticlsc-development-shelf}. W trakcie edycji
-diagramu ikony dodanych do~przybornika modułów są widoczne z lewej strony
+diagramu ikony dodanych do~przybornika jednostek są widoczne z lewej strony
 diagramu (rysunek~\ref{rys:balticlsc-diagram-toolbox}). Kliknięcie przycisku
-jednego z modułów zaznacza go, po
-czym kliknięcie na diagram dodaje moduł w określonym miejscu. Stan
-po dodaniu wywołania modułu obliczeniowego wybranego
+jednej z jednostek zaznacza go, po
+czym kliknięcie na diagram dodaje jednostkę w określonym miejscu. Stan
+po dodaniu wywołania jednostki obliczeniowej wybranej
 na~rysunku~\ref{rys:balticlsc-diagram-toolbox} jest widoczny na
 rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!t]
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-development-shelf.png}
-  \caption{Biblioteka modułów obliczeniowych platformy
+  \caption{Biblioteka jednostek obliczeniowych platformy
     \BalticLSC{}}\label{rys:balticlsc-development-shelf}
 \end{figure}
 % \end{noindent}
 
 % \begin{noindent}
-\begin{figure}[!ht]
+\begin{figure}[!b]
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-diagram-toolbox.png}
@@ -388,23 +378,26 @@ rysunku~\ref{rys:balticlsc-after-adding-unit-call}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-after-adding-unit-call.png}
-  \caption{Edytor diagramów \BalticLSC{} po dodaniu modułu obliczeniowego z
+  \caption{Edytor diagramów \BalticLSC{} po dodaniu jednostki obliczeniowej z
     przybornika}\label{rys:balticlsc-after-adding-unit-call}
 \end{figure}
 % \end{noindent}
 
-Rozwiązanie przybornika pozwala użytkownikowi podzielić proces pracy z modułami
-obliczeniowymi na 2 etapy: wybór interesujących modułów z listy potencjalnie
-tysięcy dostępnych modułów obliczeniowych, a później użycie
-wybranego podzbioru modułów na~diagramach.
+Rozwiązanie przybornika pozwala użytkownikowi podzielić proces pracy z
+jednostkami obliczeniowymi na 2 etapy: wybór interesujących jednostek z listy
+potencjalnie
+tysięcy dostępnych jednostek obliczeniowych, a później użycie
+wybranego podzbioru jednostek na~diagramach.
 
 W edytorze diagramów z \SiriusWeb{} domyślnie nie ma przybornika ani
-integracji z~zewnętrznymi serwisami w celu pobrania listy modułów
-obliczeniowych. Definicje wszystkich modułów obliczeniowych, które mają być
+integracji z~zewnętrznymi serwisami w celu pobrania listy jednostek
+obliczeniowych. Definicje wszystkich jednostek obliczeniowych, które mają być
 dostępne w modelu muszą być zdefiniowane jako
 elementy modelu (\texttt{ComputationUnitRelease}). Mechanizmy dostępne w
-metamodelu \EMF{} nie pozwalają na komunikację z zewnętrznymi serwisami,
-więc pobieranie danych o~modułach obliczeniowych znajdujących się w przyborniku
+metamodelach w formacie \Ecore{} nie pozwalają na komunikację z zewnętrznymi
+serwisami,
+więc pobieranie danych o~jednostkach obliczeniowych znajdujących się w
+przyborniku
 danego użytkownika musi zostać zrealizowane na poziomie \SiriusWeb{}.
 Ponadto, skoro ma być pobrana zawartość przybornika konkretnego użytkownika,
 aplikacja \SiriusWeb{} musi znać jego informacje uwierzytelniające, aby
@@ -420,18 +413,19 @@ Serwer aplikacyjny \BalticLSC{} udostępnia interfejs \emphgls{API} w formacie
 \emphgls{REST}, który jest używany do komunikacji z aplikacją przeglądarkową
 tego
 serwisu. Ten interfejs można również wykorzystać w \SiriusWeb{} aby pobrać
-zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
+zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
 protokołu \emphgls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
-odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych modułach
+odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych
+jednostkach
 obliczeniowych. Zawiera ona wszystkie detale potrzebne do utworzenia obiektu
-modułu obliczeniowego (\texttt{ComputationUnitRelease}) oraz jego wywołania
-(\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych portach
-tego modułu.
+jednostki obliczeniowej (\texttt{ComputationUnitRelease}) oraz jej wywołania
+(\texttt{UnitCall}) w modelu, łącznie z informacjami o zadeklarowanych pinach
+tej jednostki.
 
 Należałoby więc z aplikacji przeglądarkowej \SiriusWeb{} wysłać takie
-zapytanie do serwera \BalticLSC{}, a następnie wyświetlić otrzymane moduły
-obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
-\BalticLSC{} pojawiają się dwa problemy.
+zapytanie do serwera \BalticLSC{}, a następnie wyświetlić otrzymane jednostki
+obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
+\BalticLSC{} pojawiają się dwa problemy.
 
 Pierwszym problemem jest sposób uwierzytelniania użytkownika. Zawartość
 przybornika jest powiązana z konkretnym kontem użytkownika w systemie
@@ -441,13 +435,13 @@ token uwierzytelniający w formacie \emphgls{JWT}. W tokenie tym znajdują się
 informacje o nazwie użytkownika, do którego należy token (pole \texttt{sub}
 oraz \texttt{unique\_name}). Zawartość pola z
 danymi tokena widoczna jest na listingu~\ref{lst:balticlsc-jwt-payload}.
-Ponadto, każdy token \emphgls{JWT} posiada podpis weryfikujący jego prawdziwość.
+Ponadto, każdy token \emphgls{JWT} posiada podpis weryfikujący jego
+prawdziwość.
 Służy on potwierdzeniu, że token został przygotowany przez serwis
 \BalticLSC{} w drodze poprawnego logowania do serwisu, a nie został
-wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
+wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
 
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     language=java,
     caption={Zawartość pola z danymi w tokenie \emphgls{JWT} z serwisu
       \BalticLSC{}},
@@ -475,7 +469,7 @@ Podczas pracy z pełnym pełnym interfejsem \SiriusWeb{} (a nie tylko samym
 edytorem diagramów) został dostarczony przycisk otwierający okno
 dialogowe, w którym użytkownik może wprowadzić swój token \emphgls{JWT}.
 Znajdują
-się w nim także instrukcje jak taki token pozyskać. Ponieważ jest to złożony
+się w nim także instrukcje jak taki token pozyskać. Ponieważ jest to złożony
 proces, który wymaga otworzenia narzędzi programistycznych przeglądarki, został
 dostarczony przycisk \emph{\selectlanguage{english}GET DEMO USER TOKEN}, który
 pozwala pobrać token użytkownika demonstracyjnego \BalticLSC{}.
@@ -500,7 +494,7 @@ rysunku~\ref{rys:balticlsc-change-jwt-modal}.
 
 Drugim z problemów występujących podczas komunikacji z \emphgls{API}
 \BalticLSC{} jest mechanizm \emphgls{CORS}~\cite{cors-documentation}. Aktywuje
-się on ponieważ serwer
+się on ponieważ serwer
 aplikacyjny \BalticLSC{} oraz aplikacja przeglądarkowa \SiriusWeb{} są
 uruchomione na różnych adresach w sieci Internet. Odpowiedzi z serwera
 aplikacyjnego \BalticLSC{} nie zawierają odpowiednich nagłówków \emphgls{HTTP}
@@ -509,8 +503,9 @@ więc przeglądarka blokuje połączenia do tego serwera podczas próby ich wys�
 ze
 strony internetowej zawierającej \SiriusWeb{}. W~przypadku edytora
 diagramów dostarczonego z \BalticLSC{} \emphgls{CORS} nie występuje, ponieważ
-edytor diagramów oraz serwer znajdują się pod tym samym adresem internetowym
-\url{https://balticlsc.iem.pw.edu.pl/}, więc przeglądarka zezwala na te
+edytor diagramów oraz serwer znajdują się pod tym samym adresem
+internetowym\footnote{\url{https://balticlsc.iem.pw.edu.pl/}}, więc
+przeglądarka zezwala na te
 połączenia bez wymogu dodatkowych nagłówków w odpowiedziach z serwera.
 
 Rozwiązaniem na problem braku nagłówków \emphgls{CORS} w odpowiedziach z
@@ -527,24 +522,24 @@ rysunku~\ref{rys:balticlsc-proxy-sequence-diagram}.
   \centering
 
   \includegraphics[width=0.95\linewidth]{./images/balticlsc-proxy-sequence-diagram.pdf}
-  \caption{Diagram sekwencji pobierania listy modułów obliczeniowych z
+  \caption{Diagram sekwencji pobierania listy jednostek obliczeniowych z
     wykorzystaniem serwera pośredniczącego}\label{rys:balticlsc-proxy-sequence-diagram}
 \end{figure}
 % \end{noindent}
 
 % Kod źródłowy diagramu (Mermaid)
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IHByb3h5IGFzIFNlcndlciBTaXJpdXMgV2ViXG5wYXJ0aWNpcGFudCBiYWx0aWNsc2MgYXMgU2Vyd2VyIEJhbHRpY0xTQ1xuXG5icm93c2VyIC0-PisgcHJveHk6IFBvYmllcnogbGlzdMSZIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxucHJveHkgLT4-KyBiYWx0aWNsc2M6IFBvYmllcnogbGlzdMSZIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxuXG5iYWx0aWNsc2MgLS0-Pi0gcHJveHk6IExpc3RhIG1vZHXFgsOzdyBvYmxpY3plbmlvd3ljaFxucHJveHkgLS0-Pi0gYnJvd3NlcjogTGlzdGEgbW9kdcWCw7N3IG9ibGljemVuaW93eWNoXG4iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IHByb3h5IGFzIFNlcndlciBTaXJpdXMgV2ViXG5wYXJ0aWNpcGFudCBiYWx0aWNsc2MgYXMgU2Vyd2VyIEJhbHRpY0xTQ1xuXG5icm93c2VyIC0-PisgcHJveHk6IFBvYmllcnogbGlzdMSZIGplZG5vc3RlayBvYmxpY3plbmlvd3ljaFxucHJveHkgLT4-KyBiYWx0aWNsc2M6IFBvYmllcnogbGlzdMSZIGplZG5vc3RlayBvYmxpY3plbmlvd3ljaFxuXG5iYWx0aWNsc2MgLS0-Pi0gcHJveHk6IExpc3RhIGplZG5vc3RlayBvYmxpY3plbmlvd3ljaFxucHJveHkgLS0-Pi0gYnJvd3NlcjogTGlzdGEgamVkbm9zdGVrIG9ibGljemVuaW93eWNoXG4iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
 %
 % sequenceDiagram
 % participant browser as Przeglądarka
 % participant proxy as Serwer Sirius Web
 % participant balticlsc as Serwer BalticLSC
 %
-% browser ->>+ proxy: Pobierz listę modułów obliczeniowych
-% proxy ->>+ balticlsc: Pobierz listę modułów obliczeniowych
+% browser ->>+ proxy: Pobierz listę jednostek obliczeniowych
+% proxy ->>+ balticlsc: Pobierz listę jednostek obliczeniowych
 %
-% balticlsc -->>- proxy: Lista modułów obliczeniowych
-% proxy -->>- browser: Lista modułów obliczeniowych
+% balticlsc -->>- proxy: Lista jednostek obliczeniowych
+% proxy -->>- browser: Lista jednostek obliczeniowych
 
 Serwerem pośredniczącym może być na przykład serwer aplikacyjny \SiriusWeb{}.
 Dodano do niego odpowiedni mechanizm tak, aby wszystkie zapytania
@@ -553,7 +548,7 @@ zaczyna się~od~\texttt{/balticlsc-proxy} przesyłane były do serwera
 \BalticLSC{}, a odpowiedzi z serwera zwracane do~oryginalnego nadawcy
 zapytania.
 
-W przypadku uruchomienia edytora diagramów \SiriusWeb{} jako część głównej
+W przypadku uruchomienia edytora diagramów \SiriusWeb{} jako część głównej
 aplikacji przeglądarkowej \BalticLSC{} pod tym samym adresem co serwer
 aplikacyjny tej platformy można zrezygnować z komunikacji z wykorzystaniem
 serwera pośredniczącego i wysyłać zapytania bezpośrednio do serwera
@@ -565,7 +560,7 @@ wykorzystany i przeglądarka pozwoli na wykonanie połączenia.
 
 W sekcji~\ref{sec:pobranie-zawartosci-przybornika} opisany został mechanizm, za
 pomocą którego aplikacja przeglądarkowa \SiriusWeb{} ma dostęp do listy
-modułów obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
+jednostek obliczeniowych dodanych do przybornika danego użytkownika. Zawartość
 przybornika należy wyświetlić na ekranie w obrębie edytora diagramów, aby
 użytkownik mógł z niego skorzystać. Realizacja tej funkcjonalności wymaga
 modyfikacji interfejsu użytkownika \SiriusWeb{}.
@@ -595,7 +590,7 @@ programistę pracującego nad własnym edytorem diagramów. Wyświetla on zawsze
 komponenty w ustalonym porządku:
 
 \begin{itemize}
-	\item Panel z lewej strony składający się z drzewa elementów projektu na górze oraz informacji diagnostycznych modelu na dole.
+	\item Panel z lewej strony składający się z drzewa elementów projektu na górze oraz informacji diagnostycznych modelu na dole.
 	\item Panel główny z edytorem aktualnie wybranego diagramu. Gdy żaden nie jest wybrany, wyświetlone są tam przyciski umożliwiające łatwe stworzenie pierwszego modelu w~projekcie.
 	\item Panel z prawej strony składający się z detali aktualnie wybranego elementu diagramu.
 \end{itemize}
@@ -621,7 +616,7 @@ interfejsie mogą wymagać zmian w kodzie komponentu
 komponentu jest skopiowana do własnego repozytorium, komponent ten~może
 przestać działać po aktualizacji serwera aplikacyjnego \SiriusWeb{}.
 Utrudnia to~utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
-się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
+się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
 przeglądarkowej.
 
 Innym nieudostępnionym z \texttt{sirius-components} komponentem jest
@@ -656,9 +651,9 @@ wyświetlonego diagramu.
 
 Skopiowane komponenty można dowolnie edytować i rozszerzać. W tym przypadku
 zmodyfikowano skopiowany komponent \texttt{Workbench} i dodano w nim
-przyciski odpowiedzialne za dodanie wywołania modułu obliczeniowego do
-diagramu. Każdy przycisk zawiera ikonę modułu, podobnie jak w interfejsie
-\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę modułu oraz jego
+przyciski odpowiedzialne za dodanie wywołania jednostki obliczeniowej do
+diagramu. Każdy przycisk zawiera ikonę jednostki, podobnie jak w interfejsie
+\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę jednostki oraz jej
 wersję, co zostało zaprezentowane na rysunku~\ref{rys:sirius-web-toolbox}.
 Ponadto dodany został przycisk
 pozwalający na odświeżenie przybornika poprzez ponowne pobranie jego
@@ -675,12 +670,12 @@ zainstalowana w projekcie \SiriusWeb{}.
 		\SiriusWeb{}}\label{rys:sirius-web-toolbox}
 \end{figure}
 
-\subsection{Dodanie wywołania modułu obliczeniowego do modelu}
+\subsection{Dodanie wywołania jednostki obliczeniowej do modelu}
 
-W momencie kliknięcia przycisku z ikoną modułu obliczeniowego do modelu
-powinno być~dodane wywołanie tego modułu (obiekt \texttt{UnitCall}). Jeżeli
-jest to pierwszy raz~gdy~wywołanie tego modułu zostaje dodane do diagramu,
-należy przed tym dodać definicję modułu (obiekt
+W momencie kliknięcia przycisku z ikoną jednostki obliczeniowej do modelu
+powinno być~dodane wywołanie tej jednostki (obiekt \texttt{UnitCall}). Jeżeli
+jest to pierwszy raz~gdy~wywołanie tej jednostki zostaje dodane do diagramu,
+należy przed tym dodać definicję jednostki (obiekt
 \texttt{ComputationUnitRelease}) do modelu. Modyfikacja modelu poprzez
 aplikację przeglądarkową odbywa się poprzez wysłanie mutacji (\emph{mutation})
 w języku \GraphQL{} do serwera aplikacyjnego \SiriusWeb{}, wskazując
@@ -695,7 +690,7 @@ szczegółach mutacji przekazać dwa identyfikatory:
 
 \begin{itemize}
 	\item Identyfikator kontekstu edycji danego modelu (\texttt{editingContextId}). Jest to obiekt związany ze szczegółami implementacyjnymi serwera aplikacyjnego \BalticLSC{}. Każdy projekt ma swój kontekst edycji, który można otrzymać wykonując zapytanie \GraphQL{} podając w szczegółach identyfikator projektu.
-	\item Identyfikator obiektu nadrzędnego, w którym ma zostać umieszczony nowy obiekt. Model ma strukturę drzewiastą, więc w przypadku tworzenia nowego modułu obliczeniowego lub jego wywołania rodzicem będzie obiekt \texttt{ComputationApplicationRelease}, czyli główny obiekt modelu.
+	\item Identyfikator obiektu nadrzędnego, w którym ma zostać umieszczony nowy obiekt. Model ma strukturę drzewiastą, więc w przypadku tworzenia nowej jednostki obliczeniowej lub~jej~wywołania rodzicem będzie obiekt \texttt{ComputationApplicationRelease}, czyli główny obiekt modelu.
 \end{itemize}
 
 Pierwszy z identyfikatorów jest dostępny w komponencie \texttt{Workbench},
@@ -724,24 +719,26 @@ był jednorazowym zapytaniem, ponieważ nasłuchiwanie na zmiany zostanie
 zakończone tuż po otrzymaniu odpowiedzi. W porównaniu do zwykłego zapytania
 takie rozwiązanie wprowadza dodatkowy narzut w ruchu sieciowym.
 
-Utrudnieniem w pobieraniu identyfikatora korzenia modelu jest fakt, że
+Utrudnieniem w pobieraniu identyfikatora głównego obiektu modelu jest fakt, że
 subskrypcja \texttt{treeEvent} zwraca informacje jedynie o zawartości tych
 obiektów,
 których identyfikatory zostały przekazane do subskrypcji. Nawiązuje to do
 rozwijania kolejnych poziomów drzewa modelu w interfejsie użytkownika.
-Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący dokument
+Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący dokument
 \texttt{Document}, który
-w sobie zawiera korzeń modelu znany z metamodelu
+w sobie zawiera główny obiekt modelu znany z metamodelu
 (\texttt{ComputationApplicationRelease}). Aby
-otrzymać identyfikator korzenia modelu należy więc pobrać informacje w dwóch
+otrzymać identyfikator głównego obiektu modelu należy więc pobrać informacje w
+dwóch
 krokach: najpierw pobrać informacje o dokumencie, a~później przekazać jego
-identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator korzenia
-modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
-aplikacją przeglądarkową a serwerem w celu otrzymania identyfikatora korzenia
+identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator głównego
+obiektu modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
+aplikacją przeglądarkową a serwerem w celu otrzymania identyfikatora głównego
+obiektu
 modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 
 % Kod źródłowy diagramu:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IGJhY2tlbmQgYXMgU2Vyd2VyIFNpcml1cyBXZWJcblxuYnJvd3NlciAtKSsgYmFja2VuZDogU3RhcnQgdHJlZUV2ZW50IElEIDEgKHB1c3RhIGxpc3RhIHJvendpbmnEmXR5Y2ggd8SZesWCw7N3KVxuYmFja2VuZCAtLSktIGJyb3dzZXI6IE9kcG93aWVkxbogdHJlZUV2ZW50IElEIDEgLSBpZGVudHlmaWthdG9yIGRva3VtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkgYmFja2VuZDogU3RvcCB0cmVlRXZlbnQgSUQgMVxuXG5cbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0YXJ0IHRyZWVFdmVudCBJRCAyIChyb3p3aW5pxJl0eSB3xJl6ZcWCIGRva3VtZW50dSBtb2RlbHUpXG5iYWNrZW5kIC0tKS0gYnJvd3NlcjogT2Rwb3dpZWTFuiB0cmVlRXZlbnQgSUQgMiAtIGlkZW50eWZpa2F0b3Iga29yemVuaWEgbW9kZWx1XG5icm93c2VyIC0pIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDIiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IGJhY2tlbmQgYXMgU2Vyd2VyIFNpcml1cyBXZWJcblxuYnJvd3NlciAtKSsgYmFja2VuZDogU3RhcnQgdHJlZUV2ZW50IElEIDEgKHB1c3RhIGxpc3RhIHJvendpbmnEmXR5Y2ggd8SZesWCw7N3KVxuYmFja2VuZCAtLSktIGJyb3dzZXI6IE9kcG93aWVkxbogdHJlZUV2ZW50IElEIDEgLSBpZGVudHlmaWthdG9yIGRva3VtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDFcbmRlYWN0aXZhdGUgYmFja2VuZFxuXG5cbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0YXJ0IHRyZWVFdmVudCBJRCAyIChyb3p3aW5pxJl0eSB3xJl6ZcWCIGRva3VtZW50dSBtb2RlbHUpXG5iYWNrZW5kIC0tKS0gYnJvd3NlcjogT2Rwb3dpZWTFuiB0cmVlRXZlbnQgSUQgMiAtPGJyIC8-IGlkZW50eWZpa2F0b3IgZ8WCw7N3bmVnbyBlbGVtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDJcbmRlYWN0aXZhdGUgYmFja2VuZCIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
 % Przekonwertowane do PDF dzięki https://cloudconvert.com/svg-to-pdf (Engine: imagemagick)
 %
 % sequenceDiagram
@@ -750,29 +747,31 @@ modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 %
 % browser -)+ backend: Start treeEvent ID 1 (pusta lista rozwiniętych węzłów)
 % backend --)- browser: Odpowiedź treeEvent ID 1 - identyfikator dokumentu modelu
-% browser -) backend: Stop treeEvent ID 1
+% browser -)+ backend: Stop treeEvent ID 1
+% deactivate backend
 %
 %
 % browser -)+ backend: Start treeEvent ID 2 (rozwinięty węzeł dokumentu modelu)
-% backend --)- browser: Odpowiedź treeEvent ID 2 - identyfikator korzenia modelu
-% browser -) backend: Stop treeEvent ID 2
+% backend --)- browser: Odpowiedź treeEvent ID 2 -<br /> identyfikator głównego elementu modelu
+% browser -)+ backend: Stop treeEvent ID 2
+% deactivate backend
 
 % \begin{noindent}
 \begin{figure}[!ht]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-fetch-model-root-id.pdf}
+  \includegraphics[width=0.90\linewidth]{./images/sirius-web-fetch-model-root-id.pdf}
   \caption{Diagram sekwencji pobierania identyfikatora głównego obiektu
     modelu}\label{rys:sirius-web-fetch-model-root-id}
 \end{figure}
 % \end{noindent}
 
-\subsubsection{Mutacja dodająca wywołanie modułu obliczeniowego}
+\subsubsection{Mutacja dodająca wywołanie jednostki obliczeniowej}
 
 W domyślnym interfejsie użytkownika \SiriusWeb{} obiekty można dodawać na
 dwa sposoby: wywołując narzędzia powiązane z metamodelem (opisane w
 sekcji~\ref{sec:cal-metamodel-tools}) lub tworząc obiekty bezpośrednio w modelu
-zgodnie ze strukturą metamodelu z wykorzystaniem drzewa obiektów.
+zgodnie ze strukturą metamodelu z wykorzystaniem drzewa obiektów.
 Ponieważ narzędzia tworzące elementy nie przyjmują parametrów z zewnątrz
 dostępna jest~jedynie metoda bezpośredniego tworzenia elementów.
 
@@ -785,15 +784,16 @@ występującego w
 metamodelu w sposób niemożliwy do odgadnięcia, więc otrzymanie informacji o
 tych identyfikatorach wymaga wysłania zapytania do serwera.
 
-Tworząc nowe wywołanie modułu obliczeniowego należy stworzyć wiele obiektów
+Tworząc nowe wywołanie jednostki obliczeniowej należy stworzyć wiele obiektów
 w~modelu: obiekt \texttt{UnitCall} oraz po jednym obiekcie
-\texttt{ComputedDataPin} na każdy port modułu obliczeniowego. Jeżeli ten moduł
-wykorzystywany jest po raz pierwszy w modelu, należy najpierw stworzyć obiekt
+\texttt{ComputedDataPin} na każdy pin jednostki obliczeniowej. Jeżeli ta
+jednostka
+wykorzystywana jest po raz pierwszy w modelu, należy najpierw stworzyć obiekt
 \texttt{ComputationApplicationRelease} oraz po jednym obiekcie
-\texttt{DeclaredDataPin} na każdy port modułu obliczeniowego. Ponadto,
+\texttt{DeclaredDataPin} na każdy pin jednostki obliczeniowej. Ponadto,
 te modyfikacje powinny odbyć się w obrębie jednej transakcji. Z uwagi na
-dużą liczbę obiektów do stworzenia w trybie transakcyjnym, a~także dodatkowe
-zapytania sieciowe w celu sprawdzenia czy moduł był~już~użyty w modelu,
+dużą liczbę obiektów do stworzenia w~trybie transakcyjnym, a~także dodatkowe
+zapytania sieciowe w celu sprawdzenia czy jednostka była~już~użyta w modelu,
 zdecydowano, że zostanie dodana do serwera aplikacyjnego nowa mutacja
 \texttt{createUnitCall}, która będzie odpowiedzialna za te operacje.
 
@@ -819,7 +819,7 @@ kroków:
 
 	\item Implementacja klasy \texttt{CreateUnitCallEventHandler} odpowiedzialnej za odpowiednie zmodyfikowanie modelu.
 
-	      To w tej klasie znajduje się logika sprawdzająca czy moduł jest już wykorzystywany w~modelu i dodawanie jego definicji jeżeli nie jest użyty lub użycie już dodanej definicji jeżeli istnieje, a później tworzenie wywołania tego modułu z odpowiednimi wskazaniami na definicję modułu.
+	      To w tej klasie znajduje się logika sprawdzająca czy jednostka jest już wykorzystywana w~modelu i dodawanie jej definicji jeżeli nie jest użyta lub użycie już dodanej definicji jeżeli istnieje, a później tworzenie wywołania tej jednostki z odpowiednimi wskazaniami na definicję jednostki.
 
 \end{itemize}
 
@@ -827,60 +827,28 @@ Wszystkie dodane klasy zostaną automatycznie wzięte pod uwagę przez serwer
 aplikacyjny \SiriusWeb{} podczas obsługi zapytań \emphgls{API} dzięki
 mechanizmowi wstrzykiwania zależności (\emph{Dependency Injection}) platformy
 \emph{Java Spring}.
-W kodzie obsługi mutacji można wykorzystywać klasy metamodelu \EMF{}.
+W kodzie obsługi mutacji można wykorzystywać klasy języka \Java{} odpowiadające
+metaklasom wygenerowane na podstawie metamodelu języka \CAL{} w formacie
+\Ecore{}.
 Sprawia to, że implementacja jest prostsza i szybsza w porównaniu do
 wykonywania tych samych operacji komunikując się przez warstwę zapytań
 \GraphQL{}.
 Dodatkowo wszystkie zmiany wprowadzane przez kod obsługi mutacji są widoczne
-na raz, ponieważ są wykonywane w obrębie jednej synchronicznej metody. Skutkuje
-to atomowością tej~operacji. Przeglądarka nie dostanie dostanie informacji o
+na raz, ponieważ są wykonywane w~obrębie jednej synchronicznej metody. Skutkuje
+to atomowością tej~operacji. Przeglądarka nie~dostanie dostanie informacji o
 połowicznie zmodyfikowanym modelu --- aktualizacja zostanie przesłana dopiero
 po zakończeniu mutacji. Diagram aktywności przedstawiający dodanie wywołania
-modułu obliczeniowego jest przedstawiony
+jednostki obliczeniowej jest przedstawiony
 na~rysunku~\ref{rys:sirius-web-create-unit-call-mutation-handler}. Treść
-przykładowej mutacji odpowiedzialnej za dodanie modułu \emph{Bounding Labels}
-posiadającego dwa porty znajduje się na
-listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
+przykładowej mutacji odpowiedzialnej za dodanie jednostki \emph{Bounding
+	Labels}
+posiadającej dwa piny znajduje się
+na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
-% Źródło:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggVERcbiAgICBTdGFydCAtLT4gU2VhcmNoVW5pdFJlbGVhc2UoUG9zenVrYWogbW9kdcWCdSB3IG1vZGVsdSlcbiAgICBTZWFyY2hVbml0UmVsZWFzZSAtLT4gSWZVbml0UmVsZWFzZUV4aXN0cyhNb2R1xYIganXFvCB3eXdvxYJhbnkgdyBtb2RlbHU_KVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSB6YWRla2xhcm93YW5lIHBpbnkgbW9kdcWCdT8pXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLT58bmllfCBDcmVhdGVEZWNsYXJlZERhdGFQaW4oVXR3w7NyeiBvYmlla3QgRGVjbGFyZWREYXRhUGluIGkgcG93acSFxbwgeiBDb21wdXRhdGlvblVuaXRSZWxlYXNlKVxuICAgIENyZWF0ZURlY2xhcmVkRGF0YVBpbiAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZFxuICAgIElmQWxsRGVjbGFyZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IENyZWF0ZVVuaXRDYWxsXG4gICAgXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58dGFrfCBDcmVhdGVVbml0Q2FsbChVdHfDs3J6IG9iaWVrdCBVbml0Q2FsbCBpIGRvZGFqIGdvIGRvIG1vZGVsdSlcbiAgICBDcmVhdGVVbml0Q2FsbCAtLT4gSWZBbGxDb21wdXRlZERhdGFQaW5zQ3JlYXRlZChDenkgdXR3b3J6b25vIHdzenlzdGtpZSBwaW55IG1vZHXFgnU_KVxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0-fG5pZXwgQ3JlYXRlQ29tcHV0ZWREYXRhUGluKFV0d8Ozcnogb2JpZWt0IENvbXB1dGVkRGF0YVBpbiBpIHBvd2nEhcW8IHogVW5pdENhbGwpXG4gICAgQ3JlYXRlQ29tcHV0ZWREYXRhUGluIC0tPiBDb25uZWN0UGlucyhQb3dpxIXFvCBDb21wdXRlZERhdGFQaW4geiBvZHBvd2llZG5pbSBEZWNsYXJlZERhdGFQaW4pXG4gICAgQ29ubmVjdFBpbnMgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWRcblxuICAgIElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWQgLS0tPnx0YWt8IFJldHVyblVuaXRDYWxsKFp3csOzxIcgaW5mb3JtYWNqZSBvIHN0d29yem9ueW0gVW5pdENhbGwpXG4gICAgUmV0dXJuVW5pdENhbGwgLS0-IEVuZChLb25pZWMpIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0
-% Konwertowane do PDF poprzez drukowanie do PDF w Google Chrome.
-% Wykorzystanie https://cloudconvert.com/ usuwało tekst z diagramu.
-%
-% graph TD
-%     Start --> SearchUnitRelease(Poszukaj modułu w modelu)
-%     SearchUnitRelease --> IfUnitReleaseExists(Moduł już wywołany w modelu?)
-%
-%     IfUnitReleaseExists -->|nie| CreateComputationUnitRelease(Utwórz obiekt ComputationUnitRelease i dodaj go do modelu)
-%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated(Czy utworzono wszystkie zadeklarowane porty modułu?)
-%     IfAllDeclaredDataPinsCreated -->|nie| CreateDeclaredDataPin(Utwórz obiekt DeclaredDataPin i powiąż z ComputationUnitRelease)
-%     CreateDeclaredDataPin --> IfAllDeclaredDataPinsCreated
-%     IfAllDeclaredDataPinsCreated --->|tak| CreateUnitCall
-%
-%     IfUnitReleaseExists -->|tak| CreateUnitCall(Utwórz obiekt UnitCall i dodaj go do modelu)
-%     CreateUnitCall --> IfAllComputedDataPinsCreated(Czy utworzono wszystkie porty modułu?)
-%     IfAllComputedDataPinsCreated -->|nie| CreateComputedDataPin(Utwórz obiekt ComputedDataPin i powiąż z UnitCall)
-%     CreateComputedDataPin --> ConnectPins(Powiąż ComputedDataPin z odpowiednim DeclaredDataPin)
-%     ConnectPins --> IfAllComputedDataPinsCreated
-%
-%     IfAllComputedDataPinsCreated --->|tak| ReturnUnitCall(Zwróć informacje o stworzonym UnitCall)
-%     ReturnUnitCall --> End(Koniec)
-
-% \begin{noindent}
-\begin{figure}[!ht]
-  \centering
-
-  \includegraphics[width=0.90\linewidth]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
-  \caption{Diagram aktywności dla dodania nowego wywołania modułu
-    obliczeniowego}\label{rys:sirius-web-create-unit-call-mutation-handler}
-\end{figure}
-% \end{noindent}
-
-\begin{lstlisting}[float,
-    floatplacement=hb,
+\begin{lstlisting}[float=hb,
     % NOTE: graphql is not supported, c adds basic highlighting for strings
     language=c,
-    caption={Mutacja \GraphQL{} dodająca wywołanie modułu obliczeniowego do
+    caption={Mutacja \GraphQL{} dodająca wywołanie jednostki obliczeniowej do
       modelu},
     label={lst:sirius-web-createUnitCall-mutation}]
 mutation {
@@ -900,35 +868,62 @@ mutation {
             tokenMultiplicity: SINGLE,
             dataMultiplicity: SINGLE
           },
-          {
-            id: "76c05ac4-4b34-4053-97e5-8d65748d1485",
-            name: "Output",
-            binding: PROVIDED,
-            tokenMultiplicity: SINGLE,
-            dataMultiplicity: SINGLE
-          }
+          { /* definicja drugiego pinu, podobna do tej powyżej */ }
         ]
       }
   }) {
-    __typename
     ... on CreateUnitCallSuccessPayload {
       id
-      createdUnitCall {
-        id
-        kind
-        label
-      }
+      createdUnitCall { id }
     }
   }
 }
 \end{lstlisting}
+
+% Źródło:
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgU3RhcnQoKHh4eCkpXG4gICAgc3R5bGUgU3RhcnQgZmlsbDojMDAwXG4gICAgU3RhcnQgLS0-IFNlYXJjaFVuaXRSZWxlYXNlKFBvc3p1a2FqIG1vZHXFgnUgdyBtb2RlbHUpXG4gICAgU2VhcmNoVW5pdFJlbGVhc2UgLS0-IElmVW5pdFJlbGVhc2VFeGlzdHN7TW9kdcWCIGp1xbw8YnIvPnd5d2_FgmFueTxici8-dyBtb2RlbHU_fVxuXG4gICAgSWZVbml0UmVsZWFzZUV4aXN0cyAtLT58bmllfCBDcmVhdGVDb21wdXRhdGlvblVuaXRSZWxlYXNlKFV0d8Ozcnogb2JpZWt0IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlQ29tcHV0YXRpb25Vbml0UmVsZWFzZSAtLT4gSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZHtVdHdvcnpvbm88YnIvPndzenlzdGtpZTxici8-emFkZWtsYXJvd2FuZTxici8-cGlueSBtb2R1xYJ1P31cbiAgICBJZkFsbERlY2xhcmVkRGF0YVBpbnNDcmVhdGVkIC0tPnxuaWV8IENyZWF0ZURlY2xhcmVkRGF0YVBpbihVdHfDs3J6IG9iaWVrdCBEZWNsYXJlZERhdGFQaW4gaSBwb3dpxIXFvCB6IENvbXB1dGF0aW9uVW5pdFJlbGVhc2UpXG4gICAgQ3JlYXRlRGVjbGFyZWREYXRhUGluIC0tPiBJZkFsbERlY2xhcmVkRGF0YVBpbnNDcmVhdGVkXG4gICAgSWZBbGxEZWNsYXJlZERhdGFQaW5zQ3JlYXRlZCAtLS0-fHRha3wgQ3JlYXRlVW5pdENhbGxcblxuICAgIElmVW5pdFJlbGVhc2VFeGlzdHMgLS0-fHRha3wgQ3JlYXRlVW5pdENhbGwoVXR3w7NyeiBvYmlla3QgVW5pdENhbGwgaSBkb2RhaiBnbyBkbyBtb2RlbHUpXG4gICAgQ3JlYXRlVW5pdENhbGwgLS0-IElmQWxsQ29tcHV0ZWREYXRhUGluc0NyZWF0ZWR7VXR3b3J6b25vPGJyIC8-d3N6eXN0a2llPGJyIC8-cGlueSBtb2R1xYJ1P31cbiAgICBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkIC0tPnxuaWV8IENyZWF0ZUNvbXB1dGVkRGF0YVBpbihVdHfDs3J6IG9iaWVrdCBDb21wdXRlZERhdGFQaW4gaSBwb3dpxIXFvCB6IFVuaXRDYWxsKVxuICAgIENyZWF0ZUNvbXB1dGVkRGF0YVBpbiAtLT4gQ29ubmVjdFBpbnMoUG93acSFxbwgQ29tcHV0ZWREYXRhUGluIHogb2Rwb3dpZWRuaW0gRGVjbGFyZWREYXRhUGluKVxuICAgIENvbm5lY3RQaW5zIC0tPiBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkXG5cbiAgICBJZkFsbENvbXB1dGVkRGF0YVBpbnNDcmVhdGVkIC0tLT58dGFrfCBSZXR1cm5Vbml0Q2FsbChad3LDs8SHIGluZm9ybWFjamUgbyBzdHdvcnpvbnltIFVuaXRDYWxsKVxuICAgIFJldHVyblVuaXRDYWxsIC0tPiBFbmRcbiAgICBFbmQoKFwiIzExMDQ0O1wiKSkiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+% Konwertowane do PDF poprzez drukowanie do PDF w Google Chrome.
+% Wykorzystanie https://cloudconvert.com/ usuwało tekst z diagramu.
+%
+% flowchart TD
+%     Start((xxx))
+%     style Start fill:#000
+%     Start --> SearchUnitRelease(Poszukaj jednostki w modelu)
+%     SearchUnitRelease --> IfUnitReleaseExists{Jednostka już<br/>wywołana<br/>w modelu?}
+%
+%     IfUnitReleaseExists -->|nie| CreateComputationUnitRelease(Utwórz obiekt ComputationUnitRelease i dodaj go do modelu)
+%     CreateComputationUnitRelease --> IfAllDeclaredDataPinsCreated{Utworzono<br/>wszystkie<br/>zadeklarowane<br/>piny jednostki?}
+%     IfAllDeclaredDataPinsCreated -->|nie| CreateDeclaredDataPin(Utwórz obiekt DeclaredDataPin i powiąż z ComputationUnitRelease)
+%     CreateDeclaredDataPin --> IfAllDeclaredDataPinsCreated
+%     IfAllDeclaredDataPinsCreated --->|tak| CreateUnitCall
+%
+%     IfUnitReleaseExists -->|tak| CreateUnitCall(Utwórz obiekt UnitCall i dodaj go do modelu)
+%     CreateUnitCall --> IfAllComputedDataPinsCreated{Utworzono<br />wszystkie<br />piny jednostki?}
+%     IfAllComputedDataPinsCreated -->|nie| CreateComputedDataPin(Utwórz obiekt ComputedDataPin i powiąż z UnitCall)
+%     CreateComputedDataPin --> ConnectPins(Powiąż ComputedDataPin z odpowiednim DeclaredDataPin)
+%     ConnectPins --> IfAllComputedDataPinsCreated
+%
+%     IfAllComputedDataPinsCreated --->|tak| ReturnUnitCall(Zwróć informacje o stworzonym UnitCall)
+%     ReturnUnitCall --> End
+%     End(("#11044;"))
+
+% \begin{noindent}
+\begin{figure}[!ht]
+  \centering
+
+  % NOTE: makes the image take up the whole page
+  \includegraphics[height=0.93\textheight]{./images/sirius-web-create-unit-call-mutation-handler.pdf}
+  \caption{Diagram aktywności dla dodania nowego wywołania jednostki
+    obliczeniowej}\label{rys:sirius-web-create-unit-call-mutation-handler}
+\end{figure}
+% \end{noindent}
 
 \section{Walidacja semantyczna modelu}\label{sec:walidacja-semantyczna-modelu}
 
 \SiriusDesktop{} posiada funkcjonalność walidacji modelu pod względem
 składniowym (na podstawie atrybutów metamodelu) oraz semantycznym (na podstawie
 reguł \emph{\selectlanguage{english}Semantic Validation Rule} zdefiniowanych w
-pliku \texttt{*.odesign} metamodelu \EMF{}), co zostało opisane w
+pliku \texttt{*.odesign} metamodelu w formacie \Ecore{}), co zostało opisane w
 sekcji~\ref{sec:reguly-walidacyjne-metamodel}.
 
 \SiriusWeb{} w swoim interfejsie użytkownika posiada miejsce, w którym
@@ -941,13 +936,13 @@ rysunku~\ref{rys:sirius-desktop-and-web-semantic-validation-comparison}
 porównano zwracane informacje diagnostyczne w \SiriusWeb{} i \SiriusDesktop{}
 dla dwóch modeli o podobnej strukturze. W aplikacji natywnej
 widać błędy walidacji semantycznej pochodzące
-z~reguł z~metamodelu \EMF{}. Błędów tych brakuje w aplikacji
+z~reguł z~metamodelu w formacie \Ecore{}. Błędów tych brakuje w aplikacji
 przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 \texttt{sirius-web}\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/816}}.
 
 % \begin{noindent}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
@@ -960,7 +955,7 @@ przeglądarkowej. Problem ten~został zgłoszony w repozytorium
 		\caption{Brak błędów walidacji semantycznej w \SiriusWeb{}}
 	\end{subfigure}
 
-	\caption{Obsługa reguł walidacji semantycznej \EMF{} w \SiriusWeb{}
+	\caption{Obsługa reguł walidacji semantycznej z formatu \Ecore{} w \SiriusWeb{}
     i \SiriusDesktop{}}\label{rys:sirius-desktop-and-web-semantic-validation-comparison}
 \end{figure}
 % \end{noindent}
@@ -991,39 +986,36 @@ semantycznej należy w metodzie \texttt{getDiagnostics\-Provider} klasy
 nowe elementy do listy wynikowych informacji diagnostycznych.
 
 Z uwagi na skomplikowanie dostępu programistycznego do reguł walidacji
-semantycznej zdefiniowanej w metamodelu \EMF{} zdecydowano, że dodatkowy
+semantycznej zdefiniowanych w formacie \Ecore{} zdecydowano, że dodatkowy
 mechanizm walidacji semantycznej w \SiriusWeb{} zostanie zaimplementowany
-za pomocą osobnych klas języka \Java{}, niekorzystających z reguł zdefiniowanych
-w metamodelu \EMF{}. Diagram klas systemu walidacji semantycznej widoczny
+za pomocą osobnych klas języka \Java{}, niekorzystających z reguł
+zdefiniowanych
+w formacie \Ecore{}. Diagram klas systemu walidacji semantycznej widoczny
 jest na rysunku~\ref{rys:sirius-web-semantic-validation-class-diagram}.
 
 % Źródło:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgZGlyZWN0aW9uIFJMXG4gICAgY2xhc3MgSVNlbWFudGljQ0FMVmFsaWRhdGlvblJ1bGUge1xuICAgICAgICA8PGludGVyZmFjZT4-XG4gICAgICAgIHZhbGlkYXRlKENvbXB1dGF0aW9uQXBwbGljYXRpb25SZWxlYXNlIG1vZGVsKSBMaXN0fkRpYWdub3N0aWN-XG4gICAgfVxuXG4gICAgY2xhc3MgRGF0YUZsb3dEaXJlY3Rpb25cbiAgICBEYXRhRmxvd0RpcmVjdGlvbiAuLnw-IElTZW1hbnRpY0NBTFZhbGlkYXRpb25SdWxlXG4gICAgY2xhc3MgTm9EYXRhRmxvd0N5Y2xlc1xuICAgIE5vRGF0YUZsb3dDeWNsZXMgLi58PiBJU2VtYW50aWNDQUxWYWxpZGF0aW9uUnVsZVxuICAgIGNsYXNzIE5vRGF0YUZsb3dMb29wc1xuICAgIE5vRGF0YUZsb3dMb29wcyAuLnw-IElTZW1hbnRpY0NBTFZhbGlkYXRpb25SdWxlXG5cbiAgICBjbGFzcyBWYWxpZGF0aW9uRGVzY3JpcHRpb25Qcm92aWRlclxuICAgIFZhbGlkYXRpb25EZXNjcmlwdGlvblByb3ZpZGVyIFwiMFwiIC0tPiBcIipcIiBJU2VtYW50aWNDQUxWYWxpZGF0aW9uUnVsZSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% http://www.plantuml.com/plantuml/uml/dSx1IWD1383X-pn5w4aBBPvbMLfs4OH5HC5xc8qIo4o6IQOYuhjBRTNR8jw6oV-HxConUaiIE3lLPum4ju-KC3l7OJyzeV2CpfeVcX1qtK_Mz_0U00wdW2u6JQNvLxelHJYU50cX4IITIIwlOMBpRcHyoMhEiGyV8KH1CnZHyKRqTUHAyKY1Kn5AbDqMJZhhE_tsmriKid_YIRNyrPxnx-z85YkNu_E-we5dgc5n2flD6bPNs-rwjRHeHtbkIJu1
 % Przekształcono do PDF za pomocą drukowania SVG do PDF w Google Chrome.
 % Potem użyto pdfcrop do przycięcia PDF.
 %
-% classDiagram
-%     direction RL
-%     class ISemanticCALValidationRule {
-%         <<interface>>
-%         validate(ComputationApplicationRelease model) List~Diagnostic~
-%     }
+% @startuml
+% interface ISemanticCALValidationRule <<interface>> {
+%   validate(ComputationApplicationRelease model): List<Diagnostic>
+% }
 %
-%     class DataFlowDirection
-%     DataFlowDirection ..|> ISemanticCALValidationRule
-%     class NoDataFlowCycles
-%     NoDataFlowCycles ..|> ISemanticCALValidationRule
-%     class NoDataFlowLoops
-%     NoDataFlowLoops ..|> ISemanticCALValidationRule
+% class DataFlowDirection implements ISemanticCALValidationRule
+% class NoDataFlowCycles implements ISemanticCALValidationRule
+% class NoDataFlowLoops implements ISemanticCALValidationRule
 %
-%     class ValidationDescriptionProvider
-%     ValidationDescriptionProvider --> "0..*" ISemanticCALValidationRule
+% class ValidationDescriptionProvider
+% ValidationDescriptionProvider --* "0..*" ISemanticCALValidationRule
+% @enduml
 
 % \begin{noindent}
 \begin{figure}[!hb]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
+  \includegraphics[width=0.9\linewidth]{./images/sirius-web-semantic-validation-class-diagram.pdf}
   \caption{Diagram klas związanych z walidacją semantyczną w
     \SiriusWeb{}}\label{rys:sirius-web-semantic-validation-class-diagram}
 \end{figure}
@@ -1033,10 +1025,10 @@ Podstawą architektury do walidacji semantycznej modeli jest interfejs
 \texttt{ISemanticCAL\-Validation\-Rule}. Jest on implementowany przez klasy
 będące
 poszczególnymi regułami walidacji semantycznej modeli języka \CAL{}. Każda
-taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
+taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
 instancję klasy \texttt{ComputationApplicationRelease}. Jest~to klasa
-wygenerowana na podstawie metamodelu \EMF{}
-będąca korzeniem drzewa modelu i~dzięki niej można dotrzeć do dowolnego
+wygenerowana na podstawie metamodelu języka \CAL{} w formacie \Ecore{}
+będąca głównym obiektem modelu i~dzięki niej można dotrzeć do dowolnego
 elementu modelu. Metoda \texttt{validate} zwraca listę obiektów klasy
 \texttt{Diagnostic}
 zawierających informacje diagnostyczne o modelu. Jedna reguła walidacji
@@ -1054,10 +1046,10 @@ kończy się w porcie oznaczonym jako~wyjściowy (\emph{provided}).
 
 Druga reguła (\texttt{NoDataFlowLoops}) zgłasza jako błędy sytuacje, w których
 w modelu występuje
-połączenie między portami na tym samym wywołaniu modułu obliczeniowego.
-Taki moduł nigdy nie rozpocząłby pracy, ponieważ do rozpoczęcia działania
-wymaga danych dostarczonych na wszystkich swoich portach, a więc także danych
-dostarczonych od samego siebie, które będą dostępne dopiero po rozpoczęciu
+połączenie między pinami na tym samym wywołaniu jednostki obliczeniowej.
+Taka jednostka nigdy nie rozpoczęłaby pracy, ponieważ do rozpoczęcia działania
+wymaga danych dostarczonych na wszystkich swoich pinach, a więc także danych
+dostarczonych od samej siebie, które będą dostępne dopiero po rozpoczęciu
 pracy (błędne koło).
 
 Trzecia reguła (\texttt{NoDataFlowCycles}) jest uogólnieniem reguły drugiej.
@@ -1065,7 +1057,7 @@ Wykrywa ona~sytuacje, w których w grafie połączeń \texttt{DataFlow} znajduje
 się cykl. Może, ale nie musi to~być~błąd, dlatego informacje diagnostyczne
 pochodzące z tej reguły są oznaczone jako ostrzeżenie (\emph{warning}).
 Wiadomość
-tekstowa zawiera nazwy modułów obliczeniowych, które wchodzą w skład cyklu.
+tekstowa zawiera nazwy jednostek obliczeniowych, które wchodzą w skład cyklu.
 Reguła ta wykonuje algorytm przeszukiwania grafu w głąb
 (\emphgls{DFS})~\cite{wikipedia-dfs}. Po tym następuje próba skrócenia cyklu
 poprzez eliminację elementów nieznaczących. Elementem nieznaczącym jest
@@ -1179,7 +1171,7 @@ Chcąc wyświetlić edytor diagramów z \SiriusWeb{} wewnątrz innej aplikacji
 musi być udostępniony interfejs programistyczny \emphgls{API}, który będzie
 pozwalał wskazać docelowe miejsce w~aplikacji, w którym ma się
 pojawić edytor. Pozostałe elementy aplikacji \SiriusWeb{}, takie
-jak~możliwość zarządzania projektami, wybierania projektu do edycji, a także
+jak~możliwość zarządzania projektami, wybierania projektu do edycji, a także
 tworzenia i~usuwania modeli powinny być niedostępne, ponieważ dla lepszych
 doświadczeń użytkownika takie operacje powinny być wykonane automatycznie
 podczas edycji konkretnej aplikacji obliczeniowej systemu \BalticLSC{}.
@@ -1187,19 +1179,21 @@ podczas edycji konkretnej aplikacji obliczeniowej systemu \BalticLSC{}.
 Interfejs użytkownika aplikacji \SiriusWeb{} jest napisany w języku
 \JavaScript{} z wykorzystaniem biblioteki \React{}~\cite{react-homepage}.
 Aplikacja przeglądarkowa \BalticLSC{} jest również napisana w~języku
-\JavaScript{}, natomiast korzysta z biblioteki \emph{Vue.js}~\cite{vue-homepage}.
+\JavaScript{}, natomiast korzysta z biblioteki
+\emph{Vue.js}~\cite{vue-homepage}.
 Z powodu wykorzystania różnych bibliotek kod \SiriusWeb{} musi udostępnić
 funkcje zarządzające
 wyświetlaniem edytora w języku \JavaScript{}, a nie polegać na mechanizmach
 biblioteki \React{} do wyświetlenia komponentu wewnątrz innej aplikacji.
 
 Struktura elementów na stronie internetowej reprezentowana jest jako drzewo
-\emphgls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \emphgls{HTML} i
+\emphgls{DOM}~\cite{mdn-dom}. Węzły drzewa odpowiadają elementom \emphgls{HTML}
+i
 za
 pomocą różnych metod interfejsu \emphgls{API} drzewa \emphgls{DOM} można
 otrzymać do
 nich dostęp z poziomu języka \JavaScript{}. Aby wyświetlić komponent biblioteki
-\React{} należy znaleźć element drzewa \emphgls{DOM} gdzie komponent ma zostać
+\React{} należy znaleźć element drzewa \emphgls{DOM} gdzie komponent ma zostać
 umiejscowiony, a później przekazać go wraz z instancją komponentu do~metody
 \texttt{render} dostępnej w pakiecie \texttt{react-dom} biblioteki
 \React{}. Usunięcie tego komponentu ze strony internetowej realizowane jest
@@ -1279,7 +1273,7 @@ moduł w tym formacie.
 %     }
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!h]
   \centering
 
   \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-class-diagram.pdf}
@@ -1287,33 +1281,6 @@ moduł w tym formacie.
     \SiriusWeb{}}\label{rys:sirius-web-library-class-diagram}
 \end{figure}
 % \end{noindent}
-
-Wyświetlenie komponentu \texttt{Workbench} wymaga przekazania mu parametrów
-dotyczących modelu, który ma zostać wyświetlony na diagramie. Są to
-identyfikator kontekstu edycji \texttt{editingContextId} omówiony w
-sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
-reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
-implementacyjnymi aplikacji \SiriusWeb{}. Zakładając, że~w~każdym
-projekcie aplikacji \SiriusWeb{} będzie znajdował się wyłącznie jeden
-model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
-wysyłając odpowiednie zapytania \GraphQL{} do serwera aplikacyjnego znając
-jedynie identyfikator projektu. Aby~uprościć udostępniany
-interfejs programistyczny \emphgls{API} modułu stworzono również funkcję
-\texttt{resolveWorkbenchProperties}, która oczekuje identyfikatora projektu, a
-zwraca parametry potrzebne do wyświetlenia komponentu \texttt{Workbench}, które
-uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \SiriusWeb{}.
-Funkcja ta dodatkowo oczekuje dwóch parametrów:
-
-\begin{itemize}
-	\item tokena uwierzytelniającego \emphgls{JWT} aktualnego użytkownika wydanego przez platformę \BalticLSC{} (parametr \texttt{authToken}),
-	\item adresów URL serwera aplikacyjnego \BalticLSC{} oraz \SiriusWeb{}
-	      (parametr \texttt{apiURLS}).
-\end{itemize}
-
-Są one wymagane zarówno do pobrania parametrów edytora diagramów w funkcji
-\texttt{resolveWorkbenchProperties}, jak i do późniejszego działania samego
-edytora. Diagram sekwencji przedstawiający wykorzystanie udostępnionego modułu
-jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 
 % Źródło:
 % https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgTGliQ29uc3VtZXIgYXMgS29kIHd5a29yenlzdHVqxIVjeSBiaWJsaW90ZWvEmSBTaXJpdXMgV2ViXG4gICAgcGFydGljaXBhbnQgTGlicmFyeSBhcyBCaWJsaW90ZWthIHd5xZt3aWV0bGFqxIVjYSBlZHl0b3JcbiAgICBwYXJ0aWNpcGFudCBTaXJpdXNXZWJCYWNrZW5kIGFzIFNlcndlciBhcGxpa2FjeWpueSBTaXJpdXMgV2ViXG4gICAgcGFydGljaXBhbnQgUmVhY3QgYXMgQmlibGlvdGVrYSBSZWFjdFxuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogcmVzb2x2ZVdvcmtiZW5jaFByb3BlcnRpZXNcbiAgICBub3RlIG92ZXIgTGliQ29uc3VtZXIsTGlicmFyeTogWmF3aWVyYSBJRCBwcm9qZWt0dSwgdG9rZW4gSldULDxiciAvPmFkcmVzIHNlcndlcmEgU2lyaXVzIFdlYlxuICAgIExpYnJhcnkgLT4-KyBTaXJpdXNXZWJCYWNrZW5kIDogZ2V0UHJvamVjdFF1ZXJ5XG4gICAgbm90ZSBvdmVyIExpYnJhcnksU2lyaXVzV2ViQmFja2VuZCA6IFphcHl0YW5pZSBzaWVjaW93ZSBHcmFwaFFMXG5cbiAgICBTaXJpdXNXZWJCYWNrZW5kIC0tPj4tIExpYnJhcnk6IGVkaXRpbmdDb250ZXh0SWQsIFJlcHJlc2VudGF0aW9uXG5cbiAgICBMaWJyYXJ5IC0tPj4tIExpYkNvbnN1bWVyIDogV29ya2JlbmNoUHJvcGVydGllc1xuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogcmVuZGVyQXBwXG4gICAgTGlicmFyeSAtPj4rIFJlYWN0IDogcmVuZGVyICh3ecWbd2lldGwga29tcG9uZW50IFdvcmtiZW5jaClcbiAgICBSZWFjdCAtLT4-LSBMaWJyYXJ5IDogV3nFm3dpZXRsb25vIGtvbXBvbmVudCBXb3JrYmVuY2hcbiAgICBMaWJyYXJ5IC0tPj4tIExpYkNvbnN1bWVyIDogV3nFm3dpZXRsb25vIGtvbXBvbmVudCBXb3JrYmVuY2hcblxuICAgIG5vdGUgcmlnaHQgb2YgTGliQ29uc3VtZXIgOiBVxbx5dGtvd25payBtb8W8ZSB0ZXJheiBlZHl0b3dhxIcgZGlhZ3JhbVxuXG4gICAgTGliQ29uc3VtZXIgLT4-KyBMaWJyYXJ5IDogdW5tb3VudEFwcFxuICAgIExpYnJhcnkgLT4-KyBSZWFjdCA6IHVubW91bnRDb21wb25lbnRBdE5vZGVcbiAgICBSZWFjdCAtLT4-LSBMaWJyYXJ5IDogVXN1bmnEmXRvIGtvbXBvbmVudCB6ZSBzdHJvbnkgaW50ZXJuZXRvd2VqXG4gICAgTGlicmFyeSAtLT4-LSBMaWJDb25zdW1lciA6IFVzdW5pxJl0byBrb21wb25lbnQgemUgc3Ryb255IGludGVybmV0b3dlaiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
@@ -1346,14 +1313,45 @@ jest widoczny na rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
 %     Library -->>- LibConsumer : Usunięto komponent<br />ze strony internetowej
 
 % \begin{noindent}
-\begin{figure}[!hb]
+\begin{figure}[!t]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-library-usage-sequence-diagram.pdf}
+  \includegraphics[width=0.99\linewidth]{./images/sirius-web-library-usage-sequence-diagram.pdf}
   \caption{Diagram sekwencji wykorzystania biblioteki wyświetlającej edytor
     diagramów}\label{rys:sirius-web-library-usage-sequence-diagram}
 \end{figure}
 % \end{noindent}
+
+Diagram sekwencji przedstawiający wykorzystanie udostępnionego modułu
+jest widoczny na~rysunku~\ref{rys:sirius-web-library-usage-sequence-diagram}.
+Wyświetlenie komponentu \texttt{Workbench} (wywołanie funkcji
+\texttt{renderApp}) wymaga przekazania mu parametrów
+dotyczących modelu, który ma zostać wyświetlony na diagramie. Są to
+identyfikator kontekstu edycji \texttt{editingContextId} omówiony w
+sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
+reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
+implementacyjnymi aplikacji \SiriusWeb{}. Zakładając, że~w~każdym
+projekcie aplikacji \SiriusWeb{} będzie znajdował się wyłącznie jeden
+model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
+wysyłając odpowiednie zapytania \GraphQL{} do serwera aplikacyjnego znając
+jedynie identyfikator projektu. Aby~uprościć udostępniany
+interfejs programistyczny \emphgls{API} modułu stworzono również funkcję
+\texttt{resolveWorkbenchProperties}, która oczekuje identyfikatora projektu, a
+zwraca parametry potrzebne do wyświetlenia komponentu \texttt{Workbench}, które
+uzyskuje poprzez wysłanie zapytań do serwera aplikacyjnego \SiriusWeb{}.
+Funkcja ta dodatkowo oczekuje dwóch parametrów:
+
+\begin{itemize}
+	\item tokena uwierzytelniającego \emphgls{JWT} aktualnego użytkownika wydanego przez platformę \BalticLSC{} (parametr \texttt{authToken}),
+	\item adresów URL serwera aplikacyjnego \BalticLSC{} oraz \SiriusWeb{}
+	      (parametr \texttt{apiURLS}).
+\end{itemize}
+
+Są one wymagane zarówno do pobrania parametrów edytora diagramów w funkcji
+\texttt{resolveWorkbenchProperties}, jak i do późniejszego działania samego
+edytora. Po otrzymaniu tych szczegółów można wyświetlić edytor. Po zakończeniu
+edycji modelu należy wywołać funkcję \texttt{unmountApp} aby zwolnić zasoby
+przeglądarki i ukryć edytor modeli.
 
 \subsection{Przykładowa aplikacja wykorzystująca samodzielny edytor
 	diagramów}\label{sec:przykladowa-aplikacja-wykorzystujaca-edytor}
@@ -1363,6 +1361,16 @@ sekcji~\ref{sec:udostepnienie-samodzielnego-komponentu-Workbench} można
 zbudować aplikację przeglądarkową, która ten edytor wyświetli. Taki właśnie
 przykład wykonano w ramach tej pracy magisterskiej. Kod źródłowy tej aplikacji
 znajduje się w katalogu \directory{frontend-library-example}.
+
+% \begin{noindent}
+\begin{figure}[!b]
+  \centering
+
+  \includegraphics[width=0.95\linewidth]{./images/example-app-pre-mount.png}
+  \caption{Przykładowa aplikacja przeglądarkowa przed wyświetleniem
+    edytora diagramów}\label{rys:example-app-pre-mount}
+\end{figure}
+% \end{noindent}
 
 Aplikacja jest
 napisana w języku \JavaScript{}. Nie wykorzystuje żadnej znanej biblioteki
@@ -1381,7 +1389,7 @@ jest to kolejny fragment adresu tuż po fragmencie \texttt{project}. Token
 \emphgls{JWT} można uzyskać w okna dialogowego pozwalającego go wprowadzić w
 pełnej
 aplikacji \SiriusWeb{}. Po uzupełnieniu tych danych można
-nacisnąć przycisk \emph{Mount application}, który wyświetli edytor diagramów w
+nacisnąć przycisk \emph{Mount application}, który wyświetli edytor diagramów w
 dolnej części strony internetowej. Jest to zaprezentowane na
 rysunku~\ref{rys:example-app-mounted}. Można
 za jego pomocą dowolnie modyfikować i przeglądać model, podobnie jak w pełnej
@@ -1389,15 +1397,6 @@ wersji aplikacji \SiriusWeb{}. Naciśnięcie przycisku \emph{Unmount
 	application} schowa edytor ze strony i wróci ona do stanu początkowego,
 jak na rysunku~\ref{rys:example-app-pre-mount}.
 
-% \begin{noindent}
-\begin{figure}[!ht]
-  \centering
-
-  \includegraphics[width=0.95\linewidth]{./images/example-app-pre-mount.png}
-  \caption{Przykładowa aplikacja przeglądarkowa przed wyświetleniem
-    edytora diagramów}\label{rys:example-app-pre-mount}
-\end{figure}
-% \end{noindent}
 
 % \begin{noindent}
 \begin{figure}[!ht]
@@ -1467,7 +1466,7 @@ przycisk w interfejsie użytkownika \BalticLSC{}.
 Po tym przeglądarka wysyła zapytanie do serwera aplikacyjnego \SiriusWeb{}, aby
 stworzyć nowy projekt oraz model w nim. Jeżeli jest to
 istniejąca aplikacja
-obliczeniowa należy odtworzyć jej zawartość w \SiriusWeb{} poprzez dodanie
+obliczeniowa należy odtworzyć jej zawartość w \SiriusWeb{} poprzez dodanie
 odpowiednich elementów do nowo stworzonego modelu. Nie istnieje aktualnie żaden
 interfejs serwera \SiriusWeb{} pozwalający na dodanie do modelu wielu
 elementów na raz, więc jest to
@@ -1486,7 +1485,7 @@ element wymagający rozszerzenia.
 % \end{noindent}
 
 % Źródło:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IFVzZXIgYXMgVcW8eXRrb3duaWtcbiAgcGFydGljaXBhbnQgQmFsdGljTFNDVUkgYXMgQXBsaWthY2phIHByemVnbMSFZGFya293YTxiciAvPkJhbHRpY0xTQ1xuICBwYXJ0aWNpcGFudCBCYWx0aWNMU0NCYWNrZW5kIGFzIEFwbGlrYWNqYSBzZXJ3ZXJvd2E8YnIgLz5CYWx0aWNMU0NcbiAgcGFydGljaXBhbnQgQ0FMV2ViQmFja2VuZCBhcyBBcGxpa2FjamEgc2Vyd2Vyb3dhPGJyLz5TaXJpdXMgV2ViXG4gIHBhcnRpY2lwYW50IENBTFdlYlVJIGFzIEJpYmxpb3Rla2EgeiBlZHl0b3JlbTxiciAvPmRpYWdyYW3Ds3dcblxuICBVc2VyIC0-PisgQmFsdGljTFNDVUk6IFJvenBvY3puaWogZWR5Y2rEmSBkaWFncmFtdVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFV0d8OzcnogcHJvamVrdFxuICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBQcm9qZWt0IHV0d29yem9ueVxuXG4gIGFsdCBFZHljamEgaXN0bmllasSFY2VqIGFwbGlrYWNqaSBvYmxpY3plbmlvd2VqXG4gICAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJCYWNrZW5kOiBEb2RhaiB6YXdhcnRvxZvEhyBhcGxpa2Fjamkgb2JsaWN6ZW5pb3dlaiBkbyBtb2RlbHVcbiAgICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBEb2Rhbm9cbiAgZW5kXG5cbiAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJVSTogV3nFm3dpZXRsIGVkeXRvciBkaWFncmFtw7N3XG4gIENBTFdlYlVJIC0-Pi0gQmFsdGljTFNDVUk6IFd5xZt3aWV0bG9ubyBlZHl0b3IgZGlhZ3JhbcOzd1xuICBCYWx0aWNMU0NVSSAtPj4tIFVzZXI6IFd5xZt3aWV0bG9ubyBlZHl0b3IgZGlhZ3JhbcOzd1xuXG4gIGxvb3BcbiAgICBVc2VyIC0-PisgQ0FMV2ViVUk6IFptb2R5ZmlrdWogZGlhZ3JhbVxuICAgIENBTFdlYlVJIC0tPj4tIFVzZXI6IFptb2R5Zmlrb3dhbm8gZGlhZ3JhbVxuICAgIENBTFdlYlVJIC0pIFVzZXI6IEluZm9ybWFjamUgZGlhZ25vc3R5Y3puZSAod2FsaWRhY2phIG1vZGVsdSlcbiAgZW5kXG5cbiAgVXNlciAtPj4rIEJhbHRpY0xTQ1VJOiBaYXBpc3ogZGlhZ3JhbVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFBvYmllcnogemF3YXJ0b8WbxIcgbW9kZWx1XG4gIENBTFdlYkJhY2tlbmQgLS0-Pi0gQmFsdGljTFNDVUk6IFphd2FydG_Fm8SHwqBtb2RlbHVcblxuICBCYWx0aWNMU0NVSSAtPj4rIEJhbHRpY0xTQ0JhY2tlbmQ6IFphcGlzeiB6YXdhcnRvxZvEhyBtb2RlbHVcbiAgQmFsdGljTFNDQmFja2VuZCAtLT4-LSBCYWx0aWNMU0NVSTogWmFwaXNhbm9cblxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYlVJOiBVa3J5aiBlZHl0b3IgZGlhZ3JhbcOzd1xuICBDQUxXZWJVSSAtLT4-LSBCYWx0aWNMU0NVSTogVWtyeXRvIGVkeXRvciBkaWFncmFtw7N3XG5cbiAgQmFsdGljTFNDVUkgLS0-Pi0gVXNlcjogRGlhZ3JhbSB6YXBpc2FueSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IFVzZXIgYXMgVcW8eXRrb3duaWtcbiAgcGFydGljaXBhbnQgQmFsdGljTFNDVUkgYXMgQXBsaWthY2phIHByemVnbMSFZGFya293YTxiciAvPkJhbHRpY0xTQ1xuICBwYXJ0aWNpcGFudCBCYWx0aWNMU0NCYWNrZW5kIGFzIEFwbGlrYWNqYSBzZXJ3ZXJvd2E8YnIgLz5CYWx0aWNMU0NcbiAgcGFydGljaXBhbnQgQ0FMV2ViQmFja2VuZCBhcyBBcGxpa2FjamEgc2Vyd2Vyb3dhPGJyLz5TaXJpdXMgV2ViXG4gIHBhcnRpY2lwYW50IENBTFdlYlVJIGFzIEJpYmxpb3Rla2EgeiBlZHl0b3JlbTxiciAvPmRpYWdyYW3Ds3dcblxuICBVc2VyIC0-PisgQmFsdGljTFNDVUk6IFJvenBvY3puaWogZWR5Y2rEmSBkaWFncmFtdVxuICBCYWx0aWNMU0NVSSAtPj4rIENBTFdlYkJhY2tlbmQ6IFV0d8OzcnogcHJvamVrdFxuICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBQcm9qZWt0IHV0d29yem9ueVxuXG4gIGFsdCBFZHljamEgaXN0bmllasSFY2VqIGFwbGlrYWNqaSBvYmxpY3plbmlvd2VqXG4gICAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJCYWNrZW5kOiBEb2RhaiB6YXdhcnRvxZvEhyBhcGxpa2Fjamkgb2JsaWN6ZW5pb3dlaiBkbyBtb2RlbHVcbiAgICBDQUxXZWJCYWNrZW5kIC0tPj4tIEJhbHRpY0xTQ1VJOiBEb2Rhbm9cbiAgZW5kXG5cbiAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJVSTogV3nFm3dpZXRsIGVkeXRvciBkaWFncmFtw7N3XG4gIENBTFdlYlVJIC0tPj4tIEJhbHRpY0xTQ1VJOiBXecWbd2lldGxvbm8gZWR5dG9yIGRpYWdyYW3Ds3dcbiAgQmFsdGljTFNDVUkgLS0-Pi0gVXNlcjogV3nFm3dpZXRsb25vIGVkeXRvciBkaWFncmFtw7N3XG5cbiAgbG9vcFxuICAgIFVzZXIgLT4-KyBDQUxXZWJVSTogWm1vZHlmaWt1aiBkaWFncmFtXG4gICAgQ0FMV2ViVUkgLS0-Pi0gVXNlcjogWm1vZHlmaWtvd2FuYSB0cmXFm8SHIGRpYWdyYW11IHdyYXogeiBpbmZvcm1hY2phbWkgZGlhZ25vc3R5Y3pueW1pIHogd2FsaWRhY2ppIG1vZGVsdVxuICBlbmRcblxuICBVc2VyIC0-PisgQmFsdGljTFNDVUk6IFphcGlzeiBkaWFncmFtXG4gIEJhbHRpY0xTQ1VJIC0-PisgQ0FMV2ViQmFja2VuZDogUG9iaWVyeiB6YXdhcnRvxZvEhyBtb2RlbHVcbiAgQ0FMV2ViQmFja2VuZCAtLT4-LSBCYWx0aWNMU0NVSTogWmF3YXJ0b8WbxIcgbW9kZWx1XG5cbiAgQmFsdGljTFNDVUkgLT4-KyBCYWx0aWNMU0NCYWNrZW5kOiBaYXBpc3ogemF3YXJ0b8WbxIcgbW9kZWx1XG4gIEJhbHRpY0xTQ0JhY2tlbmQgLS0-Pi0gQmFsdGljTFNDVUk6IFphcGlzYW5vXG5cbiAgQmFsdGljTFNDVUkgLT4-KyBDQUxXZWJVSTogVWtyeWogZWR5dG9yIGRpYWdyYW3Ds3dcbiAgQ0FMV2ViVUkgLS0-Pi0gQmFsdGljTFNDVUk6IFVrcnl0byBlZHl0b3IgZGlhZ3JhbcOzd1xuXG4gIEJhbHRpY0xTQ1VJIC0tPj4tIFVzZXI6IERpYWdyYW0gemFwaXNhbnlcbiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
 % SVG -> PDF za pomocą Chrome "Print to PDF", a potem pdfcrop
 % sequenceDiagram
 %   participant User as Użytkownik
@@ -1505,13 +1504,12 @@ element wymagający rozszerzenia.
 %   end
 %
 %   BalticLSCUI ->>+ CALWebUI: Wyświetl edytor diagramów
-%   CALWebUI ->>- BalticLSCUI: Wyświetlono edytor diagramów
-%   BalticLSCUI ->>- User: Wyświetlono edytor diagramów
+%   CALWebUI -->>- BalticLSCUI: Wyświetlono edytor diagramów
+%   BalticLSCUI -->>- User: Wyświetlono edytor diagramów
 %
 %   loop
 %     User ->>+ CALWebUI: Zmodyfikuj diagram
-%     CALWebUI -->>- User: Zmodyfikowano diagram
-%     CALWebUI -) User: Informacje diagnostyczne (walidacja modelu)
+%     CALWebUI -->>- User: Zmodyfikowana treść diagramu wraz z informacjami diagnostycznymi z walidacji modelu
 %   end
 %
 %   User ->>+ BalticLSCUI: Zapisz diagram
@@ -1537,7 +1535,8 @@ element wymagający rozszerzenia.
 % \end{noindent}
 
 Po takim przygotowaniu modelu przeglądarka może wyświetlić edytor diagramów
-\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku \JavaScript{}.
+\emph{Sirius~Web} korzystając z przygotowanej biblioteki w języku
+\JavaScript{}.
 Identyfikator projektu jest znany aplikacji przeglądarkowej \BalticLSC{},
 ponieważ został on właśnie przez nią stworzony, a~token uwierzytelniający
 \emphgls{JWT} jest również w jej posiadaniu.
@@ -1603,7 +1602,7 @@ integracji systemów należałoby wartość tą~wprowadzić do \SiriusWeb{} w
 celu pełnej weryfikacji tokenów \emphgls{JWT}.
 
 O ile zapytania \emphgls{REST} oraz \emph{query} w \GraphQL{} są objęte
-kontrolą dostępu, to \emph{subscription} w \GraphQL{} już nie. Dodanie
+kontrolą dostępu, to \emph{subscription} w \GraphQL{} już nie. Dodanie
 weryfikacji tokena tam wymaga specjalnej obsługi podczas inicjalizacji
 połączenia. Kod ten jest w repozytorium \texttt{sirius-components} i nie został
 udostępniony do modyfikacji. Weryfikacja tokenów \emphgls{JWT} nie jest więc

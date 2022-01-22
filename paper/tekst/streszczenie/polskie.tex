@@ -1,41 +1,37 @@
 W ramach tej pracy magisterskiej został przygotowany graficzny edytor modeli
 opisujących obliczenia rozproszone w systemie \BalticLSC{} bazując na
 eksperymentalnej technologii \SiriusWeb{}. Została ona oceniona i porównana ze
-znanym w tej kategorii rozwiązaniem \SiriusDesktop{}.
+znanym w tej kategorii rozwiązaniem \SiriusDesktop{}. Do bazowego edytora
+\SiriusWeb{} zostały też dodane brakujące mechanizmy walidacji edytowanych
+modeli.
 
-Programy komputerowe używają modeli do reprezentacji świata rzeczywistego.
-W~ten~sposób mogą odwzorować rzeczywistość i symulować jej modyfikacje.
-Struktura
-modeli, a~więc~występujące w nich obiekty i ich właściwości, może również być
-opisana
-modelem. Jest~on~na~wyższym poziomie abstrakcji niż model, który opisuje, i
-nosi nazwę \emph{metamodelu}.
-Na jego bazie można wygenerować edytor graficzny umożliwiający przeglądanie
-i edycję modeli opisywanych przez ten metamodel. \emph{\acrlong{EMF}} jest
-technologią pozwalającą na przygotowanie edytora graficznego modeli
-\SiriusDesktop{},
-będącego rozszerzeniem natywnej aplikacji \Eclipse{}. Nowym rozwiązaniem w tej
-kategorii jest \SiriusWeb{} umożliwiający udostępnienie graficznego edytora
-modeli w przeglądarce internetowej.
+Dla języka \emph{\acrfull{CAL}} pozwalającego reprezentować aplikacje
+obliczeniowe w systemie \BalticLSC{} został przygotowany metamodel w formacie
+\Ecore{} używanym w technologii \emph{\acrfull{EMF}}. Został on następnie użyty
+do~przygotowania graficznego edytora modeli za pomocą \SiriusWeb{}. Wczesna
+faza rozwoju tej technologii i brak jej dokumentacji technicznej spowodował, że
+wymagało to~wykorzystania wiedzy z wielu różnych źródeł, a także
+metody prób i błędów, aby dostosować pakiety języka \Java{} wygenerowane za
+pomocą \emph{\acrshort{EMF}} do formatu wymaganego przez \SiriusWeb{}.
 
-Przygotowane rozwiązanie pozwala stworzyć model opisujący schemat obliczeń,
-które będą wykonane w systemie \BalticLSC{}. Jest to platforma do obliczeń
-rozproszonych, rozwijana między innymi przez Politechnikę Warszawską,
-umożliwiająca przeprowadzenie obliczeń na~dużą skalę używając potencjalnie
-wielu węzłów obliczeniowych jednocześnie.
-Przepływ danych przez różne dostępne w systemie moduły obliczeniowe jest
-reprezentowany na diagramie.
+Prezentowany metamodel języka \emph{\acrshort{CAL}} zawiera w sobie reguły
+walidacji semantycznej wyrażone jako \emph{Semantic Validation Rule} formatu
+\Ecore{}. Nie są jednak one sprawdzane przez \SiriusWeb{}, który wyświetla
+użytkownikowi jedynie informacje diagnostyczne z walidacji składniowej modelu.
+Do edytora dodano mechanizm walidacji semantycznej poprzez modyfikację kodu
+serwera aplikacyjnego i uruchamianie w nim odpowiednich reguł napisanych w
+języku \Java{}. Inną funkcjonalnością, o którą wzbogacono edytor, jest
+przybornik pozwalający na łatwe wykorzystanie dostępnych jednostek
+obliczeniowych pobieranych z platformy \BalticLSC{}.
 
-\SiriusDesktop{} i \SiriusWeb{}, pomimo bazowania na tych samych metamodelach,
-oferują różne możliwości i funkcjonalności. Są również inaczej zbudowane i mają
-inne podejście do~przechowywania informacji o modelach. Niektóre elementy
-edytora \SiriusDesktop{}, na~przykład możliwość przeprowadzenia walidacji
-semantycznej modelu, są niedostępne w~\SiriusWeb{} i zostały zaimplementowane w
-tej pracy magisterskiej. W celu sprawdzenia rozszerzalności edytora dodano do
-niego elementy interfejsu graficznego pozwalające wygodnie wykorzystać
-dostępne moduły obliczeniowe na diagramie. Opisano również jak można
-zintegrować przygotowany edytor z aplikacją przeglądarkową \BalticLSC{}.
+Przygotowany edytor modeli można wykorzystać jako część dowolnej innej
+aplikacji przeglądarkowej, co zademonstrowano tworząc taką przykładową
+aplikację. W pracy opisany jest też proponowany plan integracji edytora z
+platformą \BalticLSC{}.
 
-Technologia \SiriusWeb{} zawiera również wady. Znalezionych 20 usterek zostało
-zgłoszonych autorom projektu, a wrażenia z wykorzystania tego rozwiązania
-zostały opisane w dalszej części tekstu pracy magisterskiej.
+Praca zawiera również ocenę technologii \SiriusWeb{} i porównanie jej z
+poprzednikiem --- \SiriusDesktop{}. Zademonstrowano różnice w wyświetlaniu
+elementów diagramu, możliwości modyfikacji edytora i dodawania w nim nowych
+funkcjonalności, kompletności obsługi formatu \Ecore{}, łatwości w
+wykorzystaniu oraz utrzymaniu. Podczas pracy znaleziono 20 usterek
+w~technologii \SiriusWeb{}, które zostały zgłoszone autorom projektu.
