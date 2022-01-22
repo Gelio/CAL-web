@@ -566,33 +566,32 @@
 \renewcommand{\maketitle}{
 	\linespread{1.15}
 
-	% TODO: upewnić się, że czcionki są poprawne (opisane załącznikiem 1. do
-	% zarządzenia 57/2016, czyli:
-	% * Florin SansPl Light
-	% * Helvetica Light (Switzerland Light)
-	% * Helvetica (Switzerland)
-
 	\thispagestyle{empty}
 	\begin{center}
-		\includegraphics[width=\textwidth]{PWHead.png}
-		\vskip 3em
-		\@instytut
-		\vskip 3em
-		\includegraphics[width=\linewidth]{\frontpageheader}
-		\vskip 1em
-		\kieruneklocal \@kierunek
-		\vskip .5em
-		\specjalnosclocal \@specjalnosc
-		\vskip 3em
-		\large \titlelocal
-		\vskip 3em
-		\LARGE \@author \\
-		\normalsize
-		\albumlocal \@album
-		\vskip 2em
-		\promotorlocal\\\@promotor
-		\vfill
-		\citylocal \@date
+		{
+			% Zgodnie z zarządzeniem 57/2016, Arial na stronie tytułowej w
+			% zastępstwie Helvetica
+			\fontfamily{phv}\selectfont
+			\includegraphics[width=\textwidth]{PWHead.png}
+			\vskip 3em
+			\@instytut
+			\vskip 3em
+			\includegraphics[width=\linewidth]{\frontpageheader}
+			\vskip 1em
+			\kieruneklocal \@kierunek
+			\vskip .5em
+			\specjalnosclocal \@specjalnosc
+			\vskip 3em
+			\large \titlelocal
+			\vskip 3em
+			\LARGE \@author \\
+			\normalsize
+			\albumlocal \@album
+			\vskip 2em
+			\promotorlocal\\\@promotor
+			\vfill
+			\citylocal \@date
+		}
 	\end{center}
 }
 
