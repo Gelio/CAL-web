@@ -734,24 +734,25 @@ był jednorazowym zapytaniem, ponieważ nasłuchiwanie na zmiany zostanie
 zakończone tuż po otrzymaniu odpowiedzi. W porównaniu do zwykłego zapytania
 takie rozwiązanie wprowadza dodatkowy narzut w ruchu sieciowym.
 
-Utrudnieniem w pobieraniu identyfikatora korzenia modelu jest fakt, że
+Utrudnieniem w pobieraniu identyfikatora głównego obiektu modelu jest fakt, że
 subskrypcja \texttt{treeEvent} zwraca informacje jedynie o zawartości tych
 obiektów,
 których identyfikatory zostały przekazane do subskrypcji. Nawiązuje to do
 rozwijania kolejnych poziomów drzewa modelu w interfejsie użytkownika.
 Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący dokument
 \texttt{Document}, który
-w sobie zawiera korzeń modelu znany z metamodelu
+w sobie zawiera główny obiekt modelu znany z metamodelu
 (\texttt{ComputationApplicationRelease}). Aby
-otrzymać identyfikator korzenia modelu należy więc pobrać informacje w dwóch
+otrzymać identyfikator głównego obiektu modelu należy więc pobrać informacje w dwóch
 krokach: najpierw pobrać informacje o dokumencie, a~później przekazać jego
-identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator korzenia
-modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
-aplikacją przeglądarkową a serwerem w celu otrzymania identyfikatora korzenia
+identyfikator w kolejnej subskrypcji, aby otrzymać identyfikator głównego
+obiektu modelu. Diagram sekwencji komunikatów \WebSocket{} wymienianych między
+aplikacją przeglądarkową a serwerem w celu otrzymania identyfikatora głównego
+obiektu
 modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 
 % Kod źródłowy diagramu:
-% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IGJhY2tlbmQgYXMgU2Vyd2VyIFNpcml1cyBXZWJcblxuYnJvd3NlciAtKSsgYmFja2VuZDogU3RhcnQgdHJlZUV2ZW50IElEIDEgKHB1c3RhIGxpc3RhIHJvendpbmnEmXR5Y2ggd8SZesWCw7N3KVxuYmFja2VuZCAtLSktIGJyb3dzZXI6IE9kcG93aWVkxbogdHJlZUV2ZW50IElEIDEgLSBpZGVudHlmaWthdG9yIGRva3VtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkgYmFja2VuZDogU3RvcCB0cmVlRXZlbnQgSUQgMVxuXG5cbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0YXJ0IHRyZWVFdmVudCBJRCAyIChyb3p3aW5pxJl0eSB3xJl6ZcWCIGRva3VtZW50dSBtb2RlbHUpXG5iYWNrZW5kIC0tKS0gYnJvd3NlcjogT2Rwb3dpZWTFuiB0cmVlRXZlbnQgSUQgMiAtIGlkZW50eWZpa2F0b3Iga29yemVuaWEgbW9kZWx1XG5icm93c2VyIC0pIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDIiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ
+% https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBicm93c2VyIGFzIFByemVnbMSFZGFya2FcbnBhcnRpY2lwYW50IGJhY2tlbmQgYXMgU2Vyd2VyIFNpcml1cyBXZWJcblxuYnJvd3NlciAtKSsgYmFja2VuZDogU3RhcnQgdHJlZUV2ZW50IElEIDEgKHB1c3RhIGxpc3RhIHJvendpbmnEmXR5Y2ggd8SZesWCw7N3KVxuYmFja2VuZCAtLSktIGJyb3dzZXI6IE9kcG93aWVkxbogdHJlZUV2ZW50IElEIDEgLSBpZGVudHlmaWthdG9yIGRva3VtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDFcbmRlYWN0aXZhdGUgYmFja2VuZFxuXG5cbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0YXJ0IHRyZWVFdmVudCBJRCAyIChyb3p3aW5pxJl0eSB3xJl6ZcWCIGRva3VtZW50dSBtb2RlbHUpXG5iYWNrZW5kIC0tKS0gYnJvd3NlcjogT2Rwb3dpZWTFuiB0cmVlRXZlbnQgSUQgMiAtPGJyIC8-IGlkZW50eWZpa2F0b3IgZ8WCw7N3bmVnbyBlbGVtZW50dSBtb2RlbHVcbmJyb3dzZXIgLSkrIGJhY2tlbmQ6IFN0b3AgdHJlZUV2ZW50IElEIDJcbmRlYWN0aXZhdGUgYmFja2VuZCIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
 % Przekonwertowane do PDF dzięki https://cloudconvert.com/svg-to-pdf (Engine: imagemagick)
 %
 % sequenceDiagram
@@ -760,18 +761,20 @@ modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 %
 % browser -)+ backend: Start treeEvent ID 1 (pusta lista rozwiniętych węzłów)
 % backend --)- browser: Odpowiedź treeEvent ID 1 - identyfikator dokumentu modelu
-% browser -) backend: Stop treeEvent ID 1
+% browser -)+ backend: Stop treeEvent ID 1
+% deactivate backend
 %
 %
 % browser -)+ backend: Start treeEvent ID 2 (rozwinięty węzeł dokumentu modelu)
-% backend --)- browser: Odpowiedź treeEvent ID 2 - identyfikator korzenia modelu
-% browser -) backend: Stop treeEvent ID 2
+% backend --)- browser: Odpowiedź treeEvent ID 2 -<br /> identyfikator głównego elementu modelu
+% browser -)+ backend: Stop treeEvent ID 2
+% deactivate backend
 
 % \begin{noindent}
 \begin{figure}[!ht]
   \centering
 
-  \includegraphics[width=0.95\linewidth]{./images/sirius-web-fetch-model-root-id.pdf}
+  \includegraphics[width=0.90\linewidth]{./images/sirius-web-fetch-model-root-id.pdf}
   \caption{Diagram sekwencji pobierania identyfikatora głównego obiektu
     modelu}\label{rys:sirius-web-fetch-model-root-id}
 \end{figure}
