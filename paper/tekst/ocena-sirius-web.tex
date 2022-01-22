@@ -68,7 +68,7 @@ dodawanie reguł walidacji semantycznej, co~dodatkowo utrudnia ich wdrożenie.
 Informacje diagnostyczne pojawiające się w \SiriusWeb{} nie są
 jawnie związane z konkretnymi elementami diagramu. Na diagramie nie widać
 oznaczeń dla elementów, dla których występują błędy lub ostrzeżenia. Jedyna
-informacja pozwalająca powiązać informację diagnostyczną z~konkretnym elementem
+informacja pozwalająca powiązać informację diagnostyczną z~konkretnym elementem
 diagramu to nazwa tego elementu występująca w treści wiadomości diagnostycznej.
 Jest to widoczne na rysunku~\ref{rys:validation-comparison-sirius-web}. Lepsze
 rozwiązanie tego problemu występuje w
@@ -213,8 +213,8 @@ jednostki obliczeniowej dostępne są dwa narzędzia usuwające ją. W
 metamodelu rzeczywiście jest takie narzędzie, ale jest ono tam wyłącznie po to,
 aby zabronić usuwania tych elementów z~diagramu, ponieważ są one zarządzane
 automatycznie i ich usunięcie natychmiast sprawiłoby, że diagram stałby
-się niepoprawny semantycznie (wywołanie jednostki obliczeniowej miałoby mniej
-pinów niż powiązana z nim jednostka obliczeniowa). W \SiriusDesktop{}
+się niepoprawny semantycznie (wywołanie jednostki obliczeniowej miałoby mniej
+pinów niż powiązana z nim jednostka obliczeniowa). W \SiriusDesktop{}
 usunięcie tego pinu z diagramu jest niemożliwe, co widać na
 rysunku~\ref{rys:sirius-desktop-blocked-deleting-pins}.
 \SiriusWeb{} wyświetla odpowiednie ikony i~pozwala je wybrać, co skutkuje
@@ -249,7 +249,7 @@ wykorzystania edytora.
 \SiriusWeb{} niepoprawnie obsługuje właściwości elementów modelu oznaczone
 jako
 \emph{tylko do~odczytu} (\emph{readonly}). Czasami takie właściwości można
-swobodnie zmieniać, a czasami podczas zmiany pojawia się błąd w konsoli serwera
+swobodnie zmieniać, a czasami podczas zmiany pojawia się błąd w konsoli serwera
 aplikacyjnego i właściwość nie jest zmieniona. Oba zachowania są niepoprawne,
 ponieważ oczekiwaniem dla takich właściwości jest, że będą one tylko do
 odczytu, a więc w interfejsie użytkownika nie będzie można wybrać dla nich
@@ -342,7 +342,7 @@ zgłoszona w~repozytorium projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/781}
 }. Drugim z problemów związanym z etykietą jest jej~edycja w sytuacji, gdy
 etykieta jest obliczana w języku \AQL{} na podstawie kilku właściwości
-obiektu. \SiriusDesktop{} nie pozwala na bezpośrednią edycję całej
+obiektu. \SiriusDesktop{} nie pozwala na bezpośrednią edycję całej
 etykiety w tym przypadku, a \SiriusWeb{} wyświetla pole do zmiany tekstu
 tylko po to, aby go później zignorować --- po zatwierdzeniu zmiany etykieta
 wraca do swojej początkowej wartości, a w konsoli serwera aplikacyjnego
@@ -352,7 +352,7 @@ projektu\footnote{
 }.
 
 Warunkowe zmiany stylu elementów modelu (\emph{Style Customizations}) działają
-poprawnie. Dzięki nim ikony pinów w \SiriusWeb{} zmieniają się na
+poprawnie. Dzięki nim ikony pinów w \SiriusWeb{} zmieniają się na
 podstawie swoich parametrów (krotności danych i tokenów). Drugi ze styli
 warunkowych w metamodelu dotyczący zmiany koloru krawędzi pinu ze względu na
 jego typ (wejściowy lub wyjściowy) nie może zostać zweryfikowany, ponieważ
@@ -361,7 +361,7 @@ krawędzie te w ogóle nie są wyświetlane.
 \SiriusWeb{} nie wprowadza niektórych ograniczeń, które są przestrzegane w
 \SiriusDesktop{}. Jednym z nich jest zablokowanie możliwości zmiany
 rozmiaru węzłów. W metamodelu zabroniono zmiany rozmiaru pinów i takiego
-zachowania można się spodziewać w aplikacji natywnej, natomiast w \SiriusWeb{}
+zachowania można się spodziewać w aplikacji natywnej, natomiast w \SiriusWeb{}
 zmiana ich rozmiaru jest możliwa bez ograniczeń, co zostało
 przedstawione na
 rysunku~\ref{rys:change-node-size}. Problem został zgłoszony w repozytorium
@@ -384,7 +384,7 @@ Animacje używane w edytorze diagramów występujące podczas dodawania lub
 usuwania z niego elementów sprawiają, że aplikacja jest przyjemniejsza w użyciu
 i sprawia wrażenie bardziej dopracowanej, a~jednocześnie pomaga zrozumieć co
 się dzieje w modelu. Jest to szczególnie ważne, gdy~zmiany są wykonywane przez
-inną osobę edytującą ten diagram w czasie rzeczywistym.
+inną osobę edytującą ten diagram w czasie rzeczywistym.
 Problem z wydajnością występuje podczas przesuwania elementów w \SiriusWeb{}.
 Interfejs przesuwa elementy z opóźnieniem, a po upuszczeniu
 elementów
@@ -395,7 +395,7 @@ problem.
 Udostępnienie aplikacji do edycji diagramów w przeglądarce powoduje, że na
 jej wydajność wpływa szybkość łącza Internet użytkownika. Architektura
 rozwiązania \SiriusWeb{} powoduje, że aplikacja często musi komunikować
-się z serwerem aplikacyjnym. Dzieje się~tak~z~uwagi na~fakt, że informacje o
+się z serwerem aplikacyjnym. Dzieje się~tak~z~uwagi na~fakt, że informacje o
 modelu przechowywane są w bazie danych, a metamodel języka zdefiniowany w
 formacie \Ecore{} jest
 interpretowany przez serwer. Do przeglądarki komunikowane są jedynie informacje
@@ -427,7 +427,7 @@ serwer aplikacyjny był uruchomiony na komputerze, na którym wykonywano test.
 Opóźnienia wynikające z narzutu na przesyłanie danych przez sieć były
 zauważalne, gdy została sztucznie ograniczona szybkość połączenia internetowego
 za pomocą narzędzi programisty w przeglądarce \emph{Google Chrome}.
-Używanie ustawienia \emph{Fast 3G}, które ogranicza szybkość pobierania danych
+Używanie ustawienia \emph{Fast 3G}, które ogranicza szybkość pobierania danych
 do 1.5~Mb/s i opóźnieniu
 500~ms~\cite{network-throttling-profiles-stackoverflow} sprawiło, że aplikacja
 przestała być używalna z uwagi na długi czas pobierania danych o modelu.
@@ -476,7 +476,7 @@ pomocą technologii \WebSocket{}. Za~pomocą tego połączenia przesyłane są
 informacje o zawartości modeli i szczegółach wszystkich ich~elementów. Jeżeli
 \SiriusWeb{} zostałby wykorzystany do edycji modeli z danymi wrażliwymi
 lub poufnymi, nie byłoby gwarancji, że osoby postronne lub nieautoryzowane
-nie~mają do nich dostępu. Jest to spora wada, która może zdyskwalifikować
+nie~mają do nich dostępu. Jest to spora wada, która może zdyskwalifikować
 \SiriusWeb{} jako rozwiązanie do~edycji diagramów w niektórych
 zastosowaniach. Usterka ta została zgłoszona w repozytorium
 projektu\footnote{
@@ -492,7 +492,7 @@ błędach.
 Usterka została zgłoszona w repozytorium projektu\footnote{
 	\url{https://github.com/eclipse-sirius/sirius-components/issues/791}
 }. Obejściem problemu było dodanie bloków \texttt{If}~w~metamodelu
-sprawdzającego czy odpowiednia właściwość jest ustawiona (ma wartość inną niż
+sprawdzającego czy odpowiednia właściwość jest ustawiona (ma wartość inną niż
 \texttt{null}) zanim element zostanie usunięty.
 
 Kolejny wydruk na konsolę, który zdarzał się po wywołaniu narzędzia metamodelu
@@ -539,7 +539,7 @@ elementów na raz na wysyłanie wielu zapytań \GraphQL{} dodającym po jednym
 elemencie zamiast jednego zapytania dodającego kilka elementów. Jest to
 natomiast rozwiązanie mniej wydajne i bardziej komplikujące kod aplikacji.
 
-Niedogodnością pojawiającą się podczas pracy z aplikacją przeglądarkową
+Niedogodnością pojawiającą się podczas pracy z aplikacją przeglądarkową
 \SiriusWeb{} jest fakt, że nazwy komponentów w dostarczonym kodzie
 \JavaScript{} są zmienione tak, aby~były jak najkrótsze. Przykładowe nazwy
 komponentów to \texttt{Kc}, \texttt{Pc}, \texttt{Zd}. Taka optymalizacja
@@ -627,7 +627,7 @@ procesu, aby rozpoczęcie pracy było prostsze, szybsze i mniej frustrujące.
 \section{Dodawanie funkcjonalności do edytora}
 
 Podstawowy edytor diagramów dostępny w repozytorium \texttt{sirius-web}
-pozwala na edycję modeli w sposób podobny do \SiriusDesktop{}.
+pozwala na edycję modeli w sposób podobny do \SiriusDesktop{}.
 Jego kod źródłowy jest natomiast prostszy w edycji i rozszerzeniu w porównaniu
 do kodu \SiriusDesktop{}. Pozwala to dostosować edytor do swoich potrzeb i
 dodać funkcjonalności, które pomogą użytkownikom szybciej lub prościej pracować
@@ -639,23 +639,23 @@ używane, chociaż nie~jest to wymagane w każdym przypadku. Dzieje się tak dzi
 funkcjonalności wstrzykiwania zależności (\emph{Dependency Injection})
 technologii \emph{Java Spring}. Tak właśnie było w przypadku dodawania nowych
 mutacji \GraphQL{}, aby dodać możliwość tworzenia jednostek obliczeniowych
-wraz z ich wywołaniem w obrębie jednej transakcji. Trzeba było wtedy
-dodać kilka klas odpowiedzialnych za serializację i deserializację danych, oraz
-klasy odpowiedzialne za~przetwarzanie zapytania, a później \SiriusWeb{}
+wraz z~ich~wywołaniem w obrębie jednej transakcji. Trzeba było wtedy
+dodać kilka klas odpowiedzialnych za serializację i deserializację danych, oraz
+klasy odpowiedzialne za~przetwarzanie zapytania, a~później \SiriusWeb{}
 automatycznie wykrył je i dodał możliwość wysyłania tego rodzaju mutacji.
 Jest to bardzo wygodne rozwiązanie, ponieważ kod można łatwo rozszerzyć bez
 modyfikacji istniejących klas w znacznym stopniu, co jest zgodne z~zasadą
 \emph{Open--Closed Principle} % chktex 8
-z akronimu \emph{SOLID}. Mówi ona, że klasy powinny być otwarte
-na~rozszerzenie, ale zamknięte na modyfikację.
+z~akronimu \emph{SOLID}. Mówi ona, że klasy powinny być otwarte
+na~rozszerzenie, ale~zamknięte na modyfikację.
 
 Nietrudno było również dodać mechanizm odpowiedzialny za walidację semantyczną
 metamodelu. Wymagało to modyfikacji istniejącej klasy związanej z przesyłaniem
 informacji diagnostycznych, ale modyfikacja ta była w dużej części dodaniem
 nowego kodu.
 
-W obu przypadkach zmiany okazały się proste do wykonania, jednak z uwagi na
-brak dokumentacji technicznej \SiriusWeb{} należało spędzić dodatkowy czas
+W obu przypadkach zmiany okazały się proste do wykonania, jednak z uwagi
+na~brak dokumentacji technicznej \SiriusWeb{} należało spędzić dodatkowy czas
 na znalezienie odpowiedniego miejsca w kodzie do modyfikacji. Często wymagało
 to zajrzenia do kodu źródłowego z repozytorium \texttt{sirius-components}, w
 którym znajduje się większość kodu biblioteki edytora. W ten sposób ustalano
@@ -666,7 +666,7 @@ rozwijających edytor i umieszczenie przykładów takich rozszerzeń znacznie
 przyśpieszyłoby pracę z edytorem i~sprawiłoby, że praca z nim byłaby
 przyjemniejsza.
 
-Część dodawanych funkcjonalności edytora wymaga zmodyfikowania kodu źródłowego
+Część dodawanych funkcjonalności edytora wymaga zmodyfikowania kodu źródłowego
 aplikacji przeglądarkowej \SiriusWeb{}. Zmiany te mają różny rozmiar i
 poziom skomplikowania w zależności od miejsca umieszczenia
 dodawanych lub zmienianych elementów interfejsu.
@@ -700,15 +700,15 @@ stanowi ponad $37\%$ całego kodu
 odpowiedzialnego za ten widok (1245 z 3320 linii). Jest to kod, który musi być
 utrzymywany przez osoby przygotowujące edytor, co utrudnia utrzymanie projektu.
 Zwiększa on także czas jego kompilacji, ponieważ jest on kompilowany jako
-część aplikacji mimo, że w rzeczywistości pochodzi z biblioteki. W niektórych
+część aplikacji mimo, że w rzeczywistości pochodzi z biblioteki. W niektórych
 przypadkach zwiększa on ilość danych przesyłanych do przeglądarki, ponieważ kod
-ten musi być przez nią przetworzony, co negatywnie wpływa na szybkość ładowania
+ten musi być przez nią przetworzony, co negatywnie wpływa na szybkość ładowania
 aplikacji. Wszystkich tych negatywnych efektów można byłoby uniknąć, gdyby z
 \texttt{sirius-components} udostępnionych było więcej komponentów i funkcji.
 
 Dzięki lepszym narzędziom wspomagającym inspekcję kodu biblioteki
 \texttt{sirius-components} znalezienie odpowiedniego miejsca do modyfikacji
-kodu aplikacji przeglądarkowej jest prostsze niż było to w przypadku serwera
+kodu aplikacji przeglądarkowej jest prostsze niż było to w przypadku serwera
 aplikacyjnego \SiriusWeb{}. Nadal wymagało to jednak czytania kodu źródłowego
 komponentów. Dodanie dokumentacji technicznej
 opisującej dostępne do~wykorzystania komponenty oraz ich parametry umożliwiłoby
@@ -726,7 +726,7 @@ stycznia 2022~r.\ zostało wprowadzonych do niego 45 zmian\footnote{
 Nowe wersje zawierające poprawki usterek lub nowe funkcjonalności są~wydawane
 co miesiąc. Każda nowa wersja wymaga serii zmian, które muszą być wykonane
 w~kodzie źródłowym aplikacji przeglądarkowej lub serwera aplikacyjnego
-\SiriusWeb{}, ponieważ kod~\texttt{sirius-components} zmienia się w sposób
+\SiriusWeb{}, ponieważ kod~\texttt{sirius-components} zmienia się w sposób
 niezachowujący wstecznej kompatybilności~\cite{sirius-components-changelog}.
 
 Aktualizacja do nowej wersji edytora wymaga wprowadzenia zmian w kodzie
@@ -734,14 +734,14 @@ Aktualizacja do nowej wersji edytora wymaga wprowadzenia zmian w kodzie
 projektem w repozytorium \texttt{sirius-web}. Dzięki używaniu narzędzia
 \emph{git} zmiany te mogą być wprowadzone automatycznie za pomocą kilku komend
 linii poleceń. Wprowadzanie zmian w repozytorium \texttt{sirius-web} pokazuje
-jak one powinny być wykonane, co jest znacznym ułatwieniem w porównaniu
+jak one powinny być wykonane, co jest znacznym ułatwieniem w porównaniu
 do~wyłącznego czytania listy zmian nowego wydania biblioteki.
 
 Każda modyfikacja skopiowanego kodu \SiriusWeb{} powoduje, że jest to
 potencjalne
 miejsce na wystąpienie konfliktów podczas aplikowania zmian za pomocą narzędzia
 \emph{git}, które zostały wprowadzone w~nowszej wersji edytora.
-Dzieje się tak, ponieważ kod w naszej wersji edytora zaczyna się wtedy różnić
+Dzieje się tak, ponieważ kod w naszej wersji edytora zaczyna się wtedy różnić
 od edytora z repozytorium \texttt{sirius-web} i narzędzie \emph{git} nie może
 wywnioskować jak ma rozwiązać te niekompatybilności.
 Im większe zmiany, tym większa szansa na konflikt i tym jest on trudniejszy w
@@ -769,4 +769,4 @@ wymaga tym więcej czasu, im bardziej go zmodyfikowaliśmy w porównaniu do
 oryginalnej wersji z~repozytorium \texttt{sirius-web}. We wprowadzaniu zmian
 znacznie pomaga narzędzie \emph{git}. Każda nowa wersja biblioteki
 \texttt{sirius-components} do tej pory zawierała zmiany łamiące kompatybilność
-wsteczną, co warto wziąć pod uwagę planując proces aktualizacji.
+wsteczną, co warto wziąć pod uwagę planując proces aktualizacji.

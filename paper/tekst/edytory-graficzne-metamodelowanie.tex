@@ -29,12 +29,14 @@ W rodzinie metamodeli przestrzenią o najmniejszym poziomie abstrakcji jest
 świat rzeczywisty (przestrzeń \emph{M0}). W programach komputerowych będzie on
 reprezentowany przez model, który znajduje się w przestrzeni o wyższym poziomie
 abstrakcji, \emph{M1}. Idąc dalej, modele będą oparte na metamodelach dla danej
-dziedziny, które znajdują się w przestrzeni \emph{M2}. One z kolei są oparte na
+dziedziny, które znajdują się w przestrzeni \emph{M2}. One~z~kolei są oparte na
 meta--metamodelach % chktex 8
 z przestrzeni \emph{M3}, które mają najwyższy poziom
 abstrakcji w tej rodzinie. \emphgls{MOF}~\cite{mof-omg-specification} jest
 przykładem meta--metamodelu. % chktex 8
-Jest zdefiniowany za pomocą samego siebie.
+Jest~zdefiniowany za pomocą samego siebie.
+
+% TODO: dodać referencję z bibliografii
 
 Wiele powszechnie znanych języków projektowania diagramów ma swoje metamodele
 definiujące ich strukturę:
@@ -50,7 +52,7 @@ definiujące ich strukturę:
 \end{itemize}
 
 W metamodelu zdefiniowana jest składnia abstrakcyjna modelu, czyli struktura
-jego elementów, oraz składnia konkretna, czyli jak one mają być reprezentowane,
+jego elementów, oraz składnia konkretna, czyli jak one mają być reprezentowane,
 na przykład na~diagramie.
 Aby model był funkcjonalny oprócz jego struktury (składni języka projektowania)
 należy zdefiniować i przestrzegać jego semantyki. To ona decyduje o tym jak
@@ -252,7 +254,7 @@ Metamodele, na których bazuje \SiriusWeb{} są w tym samym formacie \Ecore{} co
 metamodele w \SiriusDesktop{}. Można zatem w łatwy sposób stworzyć
 graficzny edytor modeli zarówno w~formie aplikacji natywnej, jak i
 przeglądarkowej. Posiadając istniejący metamodel języka użyty
-w~\SiriusDesktop{} można go w krótkim czasie przenieść do \SiriusWeb{}. Jest
+w~\SiriusDesktop{} można go w krótkim czasie przenieść do \SiriusWeb{}. Jest
 to~możliwe, ponieważ serwer aplikacyjny korzysta z tych samych bibliotek i
 pakietów do obsługi metamodelu, które są wykorzystywane w edytorze
 \SiriusDesktop{}.
@@ -265,14 +267,14 @@ przesyłanie informacji o zmianach w czasie rzeczywistym dzięki użyciu
 \emph{GraphQL Subscriptions}~\cite{graphql-subscriptions} (dwukierunkowych
 połączeń do przesyłania ustrukturyzowanych danych między przeglądarką a
 serwerem opartych na protokole \WebSocket{}~\cite{wikipedia-websocket}).
-Oznacza to, że użytkownicy mogą w czasie rzeczywistym wspólnie edytować modele
+Oznacza to, że użytkownicy mogą w czasie rzeczywistym wspólnie edytować modele
 i~natychmiast widzieć zmiany wprowadzone przez innych użytkowników.
 Poprzez zgrupowanie modeli w~projekty wewnątrz aplikacji \SiriusWeb{}
 możliwa jest również kontrola dostępu do nich --- administrator może określić
 zasady dostępu użytkowników do poszczególnych projektów.
 
 Udostępnienie edytora modeli jako aplikacja przeglądarkowa sprawia też, że jest
-on~bardziej dostępny dla użytkowników. Mogą oni przeglądać i edytować modele
+on~bardziej dostępny dla użytkowników. Mogą oni przeglądać i edytować modele
 bez instalacji aplikacji natywnych w ich systemie --- wystarczy przeglądarka
 internetowa, która jest zainstalowana na większości komputerów konsumenckich.
 Można też w łatwiejszy sposób podzielić się~przygotowanym przez nas modelem,

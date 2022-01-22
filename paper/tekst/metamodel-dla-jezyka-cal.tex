@@ -2,7 +2,7 @@
 
 Aby otrzymać graficzny edytor modeli wykorzystując \SiriusWeb{} należy
 najpierw zaprojektować metamodel danego języka w formacie \Ecore{}. Będzie on
-opisywał strukturę modeli (składnię abstrakcyjną) oraz ich
+opisywał strukturę modeli (składnię abstrakcyjną) oraz ich
 reprezentację graficzną (składnię konkretną), która później będzie możliwa do
 modyfikacji przez użytkowników. W tym rozdziale
 zostanie omówiony język \emph{\acrfull{CAL}} służący do opisu obliczeń w
@@ -46,7 +46,7 @@ są ustalane na~podstawie ich właściwości. Są dwa kryteria wpływające na i
 \end{itemize}
 
 Moduł obliczeniowy rozpoczyna obliczenia dopiero gdy na każdym jego wejściu
-znajdują się dane.
+znajdują się~dane.
 
 Przykładowe aplikacje obliczeniowe zostały przedstawione na
 rysunkach~\ref{rys:sekwencyjna-aplikacja-obliczeniowa}
@@ -169,7 +169,7 @@ natomiast 4 typy obiektów:
 
 	      Na diagramie obiekty te reprezentowane są jako prostokąty z ikoną strzałki w prawo z~pogrubionym prawym lub lewym jej bokiem, co widać na rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
-	      W metamodelu języka \CAL{} z systemu \BalticLSC{} te obiekty są reprezentowane za~pomocą klasy \texttt{DeclaredDataPin}, która w metamodelu tworzonym na potrzeby edytora jest inną klasą. Powodem tego był fakt, że z perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej piny są logicznie innym bytem niż piny wywoływanych przez nią jednostek obliczeniowych. Mają też inną składnię konkretną (\texttt{DeclaredDataPin} nie~są~wyświetlane na diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej są).
+	      W metamodelu języka \CAL{} z systemu \BalticLSC{} te obiekty są reprezentowane za~pomocą klasy \texttt{DeclaredDataPin}, która w metamodelu tworzonym na potrzeby edytora jest inną klasą. Powodem tego był fakt, że z perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej piny są logicznie innym bytem niż piny wywoływanych przez nią jednostek obliczeniowych. Mają też inną składnię konkretną (\texttt{DeclaredDataPin} nie~są~wyświetlane na diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej są).
 
 	\item \texttt{DataFlow} --- połączenia między pinami
 	      (\texttt{ConnectableDataPin}) umieszczonymi na~wywołaniach
@@ -215,7 +215,7 @@ Pierwszy styl warunkowy został użyty dla pinów w metamodelu. Piny
 paczek danych (odpowiednio \emph{data multiplicity} i \emph{token
 	multiplicity}).
 
-Z uwagi na fakt, że oba parametry mogą mieć jedną z 2 wartości,
+Z uwagi na fakt, że oba parametry mogą mieć jedną z 2 wartości,
 co daje w sumie 4~możliwości, w klasie \texttt{Services} metamodelu stworzono
 metodę w języku \Java{}, która zwraca nazwę odpowiedniej ikony.
 Dzięki możliwości wykorzystania języka programowania osiągnięto
@@ -269,7 +269,7 @@ rysunku~\ref{rys:sirius-desktop-cal-example-model}.
 
 Dla metamodeli w formacie \Ecore{} można zdefiniować narzędzia wspomagające i
 ułatwiające edycję modeli, a także pomagające uniknąć
-błędów semantycznych~\cite{sirius-desktop-documentation-tools}. Również do
+błędów semantycznych~\cite{sirius-desktop-documentation-tools}. Również do
 metamodelu języka
 \CAL{} dodano takie narzędzia, które zostaną omówione w tej sekcji.
 
@@ -292,9 +292,9 @@ Drugim z narzędzi automatyzujących pracę jest automatyczne zarządzanie
 pinami wywołania jednostki obliczeniowej (\texttt{ComputedDataPin}) w~momencie
 wskazania lub zmiany która jednostka obliczeniowa ma zostać wywołana. Zmiana
 atrybutu \texttt{unit} obiektu \texttt{UnitCall} usuwa aktualnie powiązane z
-nim piny (o ile jakieś istniały) i tworzy nowe na podstawie definicji jednostki
+nim piny (o ile jakieś istniały) i tworzy nowe na podstawie definicji jednostki
 obliczeniowej (\texttt{ComputationUnitRelease}) zapisanej w metamodelu,
-a~także jej zdeklarowanych pinów (\texttt{DeclaredDataPin}). Stworzone piny
+a~także jej~zdeklarowanych pinów (\texttt{DeclaredDataPin}). Stworzone piny
 mają
 automatycznie ustawione odwołania na właściwe deklaracje pinów.
 Wykorzystanie tego narzędzia zostało przedstawione na
@@ -309,7 +309,7 @@ usuwane, a na ich miejsce zostają utworzone nowe, na bazie definicji wybranej
 jednostki obliczeniowej, co widać na
 rysunku~\ref{rys:sirius-desktop-change-unit-to-call-after}.
 
-Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
+Narzędzie to zostało przygotowane poprzez modyfikację kodu źródłowego klas
 metamodelu. Została zmieniona definicja metody zmiany wskazania na jednostkę do
 wywołania w obiekcie \texttt{UnitCall}. Podczas wywołania tej metody usuwane są
 poprzednie piny i tworzone są nowe. To zachowanie opisane jest w języku
@@ -383,7 +383,7 @@ kroków)~\cite{sirius-desktop-documentation-tools} i
 pozwala na dostarczeniu użytkownikowi
 bardziej interaktywnych i przyjemniejszych wrażeń z pracy z modelem. Okno
 dialogowe
-pokazujące się po wybraniu
+pokazujące się po wybraniu
 tego narzędzia jest przedstawione na
 rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 
@@ -397,7 +397,7 @@ rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 \end{figure}
 % \end{noindent}
 
-Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
+Narzędzia te uruchamiają się jedynie, gdy zmiana w modelu zostanie wykonana
 poprzez edycję diagramu lub właściwości już istniejącego elementu. Podczas
 bezpośredniej edycji drzewa modelu narzędzia powiązane z metamodelem są
 pomijane, przez co można doprowadzić do~sytuacji, w której model nie będzie
@@ -480,7 +480,7 @@ Należało wykluczyć sytuacje, w
 których połączenie jest między dwoma pinami aplikacji obliczeniowej, ponieważ
 takie połączenia są~dozwolone.
 
-% TODO: spróbować przenieść wcześniej, podobnie z innymi obrazkami, może się da
+% TODO: spróbować przenieść wcześniej, podobnie z innymi obrazkami, może się da
 % bliżej tekstu
 % \begin{noindent}
 \begin{figure}[!hb]

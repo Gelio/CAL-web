@@ -3,7 +3,7 @@
 Z przygotowanego metamodelu języka \CAL{} systemu \BalticLSC{}
 opisanego w rozdziale~\ref{chapter:cal-metamodel} do~tej~pory korzystano w
 \SiriusDesktop{}, w którym to został on przygotowany. W~tym~rozdziale
-zostaną opisane kroki potrzebne do użycia go w \SiriusWeb{}, aby otrzymać
+zostaną opisane kroki potrzebne do użycia go w \SiriusWeb{}, aby otrzymać
 aplikację przeglądarkową umożliwiającą edycję modeli języka \CAL{}.
 Zostaną również omówione modyfikacje edytora \SiriusWeb{}, które
 zostały wykonane, aby poprawić jego integrację z~systemem \BalticLSC{} oraz
@@ -17,7 +17,7 @@ umożliwić realizację walidacji semantycznej modelu.
 
 Chcąc wykorzystać metamodel w formacie \Ecore{} w \SiriusWeb{} należy wskazać
 gdzie
-on~się~znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
+on~się~znajduje oraz z jakich klas się składa, aby klasy te mogły zostać
 dołączone do pliku \JAR{} serwera, a później odczytane przez moduły
 \SiriusWeb{} podczas uruchamiania aplikacji.
 
@@ -27,10 +27,10 @@ wykorzystanie z~własnym metamodelem. W serwisie \GitHub{} istnieje repozytorium
 przeglądarkowej
 bazującej na \SiriusWeb{}. Jest ona skonfigurowana do~wykorzystywania
 metamodelu \emph{Sample Flow}~\cite{flow-network-github}
-przygotowanego przez firmę \emph{Obeo Network}. Znajduje się on w innym
+przygotowanego przez firmę \emph{Obeo Network}. Znajduje się on w innym
 repozytorium (\texttt{Flow-Designer}~\cite{flow-network-github}) i jest
 zwykłym metamodelem w formacie \Ecore{}.
-Należy więc wzorować się na tym przykładowym repozytorium w celu stworzenia
+Należy więc wzorować się na tym przykładowym repozytorium w celu stworzenia
 własnego edytora modeli.
 W ramach tej pracy magisterskiej stworzono kopię repozytorium
 \texttt{sirius-web} i skonfigurowano je, aby wykorzystywało metamodel
@@ -57,7 +57,7 @@ Po pierwsze należy do listy repozytoriów pakietów dodać repozytorium
 \Eclipse{} w formacie \texttt{p2}. Jest to format wykorzystywany przez
 projekty \Eclipse{}, podczas gdy \Maven{} wykorzystuje repozytoria w
 swoim własnym formacie. Fragment pliku \texttt{pom.xml} konfigurujący to
-repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
+repozytorium znajduje się na listingu~\ref{lst:pom-eclipse-repository}.
 
 \begin{lstlisting}[float,
     floatplacement=ht,
@@ -107,10 +107,10 @@ Następnie w sekcji \texttt{build} pliku \texttt{pom.xml} należy dodać pluginy
 \emph{Maven Tycho}~\cite{maven-tycho-homepage}. Jest~to~zestaw rozszerzeń do
 \emph{Apache Maven}
 pozwalający na wykorzystanie projektów \Eclipse{}. Fragment
-wymaganej konfiguracji znajduje się na
+wymaganej konfiguracji znajduje się na
 listingu~\ref{lst:pom-maven-tycho-plugins}. Ważne jest, aby wskazać konkretną
-wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to Java
-11. Jest to jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
+wersję środowiska uruchomieniowego języka \Java{}. W tym przypadku jest to
+Java~11. Jest~to~jedyna wersja oficjalnie obsługiwana przez \SiriusWeb{}.
 Inne wersje nie są wspierane.
 
 % TODO: spróbować żeby listingi nie były "na kupie", tylko poprzedzielane tekstem
@@ -195,11 +195,11 @@ Taka konfiguracja zależności między projektami pozwala na wykorzystanie klas
 metamodelu w kodzie źródłowym \SiriusWeb{}. Należy teraz w klasie
 \texttt{SampleEMFConfiguration} zarejestrować klasy
 odpowiedzialne za metamodel: \texttt{EPackage} oraz \texttt{AdapterFactory}.
-Fragment kodu realizujący to jest znajduje się na
+Fragment kodu realizujący to jest znajduje się na
 listingu~\ref{lst:registering-emf-classes}. Później w klasie
 \texttt{SampleSiriusConfiguration} należy wskazać ścieżkę do pliku
 \texttt{*.odesign} metamodelu znajdującego się w pakiecie \texttt{.design}.
-Odpowiedni fragment znajduje się na
+Odpowiedni fragment znajduje się na
 listingu~\ref{lst:registering-odesign-path}.
 
 \begin{lstlisting}[float,
@@ -249,7 +249,7 @@ na~rysunku~\ref{rys:sirius-web-base-metamodel-model}.
 
 W \SiriusWeb{} można zdefiniować szablony modeli, które użytkownik może
 wykorzystać chcąc stworzyć nowy model w projekcie. Umożliwia to prostszy
-sposób na stworzenie chociażby pustego modelu, ponieważ przycisk tworzenia
+sposób na stworzenie chociażby pustego modelu, ponieważ przycisk tworzenia
 modelu
 na podstawie szablonu jest bardziej wyeksponowany w interfejsie użytkownika niż
 przyciski tworzenia modelu z drzewa elementów projektu po lewej stronie.
@@ -312,7 +312,7 @@ integracyjnych w \Maven{} wykonuje również testy metamodelu zdefiniowane w
 Wykorzystanie go w pliku \texttt{pom.xml} projektu z testami (folder
 \texttt{.tests}) przedstawione jest na
 listingu~\ref{lst:pom-maven-surefire-plugin}. Należy w nim wskazać gdzie
-znajduje się kod źródłowy testów oraz ścieżkę do pakietu z testami, a także
+znajduje się kod źródłowy testów oraz ścieżkę do pakietu z testami, a także
 nazwę klasy grupującej wszystkie testy.
 
 \begin{lstlisting}[float,
@@ -339,7 +339,7 @@ nazwę klasy grupującej wszystkie testy.
 
 Po tak zmodyfikowanej konfiguracji
 testy metamodelu w formacie \Ecore{} można w~\Maven{} uruchomić komendą
-\lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
+\lstinline{mvn verify}. Są one uruchamiane w fazie testów integracyjnych
 (\texttt{verify}), a
 więc po fazie budowania aplikacji (\texttt{package}). Powoduje to, że
 uruchomienie testów metamodelu za~pomocą \Maven{} trwa dłużej (około
@@ -432,9 +432,9 @@ Serwer aplikacyjny \BalticLSC{} udostępnia interfejs \emphgls{API} w formacie
 \emphgls{REST}, który jest używany do komunikacji z aplikacją przeglądarkową
 tego
 serwisu. Ten interfejs można również wykorzystać w \SiriusWeb{} aby pobrać
-zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
+zawartość przybornika. W tym celu należy wysłać uwierzytelnione zapytanie
 protokołu \emphgls{HTTP} pytając o zasób \texttt{/backend/dev/toolbox/}. W
-odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych
+odpowiedzi zwrócona jest lista składająca się z~informacji o wybranych
 jednostkach
 obliczeniowych. Zawiera ona wszystkie detale potrzebne do utworzenia obiektu
 jednostki obliczeniowej (\texttt{ComputationUnitRelease}) oraz jej wywołania
@@ -443,8 +443,8 @@ tej jednostki.
 
 Należałoby więc z aplikacji przeglądarkowej \SiriusWeb{} wysłać takie
 zapytanie do serwera \BalticLSC{}, a następnie wyświetlić otrzymane jednostki
-obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
-\BalticLSC{} pojawiają się dwa problemy.
+obliczeniowe na ekranie. Już na samym etapie wysyłania zapytania do serwera
+\BalticLSC{} pojawiają się dwa problemy.
 
 Pierwszym problemem jest sposób uwierzytelniania użytkownika. Zawartość
 przybornika jest powiązana z konkretnym kontem użytkownika w systemie
@@ -458,7 +458,7 @@ Ponadto, każdy token \emphgls{JWT} posiada podpis weryfikujący jego
 prawdziwość.
 Służy on potwierdzeniu, że token został przygotowany przez serwis
 \BalticLSC{} w drodze poprawnego logowania do serwisu, a nie został
-wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
+wytworzony przez osobę próbującą podszyć się pod danego użytkownika.
 
 \begin{lstlisting}[float,
     floatplacement=hb,
@@ -489,7 +489,7 @@ Podczas pracy z pełnym pełnym interfejsem \SiriusWeb{} (a nie tylko samym
 edytorem diagramów) został dostarczony przycisk otwierający okno
 dialogowe, w którym użytkownik może wprowadzić swój token \emphgls{JWT}.
 Znajdują
-się w nim także instrukcje jak taki token pozyskać. Ponieważ jest to złożony
+się w nim także instrukcje jak taki token pozyskać. Ponieważ jest to złożony
 proces, który wymaga otworzenia narzędzi programistycznych przeglądarki, został
 dostarczony przycisk \emph{\selectlanguage{english}GET DEMO USER TOKEN}, który
 pozwala pobrać token użytkownika demonstracyjnego \BalticLSC{}.
@@ -514,7 +514,7 @@ rysunku~\ref{rys:balticlsc-change-jwt-modal}.
 
 Drugim z problemów występujących podczas komunikacji z \emphgls{API}
 \BalticLSC{} jest mechanizm \emphgls{CORS}~\cite{cors-documentation}. Aktywuje
-się on ponieważ serwer
+się on ponieważ serwer
 aplikacyjny \BalticLSC{} oraz aplikacja przeglądarkowa \SiriusWeb{} są
 uruchomione na różnych adresach w sieci Internet. Odpowiedzi z serwera
 aplikacyjnego \BalticLSC{} nie zawierają odpowiednich nagłówków \emphgls{HTTP}
@@ -568,7 +568,7 @@ zaczyna się~od~\texttt{/balticlsc-proxy} przesyłane były do serwera
 \BalticLSC{}, a odpowiedzi z serwera zwracane do~oryginalnego nadawcy
 zapytania.
 
-W przypadku uruchomienia edytora diagramów \SiriusWeb{} jako część głównej
+W przypadku uruchomienia edytora diagramów \SiriusWeb{} jako część głównej
 aplikacji przeglądarkowej \BalticLSC{} pod tym samym adresem co serwer
 aplikacyjny tej platformy można zrezygnować z komunikacji z wykorzystaniem
 serwera pośredniczącego i wysyłać zapytania bezpośrednio do serwera
@@ -610,7 +610,7 @@ programistę pracującego nad własnym edytorem diagramów. Wyświetla on zawsze
 komponenty w ustalonym porządku:
 
 \begin{itemize}
-	\item Panel z lewej strony składający się z drzewa elementów projektu na górze oraz informacji diagnostycznych modelu na dole.
+	\item Panel z lewej strony składający się z drzewa elementów projektu na górze oraz informacji diagnostycznych modelu na dole.
 	\item Panel główny z edytorem aktualnie wybranego diagramu. Gdy żaden nie jest wybrany, wyświetlone są tam przyciski umożliwiające łatwe stworzenie pierwszego modelu w~projekcie.
 	\item Panel z prawej strony składający się z detali aktualnie wybranego elementu diagramu.
 \end{itemize}
@@ -636,7 +636,7 @@ interfejsie mogą wymagać zmian w kodzie komponentu
 komponentu jest skopiowana do własnego repozytorium, komponent ten~może
 przestać działać po aktualizacji serwera aplikacyjnego \SiriusWeb{}.
 Utrudnia to~utrzymanie aplikacji, ponieważ podczas aktualizacji mogą pojawić
-się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
+się nieoczekiwane błędy, które widoczne będą dopiero po uruchomieniu aplikacji
 przeglądarkowej.
 
 Innym nieudostępnionym z \texttt{sirius-components} komponentem jest
@@ -673,7 +673,7 @@ Skopiowane komponenty można dowolnie edytować i rozszerzać. W tym przypadku
 zmodyfikowano skopiowany komponent \texttt{Workbench} i dodano w nim
 przyciski odpowiedzialne za dodanie wywołania jednostki obliczeniowej do
 diagramu. Każdy przycisk zawiera ikonę jednostki, podobnie jak w interfejsie
-\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę jednostki oraz jej
+\BalticLSC{}, a po najechaniu kursorem wyświetla nazwę jednostki oraz jej
 wersję, co zostało zaprezentowane na rysunku~\ref{rys:sirius-web-toolbox}.
 Ponadto dodany został przycisk
 pozwalający na odświeżenie przybornika poprzez ponowne pobranie jego
@@ -692,7 +692,7 @@ zainstalowana w projekcie \SiriusWeb{}.
 
 \subsection{Dodanie wywołania jednostki obliczeniowej do modelu}
 
-W momencie kliknięcia przycisku z ikoną jednostki obliczeniowej do modelu
+W momencie kliknięcia przycisku z ikoną jednostki obliczeniowej do modelu
 powinno być~dodane wywołanie tej jednostki (obiekt \texttt{UnitCall}). Jeżeli
 jest to pierwszy raz~gdy~wywołanie tej jednostki zostaje dodane do diagramu,
 należy przed tym dodać definicję jednostki (obiekt
@@ -744,7 +744,7 @@ subskrypcja \texttt{treeEvent} zwraca informacje jedynie o zawartości tych
 obiektów,
 których identyfikatory zostały przekazane do subskrypcji. Nawiązuje to do
 rozwijania kolejnych poziomów drzewa modelu w interfejsie użytkownika.
-Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący dokument
+Wewnątrz każdego projektu znajduje się sztuczny węzeł reprezentujący dokument
 \texttt{Document}, który
 w sobie zawiera główny obiekt modelu znany z metamodelu
 (\texttt{ComputationApplicationRelease}). Aby
@@ -791,7 +791,7 @@ modelu przedstawiony jest na rysunku~\ref{rys:sirius-web-fetch-model-root-id}.
 W domyślnym interfejsie użytkownika \SiriusWeb{} obiekty można dodawać na
 dwa sposoby: wywołując narzędzia powiązane z metamodelem (opisane w
 sekcji~\ref{sec:cal-metamodel-tools}) lub tworząc obiekty bezpośrednio w modelu
-zgodnie ze strukturą metamodelu z wykorzystaniem drzewa obiektów.
+zgodnie ze strukturą metamodelu z wykorzystaniem drzewa obiektów.
 Ponieważ narzędzia tworzące elementy nie przyjmują parametrów z zewnątrz
 dostępna jest~jedynie metoda bezpośredniego tworzenia elementów.
 
@@ -839,11 +839,7 @@ kroków:
 
 	\item Implementacja klasy \texttt{CreateUnitCallEventHandler} odpowiedzialnej za odpowiednie zmodyfikowanie modelu.
 
-	      To w tej klasie znajduje się logika sprawdzająca czy jednostka jest już
-        wykorzystywana w~modelu i dodawanie jej definicji jeżeli nie jest
-        użyta lub użycie już dodanej definicji jeżeli istnieje, a później
-        tworzenie wywołania tej jednostki z odpowiednimi wskazaniami na
-        definicję jednostki.
+	      To w tej klasie znajduje się logika sprawdzająca czy jednostka jest już wykorzystywana w~modelu i dodawanie jej definicji jeżeli nie jest użyta lub użycie już dodanej definicji jeżeli istnieje, a później tworzenie wywołania tej jednostki z odpowiednimi wskazaniami na definicję jednostki.
 
 \end{itemize}
 
@@ -864,7 +860,8 @@ połowicznie zmodyfikowanym modelu --- aktualizacja zostanie przesłana dopiero
 po zakończeniu mutacji. Diagram aktywności przedstawiający dodanie wywołania
 jednostki obliczeniowej jest przedstawiony
 na~rysunku~\ref{rys:sirius-web-create-unit-call-mutation-handler}. Treść
-przykładowej mutacji odpowiedzialnej za dodanie jednostki \emph{Bounding Labels}
+przykładowej mutacji odpowiedzialnej za dodanie jednostki \emph{Bounding
+	Labels}
 posiadającej dwa piny znajduje się
 na~listingu~\ref{lst:sirius-web-createUnitCall-mutation}.
 
@@ -1063,7 +1060,7 @@ Podstawą architektury do walidacji semantycznej modeli jest interfejs
 \texttt{ISemanticCAL\-Validation\-Rule}. Jest on implementowany przez klasy
 będące
 poszczególnymi regułami walidacji semantycznej modeli języka \CAL{}. Każda
-taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
+taka reguła musi zaimplementować metodę \texttt{validate}, która otrzymuje
 instancję klasy \texttt{ComputationApplicationRelease}. Jest~to klasa
 wygenerowana na podstawie metamodelu języka \CAL{} w formacie \Ecore{}
 będąca głównym obiektem modelu i~dzięki niej można dotrzeć do dowolnego
@@ -1209,7 +1206,7 @@ Chcąc wyświetlić edytor diagramów z \SiriusWeb{} wewnątrz innej aplikacji
 musi być udostępniony interfejs programistyczny \emphgls{API}, który będzie
 pozwalał wskazać docelowe miejsce w~aplikacji, w którym ma się
 pojawić edytor. Pozostałe elementy aplikacji \SiriusWeb{}, takie
-jak~możliwość zarządzania projektami, wybierania projektu do edycji, a także
+jak~możliwość zarządzania projektami, wybierania projektu do edycji, a także
 tworzenia i~usuwania modeli powinny być niedostępne, ponieważ dla lepszych
 doświadczeń użytkownika takie operacje powinny być wykonane automatycznie
 podczas edycji konkretnej aplikacji obliczeniowej systemu \BalticLSC{}.
@@ -1231,7 +1228,7 @@ za
 pomocą różnych metod interfejsu \emphgls{API} drzewa \emphgls{DOM} można
 otrzymać do
 nich dostęp z poziomu języka \JavaScript{}. Aby wyświetlić komponent biblioteki
-\React{} należy znaleźć element drzewa \emphgls{DOM} gdzie komponent ma zostać
+\React{} należy znaleźć element drzewa \emphgls{DOM} gdzie komponent ma zostać
 umiejscowiony, a później przekazać go wraz z instancją komponentu do~metody
 \texttt{render} dostępnej w pakiecie \texttt{react-dom} biblioteki
 \React{}. Usunięcie tego komponentu ze strony internetowej realizowane jest
@@ -1327,7 +1324,7 @@ sekcji~\ref{sec:wskazywanie-miejsca-dodania-elementu} oraz informacje o
 reprezentacji modelu do~wyświetlenia. Obie dane są szczegółami
 implementacyjnymi aplikacji \SiriusWeb{}. Zakładając, że~w~każdym
 projekcie aplikacji \SiriusWeb{} będzie znajdował się wyłącznie jeden
-model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
+model, który~będzie posiadał jedną reprezentację, informacje te można uzyskać
 wysyłając odpowiednie zapytania \GraphQL{} do serwera aplikacyjnego znając
 jedynie identyfikator projektu. Aby~uprościć udostępniany
 interfejs programistyczny \emphgls{API} modułu stworzono również funkcję
@@ -1413,7 +1410,7 @@ jest to kolejny fragment adresu tuż po fragmencie \texttt{project}. Token
 \emphgls{JWT} można uzyskać w okna dialogowego pozwalającego go wprowadzić w
 pełnej
 aplikacji \SiriusWeb{}. Po uzupełnieniu tych danych można
-nacisnąć przycisk \emph{Mount application}, który wyświetli edytor diagramów w
+nacisnąć przycisk \emph{Mount application}, który wyświetli edytor diagramów w
 dolnej części strony internetowej. Jest to zaprezentowane na
 rysunku~\ref{rys:example-app-mounted}. Można
 za jego pomocą dowolnie modyfikować i przeglądać model, podobnie jak w pełnej
@@ -1499,7 +1496,7 @@ przycisk w interfejsie użytkownika \BalticLSC{}.
 Po tym przeglądarka wysyła zapytanie do serwera aplikacyjnego \SiriusWeb{}, aby
 stworzyć nowy projekt oraz model w nim. Jeżeli jest to
 istniejąca aplikacja
-obliczeniowa należy odtworzyć jej zawartość w \SiriusWeb{} poprzez dodanie
+obliczeniowa należy odtworzyć jej zawartość w \SiriusWeb{} poprzez dodanie
 odpowiednich elementów do nowo stworzonego modelu. Nie istnieje aktualnie żaden
 interfejs serwera \SiriusWeb{} pozwalający na dodanie do modelu wielu
 elementów na raz, więc jest to
@@ -1636,7 +1633,7 @@ integracji systemów należałoby wartość tą~wprowadzić do \SiriusWeb{} w
 celu pełnej weryfikacji tokenów \emphgls{JWT}.
 
 O ile zapytania \emphgls{REST} oraz \emph{query} w \GraphQL{} są objęte
-kontrolą dostępu, to \emph{subscription} w \GraphQL{} już nie. Dodanie
+kontrolą dostępu, to \emph{subscription} w \GraphQL{} już nie. Dodanie
 weryfikacji tokena tam wymaga specjalnej obsługi podczas inicjalizacji
 połączenia. Kod ten jest w repozytorium \texttt{sirius-components} i nie został
 udostępniony do modyfikacji. Weryfikacja tokenów \emphgls{JWT} nie jest więc
