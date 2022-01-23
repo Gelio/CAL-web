@@ -234,7 +234,12 @@ natomiast 4 typy obiektów:
 	      perspektywy aktualnie edytowanej aplikacji obliczeniowej, jej
 	      piny są logicznie
 	      innym bytem niż piny wywoływanych przez nią jednostek
-	      obliczeniowych. Mają też
+	      obliczeniowych.
+	      \texttt{ApplicationDataPin} powinny być połączone z innymi
+	      pinami w modelu, podczas gdy \texttt{DeclaredDataPin} są jedynie
+	      definicjami pinów i nie powinny mieć wychodzących lub wchodzących
+	      połączeń.
+	      Mają też
 	      inną składnię konkretną (\texttt{DeclaredDataPin}
 	      nie~są~wyświetlane na
 	      diagramie, a piny aktualnie edytowanej aplikacji obliczeniowej
