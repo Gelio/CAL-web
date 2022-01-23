@@ -568,38 +568,33 @@
 
 	\thispagestyle{empty}
 	\begin{center}
-		{
-			% Zgodnie z zarządzeniem 57/2016, Arial na stronie tytułowej w
-			% zastępstwie Helvetica
-			\fontfamily{phv}\selectfont
-			\includegraphics[width=\textwidth]{PWHead.png}
-			\vskip 3em
-			\@instytut
-			\vskip 3em
-			\includegraphics[width=\linewidth]{\frontpageheader}
-			\vskip 1em
-			\kieruneklocal \@kierunek
-			\vskip .5em
-			\specjalnosclocal \@specjalnosc
-			\vskip 3em
+		\includegraphics[width=\textwidth]{PWHead.png}
+		\vskip 3em
+		\@instytut
+		\vskip 3em
+		\includegraphics[width=\linewidth]{\frontpageheader}
+		\vskip 1em
+		\kieruneklocal \@kierunek
+		\vskip .5em
+		\specjalnosclocal \@specjalnosc
+		\vskip 3em
 
-			% Sztuczne zmniejszenie dostępnej szerokości strony dla tytułu
-			% Dzięki temu do kolejnej linii przechodzi "Sirius Web", a nie samo "Web"
-			% Źródło https://tex.stackexchange.com/a/330166/261160
-			\begin{minipage}{15cm}
-				\centering
-				\large \titlelocal
-			\end{minipage}
+		% Sztuczne zmniejszenie dostępnej szerokości strony dla tytułu
+		% Dzięki temu do kolejnej linii przechodzi "Sirius Web", a nie samo "Web"
+		% Źródło https://tex.stackexchange.com/a/330166/261160
+		\begin{minipage}{15cm}
+			\centering
+			\large \titlelocal
+		\end{minipage}
 
-			\vskip 3em
-			\LARGE \@author \\
-			\normalsize
-			\albumlocal \@album
-			\vskip 2em
-			\promotorlocal\\\@promotor
-			\vfill
-			\citylocal \@date
-		}
+		\vskip 3em
+		\LARGE \@author \\
+		\normalsize
+		\albumlocal \@album
+		\vskip 2em
+		\promotorlocal\\\@promotor
+		\vfill
+		\citylocal \@date
 	\end{center}
 }
 
