@@ -18,14 +18,14 @@ korzystając ze składni języka \emph{\acrfull{CAL}} przygotowanego dla tego
 właśnie systemu.
 
 Podstawowym obiektem, który wysyła (wyjście)
-lub odbiera (wejście) dane, jest \emph{pin}. Jest on~reprezentowany za pomocą
+lub odbiera (wejście) dane, jest \emph{pin}. Jest~on~reprezentowany za pomocą
 ikony kwadratu ze strzałką skierowaną w prawą stronę. Aplikacja obliczeniowa
 składa się z wywołań jednostek obliczeniowych posiadających swoje piny, pinów
 samej aplikacji obliczeniowej, oraz połączeń między tymi pinami. Grot
 połączenia wskazuje kierunek przepływu danych.
 Piny aplikacji obliczeniowej są zaznaczone na
 diagramie ikoną pinu (strzałką skierowaną w prawo) z pogrubioną
-jedną z krawędzi ikony --- lewą dla wejścia, prawą dla~wyjścia.
+jedną z krawędzi ikony --- lewą dla~wejścia, prawą dla~wyjścia.
 
 Jednostki obliczeniowe, które mogą być wywoływane przez aplikacje obliczeniową,
 mogą być modułami obliczeniowymi napisanymi w wybranym języku programowania,
@@ -443,7 +443,7 @@ wyjściowych do pinów wejściowych. Ponadto, niemożliwe jest połączenie pin�
 na tym samym wywołaniu jednostki obliczeniowej. Oba te wymagania mogą być
 egzekwowane w modelu za pomocą narzędzi do~tworzenia połączeń (\emph{Edge
 	Creation}) oraz do zmiany połączenia (\emph{Reconnect Edge}). Pierwsze
-z nich za~pomocą warunków \emph{Connection Start Precondition} oraz
+z~nich~za~pomocą warunków \emph{Connection Start Precondition} oraz
 \emph{Connection Complete Precondition}, ustalających czy połączenie może
 zostać
 rozpoczęte lub zakończone w~danym elemencie, pozwala zabronić stworzenia
@@ -473,7 +473,7 @@ kroków)~\cite{sirius-desktop-documentation-tools} i
 pozwala na dostarczeniu użytkownikowi
 bardziej interaktywnych i przyjemniejszych wrażeń z pracy z modelem. Okno
 dialogowe
-pokazujące się po wybraniu
+pokazujące się~po~wybraniu
 tego narzędzia jest przedstawione na
 rysunku~\ref{rys:sirius-desktop-create-unit-call-tool}.
 
@@ -509,6 +509,15 @@ go uruchomić poprzez wybranie opcji \menu{Diagram > Validate} z głównego menu
 programu. Wyświetlona zostanie wtedy lista informacji diagnostycznych
 dotyczących modelu.
 
+% \begin{noindent}
+\begin{figure}[!b]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-syntax-validation.png}
+	\caption{Walidacja składniowa modeli w \SiriusDesktop{}}\label{rys:sirius-desktop-syntax-validation}
+\end{figure}
+% \end{noindent}
+
 \SiriusDesktop{} domyślnie dostarcza informacji o błędach składniowych
 modelu. Będą to~ostrzeżenia o braku wymaganych atrybutów lub niepoprawnej
 krotności elementów (jeżeli dana właściwość powinna zawierać przykładowo co
@@ -523,15 +532,6 @@ wywołania. Ta sama wiadomość jest widoczna na diagramie po przeniesieniu
 kursora na znak \texttt{X}.
 Reszta problemów na liście wynika z błędów edytora, a~nie~modelu, więc została
 rozmyta dla zwrócenia uwagi na informacje pochodzące z walidacji składniowej.
-
-% \begin{noindent}
-\begin{figure}[!hb]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-syntax-validation.png}
-	\caption{Walidacja składniowa modeli w \SiriusDesktop{}}\label{rys:sirius-desktop-syntax-validation}
-\end{figure}
-% \end{noindent}
 
 Dodatkowo w pliku \texttt{*.odesign} pakietu \texttt{.design} metamodelu można
 zdefiniować \emph{Semantic Validation
@@ -563,7 +563,7 @@ pokazanie
 informacji o błędzie. W tym przypadku sprawdza ono, czy~obiekty początkowy i
 końcowy połączenia mają różnych rodziców. Nie jest to spełnione wyłącznie
 jeżeli oba~piny należą do tego samego wywołania jednostki obliczeniowej.
-Błąd wynikający z tej reguły został
+Błąd~wynikający z tej reguły został
 przedstawiony na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule-failure}.
 Należało wykluczyć sytuacje, w
@@ -612,7 +612,7 @@ takie połączenia są~dozwolone.
 Oprócz reguły walidacji semantycznej zaprezentowanej na
 rysunku~\ref{rys:sirius-desktop-example-semantic-validation-rule}
 zaprojektowano 5~innych reguł informujących użytkownika o błędach w metamodelu.
-Pierwsze dwie z~nich pomagają ustalić oczekiwany kierunek połączeń pinów. Dla
+Pierwsze dwie~z~nich pomagają ustalić oczekiwany kierunek połączeń pinów. Dla
 pinów oznaczonych jako wymagane (\texttt{required}) połączenie powinno być
 wchodzące, a dla pinów oznaczonych jako dostarczone (\texttt{provided}) ---
 wychodzące. Jest to informacja niewynikająca ze struktury metamodelu, więc
