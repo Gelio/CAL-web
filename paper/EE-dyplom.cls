@@ -661,39 +661,21 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Oświadczenia o autorstwie
+% Oświadczenia o autorstwie i udzieleniu licencji
+% NOTE: trzeba wypełnić po wydrukowaniu
+% NOTE: można też wydrukować, wypełnić, zeskanować, i podmienić pliki PDF w
+% folderze gfx, aby mieć PDFa z podpisanymi oświadczeniami
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{pdfpages}
+
 \newcommand{\authorship}{
-	% TODO: wstawić podpisane nowe oświadczenie o autorstwie pracy zgodne z
-	% najnowszym zarządzeniem rektora
-	\ifnum\strcmp{\locallang}{PL} = 0
-		\begin{tikzpicture}[remember picture, overlay]
-			\node [anchor=north west, inner sep=0pt] at (current page.north west)
-        {\includegraphics[width=\paperwidth]{gfx/oswiadczenie_autora_pracy.pdf}};
-			\node[anchor=north west, inner sep=0pt] at (-0.8, -.8)
-        {\@author};
-			\node[anchor=north west, inner sep=0pt] at (-0.8, -1.75)
-        {\@album};
-			\node[anchor=north west, inner sep=0pt] at (-0.8, -2.65)
-        {\@kierunek};
-		\end{tikzpicture}
-	\else
-		\begin{tikzpicture}[remember picture, overlay]
-			\node [anchor=north west, inner sep=0pt] at (current page.north west)
-        {\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-1.pdf}};
-			\node[anchor=north west, inner sep=0pt] at (-0.8, -0.9)
-        {\@author};
-			\node[anchor=north west, inner sep=0pt] at (-0.8, -2.33)
-        {\@album};
-			\node[anchor=north west, inner sep=0pt] at (-0.8, -3.65)
-        {\@kierunek};
-		\end{tikzpicture}\clearpage
-		\begin{tikzpicture}[remember picture, overlay]
-			\node [anchor=north west, inner sep=0pt] at (current page.north west)
-        {\includegraphics[width=\paperwidth]{gfx/thesis_author_declaration-2.pdf}};
-		\end{tikzpicture}
-	\fi
-	\cleardoublepage
+	\includepdf[pages=-]{./gfx/oswiadczenie-o-samodzielnosci-pracy.pdf}
+	\cleardoublepage{}
+}
+
+\newcommand{\licensestatement}{
+	\includepdf[pages=-]{./gfx/oswiadczenie-o-udzieleniu-licencji.pdf}
+	\cleardoublepage{}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -704,12 +686,11 @@
 	\counterwithout{lstlisting}{chapter} % hack niestety
 	\pagestyle{empty}
 	\maketitle
-	\abstractpages
-	\authorship
-	% TODO: oświadczenie o udzieleniu licencji (jest wspomniane w zarządzeniu
-	% 107/2021 JM)
+	\abstractpages{}
+	\authorship{}
+	\licensestatement{}
 	\tableofcontents
-	\cleardoublepage
+	\cleardoublepage{}
 	\pagestyle{headings}
 }
 
