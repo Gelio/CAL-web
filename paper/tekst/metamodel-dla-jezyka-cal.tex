@@ -509,6 +509,15 @@ go uruchomić poprzez wybranie opcji \menu{Diagram > Validate} z głównego menu
 programu. Wyświetlona zostanie wtedy lista informacji diagnostycznych
 dotyczących modelu.
 
+% \begin{noindent}
+\begin{figure}[!b]
+	\centering
+
+	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-syntax-validation.png}
+	\caption{Walidacja składniowa modeli w \SiriusDesktop{}}\label{rys:sirius-desktop-syntax-validation}
+\end{figure}
+% \end{noindent}
+
 \SiriusDesktop{} domyślnie dostarcza informacji o błędach składniowych
 modelu. Będą to~ostrzeżenia o braku wymaganych atrybutów lub niepoprawnej
 krotności elementów (jeżeli dana właściwość powinna zawierać przykładowo co
@@ -523,15 +532,6 @@ wywołania. Ta sama wiadomość jest widoczna na diagramie po przeniesieniu
 kursora na znak \texttt{X}.
 Reszta problemów na liście wynika z błędów edytora, a~nie~modelu, więc została
 rozmyta dla zwrócenia uwagi na informacje pochodzące z walidacji składniowej.
-
-% \begin{noindent}
-\begin{figure}[!hb]
-	\centering
-
-	\includegraphics[width=0.95\linewidth]{./images/sirius-desktop-syntax-validation.png}
-	\caption{Walidacja składniowa modeli w \SiriusDesktop{}}\label{rys:sirius-desktop-syntax-validation}
-\end{figure}
-% \end{noindent}
 
 Dodatkowo w pliku \texttt{*.odesign} pakietu \texttt{.design} metamodelu można
 zdefiniować \emph{Semantic Validation
