@@ -559,6 +559,12 @@
 \newcommand{\engtitle}[1]{
 	\newcommand{\@engtitle}{#1}
 }
+\newcommand{\statementplaceanddate}[1]{
+	\newcommand{\@statementplaceanddate}{#1}
+}
+\newcommand{\wydzial}[1]{
+	\newcommand{\@wydzial}{#1}
+}
 
 \ifnum\strcmp{\eethesis}{inz} = 0
 	\newcommand{\frontpageheader}{inzhead.png}
@@ -691,12 +697,30 @@
 \RequirePackage{pdfpages}
 
 \newcommand{\authorship}{
-	\includepdf[pages=-]{./gfx/oswiadczenie-o-samodzielnosci-pracy.pdf}
+	\begin{tikzpicture}[remember picture, overlay]
+    \node [anchor=north west, inner sep=0pt] at (current page.north west)
+      {\includegraphics[width=\paperwidth]{gfx/oswiadczenie-o-samodzielnosci-pracy.pdf}};
+    \node[anchor=north west, inner sep=0pt] at(-0.8, -2.8) {\@author};
+    \node[anchor=north west, inner sep=0pt] at(-0.8, -4.15) {\@album};
+    \node[anchor=north west, inner sep=0pt] at(-0.8, -5.55) {\@kierunek};
+    \node[anchor=north east, inner sep=0pt] at(14.2, -1.5) {{\small \@statementplaceanddate}};
+    \node[anchor=south, inner sep=0pt] at(11.4, -15.5)
+      {\includegraphics[width=3cm]{gfx/podpis.png}};
+  \end{tikzpicture}
 	\cleardoublepage{}
 }
 
 \newcommand{\licensestatement}{
-	\includepdf[pages=-]{./gfx/oswiadczenie-o-udzieleniu-licencji.pdf}
+	\begin{tikzpicture}[remember picture, overlay]
+    \node [anchor=north west, inner sep=0pt] at (current page.north west)
+      {{\includegraphics[width=\paperwidth]{gfx/oswiadczenie-o-udzieleniu-licencji.pdf}};};
+    \node[anchor=north west, inner sep=0pt] at(-1.4, -4.4) {{\footnotesize \@author}};
+    \node[anchor=north west, inner sep=0pt] at(-1.4, -5.43) {{\footnotesize \@album}};
+    \node[anchor=north west, inner sep=0pt] at(-1.42, -6.43) {{\footnotesize \@wydzial{}, \@kierunek{}}};
+    \node[anchor=north east, inner sep=0pt] at(15.45, -3.55) {{\footnotesize \@statementplaceanddate}};
+    \node[anchor=south, inner sep=0pt] at(13.3, -16.4)
+      {\includegraphics[width=3cm]{gfx/podpis.png}};
+  \end{tikzpicture}
 	\cleardoublepage{}
 }
 
