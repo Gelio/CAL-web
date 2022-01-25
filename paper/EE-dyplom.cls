@@ -435,6 +435,34 @@
 }
 
 % ---------------------------------------------
+% Spis tabel i listingów jako jeden rozdział
+% ---------------------------------------------
+% Source: https://texblog.org/2014/03/25/table-of-contents-list-of-figures-and-tables-as-sections-in-a-report/
+\renewcommand\listoftables{%
+	\section*{\listtablename}%
+
+	\@mkboth{\MakeUppercase\listtablename}%
+	{\MakeUppercase\listtablename}%
+	\@starttoc{lot}%
+}
+
+\renewcommand\lstlistoflistings{%
+	\section*{\lstlistlistingname}%
+
+	\@mkboth{\MakeUppercase\lstlistlistingname}%
+	{\MakeUppercase\lstlistlistingname}%
+	\@starttoc{lol}%
+}
+
+\newcommand{\listoftablesandlistings}{
+	\newcommand{\listoftablesandlistingsname}{Spis tabel i listingów}
+	\chapter*{\listoftablesandlistingsname}
+	\addcontentsline{toc}{chapter}{\listoftablesandlistingsname}
+	\listoftables
+	\lstlistoflistings{}
+}
+
+% ---------------------------------------------
 % Ozdobniki ścieżek plików, menu i klawiszy
 % ---------------------------------------------
 \RequirePackage[os=win]{menukeys}
